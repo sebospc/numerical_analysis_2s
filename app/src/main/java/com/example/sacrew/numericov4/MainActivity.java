@@ -43,13 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private Thread[] cores = new Thread[NUMBER_OF_CORES];
     final static double scale = 0.1; //escala de desplazamiento
 
-
-    Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
     @SuppressLint("UseSparseArrays")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
