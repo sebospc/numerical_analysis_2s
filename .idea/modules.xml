@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/NumericalAnalysis-numericoV4.iml" filepath="$PROJECT_DIR$/NumericalAnalysis-numericoV4.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/numericoV4.iml" filepath="$PROJECT_DIR$/numericoV4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/numericoV4-app.iml" filepath="$PROJECT_DIR$/app/numericoV4-app.iml" />
     </modules>
   </component>
 </project>
