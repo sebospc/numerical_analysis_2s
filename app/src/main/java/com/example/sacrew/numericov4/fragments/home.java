@@ -1,4 +1,4 @@
-package com.example.sacrew.numericov4;
+package com.example.sacrew.numericov4.fragments;
 
 
 import android.annotation.SuppressLint;
@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.graphParallel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -46,7 +48,7 @@ public class home extends Fragment {
     private Map<Integer, List<LineGraphSeries<DataPoint>>> viewToFunction;
     private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
     private Thread[] cores = new Thread[NUMBER_OF_CORES];
-    final static double scale = 0.1; //escala de desplazamiento
+    private double scale = 0.01; //escala de desplazamiento
     private View view;
     private CircleButton addFieldButton,deleteFieldButton,graphButton;
     private Button hider;
@@ -188,20 +190,27 @@ public class home extends Fragment {
             edittext_var = ((View) v.getParent()).findViewById(R.id.number_edit_text);
             SeekBar seek = ((SeekBar)((View) v.getParent()).findViewById(R.id.seek));
             int iter = seek.getProgress();
+
             String function = String.valueOf(edittext_var.getText());
+            if(function.length() !=0)
+                function = function.toLowerCase();
+
             Expression exp = new Expression(function);
             //throw expresion, values not be negative
             if(function.contains("sqrt"))
                 start = 0.001D;
+            else if(function.contains(("e")))
+                this.scale = 0.1D;
             else
-            try {
-                (exp.with("x", BigDecimal.valueOf(-1)).eval()).doubleValue();
-            }catch (java.lang.NumberFormatException e){
+                try {
+                    (exp.with("x", BigDecimal.valueOf(-1)).eval()).doubleValue();
 
-                start = 0.001D;
-            }
+                }catch (java.lang.NumberFormatException e){
+                    start = 0.001D;
+                }
 
             Toast.makeText(getActivity(), function, Toast.LENGTH_SHORT).show();
+
             //Expression expression = new Expression(function);
 
             listSeries = new LinkedList<LineGraphSeries<DataPoint>>();
@@ -245,7 +254,7 @@ public class home extends Fragment {
             cores[i]=new Thread(new graphParallel(x,end,function));
             cores[i].start();
 
-            x = x + (end*scale)+scale;
+            x = x + (end*this.scale);
         }
         for (Thread core : cores) {
             try {

@@ -11,6 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.sacrew.numericov4.fragments.home;
+import com.example.sacrew.numericov4.fragments.oneVariable;
+
 public class MainActivity extends AppCompatActivity {
     private ListView menuLateral;
     private DrawerLayout drawerLayout;
@@ -43,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         //home default
         homeFragment = new home();
         oneVariableFragment = new oneVariable();
-
         fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.mainLayout, homeFragment);
