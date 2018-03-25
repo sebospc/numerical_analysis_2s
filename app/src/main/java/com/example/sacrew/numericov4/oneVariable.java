@@ -69,7 +69,6 @@ public class oneVariable extends Fragment {
         public void onPageSelected(int position) {
             addDotsIndicator(position);
         }
-
         @Override
         public void onPageScrollStateChanged(int state) {
 
