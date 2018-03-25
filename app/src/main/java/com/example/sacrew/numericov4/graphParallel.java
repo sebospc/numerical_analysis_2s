@@ -1,8 +1,8 @@
 package com.example.sacrew.numericov4;
 
+
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.widget.Toast;
 
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -10,11 +10,9 @@ import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
 
-
 /**
- * Created by sacrew on 21/03/18.
+ * Created by sacrew on 23/03/18.
  */
-
 
 public class graphParallel implements Runnable {
     private double x;
@@ -48,7 +46,8 @@ public class graphParallel implements Runnable {
             }
         }
 
-        MainActivity.listSeries.add(series);
+        home.listSeries.add(series);
 
     }
 }
+
