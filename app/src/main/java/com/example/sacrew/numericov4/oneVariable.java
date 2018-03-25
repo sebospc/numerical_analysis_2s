@@ -33,7 +33,13 @@ public class oneVariable extends Fragment {
         slideView = view.findViewById(R.id.viewPager);
         dotLayout = view.findViewById(R.id.dotLayout);
         dotLayout.setGravity(Gravity.CENTER);
-        sliderAdapter = new SliderAdapter(this.getActivity());
+        String [] titles ={
+                "Bisection Method",
+                "FakeRule Method",
+                "FixedPoint Method",
+                "Incremental search"
+        };
+        sliderAdapter = new SliderAdapter(this.getActivity(),titles,R.layout.slide_one_variable);
         slideView.setAdapter(sliderAdapter);
         slideView.addOnPageChangeListener(viewListener);
         addDotsIndicator(0);

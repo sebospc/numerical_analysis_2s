@@ -16,25 +16,18 @@ public class SliderAdapter extends PagerAdapter {
 
     Context context;
     LayoutInflater layoutInflater;
-
-    public SliderAdapter(Context context ){
+    String [] titles;
+    int layout;
+    public SliderAdapter(Context context,String[] titles,int layout ){
+        this.titles = titles;
         this.context = context;
+        this.layout = layout;
     }
 
-    public String[] slide_handlings = {
-            "EAT",
-            "Sleep",
-            "CODE"
-    };
-    public String [] slide_descs ={
-            "asdasd",
-            "dddddd",
-            "ssssss"
-    };
 
     @Override
     public int getCount() {
-        return slide_handlings.length;
+        return this.titles.length;
     }
 
     @Override
@@ -45,9 +38,9 @@ public class SliderAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View view  = layoutInflater.inflate(R.layout.slide_one_variable,container,false);
+        View view  = layoutInflater.inflate(layout,container,false);
         TextView desc = view.findViewById(R.id.slide_desc);
-        desc.setText(slide_descs[position]);
+        desc.setText(titles[position]);
         container.addView(view);
         return view;
     }
