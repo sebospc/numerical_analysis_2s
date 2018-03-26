@@ -56,7 +56,7 @@ public class oneVariable extends Fragment {
         for(int i = 0 ;i < dots.length;i++){
             dots[i]= new TextView(this.getActivity());
             dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(35);
+            dots[i].setTextSize(30);
             dots[i].setTextColor(getResources().getColor(R.color.Transparent));
             dots[i].setGravity(Gravity.CENTER);
 

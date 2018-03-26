@@ -14,7 +14,7 @@ import java.math.*;
  * Created by stivenramireza on 24/03/18.
  */
 
-public class bisectionMethod implements Runnable {
+public class bisectionMethod  {
     private double xi;
     private double xs;
     private double tol;
@@ -27,8 +27,7 @@ public class bisectionMethod implements Runnable {
         this.ite=ite;
         this.function =  new Expression(function);
     }
-    
-    @Override
+
     public void run() {
         if(tol >= 0){
             if(ite > 0){

@@ -1,19 +1,65 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sacrew.numericov4.fragments.oneVariableFragments.incrementalSearchFragment">
+    tools:context="com.example.sacrew.numericov4.fragments.oneVariableFragments.incrementalSearchFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="208dp"
+        android:layout_weight=".15"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Incremental search"
+            android:textAlignment="center" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/incrementalGraph"
+            android:layout_width="match_parent"
+            android:layout_height="158dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_weight=".9"
+        android:orientation="horizontal">
 
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CheckBox" />
+        <EditText
+            android:id="@+id/function"
+            android:layout_width="191dp"
+            android:layout_height="wrap_content"
+            android:hint="Function" />
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/x_value"
+            android:layout_width="33dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="x" />
+
+        <EditText
+            android:id="@+id/delta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Delta"
+            android:text="0.1" />
+
+        <EditText
+            android:id="@+id/iterations"
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Iters"
+            android:text="80" />
+
+    </LinearLayout>
+
+</LinearLayout>
