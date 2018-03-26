@@ -21,7 +21,10 @@ import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.graphParallel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
+import com.jjoe64.graphview.series.Series;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
@@ -199,9 +202,9 @@ public class home extends Fragment {
             //throw expresion, values not be negative
             if(function.contains("sqrt"))
                 start = 0.001D;
-            else if(function.contains(("e")))
+            else if(function.contains(("e"))){
                 this.scale = 0.1D;
-            else
+            }else
                 try {
                     (exp.with("x", BigDecimal.valueOf(-1)).eval()).doubleValue();
 
@@ -235,6 +238,7 @@ public class home extends Fragment {
 
             for (LineGraphSeries<DataPoint> inSerie  : viewToFunction.get(code)) {
                 graph.addSeries(inSerie);
+
             }
 
 
@@ -247,7 +251,7 @@ public class home extends Fragment {
     }
 
     private void graphParalelism(String function,int iter,Double x){
-        int end = iter / NUMBER_OF_CORES;
+        int end = (int)Math.ceil(iter / NUMBER_OF_CORES);
 
         for(int i = 0; i < cores.length;i++){
 
