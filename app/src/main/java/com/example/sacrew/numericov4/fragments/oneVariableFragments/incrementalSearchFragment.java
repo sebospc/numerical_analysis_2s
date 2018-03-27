@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -135,6 +136,7 @@ public class incrementalSearchFragment extends Fragment {
                                 Toast.makeText(getActivity(), "("+dataPoint.getX()+" , "+dataPoint.getY()+")", Toast.LENGTH_SHORT).show();
                             }
                         });
+                        root.setColor(Color.GREEN);
                         graph.addSeries(root);
                         root.setShape(PointsGraphSeries.Shape.POINT);
                         //System.out.println(x1 + " is a root");
@@ -155,6 +157,7 @@ public class incrementalSearchFragment extends Fragment {
                     });
                     graph.addSeries(root);
                     root.setShape(PointsGraphSeries.Shape.POINT);
+                    root.setColor(Color.GREEN);
                     System.out.println(x0 + " is a root");
                 }
             }else{
