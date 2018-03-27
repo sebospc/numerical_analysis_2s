@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment;
+import com.example.sacrew.numericov4.fragments.oneVariableFragments.fakeRuleFragment;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.incrementalSearchFragment;
 
 /**
@@ -22,13 +23,14 @@ public class pagerAdapter extends FragmentPagerAdapter {
         switch(pos){
             case 0: return new incrementalSearchFragment();
             case 1: return new bisectionFragment();
+            case 2: return new fakeRuleFragment();
             default: return new incrementalSearchFragment();
         }
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
 }

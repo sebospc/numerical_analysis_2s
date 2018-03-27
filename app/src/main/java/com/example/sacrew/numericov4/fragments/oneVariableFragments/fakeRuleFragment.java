@@ -27,32 +27,33 @@ import java.math.BigDecimal;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class bisectionFragment extends Fragment {
+public class fakeRuleFragment extends Fragment {
 
 
-    public bisectionFragment() {
+    public fakeRuleFragment() {
         // Required empty public constructor
     }
-    private Button runBisection;
+
+
+    private Button runFake;
     private GraphView graph;
     private Expression function;
     private View view;
     private TextView xi,xs,iter,textFunction,textError;
     private ToggleButton errorToggle;
-    private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_bisection,container,false);
-        runBisection = view.findViewById(R.id.runBisection);
-        runBisection.setOnClickListener(new View.OnClickListener() {
+        view = inflater.inflate(R.layout.fragment_fake_rule,container,false);
+        runFake = view.findViewById(R.id.runFake);
+        runFake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 execute();
             }
         });
-        graph = view.findViewById(R.id.bisectionGraph);
+        graph = view.findViewById(R.id.fakeRuleGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
@@ -143,7 +144,7 @@ public class bisectionFragment extends Fragment {
                                     yi = ym;
                                 }
                                 xaux = xm;
-                                xm = (xi + xs) / 2;
+                                xm = xi - ((yi*(xi-xs))/(yi-ys));
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
 
                                 if(errorRel)
@@ -237,14 +238,11 @@ public class bisectionFragment extends Fragment {
         function.setPrecision(20);
         double yi = (this.function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
         while(x <= end){
-
             serie.appendData(new DataPoint(x,yi),true,(int)Math.ceil(Math.abs(end-start)/0.1));
             x = x + 0.1;
             yi = (this.function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
         }
         graph.addSeries(serie);
-
-
     }
 
 }
