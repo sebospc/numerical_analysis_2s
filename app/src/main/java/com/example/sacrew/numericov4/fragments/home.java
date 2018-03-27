@@ -219,15 +219,9 @@ public class home extends Fragment {
             listSeries = new LinkedList<LineGraphSeries<DataPoint>>();
             graphParalelism(function,iter,start);
 
-            graph.getViewport().setScrollable(true); // enables horizontal scrolling
-            graph.getViewport().setScrollableY(true); // enables vertical scrolling
-            graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-            graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
-            graph.getViewport().setXAxisBoundsManual(true);
-            graph.getViewport().setMinX(-80);
-            graph.getViewport().setMaxX(80);
-            graph.getViewport().setMinY(-80);
-            graph.getViewport().setMaxY(80);
+
+
+
             int code = ((View) v.getParent()).findViewById(R.id.number_edit_text).hashCode();
             if(viewToFunction.containsKey(code)){
                 for (LineGraphSeries<DataPoint> inSerie  : viewToFunction.get(code)) {
@@ -235,6 +229,17 @@ public class home extends Fragment {
                 }
             }
             viewToFunction.put(code,listSeries);
+            /*graph.getViewport().setYAxisBoundsManual(true);
+            graph.getViewport().setMinY(-1);
+            graph.getViewport().setMaxY(1);
+
+            graph.getViewport().setXAxisBoundsManual(true);
+            graph.getViewport().setMinX(-40);
+            graph.getViewport().setMaxX(-20);*/
+            graph.getViewport().setScrollable(true); // enables horizontal scrolling
+            graph.getViewport().setScrollableY(true); // enables vertical scrolling
+            //graph.getViewport().setScalable(true); esto genera errores se podria solucionar pero
+            //graph.getViewport().setScalableY(true); es complejo, es para el zoom
 
             for (LineGraphSeries<DataPoint> inSerie  : viewToFunction.get(code)) {
                 graph.addSeries(inSerie);
@@ -258,7 +263,7 @@ public class home extends Fragment {
             cores[i]=new Thread(new graphParallel(x,end,function));
             cores[i].start();
 
-            x = x + (end*this.scale);
+            x = x + (end*this.scale) - this.scale;
         }
         for (Thread core : cores) {
             try {

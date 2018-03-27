@@ -1,8 +1,10 @@
 package com.example.sacrew.numericov4.fragments;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
@@ -27,12 +29,12 @@ public class oneVariable extends Fragment {
     private TextView[] dots;
     private View view;
     private String [] titles;
-    private FragmentActivity myContext;
     public oneVariable() {
         // Required empty public constructor
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,16 +42,15 @@ public class oneVariable extends Fragment {
         slideView = view.findViewById(R.id.viewPager);
         dotLayout = view.findViewById(R.id.dotLayout);
         dotLayout.setGravity(Gravity.CENTER);
-        titles = new String[]{"Incremental search"};
-        Fragment [] oneVariableFrags = {new incrementalSearchFragment()};
-
-
-
-        slideView.setAdapter(new pagerAdapter(getActivity().getFragmentManager()));
+        titles = new String[]{"Incremental search","Bisection"};
+        pagerAdapter pager = new pagerAdapter(getChildFragmentManager());
+        slideView.setAdapter(pager);
         slideView.addOnPageChangeListener(viewListener);
         addDotsIndicator(0);
+
         return view;
     }
+
     public void addDotsIndicator(int position){
         dots = new TextView[titles.length];
         dotLayout.removeAllViews();

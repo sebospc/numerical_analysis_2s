@@ -1,9 +1,6 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.oneVariableMethods.incrementalSearchMethod;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -37,7 +33,7 @@ public class incrementalSearchFragment extends Fragment {
     }
     private View view;
     private Button runIncremental;
-    GraphView graph;
+    private GraphView graph;
     private Expression function;
     private TextView textFunction;
     private TextView xValue;
@@ -58,14 +54,14 @@ public class incrementalSearchFragment extends Fragment {
         runIncremental.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                capture();
+                execute();
             }
         });
 
         return view;
     }
 
-    public void capture(){
+    public void execute(){
 
         boolean error = false;
         Double x = 0.0;
@@ -116,7 +112,6 @@ public class incrementalSearchFragment extends Fragment {
                     int cont = 1;
                     LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
                     serie.appendData(new DataPoint(x1,y1),false,ite);
-                    graph.addSeries(serie);
                     while(((y1*y0) > 0) && (cont < ite)){
                         x0 = x1;
                         y0 = y1;
@@ -125,7 +120,7 @@ public class incrementalSearchFragment extends Fragment {
                         if(delta >= 0)
                         serie.appendData(new DataPoint(x1,y1),false,ite);
                         else {
-                            // no se puede graicar funciones alrevez :(
+                            // no se puede graficar funciones alrevez :(
                         }
                         cont++;
                     }

@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 
+import com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.incrementalSearchFragment;
 
 /**
@@ -18,15 +19,16 @@ public class pagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int pos) {
-        switch(pos) {
-
-
-            default:return new incrementalSearchFragment();
+        switch(pos){
+            case 0: return new incrementalSearchFragment();
+            case 1: return new bisectionFragment();
+            default: return new incrementalSearchFragment();
         }
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
+
 }
