@@ -57,7 +57,6 @@ public class incrementalSearchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_incremental_search,container,false);
         runIncremental = view.findViewById(R.id.runIncremental);
         runHelp = view.findViewById(R.id.runHelp);
-        runChart = view.findViewById(R.id.runChart);
         graph = view.findViewById(R.id.incrementalGraph);
         textFunction = view.findViewById(R.id.function);
         xValue = view.findViewById(R.id.x_value);

@@ -85,13 +85,6 @@
             android:layout_height="wrap_content"
             android:text="HELP" />
 
-        <ImageButton
-            android:id="@+id/runChart"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@color/colorPrimary"
-            android:src="@android:drawable/ic_menu_set_as" />
-
     </LinearLayout>
 
 </LinearLayout>
