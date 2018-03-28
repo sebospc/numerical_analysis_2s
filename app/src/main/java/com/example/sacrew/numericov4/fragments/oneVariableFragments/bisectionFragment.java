@@ -24,6 +24,9 @@ import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
 
+import static com.example.sacrew.numericov4.graphMethods.graphPoint;
+import static com.example.sacrew.numericov4.graphMethods.graphSerie;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -133,7 +136,7 @@ public class bisectionFragment extends Fragment {
 
                             int cont = 1;
                             double xaux = xm;
-                            graphIt(xi,xs);
+                            graphSerie(xi,xs,this.function.getExpression(),graph);
                             while((ym != 0) && (error > tol) && (cont < ite)){
                                 if(yi*ym < 0){
                                     xs = xm;
@@ -154,32 +157,9 @@ public class bisectionFragment extends Fragment {
                             }
 
                             if(ym == 0){
-                                PointsGraphSeries<DataPoint> root = new PointsGraphSeries<>(new DataPoint[] {
-                                        new DataPoint(xm, ym)
-                                });
-                                root.setOnDataPointTapListener(new OnDataPointTapListener() {
-                                    @Override
-                                    public void onTap(Series series, DataPointInterface dataPoint) {
-                                        Toast.makeText(getActivity(), "("+dataPoint.getX()+" , "+dataPoint.getY()+")", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                graph.addSeries(root);
-                                root.setShape(PointsGraphSeries.Shape.POINT);
-                                //System.out.println(xm + " is an aproximate root");
-                                root.setColor(Color.GREEN);
+                                graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
                             }else if(error < tol){
-                                PointsGraphSeries<DataPoint> root = new PointsGraphSeries<>(new DataPoint[] {
-                                        new DataPoint(xaux, ym)
-                                });
-                                root.setOnDataPointTapListener(new OnDataPointTapListener() {
-                                    @Override
-                                    public void onTap(Series series, DataPointInterface dataPoint) {
-                                        Toast.makeText(getActivity(), "("+dataPoint.getX()+" , "+dataPoint.getY()+")", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                graph.addSeries(root);
-                                root.setShape(PointsGraphSeries.Shape.POINT);
-                                root.setColor(Color.GREEN);
+                                graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
                                 //System.out.println(xaux + " is an aproximate root");
                             }else{
                                 //System.out.println("Failed!");
@@ -192,33 +172,11 @@ public class bisectionFragment extends Fragment {
                         }
                     }else{
                         //System.out.println(xs + " is an aproximate root");
-                        PointsGraphSeries<DataPoint> root = new PointsGraphSeries<>(new DataPoint[] {
-                                new DataPoint(xs, ys)
-                        });
-                        root.setOnDataPointTapListener(new OnDataPointTapListener() {
-                            @Override
-                            public void onTap(Series series, DataPointInterface dataPoint) {
-                                Toast.makeText(getActivity(), "("+dataPoint.getX()+" , "+dataPoint.getY()+")", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        graph.addSeries(root);
-                        root.setShape(PointsGraphSeries.Shape.POINT);
-                        root.setColor(Color.GREEN);
+                        graphPoint(xs,ys,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
                     }
                 }else{
                     //System.out.println(xi + " is an aproximate root");
-                    PointsGraphSeries<DataPoint> root = new PointsGraphSeries<>(new DataPoint[] {
-                            new DataPoint(xi, yi)
-                    });
-                    root.setOnDataPointTapListener(new OnDataPointTapListener() {
-                        @Override
-                        public void onTap(Series series, DataPointInterface dataPoint) {
-                            Toast.makeText(getActivity(), "("+dataPoint.getX()+" , "+dataPoint.getY()+")", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    graph.addSeries(root);
-                    root.setShape(PointsGraphSeries.Shape.POINT);
-                    root.setColor(Color.GREEN);
+                    graphPoint(xi,yi,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
                 }
             }else{
                 iter.setError("Wrong iterates");
@@ -228,23 +186,6 @@ public class bisectionFragment extends Fragment {
             textError.setError("Tolerance must be < 0");
             //System.out.println("Tolerance < 0");
         }
-    }
-
-
-    public void graphIt(double start, double end){
-        LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
-        double x = start;
-        function.setPrecision(20);
-        double yi = (this.function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
-        while(x <= end){
-
-            serie.appendData(new DataPoint(x,yi),true,(int)Math.ceil(Math.abs(end-start)/0.1));
-            x = x + 0.1;
-            yi = (this.function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
-        }
-        graph.addSeries(serie);
-
-
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.sacrew.numericov4.oneVariableMethods;
+package com.example.sacrew.numericov4;
 
 
 import android.app.Fragment;
@@ -7,6 +7,7 @@ import android.support.v13.app.FragmentPagerAdapter;
 
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.fakeRuleFragment;
+import com.example.sacrew.numericov4.fragments.oneVariableFragments.fixedPointFragment;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.incrementalSearchFragment;
 
 /**
@@ -24,13 +25,14 @@ public class pagerAdapter extends FragmentPagerAdapter {
             case 0: return new incrementalSearchFragment();
             case 1: return new bisectionFragment();
             case 2: return new fakeRuleFragment();
+            case 3: return new fixedPointFragment();
             default: return new incrementalSearchFragment();
         }
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
 }

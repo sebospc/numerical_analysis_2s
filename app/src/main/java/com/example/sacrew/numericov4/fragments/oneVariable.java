@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.view.Gravity;
@@ -16,8 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.incrementalSearchFragment;
-import com.example.sacrew.numericov4.oneVariableMethods.pagerAdapter;
+import com.example.sacrew.numericov4.pagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +40,7 @@ public class oneVariable extends Fragment {
         slideView = view.findViewById(R.id.viewPager);
         dotLayout = view.findViewById(R.id.dotLayout);
         dotLayout.setGravity(Gravity.CENTER);
-        titles = new String[]{"Incremental search","Bisection","Fake rule"};
+        titles = new String[]{"Incremental search","Bisection","Fake rule","Fixed point"};
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager());
         slideView.setAdapter(pager);
         slideView.addOnPageChangeListener(viewListener);

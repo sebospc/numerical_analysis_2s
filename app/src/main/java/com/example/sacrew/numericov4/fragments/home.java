@@ -238,8 +238,8 @@ public class home extends Fragment {
             graph.getViewport().setMaxX(-20);*/
             graph.getViewport().setScrollable(true); // enables horizontal scrolling
             graph.getViewport().setScrollableY(true); // enables vertical scrolling
-            //graph.getViewport().setScalable(true); esto genera errores se podria solucionar pero
-            //graph.getViewport().setScalableY(true); es complejo, es para el zoom
+            graph.getViewport().setScalable(true);// esto genera errores se podria solucionar pero
+            graph.getViewport().setScalableY(true);// es complejo, es para el zoom
 
             for (LineGraphSeries<DataPoint> inSerie  : viewToFunction.get(code)) {
                 graph.addSeries(inSerie);

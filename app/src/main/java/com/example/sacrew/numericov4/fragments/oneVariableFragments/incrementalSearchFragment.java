@@ -23,6 +23,8 @@ import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
 
+import static com.example.sacrew.numericov4.graphMethods.graphPoint;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -127,18 +129,7 @@ public class incrementalSearchFragment extends Fragment {
                     }
                     graph.addSeries(serie);
                     if(y1 == 0){
-                        PointsGraphSeries<DataPoint> root = new PointsGraphSeries<>(new DataPoint[] {
-                                new DataPoint(x1, y1)
-                        });
-                        root.setOnDataPointTapListener(new OnDataPointTapListener() {
-                            @Override
-                            public void onTap(Series series, DataPointInterface dataPoint) {
-                                Toast.makeText(getActivity(), "("+dataPoint.getX()+" , "+dataPoint.getY()+")", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        root.setColor(Color.GREEN);
-                        graph.addSeries(root);
-                        root.setShape(PointsGraphSeries.Shape.POINT);
+                        graphPoint(x1,y1,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
                         //System.out.println(x1 + " is a root");
                     }else if(y1*y0 < 0){
                         //System.out.println("[" + x0 + ", " + x1 + "] is an interval");
@@ -146,19 +137,8 @@ public class incrementalSearchFragment extends Fragment {
                         // System.out.println("Failed the interval!");
                     }
                 }else{
-                    PointsGraphSeries<DataPoint> root = new PointsGraphSeries<>(new DataPoint[] {
-                            new DataPoint(x0, y0)
-                    });
-                    root.setOnDataPointTapListener(new OnDataPointTapListener() {
-                        @Override
-                        public void onTap(Series series, DataPointInterface dataPoint) {
-                            Toast.makeText(getActivity(), "("+dataPoint.getX()+" , "+dataPoint.getY()+")", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    graph.addSeries(root);
-                    root.setShape(PointsGraphSeries.Shape.POINT);
-                    root.setColor(Color.GREEN);
-                    System.out.println(x0 + " is a root");
+                    graphPoint(x0,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
+                    //System.out.println(x0 + " is a root");
                 }
             }else{
                 iter.setError("Iterate needs be >0");
