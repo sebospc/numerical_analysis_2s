@@ -4,6 +4,7 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class fakeRuleFragment extends Fragment {
 
 
     private Button runFake;
+    private Button runHelp;
     private GraphView graph;
     private Expression function;
     private View view;
@@ -56,6 +58,13 @@ public class fakeRuleFragment extends Fragment {
                 execute();
             }
         });
+        runHelp = view.findViewById(R.id.runHelp);
+        runHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                executeHelp();
+            }
+        });
         graph = view.findViewById(R.id.fakeRuleGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
@@ -67,6 +76,11 @@ public class fakeRuleFragment extends Fragment {
         return view;
     }
 
+    public void executeHelp(){
+        Toast toast1 = Toast.makeText(getActivity().getApplicationContext(), "The difference of this method with Bisection Method is that the way of calculating the midpoint is different. This is done by subtracting the initial point with the division between the function evaluated at that point by the subtraction of the initial point with the end point and the subtraction of the function evaluated at the initial point with that of the end point (interval xi, xs).", Toast.LENGTH_LONG);
+        toast1.setGravity(Gravity.CENTER,50,50);
+        toast1.show();
+    }
 
     public void execute(){
         this.xi.setError(null);

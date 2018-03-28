@@ -4,6 +4,7 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class bisectionFragment extends Fragment {
         // Required empty public constructor
     }
     private Button runBisection;
+    private Button runHelp;
     private GraphView graph;
     private Expression function;
     private View view;
@@ -55,6 +57,13 @@ public class bisectionFragment extends Fragment {
                 execute();
             }
         });
+        runHelp = view.findViewById(R.id.runHelp);
+        runHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                executeHelp();
+            }
+        });
         graph = view.findViewById(R.id.bisectionGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
@@ -66,6 +75,11 @@ public class bisectionFragment extends Fragment {
         return view;
     }
 
+    public void executeHelp(){
+        Toast toast1 = Toast.makeText(getActivity().getApplicationContext(), "This method seeks an approximation to the root of a function by entering data such as the starting point and the end point that define the interval, the tolerance that indicates the number of correct decimals and significant figures that the delivered result will have. To do this, a tour is made with N iterations entered by the user where the midpoint of the interval is found, increasing its error with the idea that it is close to zero and that the absolute or relative error requested by the user resolves the Equation correctly.", Toast.LENGTH_LONG);
+        toast1.setGravity(Gravity.CENTER,50,50);
+        toast1.show();
+    }
 
     public void execute(){
         this.xi.setError(null);

@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bisection"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/bisectionGraph"
@@ -90,8 +92,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="17dp"
-                android:layout_marginRight="17dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
                 android:layout_toLeftOf="@+id/xs"
                 android:layout_toStartOf="@+id/xs"
                 android:layout_weight="1"
@@ -125,7 +127,15 @@
             android:id="@+id/runBisection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="run" />
+            android:background="@color/colorPrimary"
+            android:text="CALCULATE" />
+
+        <Button
+            android:id="@+id/runHelp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HELP" />
+
     </LinearLayout>
 
 

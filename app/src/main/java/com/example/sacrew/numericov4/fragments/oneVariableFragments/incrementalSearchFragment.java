@@ -4,6 +4,7 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class incrementalSearchFragment extends Fragment {
     }
     private View view;
     private Button runIncremental;
+    private Button runHelp;
     private GraphView graph;
     private Expression function;
     private TextView textFunction;
@@ -49,6 +51,7 @@ public class incrementalSearchFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_incremental_search,container,false);
         runIncremental = view.findViewById(R.id.runIncremental);
+        runHelp = view.findViewById(R.id.runHelp);
         graph = view.findViewById(R.id.incrementalGraph);
         textFunction = view.findViewById(R.id.function);
         xValue = view.findViewById(R.id.x_value);
@@ -60,8 +63,20 @@ public class incrementalSearchFragment extends Fragment {
                 execute();
             }
         });
+        runHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                executeHelp();
+            }
+        });
 
         return view;
+    }
+
+    public void executeHelp(){
+        Toast toast1 = Toast.makeText(getActivity().getApplicationContext(), "This method supposes a continuous function that presents a change of sign and looks for an approximation to the root of a function by means of the repetition of a number of times that the user enters, an initial point and a delta, defined as the change between the initial point and the next point.", Toast.LENGTH_LONG);
+        toast1.setGravity(Gravity.CENTER,50,50);
+        toast1.show();
     }
 
     public void execute(){

@@ -14,8 +14,10 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fixed point"
-            android:textAlignment="center" />
+            android:text="Fixed Point"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/fixedGraph"
@@ -101,7 +103,15 @@
             android:id="@+id/runFixed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="run" />
+            android:background="@color/colorPrimary"
+            android:text="CALCULATE" />
+
+        <Button
+            android:id="@+id/runHelp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HELP" />
+
     </LinearLayout>
 
 </LinearLayout>

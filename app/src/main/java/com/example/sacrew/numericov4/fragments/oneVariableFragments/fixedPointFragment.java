@@ -3,11 +3,13 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
@@ -26,6 +28,7 @@ import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 public class fixedPointFragment extends Fragment {
 
     private Button runFixed;
+    private Button runHelp;
     private GraphView graph;
     private Expression function,functionG;
     private View view;
@@ -48,6 +51,13 @@ public class fixedPointFragment extends Fragment {
                 execute();
             }
         });
+        runHelp = view.findViewById(R.id.runHelp);
+        runHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                executeHelp();
+            }
+        });
         graph = view.findViewById(R.id.fixedGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
@@ -58,6 +68,13 @@ public class fixedPointFragment extends Fragment {
 
         return view;
     }
+
+    public void executeHelp(){
+        Toast toast1 = Toast.makeText(getActivity().getApplicationContext(), "This method requires the user enter an x value,number of iterations and tolerance, also this method requires an function f and g function,the function g has been derived from function f with mathematical modifications such as theorems, etc. The execution of the program consist in found the value of x that makes x = g(x) and then remplace in f(x) to make f(x) = 0.", Toast.LENGTH_LONG);
+        toast1.setGravity(Gravity.CENTER,50,50);
+        toast1.show();
+    }
+
     public void execute(){
         boolean error = false;
         Double xValue = 0.0;

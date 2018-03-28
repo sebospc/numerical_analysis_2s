@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         drawerLayout = findViewById(R.id.root);
-        final String[] opciones ={"home","oneVariable"};
+        final String[] opciones ={"Home","One Variable"};
         ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,opciones);
         menuLateral = findViewById(R.id.menuLateral);
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     public void home(){
         if(idFragment != 0) {
             getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
-            System.out.println("home");
+            System.out.println("Home");
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();

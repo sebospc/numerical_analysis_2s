@@ -16,8 +16,10 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Incremental search"
-            android:textAlignment="center" />
+            android:text="Incremental Search"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/incrementalGraph"
@@ -72,30 +74,15 @@
             android:id="@+id/runIncremental"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="run" />
+            android:background="@color/Transparent"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="CALCULATE" />
 
-        <TableLayout
-            android:id="@+id/listIncremental"
+        <Button
+            android:id="@+id/runHelp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </TableLayout>
+            android:layout_height="wrap_content"
+            android:text="HELP" />
 
     </LinearLayout>
 
