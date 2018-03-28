@@ -50,6 +50,7 @@ public class incrementalSearchFragment extends Fragment {
     private TextView xValue;
     private TextView delta;
     private TextView iter;
+    private TableRow tableRow;
     private TableLayout tableLayout;
     private String[] header = {"n", "Xn", "f(Xn)"};
     private ArrayList<String[]> rows = new ArrayList<>();
