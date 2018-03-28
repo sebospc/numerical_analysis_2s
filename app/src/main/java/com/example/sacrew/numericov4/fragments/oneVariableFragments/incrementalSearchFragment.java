@@ -42,14 +42,7 @@ public class incrementalSearchFragment extends Fragment {
     private TextView xValue;
     private TextView delta;
     private TextView iter;
-<<<<<<< HEAD
-    private TableRow tableRow;
-    private TableLayout tableLayout;
-    private String[] header = {"n", "Xn", "f(Xn)"};
-    private ArrayList<String[]> rows = new ArrayList<>();
-=======
->>>>>>> e9d58dac9e4bd27aab0a9dc7a58494de94fd75af
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
