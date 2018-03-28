@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sacrew.numericov4.fragments.oneVariableFragments.fixedPointFragment"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="208dp"
+        android:layout_weight=".15"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fixed point"
+            android:textAlignment="center" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/fixedGraph"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_weight=".9"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/function"
+            android:layout_width="164dp"
+            android:layout_height="wrap_content"
+            android:hint="Function" />
+
+        <EditText
+            android:id="@+id/iterations"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Iters"
+            android:text="80" />
+
+        <EditText
+            android:id="@+id/error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="error"/>
+
+        <ToggleButton
+            android:id="@+id/errorToggle"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/check"
+            android:textOn=""
+            android:textOff=""/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_weight=".15"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/functionG"
+                android:layout_width="170dp"
+
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/to"
+                android:layout_toStartOf="@+id/to"
+                android:layout_weight="1"
+                android:hint="Function G" />
+
+            <EditText
+                android:id="@+id/xValue"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/functionG"
+                android:layout_toRightOf="@+id/functionG"
+                android:ems="10"
+                android:hint="x value"
+                android:inputType="textPersonName" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/runFixed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="run" />
+    </LinearLayout>
+
+</LinearLayout>
