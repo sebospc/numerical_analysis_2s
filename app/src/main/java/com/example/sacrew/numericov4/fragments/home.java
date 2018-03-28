@@ -51,7 +51,7 @@ public class home extends Fragment {
     private Map<Integer, List<LineGraphSeries<DataPoint>>> viewToFunction;
     private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
     private Thread[] cores = new Thread[NUMBER_OF_CORES];
-    private double scale = 0.01; //escala de desplazamiento
+    private double scale = 0.1; //escala de desplazamiento
     private View view;
     private CircleButton addFieldButton,deleteFieldButton,graphButton;
     private Button hider;
@@ -187,13 +187,13 @@ public class home extends Fragment {
     }
     @SuppressLint("CutPasteId")
     public void graphIt(View v){
-        Double start = -40D;
+        double start = -40D;
         try {
             EditText edittext_var;
             edittext_var = ((View) v.getParent()).findViewById(R.id.number_edit_text);
             SeekBar seek = ((SeekBar)((View) v.getParent()).findViewById(R.id.seek));
             int iter = seek.getProgress();
-
+            int aux = iter;
             String function = String.valueOf(edittext_var.getText());
             if(function.length() !=0)
                 function = function.toLowerCase();
@@ -207,7 +207,9 @@ public class home extends Fragment {
             }else
                 try {
                     (exp.with("x", BigDecimal.valueOf(-1)).eval()).doubleValue();
-
+                    start = -1*iter*0.1;
+                    iter = iter*2;
+                    System.out.println(iter+" num " + iter*0.1+" start: "+ start);
                 }catch (java.lang.NumberFormatException e){
                     start = 0.001D;
                 }
@@ -229,13 +231,13 @@ public class home extends Fragment {
                 }
             }
             viewToFunction.put(code,listSeries);
-            /*graph.getViewport().setYAxisBoundsManual(true);
-            graph.getViewport().setMinY(-1);
-            graph.getViewport().setMaxY(1);
+            graph.getViewport().setYAxisBoundsManual(true);
+            graph.getViewport().setMinY(-50);
+            graph.getViewport().setMaxY(50);
 
             graph.getViewport().setXAxisBoundsManual(true);
-            graph.getViewport().setMinX(-40);
-            graph.getViewport().setMaxX(-20);*/
+            graph.getViewport().setMinX(-50);
+            graph.getViewport().setMaxX(50);
             graph.getViewport().setScrollable(true); // enables horizontal scrolling
             graph.getViewport().setScrollableY(true); // enables vertical scrolling
             graph.getViewport().setScalable(true);// esto genera errores se podria solucionar pero
@@ -255,7 +257,7 @@ public class home extends Fragment {
 
     }
 
-    private void graphParalelism(String function,int iter,Double x){
+    private void graphParalelism(String function,int iter,double x){
         int end = (int)Math.ceil(iter / NUMBER_OF_CORES);
 
         for(int i = 0; i < cores.length;i++){
