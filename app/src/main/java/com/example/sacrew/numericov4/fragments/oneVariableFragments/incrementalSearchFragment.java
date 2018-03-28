@@ -1,14 +1,17 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,9 +38,11 @@ public class incrementalSearchFragment extends Fragment {
     public incrementalSearchFragment() {
         // Required empty public constructor
     }
+
     private View view;
     private Button runIncremental;
     private Button runHelp;
+    private ImageButton runChart;
     private GraphView graph;
     private Expression function;
     private TextView textFunction;
@@ -52,6 +57,7 @@ public class incrementalSearchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_incremental_search,container,false);
         runIncremental = view.findViewById(R.id.runIncremental);
         runHelp = view.findViewById(R.id.runHelp);
+        runChart = view.findViewById(R.id.runChart);
         graph = view.findViewById(R.id.incrementalGraph);
         textFunction = view.findViewById(R.id.function);
         xValue = view.findViewById(R.id.x_value);
@@ -69,6 +75,7 @@ public class incrementalSearchFragment extends Fragment {
                 executeHelp();
             }
         });
+
 
         return view;
     }
