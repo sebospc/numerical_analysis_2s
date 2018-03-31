@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="333dp"
+        android:layout_height="273dp"
+        android:gravity="center_horizontal"
+        android:text="The difference of this method with Bisection Method is that the way of calculating the midpoint is different. This  is done by subtracting the initial point with the division between the function evaluated at that point by the subtraction of the initial point with the end point and the subtraction of the function evaluated at the initial point with that of the end point (interval xi, xs). "
+        android:textColor="@android:color/white"
+        android:textSize="19sp"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="16dp"
+        tools:textColor="@android:color/white" />
+</android.support.constraint.ConstraintLayout>

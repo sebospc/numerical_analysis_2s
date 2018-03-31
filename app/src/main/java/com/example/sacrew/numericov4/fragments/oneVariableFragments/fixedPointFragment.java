@@ -1,8 +1,11 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.RequiresApi;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -69,10 +74,10 @@ public class fixedPointFragment extends Fragment {
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void executeHelp(){
-        Toast toast1 = Toast.makeText(getActivity().getApplicationContext(), "This method requires the user enter an x value,number of iterations and tolerance, also this method requires an function f and g function,the function g has been derived from function f with mathematical modifications such as theorems, etc. The execution of the program consist in found the value of x that makes x = g(x) and then remplace in f(x) to make f(x) = 0.", Toast.LENGTH_LONG);
-        toast1.setGravity(Gravity.CENTER,50,50);
-        toast1.show();
+        Intent i = new Intent(getContext().getApplicationContext(), popUpFixedPoint.class);
+        startActivity(i);
     }
 
     public void execute(){

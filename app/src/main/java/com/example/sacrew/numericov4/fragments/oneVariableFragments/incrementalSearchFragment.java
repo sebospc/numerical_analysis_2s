@@ -2,27 +2,23 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.PointsGraphSeries;
-import com.jjoe64.graphview.series.Series;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
@@ -79,10 +75,10 @@ public class incrementalSearchFragment extends Fragment {
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void executeHelp(){
-        Toast toast1 = Toast.makeText(getActivity().getApplicationContext(), "This method supposes a continuous function that presents a change of sign and looks for an approximation to the root of a function by means of the repetition of a number of times that the user enters, an initial point and a delta, defined as the change between the initial point and the next point.", Toast.LENGTH_LONG);
-        toast1.setGravity(Gravity.CENTER,50,50);
-        toast1.show();
+        Intent i = new Intent(getContext().getApplicationContext(), popUpIncrementalSearch.class);
+        startActivity(i);
     }
 
     public void execute(){

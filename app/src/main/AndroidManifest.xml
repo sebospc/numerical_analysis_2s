@@ -19,6 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".fragments.customPopUps.popUpIncrementalSearch"
+            android:theme="@style/AppTheme.Custom"/>
+        <activity android:name=".fragments.customPopUps.popUpBisection"
+            android:theme="@style/AppTheme.Custom"/>
+        <activity android:name=".fragments.customPopUps.popUpFalsePosition"
+            android:theme="@style/AppTheme.Custom"/>
+        <activity android:name=".fragments.customPopUps.popUpFixedPoint"
+            android:theme="@style/AppTheme.Custom"/>
+
     </application>
 
 </manifest>

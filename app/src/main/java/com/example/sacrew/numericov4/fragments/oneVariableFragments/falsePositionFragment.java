@@ -1,9 +1,12 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.RequiresApi;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -31,10 +36,10 @@ import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class fakeRuleFragment extends Fragment {
+public class falsePositionFragment extends Fragment {
 
 
-    public fakeRuleFragment() {
+    public falsePositionFragment() {
         // Required empty public constructor
     }
 
@@ -76,10 +81,10 @@ public class fakeRuleFragment extends Fragment {
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void executeHelp(){
-        Toast toast1 = Toast.makeText(getActivity().getApplicationContext(), "The difference of this method with Bisection Method is that the way of calculating the midpoint is different. This is done by subtracting the initial point with the division between the function evaluated at that point by the subtraction of the initial point with the end point and the subtraction of the function evaluated at the initial point with that of the end point (interval xi, xs).", Toast.LENGTH_LONG);
-        toast1.setGravity(Gravity.CENTER,50,50);
-        toast1.show();
+        Intent i = new Intent(getContext().getApplicationContext(), popUpFalsePosition.class);
+        startActivity(i);
     }
 
     public void execute(){
