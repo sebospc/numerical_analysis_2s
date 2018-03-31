@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4;
 
 
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
@@ -19,10 +20,12 @@ public class graphParallel implements Runnable {
     private double x;
     private int end;
     private Expression function;
-    public graphParallel(double x, int end, String function){
+    private int color;
+    public graphParallel(double x, int end, String function,int color){
         this.x = x;
         this.end=end;
         this.function =  new Expression(function);
+        this.color=color;
 
     }
 
@@ -46,8 +49,9 @@ public class graphParallel implements Runnable {
                     x = x *-1;
             }
         }
-
+        series.setColor(color);
         home.listSeries.add(series);
+
 
     }
 }

@@ -4,8 +4,13 @@ package com.example.sacrew.numericov4.fragments;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +26,7 @@ import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.graphParallel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.OnDataPointTapListener;
-import com.jjoe64.graphview.series.Series;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
@@ -49,12 +51,14 @@ public class home extends Fragment {
     private LinearLayout hiderA;
     private boolean isup = true;
     private Map<Integer, List<LineGraphSeries<DataPoint>>> viewToFunction;
+    private Map<Integer, Integer> viewToColor = new HashMap<>();
     private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
     private Thread[] cores = new Thread[NUMBER_OF_CORES];
     private double scale = 0.1; //escala de desplazamiento
     private View view;
     private CircleButton addFieldButton,deleteFieldButton,graphButton;
     private Button hider;
+    private List <Integer> colors = new LinkedList<>();
 
     public home() {
         // Required empty public constructor
@@ -64,6 +68,17 @@ public class home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //define colors
+        colors.add(Color.parseColor("#FF6D24"));
+        colors.add(Color.parseColor("#00204A"));
+        colors.add(Color.parseColor("#248888"));
+        colors.add(Color.parseColor("#FD2E2E"));
+        colors.add(Color.parseColor("#096C47"));
+        colors.add(Color.parseColor("#BB0029"));
+        colors.add(Color.parseColor("#4A772F"));
+        colors.add(Color.parseColor("#F54D42"));
+        colors.add(Color.parseColor("#682666"));
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home,container,false);
 
@@ -94,6 +109,7 @@ public class home extends Fragment {
             }
         });
         graphButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 graphIt(view);
@@ -114,7 +130,9 @@ public class home extends Fragment {
     public void onAddField(View v) {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.field, null);
+
         // Add the new field before the add field button.
+
         parentLinearLayout.addView(rowView, 0);
     }
     public void hide(View v){
@@ -173,7 +191,7 @@ public class home extends Fragment {
     }
 
     public void onDelete(View v) {
-        int code = ((View) v.getParent()).findViewById(R.id.number_edit_text).hashCode();
+        int code = ((View) v.getParent()).findViewById(R.id.function_edit_text).hashCode();
         try {
             for (LineGraphSeries<DataPoint> inSerie : viewToFunction.get(code)) {
                 graph.removeSeries(inSerie);
@@ -182,18 +200,18 @@ public class home extends Fragment {
 
         }
         viewToFunction.remove(code);
-
+        viewToColor.remove(code);
         parentLinearLayout.removeView((View) v.getParent());
     }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("CutPasteId")
     public void graphIt(View v){
         double start = -40D;
         try {
             EditText edittext_var;
-            edittext_var = ((View) v.getParent()).findViewById(R.id.number_edit_text);
+            edittext_var = ((View) v.getParent()).findViewById(R.id.function_edit_text);
             SeekBar seek = ((SeekBar)((View) v.getParent()).findViewById(R.id.seek));
             int iter = seek.getProgress();
-            int aux = iter;
             String function = String.valueOf(edittext_var.getText());
             if(function.length() !=0)
                 function = function.toLowerCase();
@@ -219,18 +237,22 @@ public class home extends Fragment {
             //Expression expression = new Expression(function);
 
             listSeries = new LinkedList<LineGraphSeries<DataPoint>>();
-            graphParalelism(function,iter,start);
-
-
-
-
-            int code = ((View) v.getParent()).findViewById(R.id.number_edit_text).hashCode();
+            int code = ((View) v.getParent()).findViewById(R.id.function_edit_text).hashCode();
+            // define color
+            if(!viewToColor.containsKey(code)){
+                int color = colors.remove(0);
+                colors.add(color);
+                viewToColor.put(code,color);
+            }
+            seek.setProgressTintList(ColorStateList.valueOf(viewToColor.get(code)));
+            graphParalelism(function,iter,start,code);
             if(viewToFunction.containsKey(code)){
                 for (LineGraphSeries<DataPoint> inSerie  : viewToFunction.get(code)) {
                     graph.removeSeries(inSerie);
                 }
             }
             viewToFunction.put(code,listSeries);
+
             graph.getViewport().setYAxisBoundsManual(true);
             graph.getViewport().setMinY(-50);
             graph.getViewport().setMaxY(50);
@@ -257,12 +279,12 @@ public class home extends Fragment {
 
     }
 
-    private void graphParalelism(String function,int iter,double x){
+    private void graphParalelism(String function,int iter,double x,int code){
         int end = (int)Math.ceil(iter / NUMBER_OF_CORES);
 
         for(int i = 0; i < cores.length;i++){
 
-            cores[i]=new Thread(new graphParallel(x,end,function));
+            cores[i]=new Thread(new graphParallel(x,end,function,viewToColor.get(code)));
             cores[i].start();
 
             x = x + (end*this.scale) - this.scale;
