@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.sacrew.numericov4.fragments.oneVariableFragments.fakeRuleFragment"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="208dp"
@@ -14,7 +15,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fake Rule"
+            android:text="False Position"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -122,18 +123,34 @@
                 android:text="Interval" />
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/runFake"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="CALCULATE" />
+            android:layout_height="match_parent"
+            android:layout_weight=".15"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/runHelp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="HELP" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/runFake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="CALCULATE" />
+
+                <Button
+                    android:id="@+id/runHelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/Transparent"
+                    android:text="HELP" />
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
