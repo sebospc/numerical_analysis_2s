@@ -149,16 +149,16 @@ public class fixedPointFragment extends Fragment {
                     graphSerie(x0,xa,function.getExpression(),graph);
                     graphSerie(x0,xa,functionG.getExpression(),graph);
                     if(y0 == 0){
-                        graphPoint(xa,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
+                        graphPoint(xa,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                         //System.out.println(xa + " is a root");
                     }else if(error <= tol){
-                        graphPoint(xa,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
+                        graphPoint(xa,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                         //System.out.println(xa + " is an aproximate root");
                     }else{
                         //System.out.println("Failed the interval!");
                     }
                 }else{
-                    graphPoint(x0,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
+                    graphPoint(x0,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                     //System.out.println(x0 + " is a root");
                 }
             }else{
