@@ -176,11 +176,11 @@ public class falsePositionFragment extends Fragment {
                             }
 
                             if(ym == 0){
-                                graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
+                                graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                                 //System.out.println(xm + " is an aproximate root");
 
                             }else if(error < tol){
-                                graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
+                                graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                                 //System.out.println(xaux + " is an aproximate root");
                             }else{
                                 //System.out.println("Failed!");
@@ -193,11 +193,11 @@ public class falsePositionFragment extends Fragment {
                         }
                     }else{
                         //System.out.println(xs + " is an aproximate root");
-                        graphPoint(xs,ys,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
+                        graphPoint(xs,ys,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                     }
                 }else{
                     //System.out.println(xi + " is an aproximate root");
-                    graphPoint(xi,yi,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
+                    graphPoint(xi,yi,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                 }
             }else{
                 iter.setError("Wrong iterates");

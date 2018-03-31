@@ -146,7 +146,7 @@ public class incrementalSearchFragment extends Fragment {
                     }
                     graph.addSeries(serie);
                     if(y1 == 0){
-                        graphPoint(x1,y1,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
+                        graphPoint(x1,y1,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                         //System.out.println(x1 + " is a root");
                     }else if(y1*y0 < 0){
                         //System.out.println("[" + x0 + ", " + x1 + "] is an interval");
@@ -154,7 +154,7 @@ public class incrementalSearchFragment extends Fragment {
                         // System.out.println("Failed the interval!");
                     }
                 }else{
-                    graphPoint(x0,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#00CD00");
+                    graphPoint(x0,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                     //System.out.println(x0 + " is a root");
                 }
             }else{

@@ -35,10 +35,12 @@ public class graphMethods {
         graph.addSeries(serie);
     }
 
-    public static void graphPoint(double x, double y, PointsGraphSeries.Shape figure, GraphView graph, final Activity activity, String color){
+    public static void graphPoint(double x, double y, PointsGraphSeries.Shape figure, GraphView graph, final Activity activity,
+                                  String color,boolean listener){
         PointsGraphSeries<DataPoint> root = new PointsGraphSeries<>(new DataPoint[] {
                 new DataPoint(x, y)
         });
+        if(listener)
         root.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
             public void onTap(Series series, DataPointInterface dataPoint) {
