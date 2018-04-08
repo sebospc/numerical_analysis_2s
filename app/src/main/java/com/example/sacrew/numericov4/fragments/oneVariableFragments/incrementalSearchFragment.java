@@ -126,13 +126,14 @@ public class incrementalSearchFragment extends Fragment {
         function.setPrecision(100);
         Tabla tabla = new Tabla(getActivity(), (TableLayout) view.findViewById(R.id.tabla));
         tabla.agregarCabecera(R.array.cabecera_tabla);
-            ArrayList<String> elementos1 = new ArrayList<String>();
+        ArrayList<String> elementos1 = new ArrayList<String>();
             elementos1.add(0, String.valueOf(0));
             elementos1.add(1, String.valueOf(x0));
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                     elementos1.add(2, String.valueOf(y0));
+
                     tabla.agregarFilaTabla(elementos1);
                     if (y0 != 0) {
                         int cont = 1;
@@ -145,22 +146,22 @@ public class incrementalSearchFragment extends Fragment {
                         LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
                         serie.appendData(new DataPoint(x1, y1), false, ite);
 
-                            while (((y1 * y0) > 0) && (cont < ite)) {
-                                cont++;
-                                elementos1.add(0, String.valueOf(cont));
-                                x0 = x1;
-                                y0 = y1;
-                                x1 = x0 + delta;
-                                elementos1.add(1, String.valueOf(x1));
-                                y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                                elementos1.add(2, String.valueOf(y1));
-                                tabla.agregarFilaTabla(elementos1);
-                                if (delta >= 0)
-                                    serie.appendData(new DataPoint(x1, y1), false, ite);
-                                else {
-                                    // no se puede graficar funciones alrevez :(
-                                }
+                        while (((y1 * y0) > 0) && (cont < ite)) {
+                            cont++;
+                            elementos1.add(0, String.valueOf(cont));
+                            x0 = x1;
+                            y0 = y1;
+                            x1 = x0 + delta;
+                            elementos1.add(1, String.valueOf(x1));
+                            y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
+                            elementos1.add(2, String.valueOf(y1));
+                            tabla.agregarFilaTabla(elementos1);
+                            if (delta >= 0)
+                                serie.appendData(new DataPoint(x1, y1), false, ite);
+                            else {
+                                // no se puede graficar funciones alrevez :(
                             }
+                        }
 
                         graph.addSeries(serie);
                         if (y1 == 0) {
@@ -175,15 +176,17 @@ public class incrementalSearchFragment extends Fragment {
                         graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                         //System.out.println(x0 + " is a root");
                     }
-                } else {
+
+            } else {
                     iter.setError("Iterate needs be >0");
                 }
-            } else {
+
+        }else {
                 this.delta.setError("Delta cannot be zero");
             }
-
+    }
 
     }
 
 
-}
+
