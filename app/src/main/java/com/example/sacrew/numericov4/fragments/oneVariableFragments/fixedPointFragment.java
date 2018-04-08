@@ -2,6 +2,7 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -58,6 +59,7 @@ public class fixedPointFragment extends Fragment {
         });
         runHelp = view.findViewById(R.id.runHelp);
         runHelp.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 executeHelp();
@@ -132,6 +134,8 @@ public class fixedPointFragment extends Fragment {
     }
 
     private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel){
+        graph.removeAllSeries();
+        function.setPrecision(100);
         if(tol >= 0){
             if(ite > 0){
                 double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
@@ -151,8 +155,8 @@ public class fixedPointFragment extends Fragment {
                         xa = xn;
                         cont++;
                     }
-                    graphSerie(x0,xa,function.getExpression(),graph);
-                    graphSerie(x0,xa,functionG.getExpression(),graph);
+                    graphSerie(x0,xa,function.getExpression(),graph, Color.BLUE);
+                    graphSerie(x0,xa,functionG.getExpression(),graph, Color.RED);
                     if(y0 == 0){
                         graphPoint(xa,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                         //System.out.println(xa + " is a root");
