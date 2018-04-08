@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Array con los valores de la cabecera de la tabla-->
-    <string-array name="cabecera_tabla">
-        <item>n (Iterators) </item>
+    <string-array name="cabecera_tablaIncremental">
+        <item>Iter </item>
         <item>Xn (Value Xn) </item>
         <item>f(Xn) (Function Xn)</item>
     </string-array>
+
+    <string-array name="cabecera_tablaBisection">
+        <item>Iterators</item>
+        <item>Xi (Val)</item>
+        <item>Xs (Val)</item>
+        <item>Xm (Val)</item>
+        <item>f(Xm) (Function)</item>
+        <item>Choice Error</item>
+    </string-array>
+
 </resources>

@@ -27,7 +27,7 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
 import com.udojava.evalex.Expression;
-
+import java.util.ArrayList;
 import java.math.BigDecimal;
 
 import static com.example.sacrew.numericov4.graphMethods.graphPoint;
@@ -141,6 +141,14 @@ public class bisectionFragment extends Fragment {
     public void bisectionMethod(Double xi,Double xs,Double tol,int ite,boolean errorRel) {
         graph.removeAllSeries();
         function.setPrecision(100);
+        com.example.sacrew.numericov4.fragments.Tabla tabla = new com.example.sacrew.numericov4.fragments.Tabla(getActivity(), (android.widget.TableLayout) view.findViewById(R.id.tabla));
+        tabla.agregarCabecera(R.array.cabecera_tablaBisection);
+        ArrayList<String> elementos = new java.util.ArrayList<String>();
+        for(int i=0; i < 1; i++){
+        elementos.add(0, String.valueOf(0));
+        elementos.add(1, String.valueOf(xi));
+        elementos.add(2, String.valueOf(xs));
+
         if(tol >= 0){
             if(ite > 0){
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
@@ -150,11 +158,16 @@ public class bisectionFragment extends Fragment {
                         if(yi*ys < 0){
 
                             double xm = (xi + xs) / 2;
+                            elementos.add(3, String.valueOf(xm));
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
+                            elementos.add(4, String.valueOf(ym));
                             double error = tol + 1;
-
+                            elementos.add(5, "");
+                            tabla.agregarFilaTabla(elementos);
                             int cont = 1;
+
                             double xaux = xm;
+
                             graphSerie(xi,xs,this.function.getExpression(),graph,Color.BLUE);
                             while((ym != 0) && (error > tol) && (cont < ite)){
                                 if(yi*ym < 0){
@@ -164,15 +177,26 @@ public class bisectionFragment extends Fragment {
                                     xi = xm;
                                     yi = ym;
                                 }
+                                elementos.add(0, String.valueOf(cont));
+                                elementos.add(1, String.valueOf(xi));
+                                elementos.add(2, String.valueOf(xs));
                                 xaux = xm;
                                 xm = (xi + xs) / 2;
+                                elementos.add(3, String.valueOf(xm));
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
+                                elementos.add(4, String.valueOf(ym));
                                 graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#FA4659",false);
-                                if(errorRel)
+                                if(errorRel){
                                     error = Math.abs(xm - xaux)/xm;
-                                else
+                                    elementos.add(5, String.valueOf(error));
+                                }else{
                                     error = Math.abs(xm - xaux);
+                                    elementos.add(5, String.valueOf(error));
+                                    }
                                 cont++;
+                                tabla.agregarFilaTabla(elementos);
+                                //elementos.add(0,String.valueOf(cont));
+                                //tabla.agregarFilaTabla(elementos);
                             }
 
                             if(ym == 0){
@@ -204,6 +228,7 @@ public class bisectionFragment extends Fragment {
         }else{
             textError.setError("Tolerance must be < 0");
             //System.out.println("Tolerance < 0");
+        }
         }
     }
 

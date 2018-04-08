@@ -126,7 +126,7 @@ public class incrementalSearchFragment extends Fragment {
         graph.removeAllSeries();
         function.setPrecision(100);
         Tabla tabla = new Tabla(getActivity(), (TableLayout) view.findViewById(R.id.tabla));
-        tabla.agregarCabecera(R.array.cabecera_tabla);
+        tabla.agregarCabecera(R.array.cabecera_tablaIncremental);
         ArrayList<String> elementos1 = new ArrayList<String>();
             elementos1.add(0, String.valueOf(0));
             elementos1.add(1, String.valueOf(x0));
