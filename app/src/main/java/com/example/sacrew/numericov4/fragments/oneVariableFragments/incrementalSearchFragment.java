@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.Tabla;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -22,6 +24,7 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static com.example.sacrew.numericov4.graphMethods.graphPoint;
 
@@ -70,8 +73,6 @@ public class incrementalSearchFragment extends Fragment {
                 executeHelp();
             }
         });
-
-
         return view;
     }
 
@@ -123,46 +124,66 @@ public class incrementalSearchFragment extends Fragment {
     public void incrementalSearchMethod(Double x0,Double delta,int ite) {
         graph.removeAllSeries();
         function.setPrecision(100);
-        if(delta != 0){
-            if(ite > 0){
-                double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                if(y0 != 0){
-                    double x1 = x0 + delta;
-                    double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                    int cont = 1;
-                    LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
-                    serie.appendData(new DataPoint(x1,y1),false,ite);
-                    while(((y1*y0) > 0) && (cont < ite)){
-                        x0 = x1;
-                        y0 = y1;
-                        x1 = x0 + delta;
-                        y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                        if(delta >= 0)
-                        serie.appendData(new DataPoint(x1,y1),false,ite);
-                        else {
-                            // no se puede graficar funciones alrevez :(
+        Tabla tabla = new Tabla(getActivity(), (TableLayout) view.findViewById(R.id.tabla));
+        tabla.agregarCabecera(R.array.cabecera_tabla);
+            ArrayList<String> elementos1 = new ArrayList<String>();
+            elementos1.add(0, String.valueOf(0));
+            elementos1.add(1, String.valueOf(x0));
+            if (delta != 0) {
+                if (ite > 0) {
+                    double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    elementos1.add(2, String.valueOf(y0));
+                    tabla.agregarFilaTabla(elementos1);
+                    if (y0 != 0) {
+                        int cont = 1;
+                        elementos1.add(0, String.valueOf(cont));
+                        double x1 = x0 + delta;
+                        elementos1.add(1, String.valueOf(x1));
+                        double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
+                        elementos1.add(2, String.valueOf(y1));
+                        tabla.agregarFilaTabla(elementos1);
+                        LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
+                        serie.appendData(new DataPoint(x1, y1), false, ite);
+
+                            while (((y1 * y0) > 0) && (cont < ite)) {
+                                cont++;
+                                elementos1.add(0, String.valueOf(cont));
+                                x0 = x1;
+                                y0 = y1;
+                                x1 = x0 + delta;
+                                elementos1.add(1, String.valueOf(x1));
+                                y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
+                                elementos1.add(2, String.valueOf(y1));
+                                tabla.agregarFilaTabla(elementos1);
+                                if (delta >= 0)
+                                    serie.appendData(new DataPoint(x1, y1), false, ite);
+                                else {
+                                    // no se puede graficar funciones alrevez :(
+                                }
+                            }
+
+                        graph.addSeries(serie);
+                        if (y1 == 0) {
+                            graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                            //System.out.println(x1 + " is a root");
+                        } else if (y1 * y0 < 0) {
+                            //System.out.println("[" + x0 + ", " + x1 + "] is an interval");
+                        } else {
+                            // System.out.println("Failed the interval!");
                         }
-                        cont++;
+                    } else {
+                        graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                        //System.out.println(x0 + " is a root");
                     }
-                    graph.addSeries(serie);
-                    if(y1 == 0){
-                        graphPoint(x1,y1,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
-                        //System.out.println(x1 + " is a root");
-                    }else if(y1*y0 < 0){
-                        //System.out.println("[" + x0 + ", " + x1 + "] is an interval");
-                    }else{
-                        // System.out.println("Failed the interval!");
-                    }
-                }else{
-                    graphPoint(x0,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
-                    //System.out.println(x0 + " is a root");
+                } else {
+                    iter.setError("Iterate needs be >0");
                 }
-            }else{
-                iter.setError("Iterate needs be >0");
+            } else {
+                this.delta.setError("Delta cannot be zero");
             }
-        }else{
-            this.delta.setError("Delta cannot be zero");
-        }
+
+
     }
+
 
 }

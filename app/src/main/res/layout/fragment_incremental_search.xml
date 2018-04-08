@@ -52,16 +52,14 @@
             android:id="@+id/delta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Delta"
-            android:text="0.1" />
+            android:hint="Delta" />
 
         <EditText
             android:id="@+id/iterations"
             android:layout_width="54dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Iters"
-            android:text="80" />
+            android:hint="Iters" />
 
     </LinearLayout>
 
@@ -73,7 +71,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:orientation="horizontal">
 
             <Button
@@ -93,6 +91,37 @@
                 android:background="@color/Transparent"
                 android:text="HELP" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTabla"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:id="@+id/scrollvertical"
+                android:layout_width="wrap_content"
+                android:layout_height="118dp"
+                android:layout_weight="1"
+                android:scrollbars="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TableLayout
+                        android:id="@+id/tabla"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"></TableLayout>
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
