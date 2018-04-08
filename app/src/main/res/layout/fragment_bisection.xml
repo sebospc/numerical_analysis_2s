@@ -120,7 +120,7 @@
                 android:layout_marginRight="18dp"
                 android:layout_toLeftOf="@+id/xi"
                 android:layout_toStartOf="@+id/xi"
-                android:text="Interval" />
+                android:text="Interval from" />
         </RelativeLayout>
 
         <LinearLayout

@@ -64,6 +64,7 @@ public class bisectionFragment extends Fragment {
         });
         runHelp = view.findViewById(R.id.runHelp);
         runHelp.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 executeHelp();
@@ -154,7 +155,7 @@ public class bisectionFragment extends Fragment {
 
                             int cont = 1;
                             double xaux = xm;
-                            graphSerie(xi,xs,this.function.getExpression(),graph);
+                            graphSerie(xi,xs,this.function.getExpression(),graph,Color.BLUE);
                             while((ym != 0) && (error > tol) && (cont < ite)){
                                 if(yi*ym < 0){
                                     xs = xm;

@@ -7,28 +7,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.RequiresApi;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.DataPointInterface;
-import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.PointsGraphSeries;
-import com.jjoe64.graphview.series.Series;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
 
 import static com.example.sacrew.numericov4.graphMethods.graphPoint;
 import static com.example.sacrew.numericov4.graphMethods.graphSerie;
@@ -51,6 +45,7 @@ public class falsePositionFragment extends Fragment {
     private View view;
     private TextView xi,xs,iter,textFunction,textError;
     private ToggleButton errorToggle;
+    private List<Integer> colors = new LinkedList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +60,7 @@ public class falsePositionFragment extends Fragment {
         });
         runHelp = view.findViewById(R.id.runHelp);
         runHelp.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 executeHelp();
@@ -132,14 +128,14 @@ public class falsePositionFragment extends Fragment {
         }
         if(!error) {
             if(errorToggle.isChecked()){
-                bisectionMethod(xiValue,xsValue,errorValue,ite,true);
+                falsePosition(xiValue,xsValue,errorValue,ite,true);
             }else{
-                bisectionMethod(xiValue,xsValue,errorValue,ite,false);
+                falsePosition(xiValue,xsValue,errorValue,ite,false);
             }
         }
     }
 
-    public void bisectionMethod(Double xi,Double xs,Double tol,int ite,boolean errorRel) {
+    public void falsePosition(Double xi, Double xs, Double tol, int ite, boolean errorRel) {
         graph.removeAllSeries();
         function.setPrecision(100);
         if(tol >= 0){
@@ -150,12 +146,12 @@ public class falsePositionFragment extends Fragment {
                     if(ys != 0){
                         if(yi*ys < 0){
 
-                            double xm = (xi + xs) / 2;
+                            double xm = xi -(yi*(xs-xi))/(yi-ys);
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
                             int cont = 1;
                             double xaux = xm;
-                            graphSerie(xi,xs,this.function.getExpression(),graph);
+                            graphSerie(xi,xs,this.function.getExpression(),graph, Color.BLUE);
                             while((ym != 0) && (error > tol) && (cont < ite)){
                                 if(yi*ym < 0){
                                     xs = xm;
@@ -165,7 +161,9 @@ public class falsePositionFragment extends Fragment {
                                     yi = ym;
                                 }
                                 xaux = xm;
-                                xm = xi - ((yi*(xi-xs))/(yi-ys));
+                                //graphStraight(xi,yi,xs,ys,graph);
+                                xm = xi - ((yi*(xs-xi))/(ys-yi));
+                                //graphPoint(xm,0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#FA4659",false);
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
 
                                 if(errorRel)
