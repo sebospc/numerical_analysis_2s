@@ -106,7 +106,6 @@ public class incrementalSearchFragment extends Fragment {
             }
         }catch (Exception e){
             textFunction.setError("Invalid function");
-
             error = true;
         }
         try{
