@@ -2,6 +2,8 @@ package com.example.sacrew.numericov4;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -107,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onGraphIt(View view) {
         homeFragment.graphIt(view);
     }

@@ -10,12 +10,15 @@ import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
+import com.example.sacrew.numericov4.fragments.home;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -43,7 +46,8 @@ public class falsePositionFragment extends Fragment {
     private GraphView graph;
     private Expression function;
     private View view;
-    private TextView xi,xs,iter,textFunction,textError;
+    private TextView xi,xs,iter,textError;
+    private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
     private List<Integer> colors = new LinkedList<>();
 
@@ -74,6 +78,8 @@ public class falsePositionFragment extends Fragment {
         xs = view.findViewById(R.id.xs);
         errorToggle = view.findViewById(R.id.errorToggle);
 
+        textFunction.setAdapter(new ArrayAdapter<String>
+                (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
         return view;
     }
 
@@ -96,6 +102,11 @@ public class falsePositionFragment extends Fragment {
             this.function = new Expression(textFunction.getText().toString());
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
+            if(!home.allFunctions.contains(function.getExpression())){
+                home.allFunctions.add(function.getExpression());
+                textFunction.setAdapter(new ArrayAdapter<String>
+                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+            }
         }catch (Exception e){
             textFunction.setError("Invalid function");
 

@@ -158,7 +158,7 @@ public class Expression {
 			String.CASE_INSENSITIVE_ORDER);
 
 	/**
-	 * All defined functions with name and implementation.
+	 * All defined allFunctions with name and implementation.
 	 */
 	private Map<String, com.udojava.evalex.LazyFunction> functions = new TreeMap<String, com.udojava.evalex.LazyFunction>(
 			String.CASE_INSENSITIVE_ORDER);
@@ -204,7 +204,7 @@ public class Expression {
 	}
 
 	/**
-	 * LazyNumber interface created for lazily evaluated functions
+	 * LazyNumber interface created for lazily evaluated allFunctions
 	 */
 	public interface LazyNumber {
 		BigDecimal eval();
@@ -1436,7 +1436,7 @@ public class Expression {
 	}
 
 	/**
-	 * Adds a function to the list of supported functions
+	 * Adds a function to the list of supported allFunctions
 	 * 
 	 * @param function
 	 *            The function to add.
@@ -1448,7 +1448,7 @@ public class Expression {
 	}
 
 	/**
-	 * Adds a lazy function function to the list of supported functions
+	 * Adds a lazy function function to the list of supported allFunctions
 	 *
 	 * @param function
 	 *            The function to add.
@@ -1616,7 +1616,7 @@ public class Expression {
 
 	/**
 	 * Check that the expression has enough numbers and variables to fit the
-	 * requirements of the operators and functions, also check for only 1 result
+	 * requirements of the operators and allFunctions, also check for only 1 result
 	 * stored at the end of the evaluation.
 	 */
 	private void validate(List<Token> rpn) {
@@ -1729,9 +1729,9 @@ public class Expression {
 	}
 
 	/**
-	 * Exposing declared functions.
+	 * Exposing declared allFunctions.
 	 * 
-	 * @return All declared functions.
+	 * @return All declared allFunctions.
 	 */
 	public Set<String> getDeclaredFunctions() {
 		return Collections.unmodifiableSet(functions.keySet());

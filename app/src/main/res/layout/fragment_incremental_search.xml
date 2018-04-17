@@ -35,7 +35,7 @@
         android:layout_weight=".9"
         android:orientation="horizontal">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/function"
             android:layout_width="191dp"
             android:layout_height="wrap_content"

@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,8 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -59,6 +59,8 @@ public class home extends Fragment {
     private CircleButton addFieldButton,deleteFieldButton,graphButton;
     private Button hider;
     private List <Integer> colors = new LinkedList<>();
+    static public List <String> allFunctions = new LinkedList<>();
+
 
     public home() {
         // Required empty public constructor
@@ -133,7 +135,12 @@ public class home extends Fragment {
 
         // Add the new field before the add field button.
 
+
+
         parentLinearLayout.addView(rowView, 0);
+        AutoCompleteTextView edittext_var = ((View) rowView.getParent()).findViewById(R.id.function_edit_text);
+        edittext_var.setAdapter(new ArrayAdapter<String>
+                (getActivity(), android.R.layout.select_dialog_item, allFunctions));
     }
     public void hide(View v){
         if(isup) { // down
@@ -208,7 +215,7 @@ public class home extends Fragment {
     public void graphIt(View v){
         double start = -40D;
         try {
-            EditText edittext_var;
+            AutoCompleteTextView edittext_var;
             edittext_var = ((View) v.getParent()).findViewById(R.id.function_edit_text);
             SeekBar seek = ((SeekBar)((View) v.getParent()).findViewById(R.id.seek));
             int iter = seek.getProgress();
@@ -245,7 +252,16 @@ public class home extends Fragment {
                 viewToColor.put(code,color);
             }
             seek.setProgressTintList(ColorStateList.valueOf(viewToColor.get(code)));
-            graphParalelism(function,iter,start,code);
+            /*
+             * autocomplete allFunctions
+             */
+            if(!allFunctions.contains(function)) {
+                allFunctions.add(function);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                        (getActivity(), android.R.layout.select_dialog_item, allFunctions);
+                edittext_var.setAdapter(adapter);
+            }
+            graphParalelism(function, iter, start, code);
             if(viewToFunction.containsKey(code)){
                 for (LineGraphSeries<DataPoint> inSerie  : viewToFunction.get(code)) {
                     graph.removeSeries(inSerie);

@@ -11,6 +11,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import android.widget.ToggleButton;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
+import com.example.sacrew.numericov4.fragments.home;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -47,7 +50,8 @@ public class bisectionFragment extends Fragment {
     private GraphView graph;
     private Expression function;
     private View view;
-    private TextView xi,xs,iter,textFunction,textError;
+    private TextView xi,xs,iter,textError;
+    private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
     private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
 
@@ -78,6 +82,9 @@ public class bisectionFragment extends Fragment {
         xs = view.findViewById(R.id.xs);
         errorToggle = view.findViewById(R.id.errorToggle);
 
+        textFunction.setAdapter(new ArrayAdapter<String>
+                (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+
         return view;
     }
 
@@ -97,8 +104,13 @@ public class bisectionFragment extends Fragment {
 
         try{
             this.function = new Expression(textFunction.getText().toString());
-
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
+
+            if(!home.allFunctions.contains(function.getExpression())){
+                home.allFunctions.add(function.getExpression());
+                textFunction.setAdapter(new ArrayAdapter<String>
+                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+            }
         }catch (Exception e){
             textFunction.setError("Invalid function");
 
