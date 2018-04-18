@@ -135,38 +135,21 @@ public class incrementalSearchFragment extends Fragment {
     public void incrementalSearchMethod(Double x0,Double delta,int ite) {
         graph.removeAllSeries();
         function.setPrecision(100);
-        Tabla tabla = new Tabla(getActivity(), (TableLayout) view.findViewById(R.id.tabla));
-        tabla.agregarCabecera(R.array.cabecera_tablaIncremental);
-        ArrayList<String> elementos1 = new ArrayList<String>();
-            elementos1.add(0, String.valueOf(0));
-            elementos1.add(1, String.valueOf(x0));
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    elementos1.add(2, String.valueOf(y0));
-
-                    tabla.agregarFilaTabla(elementos1);
                     if (y0 != 0) {
                         int cont = 1;
-                        elementos1.add(0, String.valueOf(cont));
                         double x1 = x0 + delta;
-                        elementos1.add(1, String.valueOf(x1));
                         double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                        elementos1.add(2, String.valueOf(y1));
-                        tabla.agregarFilaTabla(elementos1);
                         LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
                         serie.appendData(new DataPoint(x1, y1), false, ite);
-
                         while (((y1 * y0) > 0) && (cont < ite)) {
                             cont++;
-                            elementos1.add(0, String.valueOf(cont));
                             x0 = x1;
                             y0 = y1;
                             x1 = x0 + delta;
-                            elementos1.add(1, String.valueOf(x1));
                             y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                            elementos1.add(2, String.valueOf(y1));
-                            tabla.agregarFilaTabla(elementos1);
                             if (delta >= 0)
                                 serie.appendData(new DataPoint(x1, y1), false, ite);
                             else {
