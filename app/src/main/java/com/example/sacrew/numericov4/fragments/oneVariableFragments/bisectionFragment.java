@@ -55,6 +55,7 @@ public class bisectionFragment extends Fragment {
     private ToggleButton errorToggle;
     private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
