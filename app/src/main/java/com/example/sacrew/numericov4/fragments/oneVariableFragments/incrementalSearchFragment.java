@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -20,15 +21,20 @@ import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.Tabla;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.example.sacrew.numericov4.fragments.home;
+import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
+import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import static com.example.sacrew.numericov4.R.layout.incremental_search_list_adapter;
 import static com.example.sacrew.numericov4.graphMethods.graphPoint;
 
 /**
@@ -51,6 +57,7 @@ public class incrementalSearchFragment extends Fragment {
     private TextView xValue;
     private TextView delta;
     private TextView iter;
+    private ListView listView;
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +66,7 @@ public class incrementalSearchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_incremental_search,container,false);
         runIncremental = view.findViewById(R.id.runIncremental);
         runHelp = view.findViewById(R.id.runHelp);
+        listView = view.findViewById(R.id.listView);
         graph = view.findViewById(R.id.incrementalGraph);
         textFunction = view.findViewById(R.id.function);
         xValue = view.findViewById(R.id.x_value);
@@ -89,6 +97,7 @@ public class incrementalSearchFragment extends Fragment {
         startActivity(i);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void execute(){
 
         boolean error = false;
@@ -132,18 +141,30 @@ public class incrementalSearchFragment extends Fragment {
         }
     }
 
-    public void incrementalSearchMethod(Double x0,Double delta,int ite) {
+    public static String convertir(double val){
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("0.##");
+        return num.format(val);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void incrementalSearchMethod(Double x0, Double delta, int ite) {
         graph.removeAllSeries();
         function.setPrecision(100);
+        ArrayList<IncrementalSearch> listValues = new ArrayList<>();
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0),String.valueOf(convertir(x0)),String.valueOf(convertir(y0)));
+                    listValues.add(iteZero);
                     if (y0 != 0) {
                         int cont = 1;
                         double x1 = x0 + delta;
                         double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
                         LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
                         serie.appendData(new DataPoint(x1, y1), false, ite);
+                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont),String.valueOf(convertir(x1)),String.valueOf(convertir(y1)));
+                        listValues.add(iterFirst);
                         while (((y1 * y0) > 0) && (cont < ite)) {
                             cont++;
                             x0 = x1;
@@ -155,6 +176,8 @@ public class incrementalSearchFragment extends Fragment {
                             else {
                                 // no se puede graficar funciones alrevez :(
                             }
+                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont),String.valueOf(convertir(x1)),String.valueOf(convertir(y1)));
+                            listValues.add(iterNext);
                         }
 
                         graph.addSeries(serie);
@@ -178,6 +201,8 @@ public class incrementalSearchFragment extends Fragment {
         }else {
                 this.delta.setError("Delta cannot be zero");
             }
+        IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.incremental_search_list_adapter, listValues);
+        listView.setAdapter(adapter);
     }
 
     }
