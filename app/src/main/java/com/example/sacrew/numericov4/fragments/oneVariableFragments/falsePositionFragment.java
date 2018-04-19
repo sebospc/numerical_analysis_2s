@@ -54,8 +54,8 @@ public class falsePositionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_fake_rule,container,false);
-        runFake = view.findViewById(R.id.runFake);
+        view = inflater.inflate(R.layout.fragment_false_position,container,false);
+        runFake = view.findViewById(R.id.runFalse);
         runFake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +70,7 @@ public class falsePositionFragment extends Fragment {
                 executeHelp();
             }
         });
-        graph = view.findViewById(R.id.fakeRuleGraph);
+        graph = view.findViewById(R.id.falseGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);

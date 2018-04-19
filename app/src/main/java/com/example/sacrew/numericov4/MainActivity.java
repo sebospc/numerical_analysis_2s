@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
         idFragment = 0;
 
+
+
     }
 
     AdapterView.OnItemClickListener adap = new AdapterView.OnItemClickListener() {

@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.RequiresApi;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.example.sacrew.numericov4.fragments.home;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
@@ -53,7 +50,7 @@ public class fixedPointFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_fixed_pont,container,false);
+        view = inflater.inflate(R.layout.fragment_fixed_point,container,false);
         runFixed = view.findViewById(R.id.runFixed);
         runFixed.setOnClickListener(new View.OnClickListener() {
             @Override

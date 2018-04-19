@@ -9,8 +9,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="283dp"
-        android:layout_weight=".15"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
         android:orientation="vertical">
 
         <TextView
@@ -25,53 +25,59 @@
         <com.jjoe64.graphview.GraphView
             android:id="@+id/incrementalGraph"
             android:layout_width="match_parent"
-            android:layout_height="229dp" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.31">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal">
+
+            <AutoCompleteTextView
+                android:id="@+id/function"
+                android:layout_width="191dp"
+                android:layout_height="wrap_content"
+                android:hint="Function" />
+
+            <EditText
+                android:id="@+id/x_value"
+                android:layout_width="33dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="x" />
+
+            <EditText
+                android:id="@+id/delta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Delta" />
+
+            <EditText
+                android:id="@+id/iterations"
+                android:layout_width="54dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Iters" />
+
+        </LinearLayout>
+    </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_weight=".9"
-        android:orientation="horizontal">
-
-        <AutoCompleteTextView
-            android:id="@+id/function"
-            android:layout_width="191dp"
-            android:layout_height="wrap_content"
-            android:hint="Function" />
-
-        <EditText
-            android:id="@+id/x_value"
-            android:layout_width="33dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="x" />
-
-        <EditText
-            android:id="@+id/delta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Delta" />
-
-        <EditText
-            android:id="@+id/iterations"
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Iters" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="272dp"
-        android:layout_weight=".15"
+        android:layout_height="match_parent"
+        android:layout_weight="0.2"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="30dp"
             android:orientation="horizontal">
 
             <Button
@@ -95,7 +101,7 @@
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="132dp" />
+            android:layout_height="167dp" />
 
 
     </LinearLayout>

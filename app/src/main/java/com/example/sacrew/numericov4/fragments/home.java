@@ -29,6 +29,10 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.udojava.evalex.Expression;
 
+
+import net.objecthunter.exp4j.ExpressionBuilder;
+import net.objecthunter.exp4j.function.Function;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -36,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import at.markushi.ui.CircleButton;
+
 
 
 /**
@@ -70,6 +75,9 @@ public class home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         //define colors
         colors.add(Color.parseColor("#FF6D24"));
         colors.add(Color.parseColor("#00204A"));
