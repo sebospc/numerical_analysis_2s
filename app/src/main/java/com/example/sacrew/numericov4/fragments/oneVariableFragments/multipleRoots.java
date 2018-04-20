@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.annotation.RequiresApi;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,27 +33,27 @@ import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class fixedPointFragment extends Fragment {
+public class multipleRoots extends Fragment {
 
     private Button runFixed;
     private Button runHelp;
     private GraphView graph;
     private Expression function,functionG;
     private View view;
-    private TextView xvalue, textFunctionG,iter,textError;
+    private TextView xvalue, textFunctionG,iter,textError,textFunctionGPrim;
     private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
-
-    public fixedPointFragment() {
-
+    public multipleRoots() {
+        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_fixed_point,container,false);
-        runFixed = view.findViewById(R.id.runFixed);
+        // Inflate the layout for this
+        view = inflater.inflate(R.layout.fragment_multiple_roots, container, false);
+        runFixed = view.findViewById(R.id.runMultiple);
         runFixed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,12 +68,13 @@ public class fixedPointFragment extends Fragment {
                 executeHelp();
             }
         });
-        graph = view.findViewById(R.id.fixedGraph);
+        graph = view.findViewById(R.id.multipleGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
         xvalue = view.findViewById(R.id.xValue);
         textFunctionG = view.findViewById(R.id.functionG);
+        textFunctionGPrim = view.findViewById(R.id.functionGprim);
         errorToggle = view.findViewById(R.id.errorToggle);
 
         textFunction.setAdapter(new ArrayAdapter<String>
@@ -109,10 +110,24 @@ public class fixedPointFragment extends Fragment {
             error = true;
         }
 
+        String originalFuncDGPrim = textFunctionGPrim.getText().toString();
+        try{
+            this.functionG = new Expression(functionRevision(originalFuncDGPrim));
+            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
+            if(!home.allFunctions.contains(originalFuncDGPrim)){
+                home.allFunctions.add(originalFuncDGPrim);
+                textFunction.setAdapter(new ArrayAdapter<String>
+                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+            }
+        }catch (Exception e){
+            textFunctionG.setError("Invalid function");
+            error = true;
+        }
         try{
             String originalFuncG = textFunctionG.getText().toString();
-            this.functionG = new Expression(functionRevision(originalFuncG));
-
+            String functionCompose= "x-((("+originalFunc+")*("+originalFuncG+
+                    "))/((("+originalFuncG+")^2)-(("+originalFunc+")*("+originalFuncDGPrim+"))))";
+            this.functionG = new Expression(functionRevision(functionCompose));
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
             if(!home.allFunctions.contains(originalFuncG)){
                 home.allFunctions.add(originalFuncG);
@@ -144,14 +159,14 @@ public class fixedPointFragment extends Fragment {
         }
         if(!error) {
             if(errorToggle.isChecked()){
-                fixedPointMethod(xValue,errorValue,ite,true);
+                multipleRootsMethod(xValue,errorValue,ite,true);
             }else{
-                fixedPointMethod(xValue,errorValue,ite,false);
+                multipleRootsMethod(xValue,errorValue,ite,false);
             }
         }
     }
 
-    private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel) {
+    private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel) {
         try {
             graph.removeAllSeries();
 
@@ -176,7 +191,6 @@ public class fixedPointFragment extends Fragment {
                             cont++;
                         }
                         graphSerie(xa-0.5, xa, function.getExpression(), graph, Color.BLUE);
-                        graphSerie(xa-0.5, xa, functionG.getExpression(), graph, Color.RED);
                         if (y0 == 0) {
                             graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             //System.out.println(xa + " is a root");
@@ -202,7 +216,13 @@ public class fixedPointFragment extends Fragment {
         }catch(Exception e){
             Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
         }
-        }
+    }
 
 
 }
+
+
+
+
+
+

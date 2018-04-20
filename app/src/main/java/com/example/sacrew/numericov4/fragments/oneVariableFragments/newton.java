@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.annotation.RequiresApi;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +33,7 @@ import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class fixedPointFragment extends Fragment {
+public class newton extends Fragment {
 
     private Button runFixed;
     private Button runHelp;
@@ -44,16 +44,17 @@ public class fixedPointFragment extends Fragment {
     private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
 
-    public fixedPointFragment() {
-
+    public newton() {
+        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_fixed_point,container,false);
-        runFixed = view.findViewById(R.id.runFixed);
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_newton, container, false);
+        runFixed = view.findViewById(R.id.runNewton);
         runFixed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +69,7 @@ public class fixedPointFragment extends Fragment {
                 executeHelp();
             }
         });
-        graph = view.findViewById(R.id.fixedGraph);
+        graph = view.findViewById(R.id.newtonGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
@@ -80,6 +81,7 @@ public class fixedPointFragment extends Fragment {
                 (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
         return view;
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void executeHelp(){
@@ -111,8 +113,8 @@ public class fixedPointFragment extends Fragment {
 
         try{
             String originalFuncG = textFunctionG.getText().toString();
-            this.functionG = new Expression(functionRevision(originalFuncG));
-
+            String functionCompose= "x-(("+originalFunc+")/("+originalFuncG+"))";
+            this.functionG = new Expression(functionRevision(functionCompose));
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
             if(!home.allFunctions.contains(originalFuncG)){
                 home.allFunctions.add(originalFuncG);
@@ -144,14 +146,14 @@ public class fixedPointFragment extends Fragment {
         }
         if(!error) {
             if(errorToggle.isChecked()){
-                fixedPointMethod(xValue,errorValue,ite,true);
+                newtonMethod(xValue,errorValue,ite,true);
             }else{
-                fixedPointMethod(xValue,errorValue,ite,false);
+                newtonMethod(xValue,errorValue,ite,false);
             }
         }
     }
 
-    private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel) {
+    private void newtonMethod(Double x0, Double tol, int ite, boolean errorRel) {
         try {
             graph.removeAllSeries();
 
@@ -202,7 +204,10 @@ public class fixedPointFragment extends Fragment {
         }catch(Exception e){
             Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
         }
-        }
+    }
 
 
 }
+
+
+

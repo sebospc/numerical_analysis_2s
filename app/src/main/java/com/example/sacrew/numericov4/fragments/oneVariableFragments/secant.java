@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.annotation.RequiresApi;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,28 +33,27 @@ import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class fixedPointFragment extends Fragment {
+public class secant extends Fragment {
 
-    private Button runFixed;
+    private Button runSecant;
     private Button runHelp;
     private GraphView graph;
     private Expression function,functionG;
     private View view;
-    private TextView xvalue, textFunctionG,iter,textError;
+    private TextView xi,xs,iter,textError;
     private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
-
-    public fixedPointFragment() {
-
+    public secant() {
+        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_fixed_point,container,false);
-        runFixed = view.findViewById(R.id.runFixed);
-        runFixed.setOnClickListener(new View.OnClickListener() {
+        view = inflater.inflate(R.layout.fragment_secant, container, false);
+        runSecant = view.findViewById(R.id.runSecant);
+        runSecant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 execute();
@@ -68,12 +67,12 @@ public class fixedPointFragment extends Fragment {
                 executeHelp();
             }
         });
-        graph = view.findViewById(R.id.fixedGraph);
+        graph = view.findViewById(R.id.secantGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
-        xvalue = view.findViewById(R.id.xValue);
-        textFunctionG = view.findViewById(R.id.functionG);
+        xi = view.findViewById(R.id.xi);
+        xs = view.findViewById(R.id.xs);
         errorToggle = view.findViewById(R.id.errorToggle);
 
         textFunction.setAdapter(new ArrayAdapter<String>
@@ -87,108 +86,107 @@ public class fixedPointFragment extends Fragment {
         startActivity(i);
     }
 
-    public void execute(){
+    public void execute() {
         boolean error = false;
-        Double xValue = 0.0;
+        Double xiValue = 0.0;
+        Double xsValue = 0.0;
         int ite = 0;
-        Double errorValue= 0.0;
+        Double errorValue = 0.0;
         String originalFunc = textFunction.getText().toString();
-        try{
+        try {
 
             this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(originalFunc)){
+            if (!home.allFunctions.contains(originalFunc)) {
                 home.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
                         (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
             }
-        }catch (Exception e){
+
+        } catch (Exception e) {
             textFunction.setError("Invalid function");
 
             error = true;
         }
-
-        try{
-            String originalFuncG = textFunctionG.getText().toString();
-            this.functionG = new Expression(functionRevision(originalFuncG));
-
-            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(originalFuncG)){
-                home.allFunctions.add(originalFuncG);
-                textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
-            }
-        }catch (Exception e){
-            textFunctionG.setError("Invalid function");
+        try {
+            xiValue = Double.parseDouble(xi.getText().toString());
+            (function.with("x", BigDecimal.valueOf(xiValue)).eval()).doubleValue();
+        } catch (Exception e) {
+            xi.setError("Invalid Xi");
             error = true;
         }
-
-        try{
-            xValue = Double.parseDouble(xvalue.getText().toString());
-        }catch(Exception e){
-            xvalue.setError("Invalid Xi");
+        try {
+            xsValue = Double.parseDouble(xs.getText().toString());
+            (function.with("x", BigDecimal.valueOf(xsValue)).eval()).doubleValue();
+        } catch (Exception e) {
+            xs.setError("Invalid xs");
             error = true;
         }
         try {
             ite = Integer.parseInt(iter.getText().toString());
-        }catch (Exception e){
+        } catch (Exception e) {
             iter.setError("Wrong iterations");
             error = true;
         }
         try {
             errorValue = new Expression(textError.getText().toString()).eval().doubleValue();
-            System.out.println("error value  "+errorValue);
-        }catch (Exception e){
+            System.out.println("error value  " + errorValue);
+        } catch (Exception e) {
             textError.setError("Invalid error value");
         }
-        if(!error) {
-            if(errorToggle.isChecked()){
-                fixedPointMethod(xValue,errorValue,ite,true);
-            }else{
-                fixedPointMethod(xValue,errorValue,ite,false);
+        if (!error) {
+            if (errorToggle.isChecked()) {
+                secantMethod(xiValue, xsValue, errorValue, ite, true);
+            } else {
+                secantMethod(xiValue, xsValue, errorValue, ite, false);
             }
         }
     }
 
-    private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel) {
+    private void secantMethod(Double x0,Double x1, Double tol, int ite, boolean errorRel) {
         try {
             graph.removeAllSeries();
 
             function.setPrecision(100);
             if (tol >= 0) {
                 if (ite > 0) {
-                    double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    if (y0 != 0) {
+                    double fx0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    if (fx0 != 0) {
+                        Double fx1 = (this.function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
+
+                        Double error = tol+1;
                         int cont = 0;
-                        double error = tol + 1;
-                        double xa = x0;
-
-                        while ((y0 != 0) && (error > tol) && (cont < ite)) {
-                            double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                            y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-
+                        Double aux0 = x0;
+                        Double aux1 = x1;
+                        Double den = fx1-fx0;
+                        while(fx1 != 0 && den != 0 && error > tol && cont < ite) {
+                            Double aux2 = aux1 - (((this.function.with("x", BigDecimal.valueOf(aux1))
+                                    .eval().doubleValue()))* (aux1 - aux0) / den);
                             if (errorRel)
-                                error = Math.abs(xn - xa) / xn;
+                                error = Math.abs(aux2 - aux1) / aux2;
                             else
-                                error = Math.abs(xn - xa);
-                            xa = xn;
-                            cont++;
+                                error = Math.abs(aux2 - aux1);
+                            aux0 = aux1;
+                            fx0 = fx1;
+                            aux1 = aux2;
+                            fx1  = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
+                            den = fx1 - fx0;
+                            cont = cont + 1;
                         }
-                        graphSerie(xa-0.5, xa, function.getExpression(), graph, Color.BLUE);
-                        graphSerie(xa-0.5, xa, functionG.getExpression(), graph, Color.RED);
-                        if (y0 == 0) {
-                            graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                        graphSerie(aux1-0.5, aux1, function.getExpression(), graph, Color.BLUE);
+                        if (fx1 == 0) {
+                            graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             //System.out.println(xa + " is a root");
                         } else if (error <= tol) {
-                            y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                            graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                            fx1 = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
+                            graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             //System.out.println(xa + " is an aproximate root");
                         } else {
                             System.out.println("Failed the interval!");
                         }
                     } else {
-                        graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                        graphPoint(x0, fx0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                         //System.out.println(x0 + " is a root");
                     }
                 } else {
@@ -202,7 +200,6 @@ public class fixedPointFragment extends Fragment {
         }catch(Exception e){
             Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
         }
-        }
-
+    }
 
 }
