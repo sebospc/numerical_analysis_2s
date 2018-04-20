@@ -33,6 +33,7 @@ import com.udojava.evalex.Expression;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
+import static com.example.sacrew.numericov4.graphMethods.functionRevision;
 import static com.example.sacrew.numericov4.graphMethods.graphPoint;
 import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 
@@ -104,11 +105,12 @@ public class bisectionFragment extends Fragment {
         Double errorValue= 0.0;
 
         try{
-            this.function = new Expression(textFunction.getText().toString());
-            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
+            String originalFunc = textFunction.getText().toString();
+            this.function = new Expression(functionRevision(originalFunc));
 
-            if(!home.allFunctions.contains(function.getExpression())){
-                home.allFunctions.add(function.getExpression());
+            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
+            if(!home.allFunctions.contains(originalFunc)){
+                home.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
                         (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
             }
@@ -119,12 +121,14 @@ public class bisectionFragment extends Fragment {
         }
         try{
             xiValue = Double.parseDouble(xi.getText().toString());
+            (function.with("x", BigDecimal.valueOf(xiValue)).eval()).doubleValue();
         }catch(Exception e){
             xi.setError("Invalid Xi");
             error = true;
         }
         try{
             xsValue = Double.parseDouble(xs.getText().toString());
+            (function.with("x", BigDecimal.valueOf(xsValue)).eval()).doubleValue();
         }catch (Exception e){
             xs.setError("Invalid xs");
             error = true;

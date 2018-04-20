@@ -35,6 +35,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static com.example.sacrew.numericov4.R.layout.incremental_search_list_adapter;
+import static com.example.sacrew.numericov4.graphMethods.functionRevision;
 import static com.example.sacrew.numericov4.graphMethods.graphPoint;
 
 /**
@@ -73,6 +74,7 @@ public class incrementalSearchFragment extends Fragment {
         delta = view.findViewById(R.id.delta);
         iter = view.findViewById(R.id.iterations);
         runIncremental.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 execute();
@@ -105,11 +107,12 @@ public class incrementalSearchFragment extends Fragment {
         Double deltaPrim = 0.0;
         int ite = 0;
         try{
-            this.function = new Expression(textFunction.getText().toString());
+            String originalFunc = textFunction.getText().toString();
+            this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(function.getExpression())){
-                home.allFunctions.add(function.getExpression());
+            if(!home.allFunctions.contains(originalFunc)){
+                home.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
                         (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
             }
@@ -119,6 +122,7 @@ public class incrementalSearchFragment extends Fragment {
         }
         try{
             x = Double.parseDouble(xValue.getText().toString());
+            (function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
         }catch(Exception e){
             xValue.setError("Invalid x");
             error = true;

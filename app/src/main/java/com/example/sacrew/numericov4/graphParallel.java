@@ -46,11 +46,12 @@ public class graphParallel implements Runnable {
             }catch(Exception e){
                 System.out.println("ojo negativo "+x);
                 if(x < 0)
-                    x = x *-1;
+                    x = 0.0001;
             }
         }
         series.setColor(color);
         home.listSeries.add(series);
+
 
 
     }

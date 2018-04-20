@@ -35,7 +35,11 @@ public class graphMethods {
         }catch (Exception ignored){
 
         }
-
+        if(x > end){
+            Double aux =x;
+            x = end;
+            end = aux;
+        }
         while(x <= end){
             serie.appendData(new DataPoint(x,yi),true,(int)Math.ceil(Math.abs(end-start)/0.1));
             x = x + 0.1;
@@ -62,6 +66,12 @@ public class graphMethods {
         root.setColor(Color.parseColor(color));
     }
 
+    public static String functionRevision(String function){
+        if(function.contains("ln"))
+            return function.replace("ln",""+Math.E+"*log10");
+        else
+            return function;
+    }
     /*public static void graphStraight(double x, double y, double xi, double yi, GraphView graph){
         LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
         if(x > xi){

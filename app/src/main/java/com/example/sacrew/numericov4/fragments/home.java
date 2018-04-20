@@ -30,8 +30,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.udojava.evalex.Expression;
 
 
-import net.objecthunter.exp4j.ExpressionBuilder;
-import net.objecthunter.exp4j.function.Function;
+
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -40,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 
 import at.markushi.ui.CircleButton;
+
 
 
 
@@ -78,6 +78,7 @@ public class home extends Fragment {
 
 
 
+
         //define colors
         colors.add(Color.parseColor("#FF6D24"));
         colors.add(Color.parseColor("#00204A"));
@@ -103,6 +104,7 @@ public class home extends Fragment {
         viewToFunction = new HashMap<>();
         //poop
         addFieldButton = view.findViewById(R.id.add_field_button);
+        onAddField(null);
         deleteFieldButton = view.findViewById(R.id.delete_button);
         graphButton = view.findViewById(R.id.graph_button);
         hider = view.findViewById(R.id.buttonHide);
@@ -131,6 +133,7 @@ public class home extends Fragment {
                 hide(view);
             }
         });
+
         return view;
 
 
@@ -228,6 +231,7 @@ public class home extends Fragment {
             SeekBar seek = ((SeekBar)((View) v.getParent()).findViewById(R.id.seek));
             int iter = seek.getProgress();
             String function = String.valueOf(edittext_var.getText());
+            String functionAux = function;
             if(function.length() !=0)
                 function = function.toLowerCase();
 
@@ -237,15 +241,19 @@ public class home extends Fragment {
                 start = 0.001D;
             else if(function.contains(("e"))){
                 this.scale = 0.1D;
-            }else
+            }else if(function.contains(("ln"))) {
+                function = function.replace("ln",""+Math.E+"*log10");
+            } else {
                 try {
+                    //evaluateFunction(function,-1);
                     (exp.with("x", BigDecimal.valueOf(-1)).eval()).doubleValue();
-                    start = -1*iter*0.1;
-                    iter = iter*2;
-                    System.out.println(iter+" num " + iter*0.1+" start: "+ start);
-                }catch (java.lang.NumberFormatException e){
+                    start = -1 * iter * 0.1;
+                    iter = iter * 2;
+                    System.out.println(iter + " num " + iter * 0.1 + " start: " + start);
+                } catch (java.lang.NumberFormatException e) {
                     start = 0.001D;
                 }
+            }
 
             Toast.makeText(getActivity(), function, Toast.LENGTH_SHORT).show();
 
@@ -263,8 +271,8 @@ public class home extends Fragment {
             /*
              * autocomplete allFunctions
              */
-            if(!allFunctions.contains(function)) {
-                allFunctions.add(function);
+            if(!allFunctions.contains(functionAux)) {
+                allFunctions.add(functionAux);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>
                         (getActivity(), android.R.layout.select_dialog_item, allFunctions);
                 edittext_var.setAdapter(adapter);

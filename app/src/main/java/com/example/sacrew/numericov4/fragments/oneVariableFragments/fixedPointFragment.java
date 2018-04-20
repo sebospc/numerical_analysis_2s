@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
@@ -25,6 +26,7 @@ import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
 
+import static com.example.sacrew.numericov4.graphMethods.functionRevision;
 import static com.example.sacrew.numericov4.graphMethods.graphPoint;
 import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 
@@ -92,11 +94,12 @@ public class fixedPointFragment extends Fragment {
         Double errorValue= 0.0;
 
         try{
-            this.function = new Expression(textFunction.getText().toString());
+            String originalFunc = textFunction.getText().toString();
+            this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(function.getExpression())){
-                home.allFunctions.add(function.getExpression());
+            if(!home.allFunctions.contains(originalFunc)){
+                home.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
                         (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
             }
@@ -105,12 +108,7 @@ public class fixedPointFragment extends Fragment {
 
             error = true;
         }
-        try{
-            xValue = Double.parseDouble(xvalue.getText().toString());
-        }catch(Exception e){
-            xvalue.setError("Invalid Xi");
-            error = true;
-        }
+
         try{
             this.functionG = new Expression(textFunctionG.getText().toString());
 
@@ -120,6 +118,12 @@ public class fixedPointFragment extends Fragment {
             error = true;
         }
 
+        try{
+            xValue = Double.parseDouble(xvalue.getText().toString());
+        }catch(Exception e){
+            xvalue.setError("Invalid Xi");
+            error = true;
+        }
         try {
             ite = Integer.parseInt(iter.getText().toString());
         }catch (Exception e){
@@ -141,51 +145,60 @@ public class fixedPointFragment extends Fragment {
         }
     }
 
-    private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel){
-        graph.removeAllSeries();
-        function.setPrecision(100);
-        if(tol >= 0){
-            if(ite > 0){
-                double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                if(y0 != 0){
-                    int cont = 0;
-                    double error = tol + 1;
-                    double xa = x0;
+    private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel) {
+        try {
+            graph.removeAllSeries();
 
-                    while((y0 != 0) && (error > tol) && (cont < ite)){
-                        double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                        y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+            function.setPrecision(100);
+            if (tol >= 0) {
+                if (ite > 0) {
+                    double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    if (y0 != 0) {
+                        int cont = 0;
+                        double error = tol + 1;
+                        double xa = x0;
 
-                        if(errorRel)
-                            error = Math.abs(xn - xa)/xn;
-                        else
-                            error = Math.abs(xn - xa);
-                        xa = xn;
-                        cont++;
+                        while ((y0 != 0) && (error > tol) && (cont < ite)) {
+                            double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+                            y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+
+                            if (errorRel)
+                                error = Math.abs(xn - xa) / xn;
+                            else
+                                error = Math.abs(xn - xa);
+                            xa = xn;
+                            cont++;
+                        }
+                        graphSerie(xa-0.5, xa, function.getExpression(), graph, Color.BLUE);
+                        graphSerie(xa-0.5, xa, functionG.getExpression(), graph, Color.RED);
+                        System.out.println("aqui1");
+                        if (y0 == 0) {
+                            System.out.println("aqui2");
+                            graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                            //System.out.println(xa + " is a root");
+                        } else if (error <= tol) {
+                            System.out.println("aqui3");
+                            graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                            //System.out.println(xa + " is an aproximate root");
+                        } else {
+                            System.out.println("Failed the interval!");
+                        }
+                    } else {
+                        graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                        //System.out.println(x0 + " is a root");
                     }
-                    graphSerie(x0,xa,function.getExpression(),graph, Color.BLUE);
-                    graphSerie(x0,xa,functionG.getExpression(),graph, Color.RED);
-                    if(y0 == 0){
-                        graphPoint(xa,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
-                        //System.out.println(xa + " is a root");
-                    }else if(error <= tol){
-                        graphPoint(xa,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
-                        //System.out.println(xa + " is an aproximate root");
-                    }else{
-                        //System.out.println("Failed the interval!");
-                    }
-                }else{
-                    graphPoint(x0,y0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
-                    //System.out.println(x0 + " is a root");
+                } else {
+                    iter.setError("Wrong iterates");
+                    //System.out.println("Wrong iterates!");
                 }
-            }else{
-                iter.setError("Wrong iterates");
-                //System.out.println("Wrong iterates!");
+            } else {
+                textError.setError("Tolerance must be < 0");
+                //System.out.println("Tolerance < 0");
             }
-        }else{
-            textError.setError("Tolerance must be < 0");
-            //System.out.println("Tolerance < 0");
+        }catch(Exception e){
+            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
         }
-    }
+        }
+
 
 }

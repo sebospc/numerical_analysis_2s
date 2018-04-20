@@ -63,7 +63,7 @@
                     android:layout_margin="5dp"
                     android:animateLayoutChanges="true"
                     android:orientation="vertical">
-                    <include layout="@layout/field"/>
+                    x
 
 
                     <LinearLayout

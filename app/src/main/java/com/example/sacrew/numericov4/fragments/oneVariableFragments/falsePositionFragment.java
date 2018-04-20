@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.example.sacrew.numericov4.graphMethods.functionRevision;
 import static com.example.sacrew.numericov4.graphMethods.graphPoint;
 import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 
@@ -99,11 +100,12 @@ public class falsePositionFragment extends Fragment {
         Double errorValue= 0.0;
 
         try{
-            this.function = new Expression(textFunction.getText().toString());
+            String originalFunc = textFunction.getText().toString();
+            this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(function.getExpression())){
-                home.allFunctions.add(function.getExpression());
+            if(!home.allFunctions.contains(originalFunc)){
+                home.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
                         (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
             }
@@ -114,12 +116,14 @@ public class falsePositionFragment extends Fragment {
         }
         try{
             xiValue = Double.parseDouble(xi.getText().toString());
+            (function.with("x", BigDecimal.valueOf(xiValue)).eval()).doubleValue();
         }catch(Exception e){
             xi.setError("Invalid Xi");
             error = true;
         }
         try{
             xsValue = Double.parseDouble(xs.getText().toString());
+            (function.with("x", BigDecimal.valueOf(xsValue)).eval()).doubleValue();
         }catch (Exception e){
             xs.setError("Invalid xs");
             error = true;
