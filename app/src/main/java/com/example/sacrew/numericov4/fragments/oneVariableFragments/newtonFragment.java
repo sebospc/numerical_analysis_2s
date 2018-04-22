@@ -19,6 +19,7 @@ import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewton;
 import com.example.sacrew.numericov4.fragments.home;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
@@ -33,7 +34,7 @@ import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class newton extends Fragment {
+public class newtonFragment extends Fragment {
 
     private Button runFixed;
     private Button runHelp;
@@ -44,7 +45,7 @@ public class newton extends Fragment {
     private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
 
-    public newton() {
+    public newtonFragment() {
         // Required empty public constructor
     }
 
@@ -85,7 +86,7 @@ public class newton extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void executeHelp(){
-        Intent i = new Intent(getContext().getApplicationContext(), popUpFixedPoint.class);
+        Intent i = new Intent(getContext().getApplicationContext(), popUpNewton.class);
         startActivity(i);
     }
 

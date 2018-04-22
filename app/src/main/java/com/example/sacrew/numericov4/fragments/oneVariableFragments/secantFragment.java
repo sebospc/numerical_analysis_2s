@@ -19,6 +19,7 @@ import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpSecant;
 import com.example.sacrew.numericov4.fragments.home;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
@@ -33,7 +34,7 @@ import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class secant extends Fragment {
+public class secantFragment extends Fragment {
 
     private Button runSecant;
     private Button runHelp;
@@ -43,7 +44,7 @@ public class secant extends Fragment {
     private TextView xi,xs,iter,textError;
     private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
-    public secant() {
+    public secantFragment() {
         // Required empty public constructor
     }
 
@@ -82,7 +83,7 @@ public class secant extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void executeHelp(){
-        Intent i = new Intent(getContext().getApplicationContext(), popUpFixedPoint.class);
+        Intent i = new Intent(getContext().getApplicationContext(), popUpSecant.class);
         startActivity(i);
     }
 

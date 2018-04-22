@@ -41,7 +41,7 @@ public class oneVariable extends Fragment {
         dotLayout = view.findViewById(R.id.dotLayout);
         dotLayout.setGravity(Gravity.CENTER);
         titles = new String[]{"Incremental Search","Bisection","Fake Rule","Fixed Point","Newton"
-                              ,"Secant","Multiple roots"};
+                              ,"Secant","Multiple Roots"};
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager());
         slideView.setAdapter(pager);
         slideView.addOnPageChangeListener(viewListener);
