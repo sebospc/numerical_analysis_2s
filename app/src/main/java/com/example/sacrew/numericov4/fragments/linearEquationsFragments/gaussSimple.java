@@ -5,7 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.RequiresApi;
-import android.text.method.SingleLineTransformationMethod;
+
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;

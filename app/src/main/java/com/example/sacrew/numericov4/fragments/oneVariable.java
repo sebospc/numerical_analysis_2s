@@ -19,9 +19,9 @@ import com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFra
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.falsePositionFragment;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.fixedPointFragment;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.incrementalSearchFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.multipleRoots;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.newton;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.secant;
+import com.example.sacrew.numericov4.fragments.oneVariableFragments.multipleRootsFragment;
+import com.example.sacrew.numericov4.fragments.oneVariableFragments.newtonFragment;
+import com.example.sacrew.numericov4.fragments.oneVariableFragments.secantFragment;
 import com.example.sacrew.numericov4.pagerAdapter;
 
 import java.util.LinkedList;
@@ -56,9 +56,9 @@ public class oneVariable extends Fragment {
         fragments.add(new bisectionFragment());
         fragments.add(new falsePositionFragment());
         fragments.add(new fixedPointFragment());
-        fragments.add(new newton());
-        fragments.add(new secant());
-        fragments.add(new multipleRoots());
+        fragments.add(new newtonFragment());
+        fragments.add(new secantFragment());
+        fragments.add(new multipleRootsFragment());
         size = fragments.size();
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(),fragments);
         slideView.setAdapter(pager);
