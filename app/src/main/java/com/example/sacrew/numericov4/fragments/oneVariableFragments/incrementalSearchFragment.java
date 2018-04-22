@@ -14,11 +14,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.Tabla;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.example.sacrew.numericov4.fragments.home;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
@@ -34,7 +32,6 @@ import java.util.Locale;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import static com.example.sacrew.numericov4.R.layout.incremental_search_list_adapter;
 import static com.example.sacrew.numericov4.graphMethods.functionRevision;
 import static com.example.sacrew.numericov4.graphMethods.graphPoint;
 
