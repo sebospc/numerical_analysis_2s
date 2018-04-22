@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.sacrew.numericov4.fragments.home;
+import com.example.sacrew.numericov4.fragments.linearEquationsFragments.gaussSimple;
 import com.example.sacrew.numericov4.fragments.oneVariable;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private home homeFragment;
     private oneVariable oneVariableFragment;
+    private gaussSimple gaussSimpleFragment;
     private Boolean first = true;
     private int idFragment; //0 is home // 1 is one variable
     private FragmentManager fragmentManager;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         drawerLayout = findViewById(R.id.root);
-        final String[] opciones ={"Home","One Variable"};
+        final String[] opciones ={"Home","One Variable","Linear equations"};
         ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,opciones);
         menuLateral = findViewById(R.id.menuLateral);
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         //home default
         homeFragment = new home();
         oneVariableFragment = new oneVariable();
+        gaussSimpleFragment = new gaussSimple();
         fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.mainLayout, homeFragment);
@@ -67,13 +70,26 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 1: openOneVariable();
                     break;
+                case 2: openLinearEquations();
+                    break;
                 default:
                     break;
             }
 
         }
     };
+    public void home(){
+        if(idFragment != 0) {
+            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
+            System.out.println("Home");
+            drawerLayout.closeDrawer(menuLateral);
 
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(R.id.mainLayout, homeFragment);
+            transaction.commit();
+            idFragment = 0;
+        }
+    }
     public void openOneVariable(){
 
         if(idFragment != 1) {
@@ -87,6 +103,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public void openLinearEquations(){
+        if(idFragment != 2){
+            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
+            drawerLayout.closeDrawer(menuLateral);
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(R.id.mainLayout, gaussSimpleFragment);
+            transaction.commit();
+            idFragment = 2;
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(drawerLayout.isDrawerOpen(menuLateral)){
@@ -97,18 +124,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void home(){
-        if(idFragment != 0) {
-            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
-            System.out.println("Home");
-            drawerLayout.closeDrawer(menuLateral);
 
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.mainLayout, homeFragment);
-            transaction.commit();
-            idFragment = 0;
-        }
-    }
+
+    
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

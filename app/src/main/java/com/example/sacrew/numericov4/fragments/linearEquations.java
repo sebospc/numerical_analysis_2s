@@ -15,13 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.falsePositionFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.fixedPointFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.incrementalSearchFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.multipleRoots;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.newton;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.secant;
+import com.example.sacrew.numericov4.fragments.linearEquationsFragments.gaussSimple;
 import com.example.sacrew.numericov4.pagerAdapter;
 
 import java.util.LinkedList;
@@ -30,14 +24,16 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class oneVariable extends Fragment {
+public class linearEquations extends Fragment {
     private ViewPager slideView;
     private LinearLayout dotLayout;
 
     private TextView[] dots;
     private View view;
     private int size;
-    public oneVariable() {
+
+
+    public linearEquations() {
         // Required empty public constructor
     }
 
@@ -46,28 +42,19 @@ public class oneVariable extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_one_variable,container,false);
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_linear_equations, container, false);
         slideView = view.findViewById(R.id.viewPager);
         dotLayout = view.findViewById(R.id.dotLayout);
         dotLayout.setGravity(Gravity.CENTER);
-
-        List<Fragment> fragments = new LinkedList<>();
-        fragments.add(new incrementalSearchFragment());
-        fragments.add(new bisectionFragment());
-        fragments.add(new falsePositionFragment());
-        fragments.add(new fixedPointFragment());
-        fragments.add(new newton());
-        fragments.add(new secant());
-        fragments.add(new multipleRoots());
+        List<android.app.Fragment> fragments = new LinkedList<>();
+        fragments.add(new gaussSimple());
         size = fragments.size();
-        pagerAdapter pager = new pagerAdapter(getChildFragmentManager(),fragments);
+        pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
         slideView.addOnPageChangeListener(viewListener);
-        addDotsIndicator(0);
-
         return view;
     }
-
     public void addDotsIndicator(int position){
         dots = new TextView[size];
         dotLayout.removeAllViews();
@@ -97,6 +84,4 @@ public class oneVariable extends Fragment {
 
         }
     };
-
-
 }
