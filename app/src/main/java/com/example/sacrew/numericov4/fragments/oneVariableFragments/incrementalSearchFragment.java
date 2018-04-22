@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,12 +16,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.example.sacrew.numericov4.fragments.home;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
+import com.example.sacrew.numericov4.fragments.tableFragments.incrementalSearch_Table;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -142,7 +145,13 @@ public class incrementalSearchFragment extends Fragment {
         }
     }
 
-    public static String convertir(double val){
+    public static String convertirCientifica(double val){
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("0.##E0");
+        return num.format(val);
+    }
+
+    public static String convertirNormal(double val){
         Locale.setDefault(Locale.US);
         DecimalFormat num = new DecimalFormat("0.##");
         return num.format(val);
@@ -156,7 +165,7 @@ public class incrementalSearchFragment extends Fragment {
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0),String.valueOf(convertir(x0)),String.valueOf(convertir(y0)));
+                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0),String.valueOf(convertirNormal(x0)),String.valueOf(convertirCientifica(y0)));
                     listValues.add(iteZero);
                     if (y0 != 0) {
                         int cont = 1;
@@ -164,7 +173,7 @@ public class incrementalSearchFragment extends Fragment {
                         double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
                         LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
                         serie.appendData(new DataPoint(x1, y1), false, ite);
-                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont),String.valueOf(convertir(x1)),String.valueOf(convertir(y1)));
+                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont),String.valueOf(convertirNormal(x1)),String.valueOf(convertirCientifica(y1)));
                         listValues.add(iterFirst);
                         while (((y1 * y0) > 0) && (cont < ite)) {
                             cont++;
@@ -175,32 +184,38 @@ public class incrementalSearchFragment extends Fragment {
                             if (delta >= 0)
                                 serie.appendData(new DataPoint(x1, y1), false, ite);
                             else {
-                                // no se puede graficar funciones alrevez :(
+                                // no se puede graficar funciones al reves :(
                             }
-                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont),String.valueOf(convertir(x1)),String.valueOf(convertir(y1)));
+                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont),String.valueOf(convertirNormal(x1)),String.valueOf(convertirCientifica(y1)));
                             listValues.add(iterNext);
                         }
 
                         graph.addSeries(serie);
                         if (y1 == 0) {
                             graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                            Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
                             //System.out.println(x1 + " is a root");
                         } else if (y1 * y0 < 0) {
+                            Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
                             //System.out.println("[" + x0 + ", " + x1 + "] is an interval");
                         } else {
+                            Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
                             // System.out.println("Failed the interval!");
                         }
                     } else {
                         graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                        Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
                         //System.out.println(x0 + " is a root");
                     }
 
             } else {
                     iter.setError("Iterate needs be >0");
+                    Toast.makeText(getContext(), "Iterate needs be >0", Toast.LENGTH_SHORT).show();
                 }
 
         }else {
                 this.delta.setError("Delta cannot be zero");
+                Toast.makeText(getContext(), "Delta cannot be zero", Toast.LENGTH_SHORT).show();
             }
         IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.incremental_search_list_adapter, listValues);
         listView.setAdapter(adapter);

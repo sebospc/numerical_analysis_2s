@@ -37,12 +37,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="0"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewXn"
+                android:id="@+id/textViewXi"
                 android:layout_width="47dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -52,7 +52,37 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewFXn"
+                android:id="@+id/textViewXs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewXm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewFXm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
