@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="333dp"
+        android:layout_height="253dp"
+        android:gravity="center_horizontal"
+        android:text="This method requires the user enter an x vaue, number of iterations and tolerance, also this method requires an
+function f and f' (optionally).
+
+The execution o the program consist in found the vlue of x that makes x = x - f/f' and then remplace in f(x)
+to make f(x) = 0"
+        android:textColor="@android:color/white"
+        android:textSize="19sp"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="20dp"
+        tools:textColor="@android:color/white" />
+</android.support.constraint.ConstraintLayout>

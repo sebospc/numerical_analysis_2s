@@ -19,6 +19,7 @@ import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpMultipleRoots;
 import com.example.sacrew.numericov4.fragments.home;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
@@ -33,7 +34,7 @@ import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class multipleRoots extends Fragment {
+public class multipleRootsFragment extends Fragment {
 
     private Button runFixed;
     private Button runHelp;
@@ -43,7 +44,7 @@ public class multipleRoots extends Fragment {
     private TextView xvalue, textFunctionG,iter,textError,textFunctionGPrim;
     private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
-    public multipleRoots() {
+    public multipleRootsFragment() {
         // Required empty public constructor
     }
 
@@ -84,7 +85,7 @@ public class multipleRoots extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void executeHelp(){
-        Intent i = new Intent(getContext().getApplicationContext(), popUpFixedPoint.class);
+        Intent i = new Intent(getContext().getApplicationContext(), popUpMultipleRoots.class);
         startActivity(i);
     }
 
