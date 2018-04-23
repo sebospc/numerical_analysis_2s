@@ -14,20 +14,28 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
 import com.example.sacrew.numericov4.fragments.home;
+import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePosition;
+import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePositionListAdapter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
+import static com.example.sacrew.numericov4.graphMethods.functionRevision;
 import static com.example.sacrew.numericov4.graphMethods.graphPoint;
 import static com.example.sacrew.numericov4.graphMethods.graphSerie;
 
@@ -47,6 +55,7 @@ public class falsePositionFragment extends Fragment {
     private GraphView graph;
     private Expression function;
     private View view;
+    private ListView listView;
     private TextView xi,xs,iter,textError;
     private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
@@ -58,16 +67,18 @@ public class falsePositionFragment extends Fragment {
         try {
             view = inflater.inflate(R.layout.fragment_false_position, container, false);
         }catch (InflateException e){
-            // ignorable
+            //ojo
         }
         runFake = view.findViewById(R.id.runFalse);
         runFake.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 execute();
             }
         });
         runHelp = view.findViewById(R.id.runHelp);
+        listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -94,6 +105,7 @@ public class falsePositionFragment extends Fragment {
         startActivity(i);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void execute(){
         this.xi.setError(null);
         this.xs.setError(null);
@@ -104,11 +116,12 @@ public class falsePositionFragment extends Fragment {
         Double errorValue= 0.0;
 
         try{
-            this.function = new Expression(textFunction.getText().toString());
+            String originalFunc = textFunction.getText().toString();
+            this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(function.getExpression())){
-                home.allFunctions.add(function.getExpression());
+            if(!home.allFunctions.contains(originalFunc)){
+                home.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
                         (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
             }
@@ -119,12 +132,14 @@ public class falsePositionFragment extends Fragment {
         }
         try{
             xiValue = Double.parseDouble(xi.getText().toString());
+            (function.with("x", BigDecimal.valueOf(xiValue)).eval()).doubleValue();
         }catch(Exception e){
             xi.setError("Invalid Xi");
             error = true;
         }
         try{
             xsValue = Double.parseDouble(xs.getText().toString());
+            (function.with("x", BigDecimal.valueOf(xsValue)).eval()).doubleValue();
         }catch (Exception e){
             xs.setError("Invalid xs");
             error = true;
@@ -151,9 +166,23 @@ public class falsePositionFragment extends Fragment {
         }
     }
 
+    public static String convertirCientifica(double val){
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("0.##E0");
+        return num.format(val);
+    }
+
+    public static String convertirNormal(double val){
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("0.##");
+        return num.format(val);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void falsePosition(Double xi, Double xs, Double tol, int ite, boolean errorRel) {
         graph.removeAllSeries();
         function.setPrecision(100);
+        ArrayList<FalsePosition> listValues = new ArrayList<>();
         if(tol >= 0){
             if(ite > 0){
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
@@ -165,6 +194,8 @@ public class falsePositionFragment extends Fragment {
                             double xm = xi -(yi*(xs-xi))/(yi-ys);
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
+                            FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
+                            listValues.add(iteZero);
                             int cont = 1;
                             double xaux = xm;
                             graphSerie(xi,xs,this.function.getExpression(),graph, Color.BLUE);
@@ -186,15 +217,19 @@ public class falsePositionFragment extends Fragment {
                                     error = Math.abs(xm - xaux)/xm;
                                 else
                                     error = Math.abs(xm - xaux);
+                                FalsePosition iteNext = new FalsePosition(String.valueOf(cont), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
+                                listValues.add(iteNext);
                                 cont++;
                             }
 
                             if(ym == 0){
                                 graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+                                Toast.makeText(getContext(), convertirNormal(xm) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                                 //System.out.println(xm + " is an aproximate root");
 
                             }else if(error < tol){
                                 graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+                                Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                                 //System.out.println(xaux + " is an aproximate root");
                             }else{
                                 //System.out.println("Failed!");
@@ -202,25 +237,32 @@ public class falsePositionFragment extends Fragment {
                         }else{
                             this.xi.setError("Failed the interval");
                             this.xs.setError("Failed the interval");
+                            Toast.makeText(getContext(),  "Failed!", Toast.LENGTH_SHORT).show();
                             //System.out.println("Failed the interval!");
 
                         }
                     }else{
+                        Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         //System.out.println(xs + " is an aproximate root");
                         graphPoint(xs,ys,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                     }
                 }else{
+                    Toast.makeText(getContext(), convertirNormal(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                     //System.out.println(xi + " is an aproximate root");
                     graphPoint(xi,yi,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                 }
             }else{
                 iter.setError("Wrong iterates");
+                Toast.makeText(getContext(), "Wrong iterates!", Toast.LENGTH_SHORT).show();
                 //System.out.println("Wrong iterates!");
             }
         }else{
             textError.setError("Tolerance must be < 0");
+            Toast.makeText(getContext(), "Tolerance < 0", Toast.LENGTH_SHORT).show();
             //System.out.println("Tolerance < 0");
         }
+        FalsePositionListAdapter adapter = new FalsePositionListAdapter(getContext(), R.layout.false_position_list_adapter, listValues);
+        listView.setAdapter(adapter);
     }
 
 
