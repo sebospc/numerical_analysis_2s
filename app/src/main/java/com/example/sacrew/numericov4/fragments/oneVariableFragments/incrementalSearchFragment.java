@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.RequiresApi;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,11 @@ public class incrementalSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        try{
         view = inflater.inflate(R.layout.fragment_incremental_search,container,false);
+        }catch (InflateException e){
+            // ignorable
+        }
         runIncremental = view.findViewById(R.id.runIncremental);
         runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);

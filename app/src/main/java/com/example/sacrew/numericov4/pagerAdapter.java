@@ -5,13 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.falsePositionFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.fixedPointFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.incrementalSearchFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.multipleRootsFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.newtonFragment;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.secantFragment;
 
 import java.util.List;
 

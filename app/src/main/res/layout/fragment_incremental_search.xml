@@ -116,7 +116,7 @@
                     android:layout_weight="1" />
 
                 <fragment
-                    android:id="@+id/fragment4"
+                    android:id="@+id/fragmentIncrement123"
                     android:name="com.example.sacrew.numericov4.fragments.tableFragments.incrementalSearch_Table"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -11,11 +11,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.example.sacrew.numericov4.R;
 
@@ -27,6 +27,7 @@ public class gaussSimple extends Fragment {
     private View view;
     private TableLayout matrix;
     private LinearLayout equals;
+    private Button run,add;
     public gaussSimple() {
         // Required empty public constructor
     }
@@ -40,7 +41,14 @@ public class gaussSimple extends Fragment {
         view = inflater.inflate(R.layout.fragment_gauss_simple, container, false);
         matrix = (TableLayout) view.findViewById(R.id.matrix);
         equals = view.findViewById(R.id.arrayEquals);
-        paintMatrix(10);
+        run = view.findViewById(R.id.run);
+        run.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                execute();
+            }
+        });
+        paintMatrix(2);
         return view;
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -79,6 +87,76 @@ public class gaussSimple extends Fragment {
         }
     }
 
+    public void execute(){
+        int n = matrix.getChildCount();
+        double [][] gauss = new double[n][n+1];
+        for(int i=0; i<n; i++){
+            for (int j=0; j< n;j++){
+                EditText aux = ((EditText) ((TableRow) matrix.getChildAt(i)).getChildAt(j));
+                try {
+                    double x = 0;
 
+                    x = Double.parseDouble((aux.getText())
+                            .toString());
+                    //System.out.print(x);
+                    gauss[i][j] = x;
+                }catch (Exception e){
+                    aux.setError("invalid value");
+                    return;
+                }
+            }
+            EditText aux = ((EditText)equals.getChildAt(i));
+            try{
+                double x = Double.parseDouble(aux.getText().toString());
+                gauss[i][n] = x;
+            }catch (Exception e){
+                aux.setError("invalid value");
+                return;
+            }
+        }
+        elimination(gauss);
+    }
+
+    public void elimination(double [][] gauss){
+        for(int k = 0; k< gauss.length; k++){
+            for (int i = k + 1; i < gauss.length; i++){
+                double multiplier = gauss[i][k] / gauss[k][k];
+                for(int j = k; j < gauss.length + 1; j++){
+                    gauss[i][j] = gauss[i][j] - multiplier*gauss[k][j];
+                }
+
+            }
+
+
+        }
+
+        for(int k = 0; k< gauss.length; k++){
+            for (int i = 0; i < gauss.length+1; i++){
+                System.out.print(gauss[k][i]+"    ");
+            }
+            System.out.println("");
+        }
+        substitution(gauss);
+    }
+    public void substitution(double [][] gauss){
+        int n = gauss.length-1;
+        double[] values = new double[n+1];
+        double x = gauss[n][n+1]/gauss[n][n];
+        values[values.length-1] = x;
+        for(int i = n -1 ; i>=0 ; i--){
+            double sumatoria = 0;
+            for(int p = i + 1; p < n; p++ ){
+                sumatoria = sumatoria + gauss[i][p]*values[p-1];
+            }
+            values[i] = (gauss[i][n+1]-sumatoria)/gauss[i][i];
+
+
+        }
+
+        for(double val: values){
+            System.out.println(val);
+        }
+
+    }
 
 }

@@ -184,10 +184,11 @@
                         android:layout_height="wrap_content" />
 
                     <fragment
-                        android:id="@+id/fragment"
+                        android:id="@+id/fragmentFalsePosition"
                         android:name="com.example.sacrew.numericov4.fragments.tableFragments.falsePosition_Table"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp" />
+                        android:layout_height="30dp"
+                        tools:layout="@layout/false_position_fragment_table" />
 
                     <ListView
                         android:id="@+id/listView"
