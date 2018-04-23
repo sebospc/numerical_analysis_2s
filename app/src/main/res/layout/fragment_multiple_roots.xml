@@ -57,8 +57,7 @@
                     android:layout_width="55dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Iters"
-                    android:text="80" />
+                    android:hint="Iters" />
 
                 <EditText
                     android:id="@+id/error"

@@ -57,8 +57,7 @@
                     android:layout_width="55dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Iters"
-                    android:text="80" />
+                    android:hint="Iters" />
 
                 <EditText
                     android:id="@+id/error"
@@ -83,6 +82,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".9"
                 android:orientation="horizontal">
+
                 <EditText
                     android:id="@+id/xi"
                     android:layout_width="100dp"
@@ -92,7 +92,7 @@
                     android:layout_toLeftOf="@+id/to"
                     android:layout_toStartOf="@+id/to"
                     android:layout_weight="1"
-                    android:hint="Xi" />
+                    android:hint="X0" />
 
                 <TextView
                     android:id="@+id/to"
@@ -104,7 +104,7 @@
                     android:layout_toLeftOf="@+id/xs"
                     android:layout_toStartOf="@+id/xs"
                     android:layout_weight="1"
-                    android:text=" To" />
+                    android:text="and " />
 
                 <EditText
                     android:id="@+id/xs"
@@ -116,7 +116,7 @@
                     android:layout_marginEnd="36dp"
                     android:layout_marginRight="36dp"
                     android:layout_weight="1"
-                    android:hint="Xs" />
+                    android:hint="X1" />
             </RelativeLayout>
 
         </LinearLayout>
@@ -153,43 +153,39 @@
                     android:layout_weight="1"
                     android:background="@color/Transparent"
                     android:text="HELP" />
+
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutTabla"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <ScrollView
-                    android:id="@+id/scrollvertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="118dp"
-                    android:layout_weight="1"
-                    android:scrollbars="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <HorizontalScrollView
-                        android:id="@+id/scrollhorizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:scrollbars="horizontal">
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                    <fragment
+                        android:id="@+id/fragment"
+                        android:name="com.example.sacrew.numericov4.fragments.tableFragments.secant_Table"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
 
-                            <TableLayout
-                                android:id="@+id/tabla"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"></TableLayout>
-                        </LinearLayout>
-                    </HorizontalScrollView>
-                </ScrollView>
+                    <ListView
+                        android:id="@+id/listView"
+                        android:layout_width="match_parent"
+                        android:layout_height="122dp">
+
+                    </ListView>
+
+                </LinearLayout>
 
             </LinearLayout>
 
