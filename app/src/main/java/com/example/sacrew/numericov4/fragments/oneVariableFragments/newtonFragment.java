@@ -20,11 +20,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewton;
-import com.example.sacrew.numericov4.fragments.home;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPoint;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPointListAdapter;
+import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Newton;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.NewtonListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -36,9 +33,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.example.sacrew.numericov4.graphMethods.functionRevision;
-import static com.example.sacrew.numericov4.graphMethods.graphPoint;
-import static com.example.sacrew.numericov4.graphMethods.graphSerie;
+import static com.example.sacrew.numericov4.utilMethods.functionRevision;
+import static com.example.sacrew.numericov4.utilMethods.graphPoint;
+import static com.example.sacrew.numericov4.utilMethods.graphSerie;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,8 +48,8 @@ public class newtonFragment extends Fragment {
     private Expression function,functionG;
     private View view;
     private ListView listView;
-    private TextView xvalue, textFunctionG,iter,textError;
-    private AutoCompleteTextView textFunction;
+    private TextView xvalue,iter,textError;
+    private AutoCompleteTextView textFunction, textFunctionG;
     private ToggleButton errorToggle;
 
     public newtonFragment() {
@@ -77,15 +74,15 @@ public class newtonFragment extends Fragment {
                 execute();
             }
         });
-        runHelp = view.findViewById(R.id.runHelp);
+        //runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
-        runHelp.setOnClickListener(new View.OnClickListener() {
+        /*runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 executeHelp();
             }
-        });
+        });*/
         graph = view.findViewById(R.id.newtonGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
@@ -95,7 +92,9 @@ public class newtonFragment extends Fragment {
         errorToggle = view.findViewById(R.id.errorToggle);
 
         textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+        textFunctionG.setAdapter(new ArrayAdapter<String>
+                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
         return view;
     }
 
@@ -118,11 +117,7 @@ public class newtonFragment extends Fragment {
             this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(originalFunc)){
-                home.allFunctions.add(originalFunc);
-                textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
-            }
+            updatefunctions(originalFunc);
         }catch (Exception e){
             textFunction.setError("Invalid function");
 
@@ -134,11 +129,7 @@ public class newtonFragment extends Fragment {
             String functionCompose= "x-(("+originalFunc+")/("+originalFuncG+"))";
             this.functionG = new Expression(functionRevision(functionCompose));
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(originalFuncG)){
-                home.allFunctions.add(originalFuncG);
-                textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
-            }
+            updatefunctions(originalFuncG);
         }catch (Exception e){
             textFunctionG.setError("Invalid function");
             error = true;
@@ -250,6 +241,15 @@ public class newtonFragment extends Fragment {
         }
     }
 
+    public void updatefunctions(String function){
+        if(!graphFragment.allFunctions.contains(function)){
+            graphFragment.allFunctions.add(function);
+            textFunction.setAdapter(new ArrayAdapter<String>
+                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+            textFunctionG.setAdapter(new ArrayAdapter<String>
+                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+        }
+    }
 
 }
 

@@ -21,7 +21,7 @@ import java.util.List;
  * Created by sacrew on 27/03/18.
  */
 
-public class graphMethods {
+public class utilMethods {
 
     public static void graphSerie(double start, double end, String funcitonExpr, GraphView graph, int color){
         Expression function = new Expression(funcitonExpr);
@@ -67,11 +67,13 @@ public class graphMethods {
     }
 
     public static String functionRevision(String function){
-        if(function.contains("ln"))
-            return function.replace("ln",""+Math.E+"*log10");
+        if(function.toLowerCase().contains("ln"))
+            return function.toLowerCase().replace("ln","log");
         else
             return function;
     }
+
+
     /*public static void graphStraight(double x, double y, double xi, double yi, GraphView graph){
         LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
         if(x > xi){

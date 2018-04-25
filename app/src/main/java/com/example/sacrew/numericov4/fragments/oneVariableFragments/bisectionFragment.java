@@ -21,7 +21,7 @@ import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
-import com.example.sacrew.numericov4.fragments.home;
+import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.BisectionListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -33,9 +33,9 @@ import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.util.Locale;
 
-import static com.example.sacrew.numericov4.graphMethods.functionRevision;
-import static com.example.sacrew.numericov4.graphMethods.graphPoint;
-import static com.example.sacrew.numericov4.graphMethods.graphSerie;
+import static com.example.sacrew.numericov4.utilMethods.functionRevision;
+import static com.example.sacrew.numericov4.utilMethods.graphPoint;
+import static com.example.sacrew.numericov4.utilMethods.graphSerie;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,7 +92,7 @@ public class bisectionFragment extends Fragment {
         errorToggle = view.findViewById(R.id.errorToggle);
 
         textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
 
         return view;
     }
@@ -117,10 +117,10 @@ public class bisectionFragment extends Fragment {
             this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(originalFunc)){
-                home.allFunctions.add(originalFunc);
+            if(!graphFragment.allFunctions.contains(originalFunc)){
+                graphFragment.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+                        (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
             }
         }catch (Exception e){
             textFunction.setError("Invalid function");

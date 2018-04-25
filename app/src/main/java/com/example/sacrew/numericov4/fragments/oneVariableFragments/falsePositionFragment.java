@@ -21,7 +21,7 @@ import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
-import com.example.sacrew.numericov4.fragments.home;
+import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePosition;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePositionListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -35,9 +35,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-import static com.example.sacrew.numericov4.graphMethods.functionRevision;
-import static com.example.sacrew.numericov4.graphMethods.graphPoint;
-import static com.example.sacrew.numericov4.graphMethods.graphSerie;
+import static com.example.sacrew.numericov4.utilMethods.functionRevision;
+import static com.example.sacrew.numericov4.utilMethods.graphPoint;
+import static com.example.sacrew.numericov4.utilMethods.graphSerie;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,7 +95,7 @@ public class falsePositionFragment extends Fragment {
         errorToggle = view.findViewById(R.id.errorToggle);
 
         textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
         return view;
     }
 
@@ -120,10 +120,10 @@ public class falsePositionFragment extends Fragment {
             this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(originalFunc)){
-                home.allFunctions.add(originalFunc);
+            if(!graphFragment.allFunctions.contains(originalFunc)){
+                graphFragment.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+                        (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
             }
         }catch (Exception e){
             textFunction.setError("Invalid function");
@@ -191,7 +191,7 @@ public class falsePositionFragment extends Fragment {
                     if(ys != 0){
                         if(yi*ys < 0){
 
-                            double xm = xi -(yi*(xs-xi))/(yi-ys);
+                            double xm = xi -(yi*(xi-xs))/(yi-ys);
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
                             FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
@@ -200,6 +200,8 @@ public class falsePositionFragment extends Fragment {
                             double xaux = xm;
                             graphSerie(xi,xs,this.function.getExpression(),graph, Color.BLUE);
                             while((ym != 0) && (error > tol) && (cont < ite)){
+                                System.out.println("xm "+xm);
+                                System.out.println("ym "+ym);
                                 if(yi*ym < 0){
                                     xs = xm;
                                     ys = ym;
@@ -209,7 +211,7 @@ public class falsePositionFragment extends Fragment {
                                 }
                                 xaux = xm;
                                 //graphStraight(xi,yi,xs,ys,graph);
-                                xm = xi - ((yi*(xs-xi))/(ys-yi));
+                                xm = xi - ((yi*(xi-xs))/(yi-ys));
                                 //graphPoint(xm,0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#FA4659",false);
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
 

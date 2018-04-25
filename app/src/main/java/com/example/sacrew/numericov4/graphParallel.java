@@ -1,11 +1,10 @@
 package com.example.sacrew.numericov4;
 
 
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import com.example.sacrew.numericov4.fragments.home;
+import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.udojava.evalex.Expression;
@@ -50,7 +49,7 @@ public class graphParallel implements Runnable {
             }
         }
         series.setColor(color);
-        home.listSeries.add(series);
+        graphFragment.listSeries.add(series);
 
 
 

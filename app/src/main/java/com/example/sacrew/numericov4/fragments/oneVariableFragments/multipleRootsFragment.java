@@ -20,13 +20,10 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpMultipleRoots;
-import com.example.sacrew.numericov4.fragments.home;
+import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRoots;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRootsListAdapter;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.SecantListAdapter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -36,9 +33,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.example.sacrew.numericov4.graphMethods.functionRevision;
-import static com.example.sacrew.numericov4.graphMethods.graphPoint;
-import static com.example.sacrew.numericov4.graphMethods.graphSerie;
+import static com.example.sacrew.numericov4.utilMethods.functionRevision;
+import static com.example.sacrew.numericov4.utilMethods.graphPoint;
+import static com.example.sacrew.numericov4.utilMethods.graphSerie;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,8 +48,8 @@ public class multipleRootsFragment extends Fragment {
     private Expression function,functionG;
     private View view;
     private ListView listView;
-    private TextView xvalue, textFunctionG,iter,textError,textFunctionGPrim;
-    private AutoCompleteTextView textFunction;
+    private TextView xvalue,iter,textError;
+    private AutoCompleteTextView textFunction, textFunctionG,textFunctionGPrim;
     private ToggleButton errorToggle;
     public multipleRootsFragment() {
         // Required empty public constructor
@@ -76,15 +73,15 @@ public class multipleRootsFragment extends Fragment {
                 execute();
             }
         });
-        runHelp = view.findViewById(R.id.runHelp);
+        //runHelp = view.findViewtextFunctionById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
-        runHelp.setOnClickListener(new View.OnClickListener() {
+        /*runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 executeHelp();
             }
-        });
+        });*/
         graph = view.findViewById(R.id.multipleGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
@@ -95,7 +92,11 @@ public class multipleRootsFragment extends Fragment {
         errorToggle = view.findViewById(R.id.errorToggle);
 
         textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+        textFunctionG.setAdapter(new ArrayAdapter<String>
+                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+        textFunctionGPrim.setAdapter(new ArrayAdapter<String>
+                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
         return view;
     }
 
@@ -117,11 +118,7 @@ public class multipleRootsFragment extends Fragment {
             this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(originalFunc)){
-                home.allFunctions.add(originalFunc);
-                textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
-            }
+            updatefunctions(originalFunc);
         }catch (Exception e){
             textFunction.setError("Invalid function");
 
@@ -132,11 +129,7 @@ public class multipleRootsFragment extends Fragment {
         try{
             this.functionG = new Expression(functionRevision(originalFuncDGPrim));
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(originalFuncDGPrim)){
-                home.allFunctions.add(originalFuncDGPrim);
-                textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
-            }
+            updatefunctions(originalFuncDGPrim);
         }catch (Exception e){
             textFunctionG.setError("Invalid function");
             error = true;
@@ -147,11 +140,7 @@ public class multipleRootsFragment extends Fragment {
                     "))/((("+originalFuncG+")^2)-(("+originalFunc+")*("+originalFuncDGPrim+"))))";
             this.functionG = new Expression(functionRevision(functionCompose));
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(originalFuncG)){
-                home.allFunctions.add(originalFuncG);
-                textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
-            }
+            updatefunctions(originalFuncG);
         }catch (Exception e){
             textFunctionG.setError("Invalid function");
             error = true;
@@ -263,6 +252,17 @@ public class multipleRootsFragment extends Fragment {
         }
     }
 
+    public void updatefunctions(String function){
+        if(!graphFragment.allFunctions.contains(function)){
+            graphFragment.allFunctions.add(function);
+            textFunction.setAdapter(new ArrayAdapter<String>
+                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+            textFunctionG.setAdapter(new ArrayAdapter<String>
+                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+            textFunctionGPrim.setAdapter(new ArrayAdapter<String>
+                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+        }
+    }
 
 }
 

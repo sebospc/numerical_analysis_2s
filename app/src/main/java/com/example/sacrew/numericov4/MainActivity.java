@@ -13,18 +13,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.sacrew.numericov4.fragments.home;
+import com.example.sacrew.numericov4.fragments.graphFragment;
+import com.example.sacrew.numericov4.fragments.homeFragment;
 import com.example.sacrew.numericov4.fragments.linearEquationsFragments.gaussSimple;
 import com.example.sacrew.numericov4.fragments.oneVariable;
 
 public class MainActivity extends AppCompatActivity {
     private ListView menuLateral;
     private DrawerLayout drawerLayout;
-    private home homeFragment;
+    private graphFragment graphFragment;
     private oneVariable oneVariableFragment;
     private gaussSimple gaussSimpleFragment;
-    private Boolean first = true;
-    private int idFragment; //0 is home // 1 is one variable
+    private homeFragment homeFragment;
+    private int idFragment; //0 is graphFragment // 1 is one variable
     private FragmentManager fragmentManager;
 
     @Override
@@ -40,17 +41,19 @@ public class MainActivity extends AppCompatActivity {
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         drawerLayout = findViewById(R.id.root);
-        final String[] opciones ={"Home","One Variable","Linear equations"};
+        final String[] opciones ={"Home","Graph","One Variable","Linear equations"};
         ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,opciones);
         menuLateral = findViewById(R.id.menuLateral);
         menuLateral.setAdapter(adp);
         menuLateral.setOnItemClickListener(adap);
 
-        //home default
-        homeFragment = new home();
+        //graphFragment default
+        homeFragment = new homeFragment();
+        graphFragment = new graphFragment();
         oneVariableFragment = new oneVariable();
         gaussSimpleFragment = new gaussSimple();
+
         fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.mainLayout, homeFragment);
@@ -66,11 +69,13 @@ public class MainActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             String selected = (String) menuLateral.getAdapter().getItem(i);
             switch (i) {
-                case 0: home();
+                case 0: openHome();
                     break;
-                case 1: openOneVariable();
+                case 1: openGraph();
                     break;
-                case 2: openLinearEquations();
+                case 2: openOneVariable();
+                    break;
+                case 3: openLinearEquations();
                     break;
                 default:
                     break;
@@ -78,10 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-    public void home(){
+    public void openHome(){
         if(idFragment != 0) {
             getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
-            System.out.println("Home");
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -90,28 +94,39 @@ public class MainActivity extends AppCompatActivity {
             idFragment = 0;
         }
     }
+    public void openGraph(){
+        if(idFragment != 1) {
+            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
+            drawerLayout.closeDrawer(menuLateral);
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(R.id.mainLayout, graphFragment);
+            transaction.commit();
+            idFragment = 1;
+        }
+    }
     public void openOneVariable(){
 
-        if(idFragment != 1) {
+        if(idFragment != 2) {
             getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.add(R.id.mainLayout, oneVariableFragment);
             transaction.commit();
-            idFragment = 1;
+            idFragment = 2;
         }
 
     }
     public void openLinearEquations(){
-        if(idFragment != 2){
+        if(idFragment != 3){
             getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.add(R.id.mainLayout, gaussSimpleFragment);
             transaction.commit();
-            idFragment = 2;
+            idFragment = 3;
         }
     }
     @Override
@@ -131,9 +146,9 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onGraphIt(View view) {
-        homeFragment.graphIt(view);
+        graphFragment.graphIt(view);
     }
     public void onDelete(View view){
-        homeFragment.onDelete(view);
+        graphFragment.onDelete(view);
     }
 }

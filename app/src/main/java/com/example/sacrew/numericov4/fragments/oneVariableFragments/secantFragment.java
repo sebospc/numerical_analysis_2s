@@ -20,11 +20,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpSecant;
-import com.example.sacrew.numericov4.fragments.home;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Newton;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.NewtonListAdapter;
+import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.SecantListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -36,9 +33,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.example.sacrew.numericov4.graphMethods.functionRevision;
-import static com.example.sacrew.numericov4.graphMethods.graphPoint;
-import static com.example.sacrew.numericov4.graphMethods.graphSerie;
+import static com.example.sacrew.numericov4.utilMethods.functionRevision;
+import static com.example.sacrew.numericov4.utilMethods.graphPoint;
+import static com.example.sacrew.numericov4.utilMethods.graphSerie;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,15 +72,15 @@ public class secantFragment extends Fragment {
                 execute();
             }
         });
-        runHelp = view.findViewById(R.id.runHelp);
+        //runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
-        runHelp.setOnClickListener(new View.OnClickListener() {
+        /*runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 executeHelp();
             }
-        });
+        });*/
         graph = view.findViewById(R.id.secantGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
@@ -93,7 +90,7 @@ public class secantFragment extends Fragment {
         errorToggle = view.findViewById(R.id.errorToggle);
 
         textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
         return view;
     }
 
@@ -116,10 +113,10 @@ public class secantFragment extends Fragment {
             this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if (!home.allFunctions.contains(originalFunc)) {
-                home.allFunctions.add(originalFunc);
+            if (!graphFragment.allFunctions.contains(originalFunc)) {
+                graphFragment.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+                        (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
             }
 
         } catch (Exception e) {

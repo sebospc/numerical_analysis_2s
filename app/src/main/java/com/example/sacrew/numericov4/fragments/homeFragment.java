@@ -1,23 +1,30 @@
-package com.example.sacrew.numericov4.fragments.tableFragments;
+package com.example.sacrew.numericov4.fragments;
 
-import android.app.Fragment;
+
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sacrew.numericov4.R;
 
-public class bisection_Table extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class homeFragment extends Fragment {
 
-    private View view;
+
+    public homeFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.bisection_fragment_table,container,false);
-        return view;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
 }

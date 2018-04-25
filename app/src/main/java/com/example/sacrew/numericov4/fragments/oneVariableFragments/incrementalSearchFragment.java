@@ -1,7 +1,6 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,10 +20,9 @@ import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
-import com.example.sacrew.numericov4.fragments.home;
+import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
-import com.example.sacrew.numericov4.fragments.tableFragments.incrementalSearch_Table;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -36,8 +34,8 @@ import java.util.Locale;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import static com.example.sacrew.numericov4.graphMethods.functionRevision;
-import static com.example.sacrew.numericov4.graphMethods.graphPoint;
+import static com.example.sacrew.numericov4.utilMethods.functionRevision;
+import static com.example.sacrew.numericov4.utilMethods.graphPoint;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,7 +92,7 @@ public class incrementalSearchFragment extends Fragment {
         });
 
         textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
         return view;
     }
 
@@ -116,10 +114,10 @@ public class incrementalSearchFragment extends Fragment {
             this.function = new Expression(functionRevision(originalFunc));
 
             (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!home.allFunctions.contains(originalFunc)){
-                home.allFunctions.add(originalFunc);
+            if(!graphFragment.allFunctions.contains(originalFunc)){
+                graphFragment.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, home.allFunctions));
+                        (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
             }
         }catch (Exception e){
             textFunction.setError("Invalid function");

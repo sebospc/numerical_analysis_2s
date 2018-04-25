@@ -46,7 +46,7 @@ import at.markushi.ui.CircleButton;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class home extends Fragment {
+public class graphFragment extends Fragment {
 
     private LinearLayout linearLayout;
     private GraphView graph ;
@@ -67,7 +67,7 @@ public class home extends Fragment {
     static public List <String> allFunctions = new LinkedList<>();
 
 
-    public home() {
+    public graphFragment() {
         // Required empty public constructor
     }
 
@@ -91,7 +91,7 @@ public class home extends Fragment {
         colors.add(Color.parseColor("#682666"));
 
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_home,container,false);
+        view = inflater.inflate(R.layout.fragment_graph,container,false);
 
         linearLayout = view.findViewById(R.id.mainLayout);
 

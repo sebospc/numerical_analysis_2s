@@ -84,7 +84,7 @@
                 android:orientation="horizontal">
 
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/functionG"
                     android:layout_width="170dp"
 
