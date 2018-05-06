@@ -64,11 +64,11 @@ public class falsePositionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        try {
+        //try {
             view = inflater.inflate(R.layout.fragment_false_position, container, false);
-        }catch (InflateException e){
+       // }catch (InflateException e){
             //ojo
-        }
+       // }
         runFake = view.findViewById(R.id.runFalse);
         runFake.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -265,7 +265,7 @@ public class falsePositionFragment extends Fragment {
         }
         FalsePositionListAdapter adapter = new FalsePositionListAdapter(getContext(), R.layout.false_position_list_adapter, listValues);
         listView.setAdapter(adapter);
-    }
+    }//
 
 
 

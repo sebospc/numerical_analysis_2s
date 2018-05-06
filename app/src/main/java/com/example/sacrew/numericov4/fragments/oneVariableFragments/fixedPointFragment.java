@@ -60,11 +60,11 @@ public class fixedPointFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        try{
+        //try{
         view = inflater.inflate(R.layout.fragment_fixed_point,container,false);
-        }catch (InflateException e){
+        //}catch (InflateException e){
             // ignorable
-        }
+       // }
         runFixed = view.findViewById(R.id.runFixed);
         runFixed.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -174,7 +174,7 @@ public class fixedPointFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel) {
-        try {
+        //try {
             graph.removeAllSeries();
 
             function.setPrecision(100);
@@ -240,11 +240,11 @@ public class fixedPointFragment extends Fragment {
             }
             FixedPointListAdapter adapter = new FixedPointListAdapter(getContext(), R.layout.fixed_point_list_adapter, listValues);
             listView.setAdapter(adapter);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            System.out.println(function.getExpression());
-            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-        }
+        //}catch(Exception e){
+            //System.out.println(e.getMessage());
+            //System.out.println(function.getExpression());
+            //Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+      //  }
     }
     public void updatefunctions(String function){
         if(!graphFragment.allFunctions.contains(function)){

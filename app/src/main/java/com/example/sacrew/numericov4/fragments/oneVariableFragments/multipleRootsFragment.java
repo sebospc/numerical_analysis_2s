@@ -60,11 +60,11 @@ public class multipleRootsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this
-        try{
+        //try{
         view = inflater.inflate(R.layout.fragment_multiple_roots, container, false);
-        }catch (InflateException e){
+       // }catch (InflateException e){
             // ignorable
-        }
+        //}
         runFixed = view.findViewById(R.id.runMultiple);
         runFixed.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -186,7 +186,7 @@ public class multipleRootsFragment extends Fragment {
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel) {
-        try {
+       // try {
             graph.removeAllSeries();
 
             function.setPrecision(100);
@@ -247,9 +247,9 @@ public class multipleRootsFragment extends Fragment {
             }
             MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.multiple_roots_list_adapter, listValues);
             listView.setAdapter(adapter);
-        }catch(Exception e){
-            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-        }
+        //}catch(Exception e){
+            //sToast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+        //}
     }
 
     public void updatefunctions(String function){

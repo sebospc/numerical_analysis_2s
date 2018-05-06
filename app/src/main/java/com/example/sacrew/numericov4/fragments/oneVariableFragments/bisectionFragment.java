@@ -61,11 +61,11 @@ public class bisectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        try{
+        //try{
         view = inflater.inflate(R.layout.fragment_bisection,container,false);
-        }catch (InflateException e){
+        //}catch (InflateException e){
             // ignorable
-        }
+        //}
         runBisection = view.findViewById(R.id.runBisection);
         runBisection.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -257,7 +257,7 @@ public class bisectionFragment extends Fragment {
         }
         BisectionListAdapter adapter = new BisectionListAdapter(getContext(), R.layout.bisection_list_adapter, listValues);
         listView.setAdapter(adapter);
-        }
+        }//
     }
 
 

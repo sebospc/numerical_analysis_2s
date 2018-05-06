@@ -59,11 +59,11 @@ public class secantFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        try{
+        //try{
         view = inflater.inflate(R.layout.fragment_secant, container, false);
-        }catch (InflateException e){
+        //}catch (InflateException e){
             // ignorable
-        }
+       // }
         runSecant = view.findViewById(R.id.runSecant);
         runSecant.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -173,7 +173,7 @@ public class secantFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void secantMethod(Double x0, Double x1, Double tol, int ite, boolean errorRel) {
-        try {
+        //try {
             graph.removeAllSeries();
 
             function.setPrecision(100);
@@ -237,9 +237,9 @@ public class secantFragment extends Fragment {
             }
             SecantListAdapter adapter = new SecantListAdapter(getContext(), R.layout.secant_list_adapter, listValues);
             listView.setAdapter(adapter);
-        }catch(Exception e){
-            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-        }
+        //}catch(Exception e){
+          //  Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+      //  }
     }
 
 }

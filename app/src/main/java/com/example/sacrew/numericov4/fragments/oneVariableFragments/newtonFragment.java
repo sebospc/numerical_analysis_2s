@@ -61,11 +61,11 @@ public class newtonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        try{
+        //try{
         view = inflater.inflate(R.layout.fragment_newton, container, false);
-        }catch (InflateException e){
+        //}catch (InflateException e){
             // ignorable
-        }
+        //}
         runFixed = view.findViewById(R.id.runNewton);
         runFixed.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -176,7 +176,7 @@ public class newtonFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void newtonMethod(Double x0, Double tol, int ite, boolean errorRel) {
-        try {
+       // try {
             graph.removeAllSeries();
 
             function.setPrecision(100);
@@ -236,9 +236,9 @@ public class newtonFragment extends Fragment {
             }
             NewtonListAdapter adapter = new NewtonListAdapter(getContext(), R.layout.newton_list_adapter, listValues);
             listView.setAdapter(adapter);
-        }catch(Exception e){
-            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-        }
+        //}catch(Exception e){
+          //  Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+     //   }
     }
 
     public void updatefunctions(String function){

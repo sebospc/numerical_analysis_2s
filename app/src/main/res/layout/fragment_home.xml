@@ -1,13 +1,63 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sacrew.numericov4.fragments.homeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="271dp"
+                    android:src="@mipmap/ic_launcher"
+                    tools:layout_editor_absoluteX="25dp"
+                    tools:layout_editor_absoluteY="16dp" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:gravity="center_horizontal"
+                    android:text="This project contains lots of numerical methods about one-variable equations, systems of equations and interpolation. Some of them were implemented with parallel computing. You will can found roots in different functions, solve matrixes and equations."
+                    android:textColor="@android:color/black"
+                    android:textSize="19sp"
+                    tools:layout_editor_absoluteX="26dp"
+                    tools:layout_editor_absoluteY="217dp" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="CREDITS"
+                    android:textColor="@android:color/black"
+                    tools:layout_editor_absoluteX="104dp"
+                    tools:layout_editor_absoluteY="434dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

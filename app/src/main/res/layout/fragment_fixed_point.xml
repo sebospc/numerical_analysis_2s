@@ -15,9 +15,9 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fixed point"
-            android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:text="Fixed Point"
+                android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />
 

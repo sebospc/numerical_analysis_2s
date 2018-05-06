@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         drawerLayout = findViewById(R.id.root);
-        final String[] opciones ={"Home","Graph","One Variable","Linear equations"};
+        final String[] opciones ={"Home","Graph","One Variable","Linear Equations"};
         ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,opciones);
         menuLateral = findViewById(R.id.menuLateral);
