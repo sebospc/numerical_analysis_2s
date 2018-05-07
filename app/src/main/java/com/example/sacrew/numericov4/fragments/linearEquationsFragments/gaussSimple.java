@@ -28,6 +28,7 @@ public class gaussSimple extends Fragment {
     private TableLayout matrix;
     private LinearLayout equals;
     private Button run,add;
+    int n = 2;
     public gaussSimple() {
         // Required empty public constructor
     }
@@ -42,15 +43,24 @@ public class gaussSimple extends Fragment {
         matrix = (TableLayout) view.findViewById(R.id.matrix);
         equals = view.findViewById(R.id.arrayEquals);
         run = view.findViewById(R.id.run);
+        add = view.findViewById(R.id.add);
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 execute();
             }
         });
-        paintMatrix(2);
+        paintMatrix(n);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paintMatrix(n + 1);
+            }
+        });
+
         return view;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void paintMatrix(int n){
         matrix.removeAllViews();
