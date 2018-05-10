@@ -1,13 +1,12 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.annotation.RequiresApi;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +27,9 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.math.BigDecimal;
 import java.util.Locale;
 
 import static com.example.sacrew.numericov4.utilMethods.functionRevision;
@@ -50,7 +49,9 @@ public class bisectionFragment extends Fragment {
     private Button runHelp;
     private GraphView graph;
     private Expression function;
+    private View convertView;
     private View view;
+    public TextView textViewXm;
     private TextView xi,xs,iter,textError;
     private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
@@ -85,6 +86,7 @@ public class bisectionFragment extends Fragment {
         });
         graph = view.findViewById(R.id.bisectionGraph);
         textFunction = view.findViewById(R.id.function);
+        textViewXm = view.findViewById(R.id.textViewXm);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
         xi = view.findViewById(R.id.xi);
@@ -165,22 +167,18 @@ public class bisectionFragment extends Fragment {
 
     public static String convertirCientifica(double val){
         Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##E0");
+        DecimalFormat num = new DecimalFormat("#.##E0");
         return num.format(val);
     }
 
-    public static String convertirNormal(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##");
-        return num.format(val);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void bisectionMethod(Double xi, Double xs, Double tol, int ite, boolean errorRel) {
         graph.removeAllSeries();
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
-
+        Bisection titles = new Bisection("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
+        listValues.add(titles);
         if(tol >= 0){
             if(ite > 0){
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
@@ -191,7 +189,7 @@ public class bisectionFragment extends Fragment {
                             double xm = (xi + xs) / 2;
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
-                            Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
+                            Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(xi), String.valueOf(xs), String.valueOf(xm), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteZero);
                             int cont = 1;
                             double xaux = xm;
@@ -213,7 +211,7 @@ public class bisectionFragment extends Fragment {
                                 }else{
                                     error = Math.abs(xm - xaux);
                                     }
-                                Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
+                                Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(xi), String.valueOf(xs), String.valueOf(xm), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                                 listValues.add(iteNext);
                                 cont++;
                             }
@@ -222,41 +220,34 @@ public class bisectionFragment extends Fragment {
                                 graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                             }else if(error < tol){
                                 graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
-                                Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                                //System.out.println(xaux + " is an aproximate root");
+                                //Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getContext(),  "Failed!", Toast.LENGTH_SHORT).show();
-                                //System.out.println("Failed!");
                             }
                         }else{
                             this.xi.setError("Failed the interval");
                             this.xs.setError("Failed the interval");
-                            Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
-                            //System.out.println("Failed the interval!");
-
                         }
                     }else{
-                        Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        //System.out.println(xs + " is an aproximate root");
+                        //Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                        //textViewXs.setBackgroundColor(Color.YELLOW);
                         graphPoint(xs,ys,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                     }
                 }else{
-                    Toast.makeText(getContext(), convertirNormal(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                    //System.out.println(xi + " is an aproximate root");
+                    //Toast.makeText(getContext(), convertirNormal(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                    //textViewXi.setBackgroundColor(Color.YELLOW);
                     graphPoint(xi,yi,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+
                 }
             }else{
                 iter.setError("Wrong iterates");
-                Toast.makeText(getContext(), "Wrong iterates!", Toast.LENGTH_SHORT).show();
-                //System.out.println("Wrong iterates!");
             }
         }else{
             textError.setError("Tolerance must be < 0");
-            Toast.makeText(getContext(), "Tolerance < 0", Toast.LENGTH_SHORT).show();
-            //System.out.println("Tolerance < 0");
         }
         BisectionListAdapter adapter = new BisectionListAdapter(getContext(), R.layout.bisection_list_adapter, listValues);
         listView.setAdapter(adapter);
+
         }//
     }
 

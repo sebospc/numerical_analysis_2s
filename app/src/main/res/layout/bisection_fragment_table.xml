@@ -38,7 +38,7 @@
 
             <TextView
                 android:id="@+id/titleXi"
-                android:layout_width="wrap_content"
+                android:layout_width="127dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -49,7 +49,7 @@
 
             <TextView
                 android:id="@+id/titleXs"
-                android:layout_width="wrap_content"
+                android:layout_width="115dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
