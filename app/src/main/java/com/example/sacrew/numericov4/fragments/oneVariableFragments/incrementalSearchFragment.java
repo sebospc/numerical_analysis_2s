@@ -63,11 +63,11 @@ public class incrementalSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       // try{
+       try{
         view = inflater.inflate(R.layout.fragment_incremental_search,container,false);
-        //}catch (InflateException e){
+        }catch (InflateException e){
             // ignorable
-        //}
+        }
         runIncremental = view.findViewById(R.id.runIncremental);
         runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);

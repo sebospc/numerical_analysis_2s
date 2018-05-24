@@ -1,0 +1,157 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment">
+    <RelativeLayout
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageButton
+                android:id="@+id/addRow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_add_black_24dp" />
+
+            <ImageButton
+                android:id="@+id/deleteRow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/relativeLayout3"
+                android:layout_toRightOf="@+id/relativeLayout3"
+                android:src="@drawable/ic_remove_black_24dp" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/addRow"
+                android:layout_toEndOf="@+id/addRow"
+                android:layout_toRightOf="@+id/addRow">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none">
+
+                    <HorizontalScrollView
+                        android:id="@+id/scrollView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:scrollbars="none">
+
+                        <TableLayout
+                            android:id="@+id/matrixA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></TableLayout>
+                    </HorizontalScrollView>
+                </ScrollView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout4"
+                android:layout_width="50dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/deleteRow"
+                android:layout_toEndOf="@+id/deleteRow"
+                android:layout_toRightOf="@+id/deleteRow">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    android:overScrollMode="never">
+
+                    <LinearLayout
+                        android:id="@+id/arrayB"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" />
+
+                </ScrollView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout11"
+                android:layout_width="50dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/textView22"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="0dp"
+                android:layout_toEndOf="@+id/relativeLayout4"
+                android:layout_toRightOf="@+id/relativeLayout4">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/arrayResult"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" />
+                </ScrollView>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/deleteRow"
+                android:layout_alignBottom="@+id/deleteRow"
+                android:layout_marginEnd="75dp"
+                android:layout_marginRight="50dp"
+                android:layout_toLeftOf="@+id/deleteRow"
+                android:layout_toStartOf="@+id/deleteRow"
+                android:text="A      " />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_alignTop="@+id/textView10"
+                android:layout_toEndOf="@+id/deleteRow"
+                android:layout_toLeftOf="@+id/relativeLayout11"
+                android:layout_toRightOf="@+id/deleteRow"
+                android:layout_toStartOf="@+id/relativeLayout11"
+                android:text="B  " />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/relativeLayout11"
+                android:layout_alignStart="@+id/relativeLayout11"
+                android:layout_alignTop="@+id/textView21"
+                android:text="     X" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <com.example.sacrew.numericov4.VerticalViewPager
+        android:id="@+id/verticalPager"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</LinearLayout>
