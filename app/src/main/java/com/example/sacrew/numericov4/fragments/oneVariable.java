@@ -31,11 +31,9 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class oneVariable extends Fragment {
-    private ViewPager slideView;
     private LinearLayout dotLayout;
 
     private TextView[] dots;
-    private View view;
     private int size;
     public oneVariable() {
         // Required empty public constructor
@@ -46,8 +44,8 @@ public class oneVariable extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_one_variable,container,false);
-        slideView = view.findViewById(R.id.viewPager);
+        View view = inflater.inflate(R.layout.fragment_one_variable, container, false);
+        ViewPager slideView = view.findViewById(R.id.viewPager);
         dotLayout = view.findViewById(R.id.dotLayout);
         dotLayout.setGravity(Gravity.CENTER);
 

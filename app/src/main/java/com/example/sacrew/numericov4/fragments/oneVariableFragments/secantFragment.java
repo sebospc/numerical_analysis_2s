@@ -59,11 +59,11 @@ public class secantFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //try{
+        try{
         view = inflater.inflate(R.layout.fragment_secant, container, false);
-        //}catch (InflateException e){
+        }catch (InflateException e){
             // ignorable
-       // }
+        }
         runSecant = view.findViewById(R.id.runSecant);
         runSecant.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)

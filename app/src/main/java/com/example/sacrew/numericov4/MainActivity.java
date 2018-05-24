@@ -15,7 +15,8 @@ import android.widget.ListView;
 
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.homeFragment;
-import com.example.sacrew.numericov4.fragments.linearEquationsFragments.gaussSimple;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment;
+import com.example.sacrew.numericov4.fragments.systemEquations.gaussSimple;
 import com.example.sacrew.numericov4.fragments.oneVariable;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private oneVariable oneVariableFragment;
     private gaussSimple gaussSimpleFragment;
     private homeFragment homeFragment;
+    private systemEquationsFragment linearEquationsFragment;
     private int idFragment; //0 is graphFragment // 1 is one variable
     private FragmentManager fragmentManager;
 
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         drawerLayout = findViewById(R.id.root);
-        final String[] opciones ={"Home","Graph","One Variable","Linear Equations"};
+        final String[] opciones ={"Home","Graph","One Variable","System Equations"};
         ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,opciones);
         menuLateral = findViewById(R.id.menuLateral);
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         graphFragment = new graphFragment();
         oneVariableFragment = new oneVariable();
         gaussSimpleFragment = new gaussSimple();
+        linearEquationsFragment = new systemEquationsFragment();
+
 
         fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -124,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.mainLayout, gaussSimpleFragment);
+            transaction.add(R.id.mainLayout, linearEquationsFragment);
             transaction.commit();
             idFragment = 3;
         }

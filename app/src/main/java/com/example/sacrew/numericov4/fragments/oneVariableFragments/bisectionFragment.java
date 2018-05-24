@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,11 +63,11 @@ public class bisectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //try{
+        try{
         view = inflater.inflate(R.layout.fragment_bisection,container,false);
-        //}catch (InflateException e){
+        }catch (InflateException e){
             // ignorable
-        //}
+        }
         runBisection = view.findViewById(R.id.runBisection);
         runBisection.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
