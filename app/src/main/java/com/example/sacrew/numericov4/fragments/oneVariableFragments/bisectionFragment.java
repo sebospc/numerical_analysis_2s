@@ -52,7 +52,7 @@ public class bisectionFragment extends Fragment {
     private Expression function;
     private View convertView;
     private View view;
-    public TextView textViewXm;
+    public TextView textViewXm, textViewMessage;
     private TextView xi,xs,iter,textError;
     private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
@@ -87,6 +87,7 @@ public class bisectionFragment extends Fragment {
         });
         graph = view.findViewById(R.id.bisectionGraph);
         textFunction = view.findViewById(R.id.function);
+        textViewMessage = view.findViewById(R.id.textViewMessage);
         textViewXm = view.findViewById(R.id.textViewXm);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
@@ -172,6 +173,12 @@ public class bisectionFragment extends Fragment {
         return num.format(val);
     }
 
+    public static String convertirCientifica2(double val){
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("#.######");
+        return num.format(val);
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void bisectionMethod(Double xi, Double xs, Double tol, int ite, boolean errorRel) {
@@ -190,7 +197,7 @@ public class bisectionFragment extends Fragment {
                             double xm = (xi + xs) / 2;
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
-                            Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(xi), String.valueOf(xs), String.valueOf(xm), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
+                            Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(convertirCientifica2(xi)), String.valueOf(convertirCientifica2(xs)), String.valueOf(convertirCientifica2(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteZero);
                             int cont = 1;
                             double xaux = xm;
@@ -212,7 +219,7 @@ public class bisectionFragment extends Fragment {
                                 }else{
                                     error = Math.abs(xm - xaux);
                                     }
-                                Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(xi), String.valueOf(xs), String.valueOf(xm), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
+                                Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(convertirCientifica2(xi)), String.valueOf(convertirCientifica2(xs)), String.valueOf(convertirCientifica2(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                                 listValues.add(iteNext);
                                 cont++;
                             }
@@ -221,13 +228,16 @@ public class bisectionFragment extends Fragment {
                                 graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                             }else if(error < tol){
                                 graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+
                                 //Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getContext(),  "Failed!", Toast.LENGTH_SHORT).show();
+
                             }
                         }else{
                             this.xi.setError("Failed the interval");
                             this.xs.setError("Failed the interval");
+
                         }
                     }else{
                         //Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
@@ -245,11 +255,12 @@ public class bisectionFragment extends Fragment {
             }
         }else{
             textError.setError("Tolerance must be < 0");
+
         }
         BisectionListAdapter adapter = new BisectionListAdapter(getContext(), R.layout.bisection_list_adapter, listValues);
         listView.setAdapter(adapter);
 
-        }//
+        }
     }
 
 

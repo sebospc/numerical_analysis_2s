@@ -11,31 +11,29 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.sacrew.numericov4.R;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.bValuesText;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.matrixAText;
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.times;
 
 /**
  * Created by sacrew on 23/05/18.
  */
 
 public class baseSystemEquations extends Fragment {
-    public baseSystemEquations() {
+    public baseSystemEquations(){
 
     }
 
-    public void begin() {
+    public void begin(){
         int n = matrixAText.getChildCount();
-        double[][] expandedMatrix = new double[n][n + 1];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
+        double [][] expandedMatrix = new double[n][n+1];
+        for(int i=0; i<n; i++){
+            for (int j=0; j< n;j++){
                 EditText aux = ((EditText) ((TableRow) matrixAText.getChildAt(i)).getChildAt(j));
                 try {
                     double x = 0;
@@ -44,16 +42,16 @@ public class baseSystemEquations extends Fragment {
                             .toString());
                     //System.out.print(x);
                     expandedMatrix[i][j] = x;
-                } catch (Exception e) {
+                }catch (Exception e){
                     aux.setError("invalid value");
                     return;
                 }
             }
-            EditText aux = ((EditText) bValuesText.getChildAt(i));
-            try {
+            EditText aux = ((EditText)bValuesText.getChildAt(i));
+            try{
                 double x = Double.parseDouble(aux.getText().toString());
                 expandedMatrix[i][n] = x;
-            } catch (Exception e) {
+            }catch (Exception e){
                 aux.setError("invalid value");
                 return;
             }
@@ -65,6 +63,11 @@ public class baseSystemEquations extends Fragment {
 
     }
 
+    public static String convertirTexto(String val){
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("#.##");
+        return num.format(val);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public TextView defaultEditText(String value) {
@@ -84,5 +87,4 @@ public class baseSystemEquations extends Fragment {
         text.setText(value);
         return text;
     }
-
 }

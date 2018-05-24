@@ -2,6 +2,8 @@ package com.example.sacrew.numericov4.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -144,6 +146,8 @@ public class systemEquationsFragment extends Fragment {
         text.setEms(2);
         text.setMaxLines(1);
         text.setBackground(null);
+        text.setTextColor(Color.WHITE);
+        text.setTypeface(null, Typeface.BOLD);
         text.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         text.setTextSize(TypedValue.COMPLEX_UNIT_DIP,10);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
