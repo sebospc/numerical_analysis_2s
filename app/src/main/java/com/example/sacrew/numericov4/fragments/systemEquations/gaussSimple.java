@@ -192,9 +192,6 @@ public class gaussSimple extends baseSystemEquations {
                                 //ignorable
                             }
                         }
-
-
-
                     });
                     colorAnimator.addListener(new Animator.AnimatorListener() {
                         @Override
