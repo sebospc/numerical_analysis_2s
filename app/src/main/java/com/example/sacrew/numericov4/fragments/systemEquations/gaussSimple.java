@@ -66,6 +66,11 @@ public class gaussSimple extends baseSystemEquations {
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                multipliersLayout.removeAllViews();
+                animatorSet.removeAllListeners();
+                animatorSet.end();
+                animatorSet.cancel();
+
                 begin();
             }
 
@@ -80,9 +85,7 @@ public class gaussSimple extends baseSystemEquations {
 
     @Override
     public void execute(double[][] expandedMatrix){
-
-            matrixResult.removeAllViews();
-
+        matrixResult.removeAllViews();
             for (double[] v : expandedMatrix) {
                 TableRow aux = new TableRow(getContext());
                 for (double val : v) {
@@ -90,6 +93,7 @@ public class gaussSimple extends baseSystemEquations {
                 }
                 matrixResult.addView(aux);
             }
+
             elimination(expandedMatrix);
 
 
@@ -97,12 +101,10 @@ public class gaussSimple extends baseSystemEquations {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void elimination(final double [][] expandedMatrix){
-        multipliersLayout.removeAllViews();
-        animatorSet.removeAllListeners();
-        animatorSet.end();
-        animatorSet.cancel();
         animatorSet = new AnimatorSet();
+        multipliersLayout.removeAllViews();
         List<Animator> animations = new LinkedList<>();
+
         for(int k = 0; k< expandedMatrix.length-1; k++){
             final int auxk = k;
             ValueAnimator stage = ValueAnimator.ofInt(0,1);
@@ -146,7 +148,7 @@ public class gaussSimple extends baseSystemEquations {
                             ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxk).setBackgroundColor((Integer) animator.getAnimatedValue());
                             ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor((Integer) animator.getAnimatedValue());
                         }catch (Exception e){
-                            //ignorable
+                            matrixResult.removeAllViews();
                         }
                     }
                 });
@@ -189,7 +191,7 @@ public class gaussSimple extends baseSystemEquations {
                                 ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj).setBackgroundColor((Integer) animator.getAnimatedValue());
                                 ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxj).setBackgroundColor(Color.RED);
                             }catch(Exception e){
-                                //ignorable
+                                matrixResult.removeAllViews();
                             }
                         }
                     });
@@ -205,7 +207,7 @@ public class gaussSimple extends baseSystemEquations {
                                 ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxj)
                                         .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                             }catch(Exception e){
-                                //ignorable
+                                matrixResult.removeAllViews();
                             }
                         }
 
