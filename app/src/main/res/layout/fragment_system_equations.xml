@@ -56,7 +56,7 @@
                         <TableLayout
                             android:id="@+id/matrixA"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"></TableLayout>
+                            android:layout_height="wrap_content" />
                     </HorizontalScrollView>
                 </ScrollView>
 
@@ -146,6 +146,16 @@
 
         </RelativeLayout>
     </RelativeLayout>
+
+
+    <SeekBar
+        android:id="@+id/seekBar2"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:progress="1" />
+
     <com.example.sacrew.numericov4.VerticalViewPager
         android:id="@+id/verticalPager"
         android:layout_weight="0.5"

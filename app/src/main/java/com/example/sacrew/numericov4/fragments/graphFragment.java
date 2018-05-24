@@ -48,7 +48,6 @@ import at.markushi.ui.CircleButton;
  */
 public class graphFragment extends Fragment {
 
-    private LinearLayout linearLayout;
     private GraphView graph ;
     public static List<LineGraphSeries<DataPoint>> listSeries;
     private LinearLayout parentLinearLayout;
@@ -61,8 +60,6 @@ public class graphFragment extends Fragment {
     private Thread[] cores = new Thread[NUMBER_OF_CORES];
     private double scale = 0.1; //escala de desplazamiento
     private View view;
-    private CircleButton addFieldButton,deleteFieldButton,graphButton;
-    private Button hider;
     private List <Integer> colors = new LinkedList<>();
     static public List <String> allFunctions = new LinkedList<>();
 
@@ -93,8 +90,6 @@ public class graphFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_graph,container,false);
 
-        linearLayout = view.findViewById(R.id.mainLayout);
-
 
         parentLinearLayout = (LinearLayout) view.findViewById(R.id.parent_linear_layout);
 
@@ -103,11 +98,11 @@ public class graphFragment extends Fragment {
         graph = view.findViewById(R.id.graph);
         viewToFunction = new HashMap<>();
         //poop
-        addFieldButton = view.findViewById(R.id.add_field_button);
+        CircleButton addFieldButton = view.findViewById(R.id.add_field_button);
         onAddField(null);
-        deleteFieldButton = view.findViewById(R.id.delete_button);
-        graphButton = view.findViewById(R.id.graph_button);
-        hider = view.findViewById(R.id.buttonHide);
+        CircleButton deleteFieldButton = view.findViewById(R.id.delete_button);
+        CircleButton graphButton = view.findViewById(R.id.graph_button);
+        Button hider = view.findViewById(R.id.buttonHide);
         addFieldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

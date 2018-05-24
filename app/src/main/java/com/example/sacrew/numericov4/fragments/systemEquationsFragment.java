@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -34,6 +35,7 @@ public class systemEquationsFragment extends Fragment {
     public static TableLayout matrixAText;
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout bValuesText,xValuesText;
+    public static SeekBar times;
 
     int matrixA [][];
     int bValues[],xValues[];
@@ -55,6 +57,7 @@ public class systemEquationsFragment extends Fragment {
         matrixAText = view.findViewById(R.id.matrixA);
         bValuesText = view.findViewById(R.id.arrayB);
         xValuesText = view.findViewById(R.id.arrayResult);
+        times = view.findViewById(R.id.seekBar2);
         matrixA = new int[0][0];
         bValues = new int[0];
         xValues = new int[0];
