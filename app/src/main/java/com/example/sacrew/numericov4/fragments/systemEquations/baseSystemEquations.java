@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.sacrew.numericov4.R;
+
 import java.text.DecimalFormat;
 import java.util.Locale;
 
