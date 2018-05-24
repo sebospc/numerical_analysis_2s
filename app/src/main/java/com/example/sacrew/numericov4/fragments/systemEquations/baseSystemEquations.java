@@ -1,16 +1,18 @@
 package com.example.sacrew.numericov4.fragments.systemEquations;
 
 import android.app.Fragment;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.sacrew.numericov4.R;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.bValuesText;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.matrixAText;
@@ -57,6 +59,12 @@ public class baseSystemEquations extends Fragment {
 
     }
 
+    public static String convertirTexto(String val){
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("#.##");
+        return num.format(val);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public TextView defaultEditText(String value){
         TextView text = new EditText(getContext());
@@ -64,8 +72,10 @@ public class baseSystemEquations extends Fragment {
         text.setEms(2);
         text.setMaxLines(1);
         text.setBackground(null);
-        text.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        text.setTextSize(TypedValue.COMPLEX_UNIT_DIP,10);
+        text.setTypeface(null, Typeface.BOLD);
+        text.setBackgroundColor(Color.rgb(76,175,80));
+        text.setTextColor(Color.WHITE);
+        text.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
         text.setKeyListener(null);
         text.setText(value);

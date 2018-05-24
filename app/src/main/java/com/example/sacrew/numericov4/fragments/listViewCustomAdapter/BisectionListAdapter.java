@@ -15,6 +15,7 @@ import com.example.sacrew.numericov4.R;
 
 import java.util.ArrayList;
 
+
 /**
  * Created by User on 3/14/2017.
  */
@@ -26,6 +27,7 @@ public class BisectionListAdapter extends ArrayAdapter<Bisection> {
     private Context mContext;
     private int mResource;
     private int lastPosition = -1;
+
 
     /**
      * Holds variables in a View
@@ -107,12 +109,12 @@ public class BisectionListAdapter extends ArrayAdapter<Bisection> {
         holder.textViewError.setText(bisection.getError());
         float[] colorPrimario = {232, 65, 71};
             if (holder.textViewN.getText() == "n" ) {
-                holder.textViewN.setBackgroundColor(Color.HSVToColor(colorPrimario));
-                holder.textViewXi.setBackgroundColor(Color.HSVToColor(colorPrimario));
-                holder.textViewXs.setBackgroundColor(Color.HSVToColor(colorPrimario));
-                holder.textViewXm.setBackgroundColor(Color.HSVToColor(colorPrimario));
-                holder.textViewFXm.setBackgroundColor(Color.HSVToColor(colorPrimario));
-                holder.textViewError.setBackgroundColor(Color.HSVToColor(colorPrimario));
+                holder.textViewN.setBackgroundColor(Color.rgb(63,81,181));
+                holder.textViewXi.setBackgroundColor(Color.rgb(63,81,181));
+                holder.textViewXs.setBackgroundColor(Color.rgb(63,81,181));
+                holder.textViewXm.setBackgroundColor(Color.rgb(63,81,181));
+                holder.textViewFXm.setBackgroundColor(Color.rgb(63,81,181));
+                holder.textViewError.setBackgroundColor(Color.rgb(63,81,181));
             }else{
                 holder.textViewN.setBackgroundColor(Color.TRANSPARENT);
                 holder.textViewXi.setBackgroundColor(Color.TRANSPARENT);

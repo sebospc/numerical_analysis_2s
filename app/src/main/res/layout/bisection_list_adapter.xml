@@ -8,7 +8,7 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="f">
+        android:layout_height="fill_parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
 
                 <TextView
                     android:id="@+id/textViewXi"
-                    android:layout_width="429dp"
+                    android:layout_width="456dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:width="@android:dimen/thumbnail_width"
@@ -50,7 +50,7 @@
 
                 <TextView
                     android:id="@+id/textViewXs"
-                    android:layout_width="429dp"
+                    android:layout_width="457dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="left"
@@ -61,7 +61,7 @@
 
                 <TextView
                     android:id="@+id/textViewXm"
-                    android:layout_width="429dp"
+                    android:layout_width="455dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="left"

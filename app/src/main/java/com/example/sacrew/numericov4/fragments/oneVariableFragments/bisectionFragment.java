@@ -173,6 +173,12 @@ public class bisectionFragment extends Fragment {
         return num.format(val);
     }
 
+    public static String convertirCientifica2(double val){
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("#.######");
+        return num.format(val);
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void bisectionMethod(Double xi, Double xs, Double tol, int ite, boolean errorRel) {
@@ -191,7 +197,7 @@ public class bisectionFragment extends Fragment {
                             double xm = (xi + xs) / 2;
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
-                            Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(xi), String.valueOf(xs), String.valueOf(xm), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
+                            Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(convertirCientifica2(xi)), String.valueOf(convertirCientifica2(xs)), String.valueOf(convertirCientifica2(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteZero);
                             int cont = 1;
                             double xaux = xm;
@@ -213,7 +219,7 @@ public class bisectionFragment extends Fragment {
                                 }else{
                                     error = Math.abs(xm - xaux);
                                     }
-                                Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(xi), String.valueOf(xs), String.valueOf(xm), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
+                                Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(convertirCientifica2(xi)), String.valueOf(convertirCientifica2(xs)), String.valueOf(convertirCientifica2(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                                 listValues.add(iteNext);
                                 cont++;
                             }
