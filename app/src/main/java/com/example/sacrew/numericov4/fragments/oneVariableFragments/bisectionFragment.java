@@ -51,7 +51,7 @@ public class bisectionFragment extends Fragment {
     private Expression function;
     private View convertView;
     private View view;
-    public TextView textViewXm;
+    public TextView textViewXm, textViewMessage;
     private TextView xi,xs,iter,textError;
     private AutoCompleteTextView textFunction;
     private ToggleButton errorToggle;
@@ -86,6 +86,7 @@ public class bisectionFragment extends Fragment {
         });
         graph = view.findViewById(R.id.bisectionGraph);
         textFunction = view.findViewById(R.id.function);
+        textViewMessage = view.findViewById(R.id.textViewMessage);
         textViewXm = view.findViewById(R.id.textViewXm);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
@@ -220,13 +221,16 @@ public class bisectionFragment extends Fragment {
                                 graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                             }else if(error < tol){
                                 graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+
                                 //Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getContext(),  "Failed!", Toast.LENGTH_SHORT).show();
+
                             }
                         }else{
                             this.xi.setError("Failed the interval");
                             this.xs.setError("Failed the interval");
+
                         }
                     }else{
                         //Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
@@ -244,11 +248,12 @@ public class bisectionFragment extends Fragment {
             }
         }else{
             textError.setError("Tolerance must be < 0");
+
         }
         BisectionListAdapter adapter = new BisectionListAdapter(getContext(), R.layout.bisection_list_adapter, listValues);
         listView.setAdapter(adapter);
 
-        }//
+        }
     }
 
 

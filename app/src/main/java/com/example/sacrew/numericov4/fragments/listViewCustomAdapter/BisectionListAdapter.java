@@ -114,12 +114,12 @@ public class BisectionListAdapter extends ArrayAdapter<Bisection> {
                 holder.textViewFXm.setBackgroundColor(Color.HSVToColor(colorPrimario));
                 holder.textViewError.setBackgroundColor(Color.HSVToColor(colorPrimario));
             }else{
-                holder.textViewN.setBackgroundColor(Color.GRAY);
-                holder.textViewXi.setBackgroundColor(Color.GRAY);
-                holder.textViewXs.setBackgroundColor(Color.GRAY);
-                holder.textViewXm.setBackgroundColor(Color.GRAY);
-                holder.textViewFXm.setBackgroundColor(Color.GRAY);
-                holder.textViewError.setBackgroundColor(Color.GRAY);
+                holder.textViewN.setBackgroundColor(Color.TRANSPARENT);
+                holder.textViewXi.setBackgroundColor(Color.TRANSPARENT);
+                holder.textViewXs.setBackgroundColor(Color.TRANSPARENT);
+                holder.textViewXm.setBackgroundColor(Color.TRANSPARENT);
+                holder.textViewFXm.setBackgroundColor(Color.TRANSPARENT);
+                holder.textViewError.setBackgroundColor(Color.TRANSPARENT);
             }
 
         return convertView;
