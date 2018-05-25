@@ -2,6 +2,7 @@ package com.example.sacrew.numericov4.fragments.listViewCustomAdapter;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,6 +103,30 @@ public class FixedPointListAdapter extends ArrayAdapter<FixedPoint> {
         holder.textViewFXn.setText(fixedPoint.getFXn());
         holder.textViewGXn.setText(fixedPoint.getGXn());
         holder.textViewError.setText(fixedPoint.getError());
+
+        if (holder.textViewN.getText() == "n" ) {
+            holder.textViewN.setTextColor(Color.WHITE);
+            holder.textViewXn.setTextColor(Color.WHITE);
+            holder.textViewFXn.setTextColor(Color.WHITE);
+            holder.textViewGXn.setTextColor(Color.WHITE);
+            holder.textViewError.setTextColor(Color.WHITE);
+            holder.textViewN.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewXn.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewFXn.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewGXn.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewError.setBackgroundColor(Color.rgb(63,81,181));
+        }else{
+            holder.textViewN.setTextColor(Color.BLACK);
+            holder.textViewXn.setTextColor(Color.BLACK);
+            holder.textViewFXn.setTextColor(Color.BLACK);
+            holder.textViewGXn.setTextColor(Color.BLACK);
+            holder.textViewError.setTextColor(Color.BLACK);
+            holder.textViewN.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewXn.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewFXn.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewGXn.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewError.setBackgroundColor(Color.TRANSPARENT);
+        }
 
 
         return convertView;

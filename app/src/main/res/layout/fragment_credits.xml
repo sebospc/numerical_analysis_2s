@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,11 +11,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageView4"
             android:layout_width="match_parent"
-            android:layout_height="162dp"
-            app:srcCompat="?android:attr/actionModeFindDrawable" />
+            android:layout_height="93dp"
+            app:srcCompat="?android:attr/actionModeFindDrawable"
+            tools:ignore="NewApi" />
 
         <TextView
             android:id="@+id/textView13"
@@ -30,6 +36,7 @@
             android:text="Stiven Ramirez Arango"
             android:textColor="@android:color/white"
             android:textSize="19sp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
             tools:textColor="@android:color/white" />
@@ -39,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Coordinator and Analyst"
+            android:text="sramir70@eafit.edu.co"
             android:textColor="@android:color/white"
             android:textSize="19sp"
             tools:layout_editor_absoluteX="26dp"
@@ -51,10 +58,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageView5"
             android:layout_width="match_parent"
-            android:layout_height="155dp"
+            android:layout_height="89dp"
             app:srcCompat="?android:attr/actionModePasteDrawable" />
 
         <TextView
@@ -70,6 +77,7 @@
             android:text="Sebastian Ospina Cabarcas"
             android:textColor="@android:color/white"
             android:textSize="19sp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
             tools:textColor="@android:color/white" />
@@ -79,7 +87,59 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Designer and Programmer"
+            android:text="sospin26@eafit.edu.co"
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Libraries"
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="EvalEx by Udo Klimaschewski"
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="GraphView by Jonas Grehring"
             android:textColor="@android:color/white"
             android:textSize="19sp"
             tools:layout_editor_absoluteX="26dp"
@@ -88,4 +148,4 @@
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

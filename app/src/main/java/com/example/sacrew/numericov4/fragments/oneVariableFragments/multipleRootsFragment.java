@@ -24,6 +24,7 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpMultipleRoots;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRoots;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRootsListAdapter;
+import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -73,15 +74,15 @@ public class multipleRootsFragment extends Fragment {
                 execute();
             }
         });
-        //runHelp = view.findViewtextFunctionById(R.id.runHelp);
+        runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
-        /*runHelp.setOnClickListener(new View.OnClickListener() {
+        runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 executeHelp();
             }
-        });*/
+        });
         graph = view.findViewById(R.id.multipleGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
@@ -191,30 +192,28 @@ public class multipleRootsFragment extends Fragment {
 
             function.setPrecision(100);
             ArrayList<MultipleRoots> listValues = new ArrayList<>();
+        MultipleRoots titles = new MultipleRoots("n", "Xn", "f(Xn)", "f'(Xn)", "f''(Xn)", "Error");
+        listValues.add(titles);
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    double y0p1 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    double y0p2 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
                         double xa = x0;
-                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(y0)),String.valueOf(convertirCientifica(y0p1)), String.valueOf(convertirCientifica(y0p2)), String.valueOf(convertirCientifica(error)));
-                        listValues.add(iteZero);
+                        //MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(y0)),String.valueOf(convertirCientifica(y0p1)), String.valueOf(convertirCientifica(y0p2)), String.valueOf(convertirCientifica(error)));
+                        //listValues.add(iteZero);
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
                             double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                            y0p1 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                            y0p2 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                             if (errorRel)
                                 error = Math.abs(xn - xa) / xn;
                             else
                                 error = Math.abs(xn - xa);
                             xa = xn;
                             cont++;
-                            MultipleRoots iteNext= new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirCientifica(y0)),String.valueOf(convertirCientifica(y0p1)), String.valueOf(convertirCientifica(y0p2)), String.valueOf(convertirCientifica(error)));
-                            listValues.add(iteNext);
+                            //MultipleRoots iteNext= new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirCientifica(y0)),String.valueOf(convertirCientifica(y0p1)), String.valueOf(convertirCientifica(y0p2)), String.valueOf(convertirCientifica(error)));
+                            //listValues.add(iteNext);
                         }
                         graphSerie(xa-0.5, xa, function.getExpression(), graph, Color.BLUE);
                         if (y0 == 0) {
@@ -245,8 +244,8 @@ public class multipleRootsFragment extends Fragment {
                 Toast.makeText(getContext(),  "Tolerance must be < 0", Toast.LENGTH_SHORT).show();
                 //System.out.println("Tolerance < 0");
             }
-            MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.multiple_roots_list_adapter, listValues);
-            listView.setAdapter(adapter);
+            //MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.multiple_roots_list_adapter, listValues);
+           //listView.setAdapter(adapter);
         //}catch(Exception e){
             //sToast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
         //}

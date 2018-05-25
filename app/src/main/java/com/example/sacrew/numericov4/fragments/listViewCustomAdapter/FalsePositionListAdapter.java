@@ -2,6 +2,7 @@ package com.example.sacrew.numericov4.fragments.listViewCustomAdapter;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,6 +107,34 @@ public class FalsePositionListAdapter extends ArrayAdapter<FalsePosition> {
         holder.textViewXm.setText(falsePosition.getXm());
         holder.textViewFXm.setText(falsePosition.getFXm());
         holder.textViewError.setText(falsePosition.getError());
+
+        if (holder.textViewN.getText() == "n" ) {
+            holder.textViewN.setTextColor(Color.WHITE);
+            holder.textViewXi.setTextColor(Color.WHITE);
+            holder.textViewXs.setTextColor(Color.WHITE);
+            holder.textViewXm.setTextColor(Color.WHITE);
+            holder.textViewFXm.setTextColor(Color.WHITE);
+            holder.textViewError.setTextColor(Color.WHITE);
+            holder.textViewN.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewXi.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewXs.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewXm.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewFXm.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewError.setBackgroundColor(Color.rgb(63,81,181));
+        }else{
+            holder.textViewN.setTextColor(Color.BLACK);
+            holder.textViewXi.setTextColor(Color.BLACK);
+            holder.textViewXs.setTextColor(Color.BLACK);
+            holder.textViewXm.setTextColor(Color.BLACK);
+            holder.textViewFXm.setTextColor(Color.BLACK);
+            holder.textViewError.setTextColor(Color.BLACK);
+            holder.textViewN.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewXi.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewXs.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewXm.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewFXm.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewError.setBackgroundColor(Color.TRANSPARENT);
+        }
 
 
         return convertView;
