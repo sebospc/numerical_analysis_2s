@@ -28,20 +28,19 @@ import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.ti
 /**
  * A simple {@link Fragment} subclass.
  */
-public class partialPivoting extends baseSystemEquations {
-
+public class totalPivoting extends baseSystemEquations {
     private LinearLayout multipliersLayout;
+    private int[] marks;
 
-    public partialPivoting() {
+    public totalPivoting() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_partial_pivoting, container, false);
+        View view =inflater.inflate(R.layout.fragment_total_pivoting, container, false);
         matrixResult = view.findViewById(R.id.matrixResult);
         Button run = view.findViewById(R.id.run);
         multipliersLayout = view.findViewById(R.id.multipiers);
@@ -66,13 +65,17 @@ public class partialPivoting extends baseSystemEquations {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void elimination(double [][] expandedMatrix){
+        marks = new int[expandedMatrix.length];
+        for(int i = 0; i< marks.length;i++)
+            marks[i] =i;
+
         animatorSet = new AnimatorSet();
         multipliersLayout.removeAllViews();
         animations = new LinkedList<>();
 
         for(int k = 0; k< expandedMatrix.length-1; k++){
             final int auxk = k;
-            expandedMatrix = partialPivot(k,expandedMatrix);
+            expandedMatrix = totalPivot(k,expandedMatrix);
             ValueAnimator stage = ValueAnimator.ofInt(0,1);
             stage.addListener(new Animator.AnimatorListener() {
                 @Override
@@ -97,16 +100,13 @@ public class partialPivoting extends baseSystemEquations {
             });
             animations.add(stage);
             for (int i = k + 1; i < expandedMatrix.length; i++){
-                if(expandedMatrix[k][k] == 0) {
-                    Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
+                if(expandedMatrix[k][k] == 0)
+                    Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
                 final double multiplier = expandedMatrix[i][k] / expandedMatrix[k][k];
                 final int auxi = i;
 
 
-                ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),Color.YELLOW,getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
                 colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animator) {
@@ -193,26 +193,33 @@ public class partialPivoting extends baseSystemEquations {
 
         animatorSet.playSequentially(animations);
         animatorSet.start();
-        substitution(expandedMatrix);
+        substitution(expandedMatrix,marks);
 
     }
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public double[][] partialPivot(int k, final double [][] expandedMatrix){
-        double mayor = Math.abs(expandedMatrix[k][k]);
-        int filaMayor = k;
 
-        for(int s = k+1;s < expandedMatrix.length; s++){
-            if(Math.abs(expandedMatrix[s][k])> mayor){
-                mayor = Math.abs(expandedMatrix[s][k]);
-                filaMayor = s;
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public double[][] totalPivot(int k, double [][] expandedMAtrix){
+        double mayor = 0.0;
+        int higherRow= k;
+        int higherColumn = k;
+        for(int r = k; r< expandedMAtrix.length; r++){
+            for(int s = k; s< expandedMAtrix.length; s++){
+                if(Math.abs(expandedMAtrix[r][s]) > mayor){
+                    mayor = Math.abs(expandedMAtrix[r][s]);
+                    higherRow = r;
+                    higherColumn = s;
+                }
             }
         }
-
         if(mayor == 0){
             Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
-        }else if(filaMayor != k){
-            return swapRows(k,filaMayor,expandedMatrix);
+        }else{
+            if(higherRow != k)
+                swapRows(k,higherRow,expandedMAtrix);
+            if(higherColumn != k)
+                swapColumn(k,higherColumn,expandedMAtrix,marks);
         }
-        return expandedMatrix;
+        return expandedMAtrix;
     }
+
 }

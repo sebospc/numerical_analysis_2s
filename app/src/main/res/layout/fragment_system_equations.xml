@@ -156,8 +156,8 @@
         android:max="5"
         android:progress="1" />
 
-    <com.example.sacrew.numericov4.VerticalViewPager
-        android:id="@+id/verticalPager"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_weight="0.5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

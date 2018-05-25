@@ -208,7 +208,7 @@ public class newtonFragment extends Fragment {
                         graphSerie(xa-0.5, xa, functionG.getExpression(), graph, Color.RED);
                         if (y0 == 0) {
                             graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
-                            Toast.makeText(getContext(),  convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(),  convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
                             //System.out.println(xa + " is a root");
                         } else if (error <= tol) {
                             y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();

@@ -24,6 +24,8 @@ import android.widget.TableRow;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.systemEquations.gaussSimple;
+import com.example.sacrew.numericov4.fragments.systemEquations.partialPivoting;
+import com.example.sacrew.numericov4.fragments.systemEquations.totalPivoting;
 import com.example.sacrew.numericov4.pagerAdapter;
 
 import java.util.LinkedList;
@@ -80,9 +82,11 @@ public class systemEquationsFragment extends Fragment {
 
         paintMatrix(4);
 
-        ViewPager slideView = view.findViewById(R.id.verticalPager);
+        ViewPager slideView = view.findViewById(R.id.pager);
         List<Fragment> fragments = new LinkedList<>();
         fragments.add(new gaussSimple());
+        fragments.add(new partialPivoting());
+        fragments.add(new totalPivoting());
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(),fragments);
         slideView.setAdapter(pager);
         return view;
