@@ -23,6 +23,7 @@ import com.example.sacrew.numericov4.R;
 
 import java.util.LinkedList;
 
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.times;
 
 /**
@@ -30,7 +31,6 @@ import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.ti
  */
 public class totalPivoting extends baseSystemEquations {
     private LinearLayout multipliersLayout;
-    private int[] marks;
 
     public totalPivoting() {
         // Required empty public constructor
@@ -65,8 +65,8 @@ public class totalPivoting extends baseSystemEquations {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void elimination(double [][] expandedMatrix){
-        marks = new int[expandedMatrix.length];
-        for(int i = 0; i< marks.length;i++)
+        int[] marks = new int[expandedMatrix.length];
+        for(int i = 0; i< marks.length; i++)
             marks[i] =i;
 
         animatorSet = new AnimatorSet();
@@ -75,7 +75,7 @@ public class totalPivoting extends baseSystemEquations {
 
         for(int k = 0; k< expandedMatrix.length-1; k++){
             final int auxk = k;
-            expandedMatrix = totalPivot(k,expandedMatrix);
+            expandedMatrix = totalPivot(k,expandedMatrix, marks);
             ValueAnimator stage = ValueAnimator.ofInt(0,1);
             stage.addListener(new Animator.AnimatorListener() {
                 @Override
@@ -121,7 +121,7 @@ public class totalPivoting extends baseSystemEquations {
                 colorAnimator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
-                        multipliersLayout.addView(defaultEditText("multiplier"+auxi+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10));
+                        multipliersLayout.addView(defaultEditText("multiplier"+(auxi-auxk)+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10));
                     }
 
                     @Override
@@ -151,7 +151,7 @@ public class totalPivoting extends baseSystemEquations {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animator) {
                             try {
-                                ((EditText) ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj)).setText((value + "         ").substring(0,5));
+                                ((EditText) ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj)).setText((value + "         ").substring(0,6));
                                 ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj).setBackgroundColor((Integer) animator.getAnimatedValue());
                                 ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxj).setBackgroundColor(Color.RED);
                             }catch(Exception e){
@@ -193,33 +193,10 @@ public class totalPivoting extends baseSystemEquations {
 
         animatorSet.playSequentially(animations);
         animatorSet.start();
-        substitution(expandedMatrix,marks);
+        substitution(expandedMatrix, marks);
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public double[][] totalPivot(int k, double [][] expandedMAtrix){
-        double mayor = 0.0;
-        int higherRow= k;
-        int higherColumn = k;
-        for(int r = k; r< expandedMAtrix.length; r++){
-            for(int s = k; s< expandedMAtrix.length; s++){
-                if(Math.abs(expandedMAtrix[r][s]) > mayor){
-                    mayor = Math.abs(expandedMAtrix[r][s]);
-                    higherRow = r;
-                    higherColumn = s;
-                }
-            }
-        }
-        if(mayor == 0){
-            Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
-        }else{
-            if(higherRow != k)
-                swapRows(k,higherRow,expandedMAtrix);
-            if(higherColumn != k)
-                swapColumn(k,higherColumn,expandedMAtrix,marks);
-        }
-        return expandedMAtrix;
-    }
+
 
 }

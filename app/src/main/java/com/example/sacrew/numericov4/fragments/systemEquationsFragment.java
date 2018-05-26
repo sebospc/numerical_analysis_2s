@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments;
 
 
+import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -23,6 +24,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.systemEquations.cholesky;
+import com.example.sacrew.numericov4.fragments.systemEquations.croult;
+import com.example.sacrew.numericov4.fragments.systemEquations.doolittle;
 import com.example.sacrew.numericov4.fragments.systemEquations.gaussSimple;
 import com.example.sacrew.numericov4.fragments.systemEquations.partialPivoting;
 import com.example.sacrew.numericov4.fragments.systemEquations.totalPivoting;
@@ -39,7 +43,10 @@ public class systemEquationsFragment extends Fragment {
     public static TableLayout matrixAText;
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout bValuesText,xValuesText;
-    public static SeekBar times;
+    @SuppressLint("StaticFieldLeak")
+    public  static SeekBar times;
+
+    public static AnimatorSet animatorSet = new AnimatorSet();
 
     int matrixA [][];
     int bValues[],xValues[];
@@ -83,10 +90,33 @@ public class systemEquationsFragment extends Fragment {
         paintMatrix(4);
 
         ViewPager slideView = view.findViewById(R.id.pager);
+        ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                animatorSet.removeAllListeners();
+                animatorSet.end();
+                animatorSet.cancel();
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        };
+        slideView.addOnPageChangeListener(viewListener);
+
         List<Fragment> fragments = new LinkedList<>();
         fragments.add(new gaussSimple());
         fragments.add(new partialPivoting());
         fragments.add(new totalPivoting());
+        fragments.add(new croult());
+        fragments.add(new doolittle());
+        fragments.add(new cholesky());
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(),fragments);
         slideView.setAdapter(pager);
         return view;
@@ -159,5 +189,6 @@ public class systemEquationsFragment extends Fragment {
         text.setText(value);
         return text;
     }
+
 
 }
