@@ -46,7 +46,7 @@
                 android:layout_width="47dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
@@ -56,17 +56,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewFDXn"
+                android:id="@+id/textViewGXn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />

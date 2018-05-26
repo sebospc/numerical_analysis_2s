@@ -22,7 +22,6 @@ import android.widget.ToggleButton;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
 import com.example.sacrew.numericov4.fragments.graphFragment;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPoint;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPointListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -241,7 +240,7 @@ public class fixedPointFragment extends Fragment {
                 Toast.makeText(getContext(),  "Tolerance must be < 0", Toast.LENGTH_SHORT).show();
                 //System.out.println("Tolerance < 0");
             }
-            FixedPointListAdapter adapter = new FixedPointListAdapter(getContext(), R.layout.fixed_point_list_adapter, listValues);
+            FixedPointListAdapter adapter = new FixedPointListAdapter(getContext(), R.layout.list_adapter_fixed_point, listValues);
             listView.setAdapter(adapter);
         //}catch(Exception e){
             //System.out.println(e.getMessage());

@@ -22,7 +22,6 @@ import android.widget.ToggleButton;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
 import com.example.sacrew.numericov4.fragments.graphFragment;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePosition;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePositionListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -266,7 +265,7 @@ public class falsePositionFragment extends Fragment {
             Toast.makeText(getContext(), "Tolerance < 0", Toast.LENGTH_SHORT).show();
             //System.out.println("Tolerance < 0");
         }
-        FalsePositionListAdapter adapter = new FalsePositionListAdapter(getContext(), R.layout.false_position_list_adapter, listValues);
+        FalsePositionListAdapter adapter = new FalsePositionListAdapter(getContext(), R.layout.list_adapter_false_position, listValues);
         listView.setAdapter(adapter);
     }//
 

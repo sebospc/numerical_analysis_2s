@@ -244,7 +244,7 @@ public class multipleRootsFragment extends Fragment {
                 Toast.makeText(getContext(),  "Tolerance must be < 0", Toast.LENGTH_SHORT).show();
                 //System.out.println("Tolerance < 0");
             }
-            //MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.multiple_roots_list_adapter, listValues);
+            //MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.list_adapter_multiple_roots, listValues);
            //listView.setAdapter(adapter);
         //}catch(Exception e){
             //sToast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();

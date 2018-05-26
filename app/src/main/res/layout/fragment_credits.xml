@@ -16,6 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            app:srcCompat="?attr/actionModeCloseDrawable" />
+
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageView4"
             android:layout_width="match_parent"
@@ -140,6 +148,18 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="GraphView by Jonas Grehring"
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Math by Apache"
             android:textColor="@android:color/white"
             android:textSize="19sp"
             tools:layout_editor_absoluteX="26dp"

@@ -22,7 +22,6 @@ import android.widget.ToggleButton;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewton;
 import com.example.sacrew.numericov4.fragments.graphFragment;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Newton;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.NewtonListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -237,7 +236,7 @@ public class newtonFragment extends Fragment {
                 Toast.makeText(getContext(),  "Tolerance must be < 0", Toast.LENGTH_SHORT).show();
                 //System.out.println("Tolerance < 0");
             }
-            NewtonListAdapter adapter = new NewtonListAdapter(getContext(), R.layout.newton_list_adapter, listValues);
+            NewtonListAdapter adapter = new NewtonListAdapter(getContext(), R.layout.list_adapter_newton, listValues);
             listView.setAdapter(adapter);
         //}catch(Exception e){
           //  Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();

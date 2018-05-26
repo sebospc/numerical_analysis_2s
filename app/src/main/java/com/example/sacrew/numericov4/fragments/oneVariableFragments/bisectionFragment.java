@@ -259,7 +259,7 @@ public class bisectionFragment extends Fragment {
             textError.setError("Tolerance must be < 0");
 
         }
-        BisectionListAdapter adapter = new BisectionListAdapter(getContext(), R.layout.bisection_list_adapter, listValues);
+        BisectionListAdapter adapter = new BisectionListAdapter(getContext(), R.layout.list_adapter_bisection, listValues);
         listView.setAdapter(adapter);
 
         }

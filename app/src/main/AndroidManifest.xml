@@ -45,10 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".fragments.tableFragments.completeTableActivity"
-            android:label="@string/title_activity_complete_table"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -143,7 +143,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
-                    android:text="CALCULATE" />
+                    android:text="CALCULATE"
+                    android:textColor="@android:color/white" />
 
                 <Button
                     android:id="@+id/runHelp"
@@ -152,6 +153,15 @@
                     android:layout_weight="1"
                     android:background="@color/Transparent"
                     android:text="HELP" />
+
+                <Button
+                    android:id="@+id/runChart6"
+                    android:layout_width="198dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="TOTAL CHART"
+                    android:textColor="@android:color/white" />
 
             </LinearLayout>
 
