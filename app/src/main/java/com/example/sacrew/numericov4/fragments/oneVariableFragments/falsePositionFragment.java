@@ -22,6 +22,7 @@ import android.widget.ToggleButton;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
 import com.example.sacrew.numericov4.fragments.graphFragment;
+import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePosition;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePositionListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -183,6 +184,8 @@ public class falsePositionFragment extends Fragment {
         graph.removeAllSeries();
         function.setPrecision(100);
         ArrayList<FalsePosition> listValues = new ArrayList<>();
+        FalsePosition titles = new FalsePosition("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
+        listValues.add(titles);
         if(tol >= 0){
             if(ite > 0){
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();

@@ -3,31 +3,52 @@
     package="com.example.sacrew.numericov4">
 
     <application
-        android:windowSoftInputMode="adjustPan"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustPan">
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fragments.customPopUps.popUpIncrementalSearch"
-            android:theme="@style/AppTheme.Custom"/>
-        <activity android:name=".fragments.customPopUps.popUpBisection"
-            android:theme="@style/AppTheme.Custom"/>
-        <activity android:name=".fragments.customPopUps.popUpFalsePosition"
-            android:theme="@style/AppTheme.Custom"/>
-        <activity android:name=".fragments.customPopUps.popUpFixedPoint"
-            android:theme="@style/AppTheme.Custom"/>
-
+        <activity
+            android:name=".fragments.customPopUps.popUpIncrementalSearch"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpBisection"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpFalsePosition"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpFixedPoint"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpNewton"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpSecant"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpMultipleRoots"
+            android:theme="@style/AppTheme.Custom" />
+        <activity android:name=".fragments.creditsFragment">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".fragments.tableFragments.completeTableActivity"
+            android:label="@string/title_activity_complete_table"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments.listViewCustomAdapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,6 +94,22 @@ public class IncrementalSearchListAdapter extends ArrayAdapter<IncrementalSearch
         holder.textViewN.setText(incremental.getN());
         holder.textViewXn.setText(incremental.getXn());
         holder.textViewFXn.setText(incremental.getFXn());
+
+        if (holder.textViewN.getText() == "n" ) {
+            holder.textViewN.setTextColor(Color.WHITE);
+            holder.textViewXn.setTextColor(Color.WHITE);
+            holder.textViewFXn.setTextColor(Color.WHITE);
+            holder.textViewN.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewXn.setBackgroundColor(Color.rgb(63,81,181));
+            holder.textViewFXn.setBackgroundColor(Color.rgb(63,81,181));
+        }else{
+            holder.textViewN.setTextColor(Color.BLACK);
+            holder.textViewXn.setTextColor(Color.BLACK);
+            holder.textViewFXn.setTextColor(Color.BLACK);
+            holder.textViewN.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewXn.setBackgroundColor(Color.TRANSPARENT);
+            holder.textViewFXn.setBackgroundColor(Color.TRANSPARENT);
+        }
 
 
         return convertView;

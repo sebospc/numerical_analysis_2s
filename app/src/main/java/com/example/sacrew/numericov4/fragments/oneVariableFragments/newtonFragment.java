@@ -22,6 +22,7 @@ import android.widget.ToggleButton;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewton;
 import com.example.sacrew.numericov4.fragments.graphFragment;
+import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Newton;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.NewtonListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -74,15 +75,15 @@ public class newtonFragment extends Fragment {
                 execute();
             }
         });
-        //runHelp = view.findViewById(R.id.runHelp);
+        runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
-        /*runHelp.setOnClickListener(new View.OnClickListener() {
+        runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 executeHelp();
             }
-        });*/
+        });
         graph = view.findViewById(R.id.newtonGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
@@ -181,6 +182,8 @@ public class newtonFragment extends Fragment {
 
             function.setPrecision(100);
             ArrayList<Newton> listValues = new ArrayList<>();
+        Newton titles = new Newton("n", "Xn", "f(Xn)", "f'(Xn)", "Error");
+        listValues.add(titles);
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();

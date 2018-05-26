@@ -22,6 +22,7 @@ import android.widget.ToggleButton;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
 import com.example.sacrew.numericov4.fragments.graphFragment;
+import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPoint;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPointListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -179,6 +180,8 @@ public class fixedPointFragment extends Fragment {
 
             function.setPrecision(100);
             ArrayList<FixedPoint> listValues = new ArrayList<>();
+        FixedPoint titles = new FixedPoint("n", "Xn", "f(Xn)", "g(Xn)", "Error");
+        listValues.add(titles);
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();

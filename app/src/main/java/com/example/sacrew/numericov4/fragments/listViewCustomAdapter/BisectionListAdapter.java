@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -96,9 +98,9 @@ public class BisectionListAdapter extends ArrayAdapter<Bisection> {
         }
 
 
-        //Animation animation = AnimationUtils.loadAnimation(mContext,
-            //    (position > lastPosition) ? R.anim.load_down_anim : R.anim.load_up_anim);
-        //result.startAnimation(animation);
+        Animation animation = AnimationUtils.loadAnimation(mContext,
+                (position > lastPosition) ? R.anim.load_down_anim : R.anim.load_up_anim);
+        result.startAnimation(animation);
         lastPosition = position;
 
         holder.textViewN.setText(bisection.getN());
@@ -107,8 +109,13 @@ public class BisectionListAdapter extends ArrayAdapter<Bisection> {
         holder.textViewXm.setText(bisection.getXm());
         holder.textViewFXm.setText(bisection.getFXm());
         holder.textViewError.setText(bisection.getError());
-        float[] colorPrimario = {232, 65, 71};
             if (holder.textViewN.getText() == "n" ) {
+                holder.textViewN.setTextColor(Color.WHITE);
+                holder.textViewXi.setTextColor(Color.WHITE);
+                holder.textViewXs.setTextColor(Color.WHITE);
+                holder.textViewXm.setTextColor(Color.WHITE);
+                holder.textViewFXm.setTextColor(Color.WHITE);
+                holder.textViewError.setTextColor(Color.WHITE);
                 holder.textViewN.setBackgroundColor(Color.rgb(63,81,181));
                 holder.textViewXi.setBackgroundColor(Color.rgb(63,81,181));
                 holder.textViewXs.setBackgroundColor(Color.rgb(63,81,181));
@@ -116,6 +123,12 @@ public class BisectionListAdapter extends ArrayAdapter<Bisection> {
                 holder.textViewFXm.setBackgroundColor(Color.rgb(63,81,181));
                 holder.textViewError.setBackgroundColor(Color.rgb(63,81,181));
             }else{
+                holder.textViewN.setTextColor(Color.BLACK);
+                holder.textViewXi.setTextColor(Color.BLACK);
+                holder.textViewXs.setTextColor(Color.BLACK);
+                holder.textViewXm.setTextColor(Color.BLACK);
+                holder.textViewFXm.setTextColor(Color.BLACK);
+                holder.textViewError.setTextColor(Color.BLACK);
                 holder.textViewN.setBackgroundColor(Color.TRANSPARENT);
                 holder.textViewXi.setBackgroundColor(Color.TRANSPARENT);
                 holder.textViewXs.setBackgroundColor(Color.TRANSPARENT);

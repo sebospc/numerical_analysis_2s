@@ -165,6 +165,14 @@
                     android:background="@color/Transparent"
                     android:text="HELP" />
 
+                <Button
+                    android:id="@+id/runChart"
+                    android:layout_width="198dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="TOTAL CHART" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -183,17 +191,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <HorizontalScrollView
+                    <ListView
+                        android:id="@+id/listView"
                         android:layout_width="match_parent"
-                        android:layout_height="110dp">
+                        android:layout_height="144dp">
 
-                        <ListView
-                            android:id="@+id/listView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="110dp">
-
-                        </ListView>
-                    </HorizontalScrollView>
+                    </ListView>
 
                 </LinearLayout>
 

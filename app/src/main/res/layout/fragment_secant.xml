@@ -172,12 +172,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <fragment
-                        android:id="@+id/fragment"
-                        android:name="com.example.sacrew.numericov4.fragments.tableFragments.secant_Table"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp" />
-
                     <ListView
                         android:id="@+id/listView"
                         android:layout_width="match_parent"

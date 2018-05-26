@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.example.sacrew.numericov4.fragments.graphFragment;
+import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -90,6 +91,7 @@ public class incrementalSearchFragment extends Fragment {
                 executeHelp();
             }
         });
+
 
         textFunction.setAdapter(new ArrayAdapter<String>
                 (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
@@ -165,6 +167,8 @@ public class incrementalSearchFragment extends Fragment {
         graph.removeAllSeries();
         function.setPrecision(100);
         ArrayList<IncrementalSearch> listValues = new ArrayList<>();
+        IncrementalSearch titles = new IncrementalSearch("n", "Xn", "f(Xn)");
+        listValues.add(titles);
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
