@@ -23,8 +23,9 @@ import android.widget.Toast;
 import com.example.sacrew.numericov4.R;
 
 import java.util.LinkedList;
-import java.util.List;
 
+
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.times;
 
 /**
@@ -32,10 +33,7 @@ import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.ti
  */
 public class gaussSimple extends baseSystemEquations {
 
-    private AnimatorSet animatorSet = new AnimatorSet();
     private LinearLayout multipliersLayout;
-
-
 
     public gaussSimple() {
         // Required empty public constructor
@@ -60,7 +58,6 @@ public class gaussSimple extends baseSystemEquations {
                 animatorSet.removeAllListeners();
                 animatorSet.end();
                 animatorSet.cancel();
-
                 begin();
             }
 
@@ -77,7 +74,7 @@ public class gaussSimple extends baseSystemEquations {
     public void elimination(final double [][] expandedMatrix){
         animatorSet = new AnimatorSet();
         multipliersLayout.removeAllViews();
-        List<Animator> animations = new LinkedList<>();
+        animations = new LinkedList<>();
 
         for(int k = 0; k< expandedMatrix.length-1; k++){
             final int auxk = k;
@@ -129,7 +126,7 @@ public class gaussSimple extends baseSystemEquations {
                 colorAnimator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
-                        multipliersLayout.addView(defaultEditText("multiplier"+auxi+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10));
+                        multipliersLayout.addView(defaultEditText("multiplier"+(auxi-auxk)+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10));
                     }
 
                     @Override
@@ -160,7 +157,7 @@ public class gaussSimple extends baseSystemEquations {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animator) {
                             try {
-                                ((EditText) ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj)).setText((value + "         ").substring(0,5));
+                                ((EditText) ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj)).setText((value + "         ").substring(0,6));
                                 ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj).setBackgroundColor((Integer) animator.getAnimatedValue());
                                 ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxj).setBackgroundColor(Color.RED);
                             }catch(Exception e){

@@ -6,7 +6,9 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -21,10 +23,12 @@ import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 
+import java.net.ConnectException;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.bValuesText;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.matrixAText;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.times;
@@ -34,9 +38,9 @@ import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.xV
  * Created by sacrew on 23/05/18.
  */
 
-public class baseSystemEquations extends Fragment {
+public abstract class baseSystemEquations extends Fragment {
     protected TableLayout matrixResult;
-    protected AnimatorSet animatorSet = new AnimatorSet();
+
     protected List<Animator> animations;
     public baseSystemEquations(){
 
@@ -44,6 +48,14 @@ public class baseSystemEquations extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void begin(){
+        double [][] expandedMatrix = getMatrix();
+        if(expandedMatrix!= null)
+            bootStrap(expandedMatrix);
+    }
+
+
+
+    public double[][] getMatrix(){
         int n = matrixAText.getChildCount();
         double [][] expandedMatrix = new double[n][n+1];
         for(int i=0; i<n; i++){
@@ -58,7 +70,7 @@ public class baseSystemEquations extends Fragment {
                     expandedMatrix[i][j] = x;
                 }catch (Exception e){
                     aux.setError("invalid value");
-                    return;
+                    return null;
                 }
             }
             EditText aux = ((EditText)bValuesText.getChildAt(i));
@@ -67,26 +79,22 @@ public class baseSystemEquations extends Fragment {
                 expandedMatrix[i][n] = x;
             }catch (Exception e){
                 aux.setError("invalid value");
-                return;
+                return null;
             }
         }
-        bootStrap(expandedMatrix);
+        return expandedMatrix;
     }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void bootStrap(double[][] expandedMatrix){
         matrixResult.removeAllViews();
         for (double[] v : expandedMatrix) {
             TableRow aux = new TableRow(getContext());
             for (double val : v) {
-                aux.addView(defaultEditText((val + "      ").substring(0, 5)));
+                aux.addView(defaultEditText((val + "      ").substring(0, 6)));
             }
             matrixResult.addView(aux);
         }
-
         elimination(expandedMatrix);
-
-
     }
 
 
@@ -106,7 +114,17 @@ public class baseSystemEquations extends Fragment {
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.M)
     public TextView defaultEditText(String value, int color,int weight,int size ) {
-        TextView text = new EditText(getContext());
+        Context context;
+        if(isAdded()){
+            context =getContext();
+
+        }else {
+         context = ((EditText)((TableRow)matrixAText.getChildAt(0)).getChildAt(0)).getContext();
+            animatorSet.removeAllListeners();
+            animatorSet.end();
+            animatorSet.cancel();
+        }
+        TextView text = new EditText(context);
         text.setLayoutParams(new TableRow.LayoutParams(weight, 110));
         text.setEms(2);
         text.setMaxLines(1);
@@ -119,15 +137,18 @@ public class baseSystemEquations extends Fragment {
                 text,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
         );
         return text;
-    }
 
+    }
     public double[][] swapRows(int k, int higherRow, double[][] expandedMatrix){
+        return swapRows(k,higherRow,expandedMatrix,matrixResult);
+    }
+    public double[][] swapRows(int k, int higherRow, final double[][] expandedMatrix, final TableLayout table){
         final int length = expandedMatrix.length;
         final int auxK = k;
         final int auxHigherRow = higherRow;
         for(int i = 0; i<= length; i++){
             final int auxi = i;
-            double aux = expandedMatrix[k][i];
+            final double aux = expandedMatrix[k][i];
             expandedMatrix[k][i] = expandedMatrix[higherRow][i];
             expandedMatrix[higherRow][i] = aux;
             ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.MAGENTA,
@@ -135,11 +156,19 @@ public class baseSystemEquations extends Fragment {
             colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
-                        ((TableRow) matrixResult.getChildAt(auxHigherRow)).getChildAt(auxi)
+                    if(auxi < ((TableRow)table.getChildAt(0)).getChildCount()) {
+                        ((TableRow) table.getChildAt(auxHigherRow)).getChildAt(auxi)
                                 .setBackgroundColor((Integer) animator.getAnimatedValue());
 
-                        ((TableRow) matrixResult.getChildAt(auxK)).getChildAt(auxi)
-                                 .setBackgroundColor((Integer) animator.getAnimatedValue());
+                        ((TableRow) table.getChildAt(auxK)).getChildAt(auxi)
+                                .setBackgroundColor((Integer) animator.getAnimatedValue());
+                    }else {
+                         bValuesText.getChildAt(auxHigherRow)
+                                .setBackgroundColor((Integer) animator.getAnimatedValue());
+
+                        bValuesText.getChildAt(auxK)
+                                .setBackgroundColor((Integer) animator.getAnimatedValue());
+                    }
                 }
             });
             colorAnimator.addListener(new Animator.AnimatorListener() {
@@ -150,11 +179,19 @@ public class baseSystemEquations extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
-                    EditText textAux = (EditText) ((TableRow) matrixResult.getChildAt(auxHigherRow)).getChildAt(auxi);
-                    String aux2 = textAux.getText().toString();
-                    EditText textAux2 = (EditText) ((TableRow) matrixResult.getChildAt(auxK)).getChildAt(auxi);
-                    textAux.setText(textAux2.getText().toString());
-                    textAux2.setText(aux2);
+                    if(auxi < ((TableRow)table.getChildAt(0)).getChildCount()) {
+                        EditText textAux = (EditText) ((TableRow) table.getChildAt(auxHigherRow)).getChildAt(auxi);
+                        String aux2 = textAux.getText().toString();
+                        EditText textAux2 = (EditText) ((TableRow) table.getChildAt(auxK)).getChildAt(auxi);
+                        textAux.setText(textAux2.getText().toString());
+                        textAux2.setText(aux2);
+                    }else{
+                        EditText textAux = (EditText)  bValuesText.getChildAt(auxHigherRow);
+                        String aux2 = textAux.getText().toString();
+                        EditText textAux2 = (EditText) bValuesText.getChildAt(auxK);
+                        textAux.setText(textAux2.getText().toString());
+                        textAux2.setText(aux2);
+                    }
                 }
 
                 @Override
@@ -172,10 +209,16 @@ public class baseSystemEquations extends Fragment {
         return expandedMatrix;
     }
 
+
     public void swapColumn(int k, int higherColumn, double[][] expandedMatrix, int [] marks){
-        int aux = marks[k];
-        marks[k] = marks[higherColumn];
-        marks[higherColumn] = aux;
+        swapColumn(k,higherColumn,expandedMatrix,marks,matrixResult);
+    }
+    public void swapColumn(int k, int higherColumn, double[][] expandedMatrix, int [] marks, final TableLayout table){
+        if(marks != null) {
+            int aux = marks[k];
+            marks[k] = marks[higherColumn];
+            marks[higherColumn] = aux;
+        }
         final int auxHigherColumn = higherColumn;
         final int auxk = k;
         for(int i =0; i < expandedMatrix.length ; i++){
@@ -188,10 +231,10 @@ public class baseSystemEquations extends Fragment {
             colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
-                    ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxHigherColumn)
+                    ((TableRow) table.getChildAt(auxi)).getChildAt(auxHigherColumn)
                             .setBackgroundColor((Integer) animator.getAnimatedValue());
 
-                    ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxk)
+                    ((TableRow) table.getChildAt(auxi)).getChildAt(auxk)
                             .setBackgroundColor((Integer) animator.getAnimatedValue());
                 }
             });
@@ -203,9 +246,9 @@ public class baseSystemEquations extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
-                    EditText textAux = (EditText) ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxHigherColumn);
+                    EditText textAux = (EditText) ((TableRow) table.getChildAt(auxi)).getChildAt(auxHigherColumn);
                     String aux2 = textAux.getText().toString();
-                    EditText textAux2 = (EditText) ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxk);
+                    EditText textAux2 = (EditText) ((TableRow) table.getChildAt(auxi)).getChildAt(auxk);
                     textAux.setText(textAux2.getText().toString());
                     textAux2.setText(aux2);
                 }
@@ -232,15 +275,19 @@ public class baseSystemEquations extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void substitution(double[][] expandedMatrix){
         for(double val: substitution(expandedMatrix,-1)){
-            xValuesText.addView(defaultEditText((val+"            ").substring(0,5)));
+            xValuesText.addView(defaultEditText((val+"            ").substring(0,6)));
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void substitution(double[][] expandedMatrix, int [] marks){
         double [] result = substitution(expandedMatrix,-1);
+        double [] clean = new double[result.length];
         for(int i = 0; i< result.length; i++){
-            double val = result[marks[i]];
-            xValuesText.addView(defaultEditText((val+"            ").substring(0,5)));
+            double val = result[i];
+            clean[marks[i]] = val;
+        }
+        for(double val:clean){
+            xValuesText.addView(defaultEditText((val+"            ").substring(0,6)));
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -270,5 +317,34 @@ public class baseSystemEquations extends Fragment {
         }
 
         return values;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public double[][] totalPivot(int k, double [][] expandedMAtrix, int [] marks) {
+        return totalPivot(k,expandedMAtrix,marks,matrixResult);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public double[][] totalPivot(int k, double [][] expandedMAtrix, int [] marks, TableLayout table){
+        double mayor = 0.0;
+        int higherRow= k;
+        int higherColumn = k;
+        for(int r = k; r< expandedMAtrix.length; r++){
+            for(int s = k; s< expandedMAtrix.length; s++){
+                if(Math.abs(expandedMAtrix[r][s]) > mayor){
+                    mayor = Math.abs(expandedMAtrix[r][s]);
+                    higherRow = r;
+                    higherColumn = s;
+                }
+            }
+        }
+        if(mayor == 0){
+            Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
+        }else{
+            if(higherRow != k)
+                swapRows(k,higherRow,expandedMAtrix,table);
+            if(higherColumn != k)
+                swapColumn(k,higherColumn,expandedMAtrix,marks,table);
+        }
+        return expandedMAtrix;
     }
 }

@@ -23,6 +23,7 @@ import com.example.sacrew.numericov4.R;
 
 import java.util.LinkedList;
 
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.times;
 
 /**
@@ -121,7 +122,7 @@ public class partialPivoting extends baseSystemEquations {
                 colorAnimator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
-                        multipliersLayout.addView(defaultEditText("multiplier"+auxi+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10));
+                        multipliersLayout.addView(defaultEditText("multiplier"+(auxi-auxk)+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10));
                     }
 
                     @Override
@@ -151,7 +152,7 @@ public class partialPivoting extends baseSystemEquations {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animator) {
                             try {
-                                ((EditText) ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj)).setText((value + "         ").substring(0,5));
+                                ((EditText) ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj)).setText((value + "         ").substring(0,6));
                                 ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj).setBackgroundColor((Integer) animator.getAnimatedValue());
                                 ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxj).setBackgroundColor(Color.RED);
                             }catch(Exception e){

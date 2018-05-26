@@ -101,6 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:overScrollMode="never"
+                    android:fadingEdge="none"
                     android:scrollbars="none">
 
                     <LinearLayout
@@ -162,6 +163,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:fadingEdgeLength="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"/>
 
 </LinearLayout>

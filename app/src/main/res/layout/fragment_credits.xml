@@ -15,7 +15,8 @@
             android:id="@+id/imageView4"
             android:layout_width="match_parent"
             android:layout_height="162dp"
-            app:srcCompat="?android:attr/actionModeFindDrawable" />
+            app:srcCompat="?android:attr/actionModeFindDrawable"
+            tools:ignore="NewApi" />
 
         <TextView
             android:id="@+id/textView13"

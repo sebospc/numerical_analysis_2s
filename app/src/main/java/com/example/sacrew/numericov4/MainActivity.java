@@ -19,6 +19,8 @@ import com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 import com.example.sacrew.numericov4.fragments.systemEquations.gaussSimple;
 import com.example.sacrew.numericov4.fragments.oneVariable;
 
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
+
 public class MainActivity extends AppCompatActivity {
     private ListView menuLateral;
     private DrawerLayout drawerLayout;
@@ -89,6 +91,13 @@ public class MainActivity extends AppCompatActivity {
     };
     public void openHome(){
         if(idFragment != 0) {
+            /**
+             * remove animations of system equations
+             */
+            animatorSet.removeAllListeners();
+            animatorSet.end();
+            animatorSet.cancel();
+
             getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
 
@@ -100,6 +109,13 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openGraph(){
         if(idFragment != 1) {
+            /**
+             * remove animations of system equations
+             */
+            animatorSet.removeAllListeners();
+            animatorSet.end();
+            animatorSet.cancel();
+
             getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
 
@@ -112,6 +128,13 @@ public class MainActivity extends AppCompatActivity {
     public void openOneVariable(){
 
         if(idFragment != 2) {
+            /**
+             * remove animations of system equations
+             */
+            animatorSet.removeAllListeners();
+            animatorSet.end();
+            animatorSet.cancel();
+            
             getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
 
