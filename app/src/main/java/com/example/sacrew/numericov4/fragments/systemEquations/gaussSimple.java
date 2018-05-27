@@ -2,6 +2,7 @@ package com.example.sacrew.numericov4.fragments.systemEquations;
 
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TableRow;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import java.util.LinkedList;
 
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.times;
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animations;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +68,7 @@ public class gaussSimple extends baseSystemEquations {
 
 
 
+
         return view;
     }
 
@@ -82,12 +86,12 @@ public class gaussSimple extends baseSystemEquations {
             stage.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animator) {
-                    multipliersLayout.addView(defaultEditText("stage "+auxk,0, LinearLayout.LayoutParams.MATCH_PARENT,13));
+                    multipliersLayout.addView(defaultEditText("stage "+auxk,0, LinearLayout.LayoutParams.MATCH_PARENT,13,true));
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
-
+                    if(!animations.isEmpty())animations.remove(0);
                 }
 
                 @Override
@@ -126,12 +130,12 @@ public class gaussSimple extends baseSystemEquations {
                 colorAnimator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
-                        multipliersLayout.addView(defaultEditText("multiplier"+(auxi-auxk)+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10));
+                        multipliersLayout.addView(defaultEditText("multiplier"+(auxi-auxk)+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10,true));
                     }
 
                     @Override
                     public void onAnimationEnd(Animator animator) {
-
+                        if(!animations.isEmpty())animations.remove(0);
                     }
 
                     @Override
@@ -176,14 +180,17 @@ public class gaussSimple extends baseSystemEquations {
                             try {
                                 ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxj)
                                         .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                                if(!animations.isEmpty())animations.remove(0);
                             }catch(Exception e){
                                 matrixResult.removeAllViews();
                             }
+
                         }
 
                         @Override
                         public void onAnimationCancel(Animator animator) {
-
+                            ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj)
+                                    .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                         }
 
                         @Override
@@ -198,6 +205,9 @@ public class gaussSimple extends baseSystemEquations {
         }
 
         animatorSet.playSequentially(animations);
+
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+        });
         animatorSet.start();
         substitution(expandedMatrix);
     }

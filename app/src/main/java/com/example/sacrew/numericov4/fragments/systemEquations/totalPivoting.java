@@ -23,6 +23,7 @@ import com.example.sacrew.numericov4.R;
 
 import java.util.LinkedList;
 
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animations;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.times;
 
@@ -80,11 +81,12 @@ public class totalPivoting extends baseSystemEquations {
             stage.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animator) {
-                    multipliersLayout.addView(defaultEditText("stage "+auxk,0, LinearLayout.LayoutParams.MATCH_PARENT,13));
+                    multipliersLayout.addView(defaultEditText("stage "+auxk,0, LinearLayout.LayoutParams.MATCH_PARENT,13,true));
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
+                    if (!animations.isEmpty()) animations.remove(0);
 
                 }
 
@@ -121,17 +123,18 @@ public class totalPivoting extends baseSystemEquations {
                 colorAnimator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
-                        multipliersLayout.addView(defaultEditText("multiplier"+(auxi-auxk)+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10));
+                        multipliersLayout.addView(defaultEditText("multiplier"+(auxi-auxk)+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10,true));
                     }
 
                     @Override
                     public void onAnimationEnd(Animator animator) {
-
+                        if (!animations.isEmpty()) animations.remove(0);
                     }
 
                     @Override
                     public void onAnimationCancel(Animator animator) {
-
+                        ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                     }
 
                     @Override
@@ -170,6 +173,7 @@ public class totalPivoting extends baseSystemEquations {
                             try {
                                 ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxj)
                                         .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                                if (!animations.isEmpty()) animations.remove(0);
                             }catch(Exception e){
                                 matrixResult.removeAllViews();
                             }
@@ -177,6 +181,8 @@ public class totalPivoting extends baseSystemEquations {
 
                         @Override
                         public void onAnimationCancel(Animator animator) {
+                            ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
 
                         }
 

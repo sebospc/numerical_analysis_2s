@@ -30,6 +30,7 @@ import org.apache.commons.math3.complex.ComplexFormat;
 
 import java.util.LinkedList;
 
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animations;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.bValuesText;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.matrixAText;
@@ -105,7 +106,12 @@ public class cholesky extends baseFactorizationMethods{
         return view;
     }
     public String formating(Complex c){
-
+        if(c.getReal() == -0.0){
+            c = new Complex(0.0,c.getImaginary());
+        }
+        if(c.getImaginary() == -0.0){
+            c = new Complex(c.getReal(),0.0);
+        }
         if(c.getImaginary() == 0)
             return c.getReal()+"";
         else if(c.getReal() == 0)
@@ -150,7 +156,27 @@ public class cholesky extends baseFactorizationMethods{
                     suma.setText("suma = 0");
                 }
             });
+            zero.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
 
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    if (!animations.isEmpty()) animations.remove(0);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            });
             animations.add(zero);
             final int auxk = k;
             for(int p = 0; p<k ; p++){
@@ -172,6 +198,28 @@ public class cholesky extends baseFactorizationMethods{
                             matrixLText.removeAllViews();
                             matrixUText.removeAllViews();
                         }
+                    }
+                });
+                colorAnimator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        if (!animations.isEmpty()) animations.remove(0);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                        ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxp).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
                     }
                 });
                 animations.add(colorAnimator);
@@ -212,6 +260,7 @@ public class cholesky extends baseFactorizationMethods{
                                 .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                         ((TableRow) matrixLText.getChildAt(auxk)).getChildAt(auxk)
                                 .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        if (!animations.isEmpty()) animations.remove(0);
                     }catch(Exception e){
                         matrixUText.removeAllViews();
                         matrixLText.removeAllViews();
@@ -221,7 +270,7 @@ public class cholesky extends baseFactorizationMethods{
 
                 @Override
                 public void onAnimationCancel(Animator animator) {
-
+                    ((TableRow)matrixAText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 }
 
                 @Override
@@ -253,6 +302,28 @@ public class cholesky extends baseFactorizationMethods{
                                 matrixLText.removeAllViews();
                                 matrixUText.removeAllViews();
                             }
+                        }
+                    });
+                    animatronix.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            if (!animations.isEmpty()) animations.remove(0);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                            ((TableRow)matrixLText.getChildAt(auxi)).getChildAt(auxp).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+
                         }
                     });
                     animations.add(animatronix);
@@ -296,6 +367,7 @@ public class cholesky extends baseFactorizationMethods{
                         try {
                             ((TableRow) matrixLText.getChildAt(auxi)).getChildAt(auxk)
                                     .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            if (!animations.isEmpty()) animations.remove(0);
                         }catch (Exception e){
                             matrixLText.removeAllViews();
                         }
@@ -304,7 +376,8 @@ public class cholesky extends baseFactorizationMethods{
 
                     @Override
                     public void onAnimationCancel(Animator animator) {
-
+                        ((TableRow)matrixAText.getChildAt(auxi)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        ((TableRow)matrixUText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                     }
 
                     @Override
@@ -336,6 +409,28 @@ public class cholesky extends baseFactorizationMethods{
                                 matrixLText.removeAllViews();
                                 matrixUText.removeAllViews();
                             }
+                        }
+                    });
+                    animatronix.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            if (!animations.isEmpty()) animations.remove(0);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                            ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxp).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxj).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+
                         }
                     });
                     animations.add(animatronix);
@@ -379,6 +474,7 @@ public class cholesky extends baseFactorizationMethods{
                         try {
                             ((TableRow) matrixUText.getChildAt(auxk)).getChildAt(auxj)
                                     .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            if (!animations.isEmpty()) animations.remove(0);
                         }catch (Exception e){
                             matrixUText.removeAllViews();
                         }
@@ -387,7 +483,8 @@ public class cholesky extends baseFactorizationMethods{
 
                     @Override
                     public void onAnimationCancel(Animator animator) {
-
+                        ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        ((TableRow)matrixAText.getChildAt(auxk)).getChildAt(auxj).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                     }
 
                     @Override
@@ -398,7 +495,7 @@ public class cholesky extends baseFactorizationMethods{
                 animations.add(animatronix2);
             }
             matrixLCholesky[k][matrixLCholesky.length] = new Complex(expandedMatrix[k][expandedMatrix.length]);
-            //matrixL[k][matrixL.length] = expandedMatrix[k][expandedMatrix.length];
+
             ValueAnimator animatronco = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
                     getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
             animatronco.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -410,6 +507,27 @@ public class cholesky extends baseFactorizationMethods{
                     }catch (Exception e){
                         matrixLText.removeAllViews();
                     }
+                }
+            });
+            animatronco.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    if (!animations.isEmpty()) animations.remove(0);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
                 }
             });
             animations.add(animatronco);
@@ -429,6 +547,27 @@ public class cholesky extends baseFactorizationMethods{
                     }catch (Exception e){
                         matrixUText.removeAllViews();
                     }
+                }
+            });
+            animatronco.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    if (!animations.isEmpty()) animations.remove(0);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
                 }
             });
             animations.add(animatronco);

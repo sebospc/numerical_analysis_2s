@@ -33,7 +33,7 @@ import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.bV
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.matrixAText;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.times;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.xValuesText;
-
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animations;
 /**
  * Created by sacrew on 23/05/18.
  */
@@ -41,7 +41,6 @@ import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.xV
 public abstract class baseSystemEquations extends Fragment {
     protected TableLayout matrixResult;
 
-    protected List<Animator> animations;
     public baseSystemEquations(){
 
     }
@@ -107,13 +106,17 @@ public abstract class baseSystemEquations extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public TextView defaultEditText(String value) {
-        return defaultEditText(value, getResources().getColor(R.color.colorPrimary),100,10);
+        return defaultEditText(value, getResources().getColor(R.color.colorPrimary),100,10,true);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public TextView defaultEditText(String value,boolean key) {
+        return defaultEditText(value, getResources().getColor(R.color.colorPrimary),100,10,key);
     }
 
     @SuppressLint("WrongConstant")
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public TextView defaultEditText(String value, int color,int weight,int size ) {
+    public TextView defaultEditText(String value, int color,int weight,int size, boolean key) {
         Context context;
         if(isAdded()){
             context =getContext();
@@ -131,7 +134,8 @@ public abstract class baseSystemEquations extends Fragment {
         text.setBackgroundColor(color);
         text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
-        text.setKeyListener(null);
+        if(key)
+            text.setKeyListener(null);
         text.setText(value);
         TextViewCompat.setAutoSizeTextTypeWithDefaults(
                 text,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
@@ -179,24 +183,41 @@ public abstract class baseSystemEquations extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
-                    if(auxi < ((TableRow)table.getChildAt(0)).getChildCount()) {
-                        EditText textAux = (EditText) ((TableRow) table.getChildAt(auxHigherRow)).getChildAt(auxi);
-                        String aux2 = textAux.getText().toString();
-                        EditText textAux2 = (EditText) ((TableRow) table.getChildAt(auxK)).getChildAt(auxi);
-                        textAux.setText(textAux2.getText().toString());
-                        textAux2.setText(aux2);
-                    }else{
-                        EditText textAux = (EditText)  bValuesText.getChildAt(auxHigherRow);
-                        String aux2 = textAux.getText().toString();
-                        EditText textAux2 = (EditText) bValuesText.getChildAt(auxK);
-                        textAux.setText(textAux2.getText().toString());
-                        textAux2.setText(aux2);
+                    try {
+                        if (auxi < ((TableRow) table.getChildAt(0)).getChildCount()) {
+                            EditText textAux = (EditText) ((TableRow) table.getChildAt(auxHigherRow)).getChildAt(auxi);
+                            String aux2 = textAux.getText().toString();
+                            EditText textAux2 = (EditText) ((TableRow) table.getChildAt(auxK)).getChildAt(auxi);
+                            textAux.setText(textAux2.getText().toString());
+                            textAux2.setText(aux2);
+                        } else {
+                            EditText textAux = (EditText) bValuesText.getChildAt(auxHigherRow);
+                            String aux2 = textAux.getText().toString();
+                            EditText textAux2 = (EditText) bValuesText.getChildAt(auxK);
+                            textAux.setText(textAux2.getText().toString());
+                            textAux2.setText(aux2);
+                        }
+                        if (!animations.isEmpty()) animations.remove(0);
+                    }catch (Exception e){
+                        bValuesText.removeAllViews();
                     }
                 }
 
                 @Override
                 public void onAnimationCancel(Animator animator) {
+                    if (auxi < ((TableRow) table.getChildAt(0)).getChildCount()) {
+                    ((TableRow) table.getChildAt(auxHigherRow)).getChildAt(auxi)
+                            .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
+                    ((TableRow) table.getChildAt(auxK)).getChildAt(auxi)
+                            .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    }else {
+                        bValuesText.getChildAt(auxHigherRow)
+                                .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+                        bValuesText.getChildAt(auxK)
+                                .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    }
                 }
 
                 @Override
@@ -246,15 +267,24 @@ public abstract class baseSystemEquations extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
-                    EditText textAux = (EditText) ((TableRow) table.getChildAt(auxi)).getChildAt(auxHigherColumn);
-                    String aux2 = textAux.getText().toString();
-                    EditText textAux2 = (EditText) ((TableRow) table.getChildAt(auxi)).getChildAt(auxk);
-                    textAux.setText(textAux2.getText().toString());
-                    textAux2.setText(aux2);
+                    try {
+                        EditText textAux = (EditText) ((TableRow) table.getChildAt(auxi)).getChildAt(auxHigherColumn);
+                        String aux2 = textAux.getText().toString();
+                        EditText textAux2 = (EditText) ((TableRow) table.getChildAt(auxi)).getChildAt(auxk);
+                        textAux.setText(textAux2.getText().toString());
+                        textAux2.setText(aux2);
+                        if (!animations.isEmpty()) animations.remove(0);
+                    }catch (Exception e){
+                        table.removeAllViews();
+                    }
                 }
 
                 @Override
                 public void onAnimationCancel(Animator animator) {
+                    ((TableRow) table.getChildAt(auxi)).getChildAt(auxHigherColumn)
+                            .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    ((TableRow) table.getChildAt(auxi)).getChildAt(auxk)
+                            .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
                 }
 

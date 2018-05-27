@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.example.sacrew.numericov4.R;
 
 import java.util.LinkedList;
-
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animations;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.bValuesText;
 import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.matrixAText;
@@ -129,7 +129,27 @@ public class croult extends baseFactorizationMethods{
                     suma.setText("suma = 0");
                 }
             });
+            zero.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
 
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    if (!animations.isEmpty()) animations.remove(0);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            });
             animations.add(zero);
             final int auxk = k;
             for(int p = 0; p<k ; p++){
@@ -150,6 +170,29 @@ public class croult extends baseFactorizationMethods{
                             matrixLText.removeAllViews();
                             matrixUText.removeAllViews();
                         }
+                    }
+                });
+                colorAnimator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+
+                        if (!animations.isEmpty()) animations.remove(0);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                        ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxp).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
                     }
                 });
                 animations.add(colorAnimator);
@@ -184,6 +227,8 @@ public class croult extends baseFactorizationMethods{
                     try {
                         ((TableRow) matrixLText.getChildAt(auxk)).getChildAt(auxk)
                                 .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        if (!animations.isEmpty()) animations.remove(0);
+
                     }catch(Exception e){
                         matrixLText.removeAllViews();
                     }
@@ -192,7 +237,7 @@ public class croult extends baseFactorizationMethods{
 
                 @Override
                 public void onAnimationCancel(Animator animator) {
-
+                    ((TableRow)matrixAText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 }
 
                 @Override
@@ -222,6 +267,28 @@ public class croult extends baseFactorizationMethods{
                                 matrixLText.removeAllViews();
                                 matrixUText.removeAllViews();
                             }
+                        }
+                    });
+                    animatronix.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            if (!animations.isEmpty()) animations.remove(0);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                            ((TableRow)matrixLText.getChildAt(auxi)).getChildAt(auxp).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+
                         }
                     });
                     animations.add(animatronix);
@@ -262,6 +329,7 @@ public class croult extends baseFactorizationMethods{
                         try {
                             ((TableRow) matrixLText.getChildAt(auxi)).getChildAt(auxk)
                                     .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            if (!animations.isEmpty()) animations.remove(0);
                         }catch (Exception e){
                             matrixLText.removeAllViews();
                         }
@@ -270,7 +338,8 @@ public class croult extends baseFactorizationMethods{
 
                     @Override
                     public void onAnimationCancel(Animator animator) {
-
+                        ((TableRow)matrixAText.getChildAt(auxi)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        ((TableRow)matrixUText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                     }
 
                     @Override
@@ -300,6 +369,28 @@ public class croult extends baseFactorizationMethods{
                                 matrixLText.removeAllViews();
                                 matrixUText.removeAllViews();
                             }
+                        }
+                    });
+                    animatronix.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            if (!animations.isEmpty()) animations.remove(0);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                            ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxp).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxj).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+
                         }
                     });
                     animations.add(animatronix);
@@ -339,6 +430,7 @@ public class croult extends baseFactorizationMethods{
                         try {
                             ((TableRow) matrixUText.getChildAt(auxk)).getChildAt(auxj)
                                     .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            if (!animations.isEmpty()) animations.remove(0);
                         }catch (Exception e){
                             matrixUText.removeAllViews();
                         }
@@ -347,7 +439,8 @@ public class croult extends baseFactorizationMethods{
 
                     @Override
                     public void onAnimationCancel(Animator animator) {
-
+                        ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        ((TableRow)matrixAText.getChildAt(auxk)).getChildAt(auxj).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                     }
 
                     @Override
@@ -371,6 +464,27 @@ public class croult extends baseFactorizationMethods{
                     }
                 }
             });
+            animatronco.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    if (!animations.isEmpty()) animations.remove(0);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            });
             animations.add(animatronco);
         }
 
@@ -388,6 +502,27 @@ public class croult extends baseFactorizationMethods{
                     }catch (Exception e){
                         matrixLText.removeAllViews();
                     }
+                }
+            });
+            animatronco.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    if (!animations.isEmpty()) animations.remove(0);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
                 }
             });
             animations.add(animatronco);
