@@ -2,6 +2,7 @@ package com.example.sacrew.numericov4.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -23,16 +24,12 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.graphParallel;
+import com.example.sacrew.numericov4.graphUtils;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.udojava.evalex.Expression;
 
 
-
-
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,18 +46,15 @@ import at.markushi.ui.CircleButton;
 public class graphFragment extends Fragment {
 
     private GraphView graph ;
-    public static List<LineGraphSeries<DataPoint>> listSeries;
     private LinearLayout parentLinearLayout;
     private RelativeLayout hiderB;
     private LinearLayout hiderA;
     private boolean isup = true;
     private Map<Integer, List<LineGraphSeries<DataPoint>>> viewToFunction;
     private Map<Integer, Integer> viewToColor = new HashMap<>();
-    private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
-    private Thread[] cores = new Thread[NUMBER_OF_CORES];
-    private double scale = 0.1; //escala de desplazamiento
     private View view;
     private List <Integer> colors = new LinkedList<>();
+    private graphUtils graphUtils = new graphUtils();
     static public List <String> allFunctions = new LinkedList<>();
 
 
@@ -69,6 +63,7 @@ public class graphFragment extends Fragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -128,7 +123,8 @@ public class graphFragment extends Fragment {
                 hide(view);
             }
         });
-
+        for(LineGraphSeries<DataPoint> v: graphUtils.graphPharallel(200,"x",0,getContext()))
+            graph.addSeries(v);
         return view;
 
 
@@ -216,45 +212,26 @@ public class graphFragment extends Fragment {
         viewToColor.remove(code);
         parentLinearLayout.removeView((View) v.getParent());
     }
+    @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("CutPasteId")
     public void graphIt(View v){
-        double start = -40D;
         try {
             AutoCompleteTextView edittext_var;
             edittext_var = ((View) v.getParent()).findViewById(R.id.function_edit_text);
             SeekBar seek = ((SeekBar)((View) v.getParent()).findViewById(R.id.seek));
             int iter = seek.getProgress();
-            String function = String.valueOf(edittext_var.getText());
+            String function = graphUtils.functionRevision(String.valueOf(edittext_var.getText()));
             String functionAux = function;
             if(function.length() !=0)
                 function = function.toLowerCase();
-
-            Expression exp = new Expression(function);
             //throw expresion, values not be negative
-            if(function.contains("sqrt"))
-                start = 0.001D;
-            else if(function.contains(("e"))){
-                this.scale = 0.1D;
-            }else if(function.contains(("ln"))) {
-                function = function.replace("ln",""+Math.E+"*log10");
-            } else {
-                try {
-                    //evaluateFunction(function,-1);
-                    (exp.with("x", BigDecimal.valueOf(-1)).eval()).doubleValue();
-                    start = -1 * iter * 0.1;
-                    iter = iter * 2;
-                    System.out.println(iter + " num " + iter * 0.1 + " start: " + start);
-                } catch (java.lang.NumberFormatException e) {
-                    start = 0.001D;
-                }
-            }
 
             Toast.makeText(getActivity(), function, Toast.LENGTH_SHORT).show();
 
             //Expression expression = new Expression(function);
 
-            listSeries = new LinkedList<LineGraphSeries<DataPoint>>();
+
             int code = ((View) v.getParent()).findViewById(R.id.function_edit_text).hashCode();
             // define color
             if(!viewToColor.containsKey(code)){
@@ -272,13 +249,18 @@ public class graphFragment extends Fragment {
                         (getActivity(), android.R.layout.select_dialog_item, allFunctions);
                 edittext_var.setAdapter(adapter);
             }
-            graphParalelism(function, iter, start, code);
+            /**
+             * important
+             */
+            List<LineGraphSeries<DataPoint>> listSeries = graphUtils
+                    .graphPharallel(iter,function,viewToColor.get(code),getContext());
+
             if(viewToFunction.containsKey(code)){
                 for (LineGraphSeries<DataPoint> inSerie  : viewToFunction.get(code)) {
                     graph.removeSeries(inSerie);
                 }
             }
-            viewToFunction.put(code,listSeries);
+            viewToFunction.put(code, listSeries);
 
             graph.getViewport().setYAxisBoundsManual(true);
             graph.getViewport().setMinY(-50);
@@ -300,31 +282,12 @@ public class graphFragment extends Fragment {
 
 
         }catch (Exception e){
-            System.out.println(e);
             Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void graphParalelism(String function,int iter,double x,int code){
-        int end = (int)Math.ceil(iter / NUMBER_OF_CORES);
 
-        for(int i = 0; i < cores.length;i++){
-
-            cores[i]=new Thread(new graphParallel(x,end,function,viewToColor.get(code)));
-            cores[i].start();
-
-            x = x + (end*this.scale) - this.scale;
-        }
-        for (Thread core : cores) {
-            try {
-                core.join();
-            } catch (Exception e) {
-                Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
 
 
 }
