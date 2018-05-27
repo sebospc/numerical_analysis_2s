@@ -11,11 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView27"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageView4"
             android:layout_width="match_parent"
@@ -140,6 +135,30 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="GraphView by Jonas Grehring"
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="TableView by Evren Coşkun"
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Math - Complex by Apache"
             android:textColor="@android:color/white"
             android:textSize="19sp"
             tools:layout_editor_absoluteX="26dp"

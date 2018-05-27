@@ -88,8 +88,7 @@
                 android:background="@color/Transparent"
                 android:backgroundTint="@color/colorPrimary"
                 android:text="CALCULATE"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/runHelp"
@@ -98,8 +97,7 @@
                 android:layout_weight="1"
                 android:background="@color/Transparent"
                 android:text="HELP"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:textColor="@android:color/black" />
 
             <Button
                 android:id="@+id/runChart2"
@@ -108,8 +106,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:text="TOTAL CHART"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <LinearLayout

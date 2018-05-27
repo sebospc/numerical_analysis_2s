@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
 import com.example.sacrew.numericov4.fragments.graphFragment;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -224,7 +223,7 @@ public class incrementalSearchFragment extends Fragment {
                 this.delta.setError("Delta cannot be zero");
                 Toast.makeText(getContext(), "Delta cannot be zero", Toast.LENGTH_SHORT).show();
             }
-        IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.incremental_search_list_adapter, listValues);
+        IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.list_adapter_incremental_search, listValues);
         listView.setAdapter(adapter);
     }
 //

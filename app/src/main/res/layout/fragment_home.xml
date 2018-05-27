@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:text="CREDITS"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
                     tools:layout_editor_absoluteX="104dp"
                     tools:layout_editor_absoluteY="434dp" />
             </LinearLayout>

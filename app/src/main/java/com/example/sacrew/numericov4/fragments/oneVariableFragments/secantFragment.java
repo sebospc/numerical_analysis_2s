@@ -22,7 +22,6 @@ import android.widget.ToggleButton;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpSecant;
 import com.example.sacrew.numericov4.fragments.graphFragment;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.SecantListAdapter;
 import com.jjoe64.graphview.GraphView;
@@ -238,7 +237,7 @@ public class secantFragment extends Fragment {
                 Toast.makeText(getContext(),  "Tolerance must be < 0", Toast.LENGTH_SHORT).show();
                 //System.out.println("Tolerance < 0");
             }
-            SecantListAdapter adapter = new SecantListAdapter(getContext(), R.layout.secant_list_adapter, listValues);
+            SecantListAdapter adapter = new SecantListAdapter(getContext(), R.layout.list_adapter_secant, listValues);
             listView.setAdapter(adapter);
         //}catch(Exception e){
           //  Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
