@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sacrew.numericov4.fragments.systemEquations.gaussSeidel"
+    android:ems="4"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:gravity="center"
+        android:text="Gauss seidel"
+        android:textSize="40dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/run"
+            android:layout_width="wrap_content"
+            android:layout_weight=".5"
+            android:layout_height="match_parent"
+            android:text="run" />
+
+        <Button
+            android:id="@+id/pivoting"
+            android:layout_width="wrap_content"
+
+            android:layout_height="match_parent"
+            android:text="get pivoted matrix" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/relaxation"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="Relaxation" />
+
+        <EditText
+            android:id="@+id/iterations"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Iters" />
+
+        <EditText
+            android:id="@+id/error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="error" />
+
+        <ToggleButton
+            android:id="@+id/errorToggle"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/check"
+            android:textOff=""
+            android:textOn="" />
+
+    </LinearLayout>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <LinearLayout
+            android:id="@+id/initialValues"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>

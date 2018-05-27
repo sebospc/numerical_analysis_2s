@@ -25,6 +25,7 @@
         <Button
             android:id="@+id/pivoting"
             android:layout_width="wrap_content"
+
             android:layout_height="match_parent"
             android:text="get pivoted matrix" />
 

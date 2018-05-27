@@ -1,0 +1,96 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sacrew.numericov4.fragments.systemEquations.inverseDeterminant"
+    android:ems="4"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:gravity="center"
+        android:text="Inverse matrix and determinant"
+        android:textSize="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/croultButton"
+            android:layout_width="wrap_content"
+            android:layout_weight=".5"
+            android:layout_height="match_parent"
+            android:text="croult" />
+
+        <Button
+            android:id="@+id/doolittleButton"
+            android:layout_weight=".5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="doolittle" />
+        <Button
+            android:id="@+id/choleskyButton"
+            android:layout_weight=".5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cholesky"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center|left|top">
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <HorizontalScrollView
+                    android:id="@+id/scrollView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none">
+
+                    <TableLayout
+                        android:id="@+id/matrixResult"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </HorizontalScrollView>
+            </ScrollView>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/determinant"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:text="D(A) = "
+                android:gravity="center"
+                android:textSize="15dp"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

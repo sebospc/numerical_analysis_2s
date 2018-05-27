@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments;
 
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -27,13 +28,19 @@ import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.systemEquations.cholesky;
 import com.example.sacrew.numericov4.fragments.systemEquations.croult;
 import com.example.sacrew.numericov4.fragments.systemEquations.doolittle;
+import com.example.sacrew.numericov4.fragments.systemEquations.gaussSeidel;
 import com.example.sacrew.numericov4.fragments.systemEquations.gaussSimple;
+import com.example.sacrew.numericov4.fragments.systemEquations.inverseDeterminant;
+import com.example.sacrew.numericov4.fragments.systemEquations.jacobi;
 import com.example.sacrew.numericov4.fragments.systemEquations.partialPivoting;
 import com.example.sacrew.numericov4.fragments.systemEquations.totalPivoting;
 import com.example.sacrew.numericov4.pagerAdapter;
 
+
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.example.sacrew.numericov4.fragments.systemEquations.jacobi.initialValues;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,12 +52,12 @@ public class systemEquationsFragment extends Fragment {
     public static LinearLayout bValuesText,xValuesText;
     @SuppressLint("StaticFieldLeak")
     public  static SeekBar times;
-
+    public static List<Animator> animations;
+    public static int count =  4;
     public static AnimatorSet animatorSet = new AnimatorSet();
 
     int matrixA [][];
     int bValues[],xValues[];
-
     public systemEquationsFragment() {
         // Required empty public constructor
     }
@@ -63,6 +70,8 @@ public class systemEquationsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_system_equations,container,false);
+
+
         ImageButton add = view.findViewById(R.id.addRow);
         ImageButton remove = view.findViewById(R.id.deleteRow);
         matrixAText = view.findViewById(R.id.matrixA);
@@ -117,8 +126,35 @@ public class systemEquationsFragment extends Fragment {
         fragments.add(new croult());
         fragments.add(new doolittle());
         fragments.add(new cholesky());
+        fragments.add(new inverseDeterminant());
+        fragments.add(new jacobi());
+        fragments.add(new gaussSeidel());
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(),fragments);
         slideView.setAdapter(pager);
+        times.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(animatorSet.isRunning()){
+                    animatorSet.cancel();
+                    animatorSet = new AnimatorSet();
+                    animatorSet.playSequentially(animations);
+                    animatorSet.setDuration(times.getProgress()*500);
+                    animatorSet.start();
+                }
+
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         return view;
     }
 
@@ -136,6 +172,8 @@ public class systemEquationsFragment extends Fragment {
         }
         matrixAText.addView(row);
         bValuesText.addView(defaultEditText("0"));
+        initialValues.addView(defaultEditText("0"));
+        count = count + 1;
 
     }
 
@@ -149,7 +187,10 @@ public class systemEquationsFragment extends Fragment {
             }
             matrixAText.removeView(matrixAText.getChildAt(n-1));
             bValuesText.removeView(bValuesText.getChildAt(n-1));
+            initialValues.removeView(initialValues.getChildAt(n-1));
+            count = count - 1;
         }
+
 
     }
 
