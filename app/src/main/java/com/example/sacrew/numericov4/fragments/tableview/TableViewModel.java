@@ -34,32 +34,38 @@ import java.util.List;
 public class TableViewModel {
 
     private Context mContext;
+    public static ArrayList<String> listaOriginal = new ArrayList<String>();
+    public static ArrayList<String> listaCeldas = new ArrayList<String>();
 
     public TableViewModel(Context context) {
         mContext = context;
 
     }
 
-    private List<RowHeader> getSimpleRowHeaderList() {
+    public static ArrayList<String> getTitles(ArrayList<String> lista){
+        listaOriginal = lista;
+        return lista;
+    }
+
+    public static ArrayList<String> getCeldas(ArrayList<String> lista){
+        listaCeldas = lista;
+        return lista;
+    }
+
+    public List<RowHeader> getSimpleRowHeaderList() {
         List<RowHeader> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0;i< 10+1; i++) {
             RowHeader header = new RowHeader(String.valueOf(i),  ""+i);
             list.add(header);
         }
-
         return list;
     }
 
 
-    private List<ColumnHeader> getSimpleColumnHeaderList() {
+    public List<ColumnHeader> getSimpleColumnHeaderList() {
         List<ColumnHeader> list = new ArrayList<>();
-        ArrayList<String> lista = new ArrayList<String>();
-        for(int i = 0; i < 20; i++){
-            lista.add("column #"+i);
-        }
-
-        for (int i = 0; i < lista.size(); i++) {
-            String title = lista.get(i);
+        for (int i = 0; i < getTitles(listaOriginal).size(); i++) {
+            String title = getTitles(listaOriginal).get(i);
             ColumnHeader header = new ColumnHeader(String.valueOf(i), title);
             list.add(header);
         }
@@ -68,17 +74,17 @@ public class TableViewModel {
         return list;
     }
 
-    private List<List<Cell>> getSimpleCellList() {
+    public List<List<Cell>> getSimpleCellList() {
         List<List<Cell>> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < getCeldas(listaCeldas).size(); i++) {
             List<Cell> cellList = new ArrayList<>();
+            Object text = getCeldas(listaCeldas).get(i);
+            String id = i + "-" + i;
 
-            for (int j = 0; j < 20; j++) {
-                Object text = "213434843894389";
-                String id = j + "-" + i;
+            Cell cell = new Cell(id, text);
+            cellList.add(cell);
+            for (int j = 0; j < getTitles(listaOriginal).size(); j++) {
 
-                Cell cell = new Cell(id, text);
-                cellList.add(cell);
             }
             list.add(cellList);
         }
