@@ -20,6 +20,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.example.sacrew.numericov4.fragments.MainActivityTable;
 import com.example.sacrew.numericov4.fragments.creditsFragment;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
@@ -61,6 +62,7 @@ public class bisectionFragment extends Fragment {
     private ToggleButton errorToggle;
     private ListView listView;
     private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
+    public TableViewModel tableView;
 
 
     @Override
@@ -119,7 +121,6 @@ public class bisectionFragment extends Fragment {
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void executeChart(){
-        //Start your activity here
         Intent i = new Intent(view.getContext(), MainActivityTable.class);
         startActivity(i);
     }
@@ -202,8 +203,15 @@ public class bisectionFragment extends Fragment {
         graph.removeAllSeries();
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
+        ArrayList<String> listValuesTitles = new ArrayList<String>();
         Bisection titles = new Bisection("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
+        listValuesTitles.add("Xi");
+        listValuesTitles.add("Xs");
+        listValuesTitles.add("Xm");
+        listValuesTitles.add("f(Xm)");
+        listValuesTitles.add("Error");
+        TableViewModel.getTitles(listValuesTitles);
         if(tol >= 0){
             if(ite > 0){
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
@@ -216,6 +224,13 @@ public class bisectionFragment extends Fragment {
                             double error = tol + 1;
                             Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteZero);
+                            ArrayList<String> listValuesIteZero= new ArrayList<String>();
+                            listValuesIteZero.add(String.valueOf(xi));
+                            listValuesIteZero.add(String.valueOf(xs));
+                            listValuesIteZero.add(String.valueOf(xm));
+                            listValuesIteZero.add(String.valueOf(convertirCientifica(ym)));
+                            listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
+                            TableViewModel.getCeldas(listValuesIteZero);
                             int cont = 1;
                             double xaux = xm;
                             graphSerie(xi,xs,this.function.getExpression(),graph,Color.BLUE);
@@ -246,7 +261,7 @@ public class bisectionFragment extends Fragment {
                             }else if(error < tol){
                                 graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
 
-                                //Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getContext(),  "Failed!", Toast.LENGTH_SHORT).show();
 
@@ -257,7 +272,7 @@ public class bisectionFragment extends Fragment {
 
                         }
                     }else{
-                        //Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         //textViewXs.setBackgroundColor(Color.YELLOW);
                         graphPoint(xs,ys,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                     }
