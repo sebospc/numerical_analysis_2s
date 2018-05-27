@@ -20,6 +20,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.MainActivityTable;
+import com.example.sacrew.numericov4.fragments.creditsFragment;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
@@ -77,7 +79,14 @@ public class bisectionFragment extends Fragment {
                 execute();
             }
         });
-
+        runChart = view.findViewById(R.id.runChart);
+        runChart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                executeChart();
+            }
+        });
         runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +115,12 @@ public class bisectionFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void executeHelp(){
         Intent i = new Intent(getContext().getApplicationContext(), popUpBisection.class);
+        startActivity(i);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void executeChart(){
+        //Start your activity here
+        Intent i = new Intent(view.getContext(), MainActivityTable.class);
         startActivity(i);
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
