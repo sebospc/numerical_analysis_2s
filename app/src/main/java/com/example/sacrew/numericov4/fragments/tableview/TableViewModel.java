@@ -78,15 +78,17 @@ public class TableViewModel {
     public static List<List<Cell>> getSimpleCellList() {
         List<List<Cell>> list = new ArrayList<>();
         List<Cell> cellList = new ArrayList<>();
-        for (int i = 0; i < getCeldas(listaCeldas).size(); i++) {
-            Object text = getCeldas(listaCeldas).get(i);
+        for (int i = 0; i < getCeldas(listaCeldas).size()/5; i++) {
+            Object text = "151515121641611515161321315153153153151514145135155315314431345";
             String id = i + "-" + i;
 
             Cell cell = new Cell(id, text);
-            cellList.add(cell);
+
             for(int j = 0; j < 1; j++) {
-                list.add(cellList);
+                cellList.add(cell);
+
             }
+            list.add(cellList);
 
         }
 
