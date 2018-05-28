@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TabLayout;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -204,6 +205,7 @@ public class bisectionFragment extends Fragment {
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
         ArrayList<String> listValuesTitles = new ArrayList<String>();
+        String matrix[][];
         Bisection titles = new Bisection("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
         listValuesTitles.add("Xi");
@@ -230,10 +232,12 @@ public class bisectionFragment extends Fragment {
                             listValuesIteZero.add(String.valueOf(xm));
                             listValuesIteZero.add(String.valueOf(convertirCientifica(ym)));
                             listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
-                            TableViewModel.getCeldas(listValuesIteZero);
+                            //TableViewModel.getCeldas(listValuesIteZero);
+                            //TableViewModel.getSimpleCellList();
                             int cont = 1;
                             double xaux = xm;
                             graphSerie(xi,xs,this.function.getExpression(),graph,Color.BLUE);
+                            ArrayList<String> listValuesIteNext= new ArrayList<String>();
                             while((ym != 0) && (error > tol) && (cont < ite)){
                                 if(yi*ym < 0){
                                     xs = xm;
@@ -253,9 +257,14 @@ public class bisectionFragment extends Fragment {
                                     }
                                 Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                                 listValues.add(iteNext);
+                                listValuesIteNext.add(String.valueOf(xi));
+                                listValuesIteNext.add(String.valueOf(xs));
+                                listValuesIteNext.add(String.valueOf(xm));
+                                listValuesIteNext.add(String.valueOf(convertirCientifica(ym)));
+                                listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
                                 cont++;
                             }
-
+                            TableViewModel.getCeldas(listValuesIteNext);
                             if(ym == 0){
                                 graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                             }else if(error < tol){
