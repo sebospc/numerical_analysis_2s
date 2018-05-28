@@ -1,4 +1,4 @@
-package com.example.sacrew.numericov4.fragments.systemEquations;
+package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 
 import android.animation.Animator;
@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TableRow;
 import android.widget.Toast;
 
@@ -27,9 +26,9 @@ import com.example.sacrew.numericov4.R;
 import java.util.LinkedList;
 
 
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.times;
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animations;
+import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
+import static com.example.sacrew.numericov4.fragments.systemEquations.times;
+import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -15,20 +15,20 @@ import android.widget.ListView;
 
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.homeFragment;
-import com.example.sacrew.numericov4.fragments.systemEquationsFragment;
-import com.example.sacrew.numericov4.fragments.systemEquations.gaussSimple;
+import com.example.sacrew.numericov4.fragments.interpolation;
+import com.example.sacrew.numericov4.fragments.systemEquations;
 import com.example.sacrew.numericov4.fragments.oneVariable;
 
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
+import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
 
 public class MainActivity extends AppCompatActivity {
     private ListView menuLateral;
     private DrawerLayout drawerLayout;
     private graphFragment graphFragment;
     private oneVariable oneVariableFragment;
-    private gaussSimple gaussSimpleFragment;
     private homeFragment homeFragment;
-    private systemEquationsFragment linearEquationsFragment;
+    private systemEquations systemEquationsFragment;
+    private interpolation interpolationFragment;
     private int idFragment; //0 is graphFragment // 1 is one variable
     private FragmentManager fragmentManager;
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         drawerLayout = findViewById(R.id.root);
-        final String[] opciones ={"Home","Graph","One Variable","System Equations"};
+        final String[] opciones ={"Home","Graph","One Variable","System Equations","Interpolation"};
         ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,opciones);
         menuLateral = findViewById(R.id.menuLateral);
@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new homeFragment();
         graphFragment = new graphFragment();
         oneVariableFragment = new oneVariable();
-        gaussSimpleFragment = new gaussSimple();
-        linearEquationsFragment = new systemEquationsFragment();
+        systemEquationsFragment = new systemEquations();
+        interpolationFragment = new interpolation();
 
 
         fragmentManager = getFragmentManager();
@@ -81,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 2: openOneVariable();
                     break;
-                case 3: openLinearEquations();
+                case 3: openSystemEquations();
+                    break;
+                case 4: openInterpolation();
                     break;
                 default:
                     break;
@@ -145,15 +147,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public void openLinearEquations(){
+
+    public void openSystemEquations(){
         if(idFragment != 3){
             getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.mainLayout, linearEquationsFragment);
+            transaction.add(R.id.mainLayout, systemEquationsFragment);
             transaction.commit();
             idFragment = 3;
+        }
+    }
+    public void openInterpolation(){
+        if(idFragment != 4){
+            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
+            drawerLayout.closeDrawer(menuLateral);
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(R.id.mainLayout, interpolationFragment);
+            transaction.commit();
+            idFragment = 4;
         }
     }
     @Override
