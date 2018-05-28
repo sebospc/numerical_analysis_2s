@@ -166,16 +166,18 @@ public class secantFragment extends baseOneVariableFragments {
                             Secant iteNext= new Secant(String.valueOf(cont), String.valueOf(convertirNormal(aux0)), String.valueOf(convertirCientifica(fx0)), String.valueOf(convertirCientifica(fx1)), String.valueOf(convertirCientifica(den)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteNext);
                         }
-                        graphSerie(aux1-0.5, aux1, function.getExpression(), graph, Color.BLUE);
+
                         if (fx1 == 0) {
+                            graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
                             graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             Toast.makeText(getContext(),  convertirNormal(aux1) + " is a root", Toast.LENGTH_SHORT).show();
                         } else if (error <= tol) {
+                            graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
                             fx1 = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
                             graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             Toast.makeText(getContext(),  convertirNormal(aux1) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(),  "Failed the interval!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),  "Failedl!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         graphPoint(x0, fx0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
@@ -186,8 +188,7 @@ public class secantFragment extends baseOneVariableFragments {
                     Toast.makeText(getContext(),  "Wrong iterates!", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                textError.setError("Tolerance must be < 0");
-                Toast.makeText(getContext(),  "Tolerance must be < 0", Toast.LENGTH_SHORT).show();
+                textError.setError("Tolerance must be > 0");
 
             }
             SecantListAdapter adapter = new SecantListAdapter(getContext(), R.layout.list_adapter_secant, listValues);

@@ -160,15 +160,19 @@ public class fixedPointFragment extends baseOneVariableFragments{
                                 listValues.add(iteNext);
                             }
 
-                            graphSerie(xa - 0.5, xa, function.getExpression(), graph, Color.BLUE);
-                            graphSerie(xa - 0.5, xa, functionG.getExpression(), graph, Color.RED);
+
 
                             if (y0 == 0) {
+                                graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
+                                graphSerie(xa - 0.2, xa+0.2, functionG.getExpression(), graph, Color.RED);
                                 graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                                 Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
+
                             } else if (error <= tol) {
+                                graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
+                                graphSerie(xa - 0.2, xa+0.2, functionG.getExpression(), graph, Color.RED);
                                 y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                                graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                                graphPoint(xa, (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue(), PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                                 Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
@@ -183,7 +187,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
                     iter.setError("Wrong iterates");
                 }
             } else {
-                textError.setError("Tolerance must be < 0");
+                textError.setError("Tolerance must be > 0");
 
             }
             FixedPointListAdapter adapter = new FixedPointListAdapter(getContext(), R.layout.list_adapter_fixed_point, listValues);

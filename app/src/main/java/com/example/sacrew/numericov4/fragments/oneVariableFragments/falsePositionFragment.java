@@ -48,7 +48,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
     private GraphView graph;
     private View view;
     private ListView listView;
-    private EditText xi,xs;
+    private EditText xi, xs;
     private ToggleButton errorToggle;
 
     @Override
@@ -56,9 +56,9 @@ public class falsePositionFragment extends baseOneVariableFragments {
                              Bundle savedInstanceState) {
         try {
             view = inflater.inflate(R.layout.fragment_false_position, container, false);
-        }catch (InflateException e){
+        } catch (InflateException e) {
             //ojo
-       }
+        }
         Button runFake = view.findViewById(R.id.runFalse);
         runFake.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -90,42 +90,42 @@ public class falsePositionFragment extends baseOneVariableFragments {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp(){
+    public void executeHelp() {
         Intent i = new Intent(getContext().getApplicationContext(), popUpFalsePosition.class);
         startActivity(i);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute(boolean error, double errorValue, int ite){
+    public void execute(boolean error, double errorValue, int ite) {
         this.xi.setError(null);
         this.xs.setError(null);
         double xiValue = 0.0;
         double xsValue = 0.0;
 
-        try{
+        try {
             xiValue = Double.parseDouble(xi.getText().toString());
 
-        }catch(Exception e){
+        } catch (Exception e) {
             xi.setError("Invalid Xi");
             error = false;
         }
-        try{
+        try {
             xsValue = Double.parseDouble(xs.getText().toString());
-        }catch (Exception e){
+        } catch (Exception e) {
             xs.setError("Invalid xs");
             error = false;
         }
 
         try {
             errorValue = new Expression(textError.getText().toString()).eval().doubleValue();
-        }catch (Exception e){
+        } catch (Exception e) {
             textError.setError("Invalid error value");
         }
-        if(error) {
-            if(errorToggle.isChecked()){
-                falsePosition(xiValue,xsValue,errorValue,ite,true);
-            }else{
-                falsePosition(xiValue,xsValue,errorValue,ite,false);
+        if (error) {
+            if (errorToggle.isChecked()) {
+                falsePosition(xiValue, xsValue, errorValue, ite, true);
+            } else {
+                falsePosition(xiValue, xsValue, errorValue, ite, false);
             }
         }
     }
@@ -138,38 +138,37 @@ public class falsePositionFragment extends baseOneVariableFragments {
         ArrayList<FalsePosition> listValues = new ArrayList<>();
         FalsePosition titles = new FalsePosition("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
-        if(tol >= 0){
-            if(ite > 0){
+        if (tol >= 0) {
+            if (ite > 0) {
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
-                if(yi != 0){
+                if (yi != 0) {
                     double ys = (this.function.with("x", BigDecimal.valueOf(xs)).eval()).doubleValue();
-                    if(ys != 0){
-                        if(yi*ys < 0){
+                    if (ys != 0) {
+                        if (yi * ys < 0) {
 
-                            double xm = xi -(yi*(xi-xs))/(yi-ys);
+                            double xm = xi - (yi * (xi - xs)) / (yi - ys);
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
                             FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteZero);
                             int cont = 1;
                             double xaux = xm;
-                            graphSerie(xi,xs,this.function.getExpression(),graph, Color.BLUE);
-                            while((ym != 0) && (error > tol) && (cont < ite)){
-                                if(yi*ym < 0){
+                            while ((ym != 0) && (error > tol) && (cont < ite)) {
+                                if (yi * ym < 0) {
                                     xs = xm;
                                     ys = ym;
-                                }else{
+                                } else {
                                     xi = xm;
                                     yi = ym;
                                 }
                                 xaux = xm;
                                 //graphStraight(xi,yi,xs,ys,graph);
-                                xm = xi - ((yi*(xi-xs))/(yi-ys));
+                                xm = xi - ((yi * (xi - xs)) / (yi - ys));
                                 //graphPoint(xm,0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#FA4659",false);
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
 
-                                if(errorRel)
-                                    error = Math.abs(xm - xaux)/xm;
+                                if (errorRel)
+                                    error = Math.abs(xm - xaux) / xm;
                                 else
                                     error = Math.abs(xm - xaux);
                                 FalsePosition iteNext = new FalsePosition(String.valueOf(cont), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
@@ -177,45 +176,42 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                 cont++;
                             }
 
-                            if(ym == 0){
-                                graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+                            if (ym == 0) {
+                                graphSerie(xm - 0.2, xm + 0.2, this.function.getExpression(), graph, Color.BLUE);
+                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                                 Toast.makeText(getContext(), convertirNormal(xm) + " is an aproximate root", Toast.LENGTH_SHORT).show();
 
-                            }else if(error < tol){
-                                graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+                            } else if (error < tol) {
+                                graphSerie(xm - 0.2, xm + 0.2, this.function.getExpression(), graph, Color.BLUE);
+                                graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                                 Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
 
-                            }else{
+
+                            } else {
 
                             }
-                        }else{
-                            this.xi.setError("Failed the interval");
-                            this.xs.setError("Failed the interval");
-                            Toast.makeText(getContext(),  "Failed!", Toast.LENGTH_SHORT).show();
-
-
+                        } else {
+                            Toast.makeText(getContext(), "The interval dont have root", Toast.LENGTH_SHORT).show();
                         }
-                    }else{
+                    } else {
                         Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        graphPoint(xs,ys,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+                        graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                     }
-                }else{
+                } else {
                     Toast.makeText(getContext(), convertirNormal(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                    graphPoint(xi,yi,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+                    graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                 }
-            }else{
+            } else {
                 iter.setError("Wrong iterates");
 
 
             }
-        }else{
-            textError.setError("Tolerance must be < 0");
+        } else {
+            textError.setError("Tolerance must be > 0");
         }
         FalsePositionListAdapter adapter = new FalsePositionListAdapter(getContext(), R.layout.list_adapter_false_position, listValues);
         listView.setAdapter(adapter);
     }//
-
-
 
 
 }

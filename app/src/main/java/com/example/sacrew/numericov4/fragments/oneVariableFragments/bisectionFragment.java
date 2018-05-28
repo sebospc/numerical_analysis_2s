@@ -49,19 +49,18 @@ public class bisectionFragment extends baseOneVariableFragments {
     private GraphView graph;
     private View view;
     public TextView textViewXm, textViewMessage;
-    private EditText xi,xs;
+    private EditText xi, xs;
 
     private ToggleButton errorToggle;
     private ListView listView;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        try{
-        view = inflater.inflate(R.layout.fragment_bisection,container,false);
-        }catch (InflateException e){
+        try {
+            view = inflater.inflate(R.layout.fragment_bisection, container, false);
+        } catch (InflateException e) {
             // ignorable
         }
         Button runBisection = view.findViewById(R.id.runBisection);
@@ -105,42 +104,45 @@ public class bisectionFragment extends baseOneVariableFragments {
 
         return view;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp(){
+    public void executeHelp() {
         Intent i = new Intent(getContext().getApplicationContext(), popUpBisection.class);
         startActivity(i);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeChart(){
+    public void executeChart() {
         Intent i = new Intent(view.getContext(), MainActivityTable.class);
         startActivity(i);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute(boolean error, double errorValue, int ite){
+    public void execute(boolean error, double errorValue, int ite) {
         this.xi.setError(null);
         this.xs.setError(null);
 
         double xiValue = 0.0;
         double xsValue = 0.0;
 
-        try{
+        try {
             xiValue = Double.parseDouble(xi.getText().toString());
-        }catch(Exception e){
+        } catch (Exception e) {
             xi.setError("Invalid Xi");
             error = false;
         }
-        try{
+        try {
             xsValue = Double.parseDouble(xs.getText().toString());
-        }catch (Exception e){
+        } catch (Exception e) {
             xs.setError("Invalid xs");
             error = false;
         }
 
-        if(error) {
-            if(errorToggle.isChecked()){
-                bisectionMethod(xiValue,xsValue,errorValue,ite,true);
-            }else{
-                bisectionMethod(xiValue,xsValue,errorValue,ite,false);
+        if (error) {
+            if (errorToggle.isChecked()) {
+                bisectionMethod(xiValue, xsValue, errorValue, ite, true);
+            } else {
+                bisectionMethod(xiValue, xsValue, errorValue, ite, false);
             }
         }
     }
@@ -160,19 +162,19 @@ public class bisectionFragment extends baseOneVariableFragments {
         listValuesTitles.add("f(Xm)");
         listValuesTitles.add("Error");
         TableViewModel.getTitles(listValuesTitles);
-        if(tol >= 0){
-            if(ite > 0){
+        if (tol >= 0) {
+            if (ite > 0) {
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
-                if(yi != 0){
+                if (yi != 0) {
                     double ys = (this.function.with("x", BigDecimal.valueOf(xs)).eval()).doubleValue();
-                    if(ys != 0){
-                        if(yi*ys < 0){
+                    if (ys != 0) {
+                        if (yi * ys < 0) {
                             double xm = (xi + xs) / 2;
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
                             Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteZero);
-                            ArrayList<String> listValuesIteZero= new ArrayList<String>();
+                            ArrayList<String> listValuesIteZero = new ArrayList<String>();
                             listValuesIteZero.add(String.valueOf(xi));
                             listValuesIteZero.add(String.valueOf(xs));
                             listValuesIteZero.add(String.valueOf(xm));
@@ -182,25 +184,25 @@ public class bisectionFragment extends baseOneVariableFragments {
                             //TableViewModel.getSimpleCellList();
                             int cont = 1;
                             double xaux = xm;
-                            graphSerie(xi,xs,this.function.getExpression(),graph,Color.BLUE);
-                            ArrayList<String> listValuesIteNext= new ArrayList<String>();
-                            while((ym != 0) && (error > tol) && (cont < ite)){
-                                if(yi*ym < 0){
+
+                            ArrayList<String> listValuesIteNext = new ArrayList<String>();
+                            while ((ym != 0) && (error > tol) && (cont < ite)) {
+                                if (yi * ym < 0) {
                                     xs = xm;
                                     ys = ym;
-                                }else{
+                                } else {
                                     xi = xm;
                                     yi = ym;
                                 }
                                 xaux = xm;
                                 xm = (xi + xs) / 2;
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
-                                graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#FA4659",false);
-                                if(errorRel){
-                                    error = Math.abs(xm - xaux)/xm;
-                                }else{
+                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#FA4659", false);
+                                if (errorRel) {
+                                    error = Math.abs(xm - xaux) / xm;
+                                } else {
                                     error = Math.abs(xm - xaux);
-                                    }
+                                }
                                 Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                                 listValues.add(iteNext);
                                 listValuesIteNext.add(String.valueOf(xi));
@@ -211,39 +213,37 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 cont++;
                             }
                             TableViewModel.getCeldas(listValuesIteNext);
-                            if(ym == 0){
-                                graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
-                            }else if(error < tol){
-                                graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
-
+                            if (ym == 0) {
+                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                            } else if (error < tol) {
+                                graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                                graphSerie(xaux-0.2, xaux+0.2, this.function.getExpression(), graph, Color.BLUE);
                                 Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(getContext(),  "Failed!", Toast.LENGTH_SHORT).show();
-
+                            } else {
+                                Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                             }
-                        }else{
-                            this.xi.setError("Failed the interval");
-                            this.xs.setError("Failed the interval");
+                        } else {
+                            Toast.makeText(getContext(), "The interval dont have root", Toast.LENGTH_SHORT).show();
 
                         }
-                    }else{
+                    } else {
                         Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        graphPoint(xs,ys,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+                        graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                     }
-                }else{
-                    graphPoint(xi,yi,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
+                } else {
+                    graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
 
                 }
-            }else{
+            } else {
                 iter.setError("Wrong iterates");
             }
-        }else{
-            textError.setError("Tolerance must be < 0");
+        } else {
+            textError.setError("Tolerance must be > 0");
         }
+
         BisectionListAdapter adapter = new BisectionListAdapter(getContext(), R.layout.list_adapter_bisection, listValues);
         listView.setAdapter(adapter);
-
-        }
     }
+}
 
 

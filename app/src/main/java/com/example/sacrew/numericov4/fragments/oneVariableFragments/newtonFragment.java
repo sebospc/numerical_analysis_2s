@@ -186,7 +186,7 @@ public class newtonFragment extends baseOneVariableFragments {
 
                 }
             } else {
-                textError.setError("Tolerance must be < 0");
+                textError.setError("Tolerance must be > 0");
 
             }
             NewtonListAdapter adapter = new NewtonListAdapter(getContext(), R.layout.list_adapter_newton, listValues);

@@ -167,16 +167,16 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                             //MultipleRoots iteNext= new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirCientifica(y0)),String.valueOf(convertirCientifica(y0p1)), String.valueOf(convertirCientifica(y0p2)), String.valueOf(convertirCientifica(error)));
                             //listValues.add(iteNext);
                         }
-                        graphSerie(xa - 0.5, xa, function.getExpression(), graph, Color.BLUE);
+
                         if (y0 == 0) {
+                            graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
                             graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
-                            //System.out.println(xa + " is a root");
                         } else if (error <= tol) {
+                            graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
                             y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                            //System.out.println(xa + " is an aproximate root");
                         } else {
                             System.out.println("Failed the interval!");
                             Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
@@ -188,12 +188,10 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                     }
                 } else {
                     iter.setError("Wrong iterates");
-                    Toast.makeText(getContext(), "Wrong iterates!", Toast.LENGTH_SHORT).show();
                     //System.out.println("Wrong iterates!");
                 }
             } else {
-                textError.setError("Tolerance must be < 0");
-                Toast.makeText(getContext(), "Tolerance must be < 0", Toast.LENGTH_SHORT).show();
+                textError.setError("Tolerance must be > 0");
                 //System.out.println("Tolerance < 0");
             }
             //MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.list_adapter_multiple_roots, listValues);

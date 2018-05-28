@@ -45,13 +45,15 @@
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none">
+                    android:scrollbars="none"
+                    android:overScrollMode="never">
 
                     <HorizontalScrollView
                         android:id="@+id/scrollView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:scrollbars="none">
+                        android:scrollbars="none"
+                        android:overScrollMode="never">
 
                         <TableLayout
                             android:id="@+id/matrixA"
