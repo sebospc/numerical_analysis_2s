@@ -163,8 +163,6 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         int cont = 1;
                         double x1 = x0 + delta;
                         double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                        LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
-                        serie.appendData(new DataPoint(x1, y1), false, ite);
                         IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirCientifica(y1)));
                         listValues.add(iterFirst);
                         while (((y1 * y0) > 0) && (cont < ite)) {
@@ -173,23 +171,20 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             y0 = y1;
                             x1 = x0 + delta;
                             y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                            if (delta >= 0)
-                                serie.appendData(new DataPoint(x1, y1), false, ite);
-                            else {
-                                // no se puede graficar funciones al reves :(
-                            }
                             IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirCientifica(y1)));
                             listValues.add(iterNext);
                         }
 
-                        graph.addSeries(serie);
+
                         if (y1 == 0) {
                             graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
+
                         } else if (y1 * y0 < 0) {
                             Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
-
+                            graphSerie(x0-0.2,x1+0.2,function.getExpression(),graph,getResources().getColor(R.color.colorPrimary));
                         }
+
                     } else {
                         graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                         Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();

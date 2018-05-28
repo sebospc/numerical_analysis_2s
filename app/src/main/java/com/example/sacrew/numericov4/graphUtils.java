@@ -44,7 +44,11 @@ public class graphUtils {
         while(x <= end){
             serie.appendData(new DataPoint(x,yi),true,(int)Math.ceil(Math.abs(end-start)/0.1));
             x = x + 0.1;
-            yi = (function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
+            try {
+                yi = (function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
+            }catch (Exception ignored){
+
+            }
         }
         serie.setColor(color);
         graph.addSeries(serie);

@@ -114,14 +114,16 @@ public class systemEquations extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                addRow();
+                if(!pivoted)
+                    addRow();
             }
         });
         remove.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                removeRow();
+                if(!pivoted)
+                    removeRow();
             }
         });
 
