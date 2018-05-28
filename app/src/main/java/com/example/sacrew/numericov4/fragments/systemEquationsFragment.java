@@ -40,6 +40,7 @@ import com.example.sacrew.numericov4.pagerAdapter;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.example.sacrew.numericov4.fragments.systemEquations.gaussSeidel.initialValuesSeidel;
 import static com.example.sacrew.numericov4.fragments.systemEquations.jacobi.initialValues;
 
 /**
@@ -173,6 +174,7 @@ public class systemEquationsFragment extends Fragment {
         matrixAText.addView(row);
         bValuesText.addView(defaultEditText("0"));
         initialValues.addView(defaultEditText("0"));
+        initialValuesSeidel.addView(defaultEditText("0"));
         count = count + 1;
 
     }
@@ -188,6 +190,7 @@ public class systemEquationsFragment extends Fragment {
             matrixAText.removeView(matrixAText.getChildAt(n-1));
             bValuesText.removeView(bValuesText.getChildAt(n-1));
             initialValues.removeView(initialValues.getChildAt(n-1));
+            initialValuesSeidel.removeView(initialValuesSeidel.getChildAt(n-1));
             count = count - 1;
         }
 

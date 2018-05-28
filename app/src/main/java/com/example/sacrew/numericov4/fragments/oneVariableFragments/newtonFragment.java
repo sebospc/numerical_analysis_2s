@@ -33,23 +33,18 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.example.sacrew.numericov4.utilMethods.functionRevision;
-import static com.example.sacrew.numericov4.utilMethods.graphPoint;
-import static com.example.sacrew.numericov4.utilMethods.graphSerie;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class newtonFragment extends Fragment {
+public class newtonFragment extends baseOneVariableFragments {
 
-    private Button runFixed;
-    private Button runHelp;
     private GraphView graph;
-    private Expression function,functionG;
+    private Expression functionG;
     private View view;
     private ListView listView;
-    private TextView xvalue,iter,textError;
-    private AutoCompleteTextView textFunction, textFunctionG;
+    private TextView xvalue;
+    private AutoCompleteTextView textFunctionG;
     private ToggleButton errorToggle;
 
     public newtonFragment() {
@@ -61,20 +56,20 @@ public class newtonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        try{
-        view = inflater.inflate(R.layout.fragment_newton, container, false);
-        }catch (InflateException e){
+        try {
+            view = inflater.inflate(R.layout.fragment_newton, container, false);
+        } catch (InflateException e) {
             // ignorable
         }
-        runFixed = view.findViewById(R.id.runNewton);
+        Button runFixed = view.findViewById(R.id.runNewton);
         runFixed.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                execute();
+                bootStrap();
             }
         });
-        runHelp = view.findViewById(R.id.runHelp);
+        Button runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -100,89 +95,50 @@ public class newtonFragment extends Fragment {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp(){
+    public void executeHelp() {
         Intent i = new Intent(getContext().getApplicationContext(), popUpNewton.class);
         startActivity(i);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute(){
-        boolean error = false;
+    public void execute(boolean error, double errorValue, int ite) {
         Double xValue = 0.0;
-        int ite = 0;
-        Double errorValue= 0.0;
-        String originalFunc = textFunction.getText().toString();
-        try{
 
-            this.function = new Expression(functionRevision(originalFunc));
+        String originalFuncG = textFunctionG.getText().toString();
 
-            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            updatefunctions(originalFunc);
-        }catch (Exception e){
-            textFunction.setError("Invalid function");
+        this.functionG = new Expression(functionRevision(originalFuncG));
+        error = checkSyntax(originalFuncG, textFunctionG) && error;
+        updatefunctions(originalFuncG);
+        String originalFunc = this.function.getExpression();
 
-            error = true;
-        }
-
-        try{
-            String originalFuncG = textFunctionG.getText().toString();
-            String functionCompose= "x-(("+originalFunc+")/("+originalFuncG+"))";
-            this.functionG = new Expression(functionRevision(functionCompose));
-            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            updatefunctions(originalFuncG);
-        }catch (Exception e){
-            textFunctionG.setError("Invalid function");
-            error = true;
-        }
-
-        try{
+        try {
             xValue = Double.parseDouble(xvalue.getText().toString());
-        }catch(Exception e){
+        } catch (Exception e) {
             xvalue.setError("Invalid Xi");
-            error = true;
+            error = false;
         }
-        try {
-            ite = Integer.parseInt(iter.getText().toString());
-        }catch (Exception e){
-            iter.setError("Wrong iterations");
-            error = true;
-        }
-        try {
-            errorValue = new Expression(textError.getText().toString()).eval().doubleValue();
-            System.out.println("error value  "+errorValue);
-        }catch (Exception e){
-            textError.setError("Invalid error value");
-        }
-        if(!error) {
-            if(errorToggle.isChecked()){
-                newtonMethod(xValue,errorValue,ite,true);
-            }else{
-                newtonMethod(xValue,errorValue,ite,false);
+        String functionCompose = "x-((" + originalFunc + ")/(" + originalFuncG + "))";
+
+        if (error) {
+            if (errorToggle.isChecked()) {
+                newtonMethod(xValue, errorValue, ite, true, functionCompose);
+            } else {
+                newtonMethod(xValue, errorValue, ite, false, functionCompose);
             }
         }
     }
 
-    public static String convertirCientifica(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##E0");
-        return num.format(val);
-    }
-
-    public static String convertirNormal(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##");
-        return num.format(val);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void newtonMethod(Double x0, Double tol, int ite, boolean errorRel) {
-       // try {
+    private void newtonMethod(Double x0, Double tol, int ite, boolean errorRel, String functionCompose) {
+        Expression newtonFunction = new Expression(functionCompose);
+        try {
             graph.removeAllSeries();
 
             function.setPrecision(100);
             ArrayList<Newton> listValues = new ArrayList<>();
-        Newton titles = new Newton("n", "Xn", "f(Xn)", "f'(Xn)", "Error");
-        listValues.add(titles);
+            Newton titles = new Newton("n", "Xn", "f(Xn)", "f'(Xn)", "Error");
+            listValues.add(titles);
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
@@ -194,7 +150,7 @@ public class newtonFragment extends Fragment {
                         listValues.add(iteZero);
                         double xa = x0;
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
-                            double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+                            double xn = (newtonFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
 
                             if (errorRel)
@@ -206,45 +162,42 @@ public class newtonFragment extends Fragment {
                             Newton iteNext = new Newton(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirCientifica(y0)), String.valueOf(convertirCientifica(xn)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteNext);
                         }
-                        graphSerie(xa-0.5, xa, function.getExpression(), graph, Color.BLUE);
-                        graphSerie(xa-0.5, xa, functionG.getExpression(), graph, Color.RED);
+                        graphSerie(xa - 0.5, xa, function.getExpression(), graph, Color.BLUE);
+                        graphSerie(xa - 0.5, xa, functionG.getExpression(), graph, Color.RED);
                         if (y0 == 0) {
                             graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
-                                Toast.makeText(getContext(),  convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
-                            //System.out.println(xa + " is a root");
+                            Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
+
                         } else if (error <= tol) {
                             y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
-                            Toast.makeText(getContext(),  convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                            //System.out.println(xa + " is an aproximate root");
+                            Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
                             System.out.println("Failed the interval!");
-                            Toast.makeText(getContext(),  "Failed the interval!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
-                        Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        //System.out.println(x0 + " is a root");
+                        Toast.makeText(getContext(), convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+
                     }
                 } else {
                     iter.setError("Wrong iterates");
-                    Toast.makeText(getContext(),  "Wrong iterates!", Toast.LENGTH_SHORT).show();
-                    //System.out.println("Wrong iterates!");
+
                 }
             } else {
                 textError.setError("Tolerance must be < 0");
-                Toast.makeText(getContext(),  "Tolerance must be < 0", Toast.LENGTH_SHORT).show();
-                //System.out.println("Tolerance < 0");
+
             }
             NewtonListAdapter adapter = new NewtonListAdapter(getContext(), R.layout.list_adapter_newton, listValues);
             listView.setAdapter(adapter);
-        //}catch(Exception e){
-          //  Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-     //   }
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void updatefunctions(String function){
-        if(!graphFragment.allFunctions.contains(function)){
+    public void updatefunctions(String function) {
+        if (!graphFragment.allFunctions.contains(function)) {
             graphFragment.allFunctions.add(function);
             textFunction.setAdapter(new ArrayAdapter<String>
                     (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));

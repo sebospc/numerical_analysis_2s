@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,40 +29,30 @@ import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.BisectionListAdapter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
-import com.udojava.evalex.Expression;
+
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
-import static com.example.sacrew.numericov4.utilMethods.functionRevision;
-import static com.example.sacrew.numericov4.utilMethods.graphPoint;
-import static com.example.sacrew.numericov4.utilMethods.graphSerie;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class bisectionFragment extends Fragment {
+public class bisectionFragment extends baseOneVariableFragments {
 
 
     public bisectionFragment() {
         // Required empty public constructor
     }
-    private Button runBisection;
-    private Button runHelp;
-    private Button runChart;
+
     private GraphView graph;
-    private Expression function;
-    private View convertView;
     private View view;
     public TextView textViewXm, textViewMessage;
-    private TextView xi,xs,iter,textError;
-    private AutoCompleteTextView textFunction;
+    private EditText xi,xs;
+
     private ToggleButton errorToggle;
     private ListView listView;
-    private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
-    public TableViewModel tableView;
+
 
 
     @Override
@@ -73,15 +63,16 @@ public class bisectionFragment extends Fragment {
         }catch (InflateException e){
             // ignorable
         }
-        runBisection = view.findViewById(R.id.runBisection);
+        Button runBisection = view.findViewById(R.id.runBisection);
         runBisection.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                execute();
+                bootStrap();
+                //execute();
             }
         });
-        runChart = view.findViewById(R.id.runChart);
+        Button runChart = view.findViewById(R.id.runChart);
         runChart.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -89,7 +80,7 @@ public class bisectionFragment extends Fragment {
                 executeChart();
             }
         });
-        runHelp = view.findViewById(R.id.runHelp);
+        Button runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -113,7 +104,6 @@ public class bisectionFragment extends Fragment {
 
         return view;
     }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void executeHelp(){
         Intent i = new Intent(getContext().getApplicationContext(), popUpBisection.class);
@@ -125,58 +115,27 @@ public class bisectionFragment extends Fragment {
         startActivity(i);
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute(){
+    public void execute(boolean error, double errorValue, int ite){
         this.xi.setError(null);
         this.xs.setError(null);
-        boolean error = false;
-        Double xiValue = 0.0;
-        Double xsValue = 0.0;
-        int ite = 0;
-        Double errorValue= 0.0;
 
-        try{
-            String originalFunc = textFunction.getText().toString();
-            this.function = new Expression(functionRevision(originalFunc));
+        double xiValue = 0.0;
+        double xsValue = 0.0;
 
-            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!graphFragment.allFunctions.contains(originalFunc)){
-                graphFragment.allFunctions.add(originalFunc);
-                textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-            }
-        }catch (Exception e){
-            textFunction.setError("Invalid function");
-
-            error = true;
-        }
         try{
             xiValue = Double.parseDouble(xi.getText().toString());
-            (function.with("x", BigDecimal.valueOf(xiValue)).eval()).doubleValue();
         }catch(Exception e){
             xi.setError("Invalid Xi");
-            error = true;
+            error = false;
         }
         try{
             xsValue = Double.parseDouble(xs.getText().toString());
-            (function.with("x", BigDecimal.valueOf(xsValue)).eval()).doubleValue();
         }catch (Exception e){
             xs.setError("Invalid xs");
-            error = true;
+            error = false;
         }
 
-        try {
-            ite = Integer.parseInt(iter.getText().toString());
-        }catch (Exception e){
-            iter.setError("Wrong iterations");
-            error = true;
-        }
-        try {
-            errorValue = new Expression(textError.getText().toString()).eval().doubleValue();
-            System.out.println("error value  "+errorValue);
-        }catch (Exception e){
-            textError.setError("Invalid error value");
-        }
-        if(!error) {
+        if(error) {
             if(errorToggle.isChecked()){
                 bisectionMethod(xiValue,xsValue,errorValue,ite,true);
             }else{
@@ -185,21 +144,8 @@ public class bisectionFragment extends Fragment {
         }
     }
 
-    public static String convertirCientifica(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#.##E0");
-        return num.format(val);
-    }
-
-    public static String convertirNormal(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#.##");
-        return num.format(val);
-    }
-
-
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void bisectionMethod(Double xi, Double xs, Double tol, int ite, boolean errorRel) {
+    public void bisectionMethod(double xi, double xs, double tol, int ite, boolean errorRel) {
         graph.removeAllSeries();
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
@@ -273,12 +219,9 @@ public class bisectionFragment extends Fragment {
                         }
                     }else{
                         Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        //textViewXs.setBackgroundColor(Color.YELLOW);
                         graphPoint(xs,ys,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                     }
                 }else{
-                    //Toast.makeText(getContext(), convertirNormal(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                    //textViewXi.setBackgroundColor(Color.YELLOW);
                     graphPoint(xi,yi,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
 
                 }
@@ -287,7 +230,6 @@ public class bisectionFragment extends Fragment {
             }
         }else{
             textError.setError("Tolerance must be < 0");
-
         }
         BisectionListAdapter adapter = new BisectionListAdapter(getContext(), R.layout.list_adapter_bisection, listValues);
         listView.setAdapter(adapter);
