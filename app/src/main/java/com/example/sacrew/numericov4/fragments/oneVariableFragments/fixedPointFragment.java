@@ -33,23 +33,19 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.example.sacrew.numericov4.utilMethods.functionRevision;
-import static com.example.sacrew.numericov4.utilMethods.graphPoint;
-import static com.example.sacrew.numericov4.utilMethods.graphSerie;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class fixedPointFragment extends Fragment {
+public class fixedPointFragment extends baseOneVariableFragments{
 
-    private Button runFixed;
-    private Button runHelp;
     private GraphView graph;
-    private Expression function,functionG;
+    private Expression functionG;
     private View view;
     private ListView listView;
-    private TextView xvalue, iter,textError;
-    private AutoCompleteTextView textFunction,textFunctionG;
+    private TextView xvalue;
+    private AutoCompleteTextView textFunctionG;
     private ToggleButton errorToggle;
 
     public fixedPointFragment() {
@@ -65,15 +61,15 @@ public class fixedPointFragment extends Fragment {
         }catch (InflateException e){
             // ignorable
        }
-        runFixed = view.findViewById(R.id.runFixed);
+        Button runFixed = view.findViewById(R.id.runFixed);
         runFixed.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                execute();
+                bootStrap();
             }
         });
-        runHelp = view.findViewById(R.id.runHelp);
+        Button runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -104,54 +100,24 @@ public class fixedPointFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute(){
-        boolean error = false;
+    public void execute(boolean error, double errorValue, int ite){
         Double xValue = 0.0;
-        int ite = 0;
-        Double errorValue= 0.0;
-        String originalFunc = textFunction.getText().toString();
-        try{
 
-            this.function = new Expression(functionRevision(originalFunc));
-
-            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            updatefunctions(originalFunc);
-        }catch (Exception e){
-            textFunction.setError("Invalid function");
-
-            error = true;
-        }
-
-        try{
             String originalFuncG = textFunctionG.getText().toString();
+            error = checkSyntax(originalFuncG,textFunctionG) && error;
             this.functionG = new Expression(functionRevision(originalFuncG));
+            updatefunctions(originalFuncG,error);
 
-            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            updatefunctions(originalFuncG);
-        }catch (Exception e){
-            textFunctionG.setError("Invalid function");
-            error = true;
-        }
 
         try{
             xValue = Double.parseDouble(xvalue.getText().toString());
         }catch(Exception e){
             xvalue.setError("Invalid Xi");
-            error = true;
+            error = false;
         }
-        try {
-            ite = Integer.parseInt(iter.getText().toString());
-        }catch (Exception e){
-            iter.setError("Wrong iterations");
-            error = true;
-        }
-        try {
-            errorValue = new Expression(textError.getText().toString()).eval().doubleValue();
-            System.out.println("error value  "+errorValue);
-        }catch (Exception e){
-            textError.setError("Invalid error value");
-        }
-        if(!error) {
+
+
+        if(error) {
             if(errorToggle.isChecked()){
                 fixedPointMethod(xValue,errorValue,ite,true);
             }else{
@@ -160,21 +126,10 @@ public class fixedPointFragment extends Fragment {
         }
     }
 
-    public static String convertirCientifica(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##E0");
-        return num.format(val);
-    }
-
-    public static String convertirNormal(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##");
-        return num.format(val);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel) {
-        //try {
+        try {
             graph.removeAllSeries();
 
             function.setPrecision(100);
@@ -191,7 +146,6 @@ public class fixedPointFragment extends Fragment {
                         FixedPoint iteZero = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(y0)), String.valueOf(convertirCientifica(g0)), String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
                         double xa = x0;
-                        try {
                             while ((y0 != 0) && (error > tol) && (cont < ite)) {
                                 double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                                 y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
@@ -212,44 +166,34 @@ public class fixedPointFragment extends Fragment {
                             if (y0 == 0) {
                                 graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                                 Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
-                                //System.out.println(xa + " is a root");
                             } else if (error <= tol) {
                                 y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                                 graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                                 Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                                //System.out.println(xa + " is an aproximate root");
                             } else {
-                                System.out.println("Failed the interval!");
                                 Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
                             }
-                        }catch (Exception e){
-                            System.out.println("error aqui");
-                        }
+
                     } else {
                         graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                         Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        //System.out.println(x0 + " is a root");
+
                     }
                 } else {
                     iter.setError("Wrong iterates");
-                    Toast.makeText(getContext(),  "Wrong iterates!", Toast.LENGTH_SHORT).show();
-                    //System.out.println("Wrong iterates!");
                 }
             } else {
                 textError.setError("Tolerance must be < 0");
-                Toast.makeText(getContext(),  "Tolerance must be < 0", Toast.LENGTH_SHORT).show();
-                //System.out.println("Tolerance < 0");
+
             }
             FixedPointListAdapter adapter = new FixedPointListAdapter(getContext(), R.layout.list_adapter_fixed_point, listValues);
             listView.setAdapter(adapter);
-        //}catch(Exception e){
-            //System.out.println(e.getMessage());
-            //System.out.println(function.getExpression());
-            //Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-      //  }
+        }catch(Exception e){
+            Toast.makeText(getActivity(), "Unexpected error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+      }
     }
-    public void updatefunctions(String function){
-        if(!graphFragment.allFunctions.contains(function)){
+    public void updatefunctions(String function,boolean error){
+        if(!graphFragment.allFunctions.contains(function) && error){
             graphFragment.allFunctions.add(function);
             textFunction.setAdapter(new ArrayAdapter<String>
                     (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));

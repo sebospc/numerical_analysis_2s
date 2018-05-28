@@ -28,19 +28,20 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
+
+import org.apache.commons.math3.analysis.function.Exp;
+
 import java.text.DecimalFormat;
 import java.util.Locale;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import static com.example.sacrew.numericov4.utilMethods.functionRevision;
-import static com.example.sacrew.numericov4.utilMethods.graphPoint;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class incrementalSearchFragment extends Fragment {
+public class incrementalSearchFragment extends baseOneVariableFragments {
 
 
     public incrementalSearchFragment() {
@@ -48,28 +49,22 @@ public class incrementalSearchFragment extends Fragment {
     }
 
     private View view;
-    private Button runIncremental;
-    private Button runHelp;
-    private ImageButton runChart;
     private GraphView graph;
-    private Expression function;
-    private AutoCompleteTextView textFunction;
     private TextView xValue;
     private TextView delta;
-    private TextView iter;
     private ListView listView;
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       try{
-        view = inflater.inflate(R.layout.fragment_incremental_search,container,false);
-        }catch (InflateException e){
+        try {
+            view = inflater.inflate(R.layout.fragment_incremental_search, container, false);
+        } catch (InflateException e) {
             // ignorable
         }
-        runIncremental = view.findViewById(R.id.runIncremental);
-        runHelp = view.findViewById(R.id.runHelp);
+        Button runIncremental = view.findViewById(R.id.runIncremental);
+        Button runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
         graph = view.findViewById(R.id.incrementalGraph);
         textFunction = view.findViewById(R.id.function);
@@ -80,7 +75,7 @@ public class incrementalSearchFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                execute();
+                bootStrap();
             }
         });
         runHelp.setOnClickListener(new View.OnClickListener() {
@@ -98,80 +93,71 @@ public class incrementalSearchFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp(){
+    public void executeHelp() {
         Intent i = new Intent(getContext().getApplicationContext(), popUpIncrementalSearch.class);
         startActivity(i);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute(){
-
-        boolean error = false;
-        Double x = 0.0;
-        Double deltaPrim = 0.0;
+    @Override
+    public void bootStrap(){
+        boolean error = true;
         int ite = 0;
-        try{
             String originalFunc = textFunction.getText().toString();
+            error = checkSyntax(originalFunc,textFunction);
             this.function = new Expression(functionRevision(originalFunc));
-
-            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!graphFragment.allFunctions.contains(originalFunc)){
+            if(!graphFragment.allFunctions.contains(originalFunc) && error) {
                 graphFragment.allFunctions.add(originalFunc);
                 textFunction.setAdapter(new ArrayAdapter<String>
                         (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
             }
-        }catch (Exception e){
-            textFunction.setError("Invalid function");
-            error = true;
-        }
-        try{
-            x = Double.parseDouble(xValue.getText().toString());
-            (function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
-        }catch(Exception e){
-            xValue.setError("Invalid x");
-            error = true;
-        }
-        try{
-            deltaPrim = Double.parseDouble(delta.getText().toString());
-        }catch (Exception e){
-            delta.setError("Invalid delta");
-            error = true;
-        }
 
         try {
             ite = Integer.parseInt(iter.getText().toString());
         }catch (Exception e){
             iter.setError("Wrong iterations");
-            error = true;
+            error = false;
         }
-        if(!error) {
+
+        execute(error,ite);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void execute(boolean error, int ite) {
+
+        Double x = 0.0;
+        Double deltaPrim = 0.0;
+
+        try {
+            x = Double.parseDouble(xValue.getText().toString());
+        } catch (Exception e) {
+            xValue.setError("Invalid x");
+            error = false;
+        }
+        try {
+            deltaPrim = Double.parseDouble(delta.getText().toString());
+        } catch (Exception e) {
+            delta.setError("Invalid delta");
+            error = false;
+        }
+        if (error) {
             incrementalSearchMethod(x, deltaPrim, ite);
         }
     }
 
-    public static String convertirCientifica(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##E0");
-        return num.format(val);
-    }
-
-    public static String convertirNormal(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##");
-        return num.format(val);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void incrementalSearchMethod(Double x0, Double delta, int ite) {
         graph.removeAllSeries();
         function.setPrecision(100);
-        ArrayList<IncrementalSearch> listValues = new ArrayList<>();
-        IncrementalSearch titles = new IncrementalSearch("n", "Xn", "f(Xn)");
-        listValues.add(titles);
+        try {
+            ArrayList<IncrementalSearch> listValues = new ArrayList<>();
+            IncrementalSearch titles = new IncrementalSearch("n", "Xn", "f(Xn)");
+            listValues.add(titles);
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0),String.valueOf(convertirNormal(x0)),String.valueOf(convertirCientifica(y0)));
+                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(y0)));
                     listValues.add(iteZero);
                     if (y0 != 0) {
                         int cont = 1;
@@ -179,7 +165,7 @@ public class incrementalSearchFragment extends Fragment {
                         double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
                         LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
                         serie.appendData(new DataPoint(x1, y1), false, ite);
-                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont),String.valueOf(convertirNormal(x1)),String.valueOf(convertirCientifica(y1)));
+                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirCientifica(y1)));
                         listValues.add(iterFirst);
                         while (((y1 * y0) > 0) && (cont < ite)) {
                             cont++;
@@ -192,7 +178,7 @@ public class incrementalSearchFragment extends Fragment {
                             else {
                                 // no se puede graficar funciones al reves :(
                             }
-                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont),String.valueOf(convertirNormal(x1)),String.valueOf(convertirCientifica(y1)));
+                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirCientifica(y1)));
                             listValues.add(iterNext);
                         }
 
@@ -200,34 +186,32 @@ public class incrementalSearchFragment extends Fragment {
                         if (y1 == 0) {
                             graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
-                            //System.out.println(x1 + " is a root");
                         } else if (y1 * y0 < 0) {
                             Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
-                            //System.out.println("[" + x0 + ", " + x1 + "] is an interval");
-                        } else {
-                            Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
-                            // System.out.println("Failed the interval!");
+
                         }
                     } else {
                         graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                         Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
-                        //System.out.println(x0 + " is a root");
                     }
 
-            } else {
+                } else {
                     iter.setError("Iterate needs be >0");
-                    Toast.makeText(getContext(), "Iterate needs be >0", Toast.LENGTH_SHORT).show();
                 }
 
-        }else {
+            } else {
                 this.delta.setError("Delta cannot be zero");
-                Toast.makeText(getContext(), "Delta cannot be zero", Toast.LENGTH_SHORT).show();
             }
-        IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.list_adapter_incremental_search, listValues);
-        listView.setAdapter(adapter);
+            IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.list_adapter_incremental_search, listValues);
+            listView.setAdapter(adapter);
+
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
-//
-    }
+}
 
 
 

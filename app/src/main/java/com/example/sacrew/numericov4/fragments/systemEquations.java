@@ -25,27 +25,28 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.systemEquations.cholesky;
-import com.example.sacrew.numericov4.fragments.systemEquations.croult;
-import com.example.sacrew.numericov4.fragments.systemEquations.doolittle;
-import com.example.sacrew.numericov4.fragments.systemEquations.gaussSeidel;
-import com.example.sacrew.numericov4.fragments.systemEquations.gaussSimple;
-import com.example.sacrew.numericov4.fragments.systemEquations.inverseDeterminant;
-import com.example.sacrew.numericov4.fragments.systemEquations.jacobi;
-import com.example.sacrew.numericov4.fragments.systemEquations.partialPivoting;
-import com.example.sacrew.numericov4.fragments.systemEquations.totalPivoting;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.cholesky;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.croult;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.doolittle;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.gaussSeidel;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.gaussSimple;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.inverseDeterminant;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.jacobi;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.partialPivoting;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.totalPivoting;
 import com.example.sacrew.numericov4.pagerAdapter;
 
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.example.sacrew.numericov4.fragments.systemEquations.jacobi.initialValues;
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.gaussSeidel.initialValuesSeidel;
+import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.jacobi.initialValues;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class systemEquationsFragment extends Fragment {
+public class systemEquations extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public static TableLayout matrixAText;
     @SuppressLint("StaticFieldLeak")
@@ -58,7 +59,7 @@ public class systemEquationsFragment extends Fragment {
 
     int matrixA [][];
     int bValues[],xValues[];
-    public systemEquationsFragment() {
+    public systemEquations() {
         // Required empty public constructor
     }
 
@@ -173,6 +174,7 @@ public class systemEquationsFragment extends Fragment {
         matrixAText.addView(row);
         bValuesText.addView(defaultEditText("0"));
         initialValues.addView(defaultEditText("0"));
+        initialValuesSeidel.addView(defaultEditText("0"));
         count = count + 1;
 
     }
@@ -188,6 +190,7 @@ public class systemEquationsFragment extends Fragment {
             matrixAText.removeView(matrixAText.getChildAt(n-1));
             bValuesText.removeView(bValuesText.getChildAt(n-1));
             initialValues.removeView(initialValues.getChildAt(n-1));
+            initialValuesSeidel.removeView(initialValuesSeidel.getChildAt(n-1));
             count = count - 1;
         }
 

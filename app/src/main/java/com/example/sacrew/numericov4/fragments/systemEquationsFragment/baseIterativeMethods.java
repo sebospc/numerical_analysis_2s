@@ -1,4 +1,4 @@
-package com.example.sacrew.numericov4.fragments.systemEquations;
+package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 import java.util.Arrays;
 

@@ -46,21 +46,15 @@ import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
  */
 public class MainFragment extends Fragment {
 
-    private EditText searchField;
-    private Spinner moodFilter, genderFilter, itemsPerPage;
+    private Spinner moodFilter;
+    private Spinner genderFilter;
     public ImageButton previousButton, nextButton;
     public EditText pageNumberField;
     public TextView tablePaginationDetails;
 
-    private AbstractTableAdapter mTableViewAdapter;
     private TableView mTableView;
     private Filter mTableFilter; // This is used for filtering the table.
     private Pagination mPagination; // This is used for paginating the table.
-
-    // This is a sample class that provides the cell value objects and other configurations.
-    private TableViewModel mTableViewModel;
-
-    private boolean mPaginationEnabled = false;
 
     public MainFragment() {
         // Required empty public constructor
@@ -71,7 +65,7 @@ public class MainFragment extends Fragment {
             savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_table_view_main, container, false);
 
-        searchField = layout.findViewById(R.id.query_string);
+        EditText searchField = layout.findViewById(R.id.query_string);
         searchField.addTextChangedListener(mSearchTextWatcher);
 
         moodFilter = layout.findViewById(R.id.mood_spinner);
@@ -80,7 +74,7 @@ public class MainFragment extends Fragment {
         genderFilter = layout.findViewById(R.id.gender_spinner);
         genderFilter.setOnItemSelectedListener(mItemSelectionListener);
 
-        itemsPerPage = layout.findViewById(R.id.items_per_page_spinner);
+        Spinner itemsPerPage = layout.findViewById(R.id.items_per_page_spinner);
 
         View tableTestContainer = layout.findViewById(R.id.table_test_container);
 
@@ -89,6 +83,7 @@ public class MainFragment extends Fragment {
         pageNumberField = layout.findViewById(R.id.page_number_text);
         tablePaginationDetails = layout.findViewById(R.id.table_details);
 
+        boolean mPaginationEnabled = false;
         if (mPaginationEnabled) {
             tableTestContainer.setVisibility(View.VISIBLE);
             itemsPerPage.setOnItemSelectedListener(onItemsPerPageSelectedListener);
@@ -123,10 +118,10 @@ public class MainFragment extends Fragment {
 
     private void initializeTableView() {
         // Create TableView View model class  to group view models of TableView
-        mTableViewModel = new TableViewModel(getContext());
+        TableViewModel mTableViewModel = new TableViewModel(getContext());
 
         // Create TableView Adapter
-        mTableViewAdapter = new TableViewAdapter(getContext(), mTableViewModel);
+        AbstractTableAdapter mTableViewAdapter = new TableViewAdapter(getContext(), mTableViewModel);
 
         mTableView.setAdapter(mTableViewAdapter);
         //mTableView.setTableViewListener(new TableViewListener(mTableView));

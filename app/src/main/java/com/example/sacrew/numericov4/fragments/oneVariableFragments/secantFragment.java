@@ -33,23 +33,19 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.example.sacrew.numericov4.utilMethods.functionRevision;
-import static com.example.sacrew.numericov4.utilMethods.graphPoint;
-import static com.example.sacrew.numericov4.utilMethods.graphSerie;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class secantFragment extends Fragment {
+public class secantFragment extends baseOneVariableFragments {
 
-    private Button runSecant;
-    private Button runHelp;
     private GraphView graph;
-    private Expression function,functionG;
+
     private View view;
     private ListView listView;
-    private TextView xi,xs,iter,textError;
-    private AutoCompleteTextView textFunction;
+    private TextView xi,xs;
+
     private ToggleButton errorToggle;
     public secantFragment() {
         // Required empty public constructor
@@ -64,15 +60,15 @@ public class secantFragment extends Fragment {
         }catch (InflateException e){
             // ignorable
         }
-        runSecant = view.findViewById(R.id.runSecant);
+        Button runSecant = view.findViewById(R.id.runSecant);
         runSecant.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                execute();
+                bootStrap();
             }
         });
-        runHelp = view.findViewById(R.id.runHelp);
+        Button runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -101,56 +97,26 @@ public class secantFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute() {
-        boolean error = false;
-        Double xiValue = 0.0;
-        Double xsValue = 0.0;
-        int ite = 0;
-        Double errorValue = 0.0;
-        String originalFunc = textFunction.getText().toString();
-        try {
-
-            this.function = new Expression(functionRevision(originalFunc));
-
-            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if (!graphFragment.allFunctions.contains(originalFunc)) {
-                graphFragment.allFunctions.add(originalFunc);
-                textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-            }
-
-        } catch (Exception e) {
-            textFunction.setError("Invalid function");
-
-            error = true;
-        }
+    public void execute(boolean error, double errorValue, int ite){
+        this.xi.setError(null);
+        this.xs.setError(null);
+        double xiValue = 0.0;
+        double xsValue = 0.0;
         try {
             xiValue = Double.parseDouble(xi.getText().toString());
-            (function.with("x", BigDecimal.valueOf(xiValue)).eval()).doubleValue();
         } catch (Exception e) {
             xi.setError("Invalid Xi");
-            error = true;
+            error = false;
         }
         try {
             xsValue = Double.parseDouble(xs.getText().toString());
-            (function.with("x", BigDecimal.valueOf(xsValue)).eval()).doubleValue();
         } catch (Exception e) {
             xs.setError("Invalid xs");
-            error = true;
+            error = false;
         }
-        try {
-            ite = Integer.parseInt(iter.getText().toString());
-        } catch (Exception e) {
-            iter.setError("Wrong iterations");
-            error = true;
-        }
-        try {
-            errorValue = new Expression(textError.getText().toString()).eval().doubleValue();
-            System.out.println("error value  " + errorValue);
-        } catch (Exception e) {
-            textError.setError("Invalid error value");
-        }
-        if (!error) {
+
+
+        if (error) {
             if (errorToggle.isChecked()) {
                 secantMethod(xiValue, xsValue, errorValue, ite, true);
             } else {
@@ -158,22 +124,14 @@ public class secantFragment extends Fragment {
             }
         }
     }
-    public static String convertirCientifica(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##E0");
-        return num.format(val);
-    }
 
-    public static String convertirNormal(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##");
-        return num.format(val);
-    }
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void secantMethod(Double x0, Double x1, Double tol, int ite, boolean errorRel) {
-        //try {
+        try {
             graph.removeAllSeries();
 
             function.setPrecision(100);
@@ -212,36 +170,31 @@ public class secantFragment extends Fragment {
                         if (fx1 == 0) {
                             graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             Toast.makeText(getContext(),  convertirNormal(aux1) + " is a root", Toast.LENGTH_SHORT).show();
-                            //System.out.println(xa + " is a root");
                         } else if (error <= tol) {
                             fx1 = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
                             graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             Toast.makeText(getContext(),  convertirNormal(aux1) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                            //System.out.println(xa + " is an aproximate root");
                         } else {
-                            System.out.println("Failed the interval!");
                             Toast.makeText(getContext(),  "Failed the interval!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         graphPoint(x0, fx0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                         Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        //System.out.println(x0 + " is a root");
                     }
                 } else {
                     iter.setError("Wrong iterates");
                     Toast.makeText(getContext(),  "Wrong iterates!", Toast.LENGTH_SHORT).show();
-                    //System.out.println("Wrong iterates!");
                 }
             } else {
                 textError.setError("Tolerance must be < 0");
                 Toast.makeText(getContext(),  "Tolerance must be < 0", Toast.LENGTH_SHORT).show();
-                //System.out.println("Tolerance < 0");
+
             }
             SecantListAdapter adapter = new SecantListAdapter(getContext(), R.layout.list_adapter_secant, listValues);
             listView.setAdapter(adapter);
-        //}catch(Exception e){
+        }catch(Exception e){
           //  Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-      //  }
+        }
     }
 
 }

@@ -12,10 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
+
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -31,18 +32,12 @@ import com.udojava.evalex.Expression;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
 
-import static com.example.sacrew.numericov4.utilMethods.functionRevision;
-import static com.example.sacrew.numericov4.utilMethods.graphPoint;
-import static com.example.sacrew.numericov4.utilMethods.graphSerie;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class falsePositionFragment extends Fragment {
+public class falsePositionFragment extends baseOneVariableFragments {
 
 
     public falsePositionFragment() {
@@ -50,16 +45,11 @@ public class falsePositionFragment extends Fragment {
     }
 
 
-    private Button runFake;
-    private Button runHelp;
     private GraphView graph;
-    private Expression function;
     private View view;
     private ListView listView;
-    private TextView xi,xs,iter,textError;
-    private AutoCompleteTextView textFunction;
+    private EditText xi,xs;
     private ToggleButton errorToggle;
-    private List<Integer> colors = new LinkedList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,15 +59,15 @@ public class falsePositionFragment extends Fragment {
         }catch (InflateException e){
             //ojo
        }
-        runFake = view.findViewById(R.id.runFalse);
+        Button runFake = view.findViewById(R.id.runFalse);
         runFake.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                execute();
+                bootStrap();
             }
         });
-        runHelp = view.findViewById(R.id.runHelp);
+        Button runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -106,58 +96,32 @@ public class falsePositionFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute(){
+    public void execute(boolean error, double errorValue, int ite){
         this.xi.setError(null);
         this.xs.setError(null);
-        boolean error = false;
-        Double xiValue = 0.0;
-        Double xsValue = 0.0;
-        int ite = 0;
-        Double errorValue= 0.0;
+        double xiValue = 0.0;
+        double xsValue = 0.0;
 
-        try{
-            String originalFunc = textFunction.getText().toString();
-            this.function = new Expression(functionRevision(originalFunc));
-
-            (function.with("x", BigDecimal.valueOf(1)).eval()).doubleValue();
-            if(!graphFragment.allFunctions.contains(originalFunc)){
-                graphFragment.allFunctions.add(originalFunc);
-                textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-            }
-        }catch (Exception e){
-            textFunction.setError("Invalid function");
-
-            error = true;
-        }
         try{
             xiValue = Double.parseDouble(xi.getText().toString());
-            (function.with("x", BigDecimal.valueOf(xiValue)).eval()).doubleValue();
+
         }catch(Exception e){
             xi.setError("Invalid Xi");
-            error = true;
+            error = false;
         }
         try{
             xsValue = Double.parseDouble(xs.getText().toString());
-            (function.with("x", BigDecimal.valueOf(xsValue)).eval()).doubleValue();
         }catch (Exception e){
             xs.setError("Invalid xs");
-            error = true;
+            error = false;
         }
 
         try {
-            ite = Integer.parseInt(iter.getText().toString());
-        }catch (Exception e){
-            iter.setError("Wrong iterations");
-            error = true;
-        }
-        try {
             errorValue = new Expression(textError.getText().toString()).eval().doubleValue();
-            System.out.println("error value  "+errorValue);
         }catch (Exception e){
             textError.setError("Invalid error value");
         }
-        if(!error) {
+        if(error) {
             if(errorToggle.isChecked()){
                 falsePosition(xiValue,xsValue,errorValue,ite,true);
             }else{
@@ -166,20 +130,9 @@ public class falsePositionFragment extends Fragment {
         }
     }
 
-    public static String convertirCientifica(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##E0");
-        return num.format(val);
-    }
-
-    public static String convertirNormal(double val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.##");
-        return num.format(val);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void falsePosition(Double xi, Double xs, Double tol, int ite, boolean errorRel) {
+    public void falsePosition(double xi, double xs, double tol, int ite, boolean errorRel) {
         graph.removeAllSeries();
         function.setPrecision(100);
         ArrayList<FalsePosition> listValues = new ArrayList<>();
@@ -202,8 +155,6 @@ public class falsePositionFragment extends Fragment {
                             double xaux = xm;
                             graphSerie(xi,xs,this.function.getExpression(),graph, Color.BLUE);
                             while((ym != 0) && (error > tol) && (cont < ite)){
-                                System.out.println("xm "+xm);
-                                System.out.println("ym "+ym);
                                 if(yi*ym < 0){
                                     xs = xm;
                                     ys = ym;
@@ -229,41 +180,36 @@ public class falsePositionFragment extends Fragment {
                             if(ym == 0){
                                 graphPoint(xm,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                                 Toast.makeText(getContext(), convertirNormal(xm) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                                //System.out.println(xm + " is an aproximate root");
 
                             }else if(error < tol){
                                 graphPoint(xaux,ym,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                                 Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                                //System.out.println(xaux + " is an aproximate root");
+
                             }else{
-                                //System.out.println("Failed!");
+
                             }
                         }else{
                             this.xi.setError("Failed the interval");
                             this.xs.setError("Failed the interval");
                             Toast.makeText(getContext(),  "Failed!", Toast.LENGTH_SHORT).show();
-                            //System.out.println("Failed the interval!");
+
 
                         }
                     }else{
                         Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        //System.out.println(xs + " is an aproximate root");
                         graphPoint(xs,ys,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                     }
                 }else{
                     Toast.makeText(getContext(), convertirNormal(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                    //System.out.println(xi + " is an aproximate root");
                     graphPoint(xi,yi,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#0E9577",true);
                 }
             }else{
                 iter.setError("Wrong iterates");
-                Toast.makeText(getContext(), "Wrong iterates!", Toast.LENGTH_SHORT).show();
-                //System.out.println("Wrong iterates!");
+
+
             }
         }else{
             textError.setError("Tolerance must be < 0");
-            Toast.makeText(getContext(), "Tolerance < 0", Toast.LENGTH_SHORT).show();
-            //System.out.println("Tolerance < 0");
         }
         FalsePositionListAdapter adapter = new FalsePositionListAdapter(getContext(), R.layout.list_adapter_false_position, listValues);
         listView.setAdapter(adapter);

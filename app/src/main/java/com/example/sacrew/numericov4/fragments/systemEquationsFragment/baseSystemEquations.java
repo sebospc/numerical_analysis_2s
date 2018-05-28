@@ -1,12 +1,10 @@
-package com.example.sacrew.numericov4.fragments.systemEquations;
+package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
@@ -23,17 +21,15 @@ import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 
-import java.net.ConnectException;
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.Locale;
 
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animatorSet;
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.bValuesText;
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.matrixAText;
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.times;
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.xValuesText;
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.animations;
+import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
+import static com.example.sacrew.numericov4.fragments.systemEquations.bValuesText;
+import static com.example.sacrew.numericov4.fragments.systemEquations.matrixAText;
+import static com.example.sacrew.numericov4.fragments.systemEquations.times;
+import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesText;
+import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
 /**
  * Created by sacrew on 23/05/18.
  */

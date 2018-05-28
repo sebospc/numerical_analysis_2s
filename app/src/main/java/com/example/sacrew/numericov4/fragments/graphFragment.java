@@ -18,6 +18,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -28,6 +29,7 @@ import com.example.sacrew.numericov4.graphUtils;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.udojava.evalex.Expression;
 
 
 import java.util.HashMap;
@@ -216,6 +218,7 @@ public class graphFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("CutPasteId")
     public void graphIt(View v){
+        boolean error = true;
         try {
             AutoCompleteTextView edittext_var;
             edittext_var = ((View) v.getParent()).findViewById(R.id.function_edit_text);
@@ -225,25 +228,24 @@ public class graphFragment extends Fragment {
             String functionAux = function;
             if(function.length() !=0)
                 function = function.toLowerCase();
-            //throw expresion, values not be negative
 
-            Toast.makeText(getActivity(), function, Toast.LENGTH_SHORT).show();
-
-            //Expression expression = new Expression(function);
-
-
+            error = checkSyntax(function);
+            if(!error) {
+                Toast.makeText(getActivity(), "Invalid function", Toast.LENGTH_SHORT).show();
+                return;
+            }
             int code = ((View) v.getParent()).findViewById(R.id.function_edit_text).hashCode();
             // define color
-            if(!viewToColor.containsKey(code)){
+            if (!viewToColor.containsKey(code)) {
                 int color = colors.remove(0);
                 colors.add(color);
-                viewToColor.put(code,color);
+                viewToColor.put(code, color);
             }
             seek.setProgressTintList(ColorStateList.valueOf(viewToColor.get(code)));
             /*
              * autocomplete allFunctions
              */
-            if(!allFunctions.contains(functionAux)) {
+            if (!allFunctions.contains(functionAux)) {
                 allFunctions.add(functionAux);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>
                         (getActivity(), android.R.layout.select_dialog_item, allFunctions);
@@ -253,13 +255,12 @@ public class graphFragment extends Fragment {
              * important
              */
             List<LineGraphSeries<DataPoint>> listSeries = graphUtils
-                    .graphPharallel(iter,function,viewToColor.get(code),getContext());
+                    .graphPharallel(iter, function, viewToColor.get(code), getContext());
 
-            if(viewToFunction.containsKey(code)){
-                for (LineGraphSeries<DataPoint> inSerie  : viewToFunction.get(code)) {
+            if (viewToFunction.containsKey(code))
+                for (LineGraphSeries<DataPoint> inSerie : viewToFunction.get(code))
                     graph.removeSeries(inSerie);
-                }
-            }
+
             viewToFunction.put(code, listSeries);
 
             graph.getViewport().setYAxisBoundsManual(true);
@@ -274,20 +275,22 @@ public class graphFragment extends Fragment {
             graph.getViewport().setScalable(true);// esto genera errores se podria solucionar pero
             graph.getViewport().setScalableY(true);// es complejo, es para el zoom
 
-            for (LineGraphSeries<DataPoint> inSerie  : viewToFunction.get(code)) {
+            for (LineGraphSeries<DataPoint> inSerie : viewToFunction.get(code))
                 graph.addSeries(inSerie);
-
-            }
-
-
 
         }catch (Exception e){
             Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
         }
 
     }
-
-
-
-
+    public boolean checkSyntax(String function){
+        try {
+            new Expression(graphUtils.functionRevision(function)).with("x", "0").eval();
+        }catch (NumberFormatException e){
+            return true;
+        }catch (Expression.ExpressionException e) {
+            return false;
+        }
+        return true;
+    }
 }

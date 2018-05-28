@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment">
+    tools:context="com.example.sacrew.numericov4.fragments.systemEquations">
     <RelativeLayout
         android:layout_weight="0.5"
         android:layout_width="match_parent"

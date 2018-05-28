@@ -1,10 +1,9 @@
-package com.example.sacrew.numericov4.fragments.systemEquations;
+package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,7 @@ import com.example.sacrew.numericov4.R;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.complex.ComplexFormat;
 
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.xValuesText;
+import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesText;
 
 /**
  * A simple {@link Fragment} subclass.

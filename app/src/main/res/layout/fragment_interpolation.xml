@@ -1,0 +1,116 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.sacrew.numericov4.fragments.interpolation">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageButton
+                android:id="@+id/addRow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_add_black_24dp" />
+
+            <Space
+                android:id="@+id/space2"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:layout_toEndOf="@+id/addRow"
+                android:layout_toRightOf="@+id/addRow" />
+
+            <ImageButton
+                android:id="@+id/deleteRow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/space2"
+                android:layout_toRightOf="@+id/space2"
+                android:src="@drawable/ic_remove_black_24dp" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/addRow"
+                android:layout_toEndOf="@+id/addRow"
+                android:layout_toRightOf="@+id/addRow">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none">
+
+                    <HorizontalScrollView
+                        android:id="@+id/scrollView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:scrollbars="none">
+
+                        <TableLayout
+                            android:id="@+id/vectors"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </HorizontalScrollView>
+                </ScrollView>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/addRow"
+                android:layout_toLeftOf="@+id/relativeLayout3"
+                android:text="x" />
+
+            <Space
+                android:id="@+id/space"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView27" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/space"
+                android:layout_toLeftOf="@+id/relativeLayout3"
+                android:text="f(x)" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:fadingEdgeLength="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"/>
+
+</LinearLayout>

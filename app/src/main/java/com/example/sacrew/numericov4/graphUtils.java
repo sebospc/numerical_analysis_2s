@@ -87,7 +87,6 @@ public class graphUtils {
             cores[i].start();
             each = (each +(perCore*0.1)-0.1);
             end = (each +(perCore*0.1)+0.1);
-            System.out.println(each);
         }
         List<LineGraphSeries<DataPoint>> listSeries = new LinkedList<>();
         for (int i = 0; i<cores.length; i++) {
@@ -126,7 +125,6 @@ public class graphUtils {
             this.function.setPrecision(20);
             double y;
             double x = this.x;
-            System.out.println("x "+x+" end:"+this.end+" percore"+perCore);
 
             while(x <= this.end){
                 try{
