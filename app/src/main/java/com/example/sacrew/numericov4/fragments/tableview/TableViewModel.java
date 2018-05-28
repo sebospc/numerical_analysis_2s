@@ -52,9 +52,10 @@ public class TableViewModel {
         return lista;
     }
 
+
     public List<RowHeader> getSimpleRowHeaderList() {
         List<RowHeader> list = new ArrayList<>();
-        for (int i = 0;i< 10+1; i++) {
+        for (int i = 0;i< 25+1; i++) {
             RowHeader header = new RowHeader(String.valueOf(i),  ""+i);
             list.add(header);
         }
@@ -74,25 +75,26 @@ public class TableViewModel {
         return list;
     }
 
-    public List<List<Cell>> getSimpleCellList() {
+    public static List<List<Cell>> getSimpleCellList() {
         List<List<Cell>> list = new ArrayList<>();
+        List<Cell> cellList = new ArrayList<>();
         for (int i = 0; i < getCeldas(listaCeldas).size(); i++) {
-            List<Cell> cellList = new ArrayList<>();
             Object text = getCeldas(listaCeldas).get(i);
             String id = i + "-" + i;
 
             Cell cell = new Cell(id, text);
             cellList.add(cell);
-            for (int j = 0; j < getTitles(listaOriginal).size(); j++) {
-
+            for(int j = 0; j < 1; j++) {
+                list.add(cellList);
             }
-            list.add(cellList);
+
         }
+
 
         return list;
     }
 
-    public List<List<Cell>> getCellList() {
+    public static List<List<Cell>> getCellList() {
         return getSimpleCellList();
     }
 

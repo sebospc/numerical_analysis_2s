@@ -22,11 +22,16 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="match_parent"
                     android:layout_height="231dp"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/home"
                     tools:layout_editor_absoluteX="25dp"
                     tools:layout_editor_absoluteY="16dp" />
 
