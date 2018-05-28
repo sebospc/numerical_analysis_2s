@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
@@ -13,6 +14,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.widget.TextViewCompat;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -22,11 +24,15 @@ import android.widget.Toast;
 import com.example.sacrew.numericov4.R;
 
 import java.text.DecimalFormat;
+import java.util.LinkedList;
 import java.util.Locale;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquations.bValuesText;
+import static com.example.sacrew.numericov4.fragments.systemEquations.backMAtrix;
 import static com.example.sacrew.numericov4.fragments.systemEquations.matrixAText;
+import static com.example.sacrew.numericov4.fragments.systemEquations.matrixBackpack;
+import static com.example.sacrew.numericov4.fragments.systemEquations.pivoted;
 import static com.example.sacrew.numericov4.fragments.systemEquations.times;
 import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesText;
 import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
@@ -349,6 +355,7 @@ public abstract class baseSystemEquations extends Fragment {
     public double[][] totalPivot(int k, double [][] expandedMAtrix, int [] marks) {
         return totalPivot(k,expandedMAtrix,marks,matrixResult);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public double[][] totalPivot(int k, double [][] expandedMAtrix, int [] marks, TableLayout table){
         double mayor = 0.0;
@@ -373,4 +380,41 @@ public abstract class baseSystemEquations extends Fragment {
         }
         return expandedMAtrix;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void securePivot(){
+        double [][] expandedMatrix = getMatrix();
+        if(animatorSet != null) {
+            animatorSet.removeAllListeners();
+            animatorSet.end();
+            animatorSet.cancel();
+        }
+        animatorSet = new AnimatorSet();
+        animations = new LinkedList<>();
+
+        if(expandedMatrix != null) {
+            if (!pivoted) {
+                int[] marks = new int[expandedMatrix.length];
+                for (int i = 0; i < marks.length; i++) {
+                    marks[i] = i + 1;
+                }
+                matrixBackpack = getMatrix();
+                backMAtrix.setVisibility(View.VISIBLE);
+                for (int i = 0; i < matrixAText.getChildCount(); i++) {
+                    for (int j = 0; j < matrixAText.getChildCount(); j++) {
+                        ((EditText) ((TableRow) matrixAText.getChildAt(i)).getChildAt(j)).setKeyListener(null);
+                    }
+                    ((EditText) bValuesText.getChildAt(i)).setKeyListener(null);
+                }
+                boolean pivot = false;
+                for (int i = 0; i < expandedMatrix.length; i++) {
+                    totalPivot(i, expandedMatrix, marks, matrixAText);
+                }
+                animatorSet.playSequentially(animations);
+                animatorSet.start();
+                pivoted = true;
+            }
+        }
+    }
+
 }

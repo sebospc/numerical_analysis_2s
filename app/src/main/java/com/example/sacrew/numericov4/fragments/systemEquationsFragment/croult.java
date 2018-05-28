@@ -27,8 +27,10 @@ import java.util.LinkedList;
 import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquations.bValuesText;
+import static com.example.sacrew.numericov4.fragments.systemEquations.backMAtrix;
 import static com.example.sacrew.numericov4.fragments.systemEquations.matrixAText;
 import static com.example.sacrew.numericov4.fragments.systemEquations.times;
+import static com.example.sacrew.numericov4.fragments.systemEquations.matrixBackpack;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +39,7 @@ public class croult extends baseFactorizationMethods{
     private TableLayout matrixLText;
     private TableLayout matrixUText;
     private TextView suma;
+
 
     public croult() {
         // Required empty public constructor
@@ -68,22 +71,7 @@ public class croult extends baseFactorizationMethods{
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                double [][] expandedMatrix = getMatrix();
-                if(animatorSet != null) {
-                    animatorSet.removeAllListeners();
-                    animatorSet.end();
-                    animatorSet.cancel();
-                }
-                animatorSet = new AnimatorSet();
-                animations = new LinkedList<>();
-
-                if(expandedMatrix != null) {
-                    for (int i = 0; i < expandedMatrix.length; i++) {
-                        totalPivot(i, expandedMatrix, null, matrixAText);
-                    }
-                    animatorSet.playSequentially(animations);
-                    animatorSet.start();
-                }
+                securePivot();
             }
         });
 

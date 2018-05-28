@@ -62,22 +62,7 @@ public class jacobi extends baseIterativeMethods{
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                double [][] expandedMatrix = getMatrix();
-                if(animatorSet != null) {
-                    animatorSet.removeAllListeners();
-                    animatorSet.end();
-                    animatorSet.cancel();
-                }
-                animatorSet = new AnimatorSet();
-                animations = new LinkedList<>();
-
-                if(expandedMatrix != null) {
-                    for (int i = 0; i < expandedMatrix.length; i++) {
-                        totalPivot(i, expandedMatrix, null, matrixAText);
-                    }
-                    animatorSet.playSequentially(animations);
-                    animatorSet.start();
-                }
+                securePivot();
             }
         });
         run.setOnClickListener(new View.OnClickListener() {

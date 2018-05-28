@@ -56,6 +56,10 @@ public class systemEquations extends Fragment {
     public static List<Animator> animations;
     public static int count =  4;
     public static AnimatorSet animatorSet = new AnimatorSet();
+    @SuppressLint("StaticFieldLeak")
+    public static ImageButton backMAtrix;
+    public static double [][]matrixBackpack;
+    public static Boolean pivoted = false;
 
     int matrixA [][];
     int bValues[],xValues[];
@@ -75,6 +79,30 @@ public class systemEquations extends Fragment {
 
         ImageButton add = view.findViewById(R.id.addRow);
         ImageButton remove = view.findViewById(R.id.deleteRow);
+        backMAtrix = view.findViewById(R.id.backButton);
+        backMAtrix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(animatorSet != null) {
+                    animatorSet.removeAllListeners();
+                    animatorSet.end();
+                    animatorSet.cancel();
+                }
+                matrixAText.removeAllViews();
+                bValuesText.removeAllViews();
+                for(int i = 0; i < matrixBackpack.length; i++){
+                    TableRow row = new TableRow(getContext());
+                    for(int j = 0; j < matrixBackpack.length;j++){
+                        row.addView(defaultEditText(matrixBackpack[i][j]+""));
+                    }
+                    matrixAText.addView(row);
+                    bValuesText.addView(defaultEditText(matrixBackpack[i][matrixBackpack.length]+""));
+                }
+                backMAtrix.setVisibility(View.GONE);
+                pivoted = false;
+            }
+        });
+        backMAtrix.setVisibility(View.GONE);
         matrixAText = view.findViewById(R.id.matrixA);
         bValuesText = view.findViewById(R.id.arrayB);
         xValuesText = view.findViewById(R.id.arrayResult);
@@ -173,8 +201,10 @@ public class systemEquations extends Fragment {
         }
         matrixAText.addView(row);
         bValuesText.addView(defaultEditText("0"));
-        initialValues.addView(defaultEditText("0"));
-        initialValuesSeidel.addView(defaultEditText("0"));
+        if(initialValues != null)
+            initialValues.addView(defaultEditText("0"));
+        if(initialValuesSeidel != null)
+            initialValuesSeidel.addView(defaultEditText("0"));
         count = count + 1;
 
     }
@@ -189,8 +219,10 @@ public class systemEquations extends Fragment {
             }
             matrixAText.removeView(matrixAText.getChildAt(n-1));
             bValuesText.removeView(bValuesText.getChildAt(n-1));
-            initialValues.removeView(initialValues.getChildAt(n-1));
-            initialValuesSeidel.removeView(initialValuesSeidel.getChildAt(n-1));
+            if(initialValues != null)
+                initialValues.removeView(initialValues.getChildAt(n-1));
+            if(initialValuesSeidel != null)
+                initialValuesSeidel.removeView(initialValuesSeidel.getChildAt(n-1));
             count = count - 1;
         }
 
