@@ -152,7 +152,6 @@ public class gaussSeidel extends baseIterativeMethods {
             aux = new LinkedList<>();
             double [] x1 ;
             x1 = calcNewSeidel(x0,expandedMAtrix,relax);
-            for(double v: x1)System.out.println("new jacb"+v);
             if(errorToggle.isChecked())
                 dispersion = norma(minus(x1,x0));
             else

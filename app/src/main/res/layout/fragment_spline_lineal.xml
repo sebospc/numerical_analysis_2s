@@ -16,7 +16,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Spline lineal"
+            android:text="Linear spline"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />

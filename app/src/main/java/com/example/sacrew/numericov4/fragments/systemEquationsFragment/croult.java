@@ -127,7 +127,7 @@ public class croult extends baseFactorizationMethods{
 
             double suma1 = 0;
             ValueAnimator zero= ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                    getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                    defaultColor).setDuration(times.getProgress()*500);
             zero.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
@@ -163,7 +163,7 @@ public class croult extends baseFactorizationMethods{
                 final int auxp = p;
                 final double auxSuma = suma1;
                 ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                        getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                        defaultColor).setDuration(times.getProgress()*500);
                 colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animator) {
@@ -191,8 +191,8 @@ public class croult extends baseFactorizationMethods{
 
                     @Override
                     public void onAnimationCancel(Animator animator) {
-                        ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxp).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                        ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxp).setBackgroundColor(defaultColor);
+                        ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxk).setBackgroundColor(defaultColor);
                     }
 
                     @Override
@@ -205,13 +205,13 @@ public class croult extends baseFactorizationMethods{
             matrixL[k][k] = expandedMatrix[k][k]-suma1;
             final double temp = matrixL[k][k];
             ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                    getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                    defaultColor).setDuration(times.getProgress()*500);
             colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
                     try {
                         TextView cell = (TextView) ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxk);
-                        cell.setBackgroundColor(Color.CYAN);
+                        cell.setBackgroundColor(operativeColor);
                         cell.setText((temp+"      ").substring(0,6));
                         ((TableRow)matrixAText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor((Integer) animator.getAnimatedValue());
                         suma.setBackgroundColor(Color.YELLOW);
@@ -231,7 +231,7 @@ public class croult extends baseFactorizationMethods{
                 public void onAnimationEnd(Animator animator) {
                     try {
                         ((TableRow) matrixLText.getChildAt(auxk)).getChildAt(auxk)
-                                .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                                .setBackgroundColor(defaultColor);
                         if (!animations.isEmpty()) animations.remove(0);
 
                     }catch(Exception e){
@@ -242,7 +242,7 @@ public class croult extends baseFactorizationMethods{
 
                 @Override
                 public void onAnimationCancel(Animator animator) {
-                    ((TableRow)matrixAText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    ((TableRow)matrixAText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(defaultColor);
                 }
 
                 @Override
@@ -260,7 +260,7 @@ public class croult extends baseFactorizationMethods{
                     suma2 = suma2 + matrixL[i][p]*matrixU[p][k];
                     final double auxSuma = suma2;
                     ValueAnimator animatronix = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                            getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                            defaultColor).setDuration(times.getProgress()*500);
                     animatronix.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animator) {
@@ -287,8 +287,8 @@ public class croult extends baseFactorizationMethods{
 
                         @Override
                         public void onAnimationCancel(Animator animator) {
-                            ((TableRow)matrixLText.getChildAt(auxi)).getChildAt(auxp).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                            ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            ((TableRow)matrixLText.getChildAt(auxi)).getChildAt(auxp).setBackgroundColor(defaultColor);
+                            ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxk).setBackgroundColor(defaultColor);
                         }
 
                         @Override
@@ -306,13 +306,13 @@ public class croult extends baseFactorizationMethods{
                 matrixL[i][k] = (expandedMatrix[i][k]-suma2)/matrixU[k][k];
                 final double temp1 = matrixL[i][k];
                 ValueAnimator animatronix2 = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                        getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                        defaultColor).setDuration(times.getProgress()*500);
                 animatronix2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animator) {
                         try {
                             TextView cell = (TextView) ((TableRow)matrixLText.getChildAt(auxi)).getChildAt(auxk);
-                            cell.setBackgroundColor(Color.CYAN);
+                            cell.setBackgroundColor(operativeColor);
                             cell.setText((temp1+"      ").substring(0,6));
                             ((TableRow)matrixAText.getChildAt(auxi)).getChildAt(auxk).setBackgroundColor((Integer) animator.getAnimatedValue());
                             ((TableRow)matrixUText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor((Integer) animator.getAnimatedValue());
@@ -333,7 +333,7 @@ public class croult extends baseFactorizationMethods{
                     public void onAnimationEnd(Animator animator) {
                         try {
                             ((TableRow) matrixLText.getChildAt(auxi)).getChildAt(auxk)
-                                    .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                                    .setBackgroundColor(defaultColor);
                             if (!animations.isEmpty()) animations.remove(0);
                         }catch (Exception e){
                             matrixLText.removeAllViews();
@@ -343,8 +343,8 @@ public class croult extends baseFactorizationMethods{
 
                     @Override
                     public void onAnimationCancel(Animator animator) {
-                        ((TableRow)matrixAText.getChildAt(auxi)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                        ((TableRow)matrixUText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        ((TableRow)matrixAText.getChildAt(auxi)).getChildAt(auxk).setBackgroundColor(defaultColor);
+                        ((TableRow)matrixUText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(defaultColor);
                     }
 
                     @Override
@@ -362,7 +362,7 @@ public class croult extends baseFactorizationMethods{
                     suma3 = suma3 + matrixL[k][p]*matrixU[p][j];
                     final double auxSuma = suma3;
                     ValueAnimator animatronix = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                            getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                            defaultColor).setDuration(times.getProgress()*500);
                     animatronix.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animator) {
@@ -389,8 +389,8 @@ public class croult extends baseFactorizationMethods{
 
                         @Override
                         public void onAnimationCancel(Animator animator) {
-                            ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxp).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                            ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxj).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxp).setBackgroundColor(defaultColor);
+                            ((TableRow)matrixUText.getChildAt(auxp)).getChildAt(auxj).setBackgroundColor(defaultColor);
                         }
 
                         @Override
@@ -407,7 +407,7 @@ public class croult extends baseFactorizationMethods{
                 matrixU[k][j] = (expandedMatrix[k][j] - suma3)/matrixL[k][k];
                 final double temp2 = matrixU[k][j];
                 ValueAnimator animatronix2 = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                        getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                        defaultColor).setDuration(times.getProgress()*500);
                 animatronix2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animator) {
@@ -415,7 +415,7 @@ public class croult extends baseFactorizationMethods{
                             ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor((Integer) animator.getAnimatedValue());
                             ((TableRow)matrixAText.getChildAt(auxk)).getChildAt(auxj).setBackgroundColor((Integer) animator.getAnimatedValue());
                             TextView cell =(TextView)((TableRow)matrixUText.getChildAt(auxk)).getChildAt(auxj);
-                            cell.setBackgroundColor(Color.CYAN);
+                            cell.setBackgroundColor(operativeColor);
                             cell.setText((temp2+"     ").substring(0,6));
                             suma.setBackgroundColor(Color.YELLOW);
                         }catch (Exception e){
@@ -434,7 +434,7 @@ public class croult extends baseFactorizationMethods{
                     public void onAnimationEnd(Animator animator) {
                         try {
                             ((TableRow) matrixUText.getChildAt(auxk)).getChildAt(auxj)
-                                    .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                                    .setBackgroundColor(defaultColor);
                             if (!animations.isEmpty()) animations.remove(0);
                         }catch (Exception e){
                             matrixUText.removeAllViews();
@@ -444,8 +444,8 @@ public class croult extends baseFactorizationMethods{
 
                     @Override
                     public void onAnimationCancel(Animator animator) {
-                        ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                        ((TableRow)matrixAText.getChildAt(auxk)).getChildAt(auxj).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        ((TableRow)matrixLText.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(defaultColor);
+                        ((TableRow)matrixAText.getChildAt(auxk)).getChildAt(auxj).setBackgroundColor(defaultColor);
                     }
 
                     @Override
@@ -457,7 +457,7 @@ public class croult extends baseFactorizationMethods{
             }
             matrixL[k][matrixL.length] = expandedMatrix[k][expandedMatrix.length];
             ValueAnimator animatronco = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                    getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                    defaultColor).setDuration(times.getProgress()*500);
             animatronco.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
@@ -498,7 +498,7 @@ public class croult extends baseFactorizationMethods{
             final int auxi = i;
             final double val = x[i];
             ValueAnimator animatronco = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                    getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                    defaultColor).setDuration(times.getProgress()*500);
             animatronco.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {

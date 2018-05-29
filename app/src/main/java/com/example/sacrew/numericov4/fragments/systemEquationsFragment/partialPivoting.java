@@ -123,7 +123,7 @@ public class partialPivoting extends baseSystemEquations {
             stage.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animator) {
-                    multipliersLayout.addView(defaultEditText("stage "+auxk,0, LinearLayout.LayoutParams.MATCH_PARENT,13,true));
+                    multipliersLayout.addView(defaultEditText("stage "+auxk,defaultColor, LinearLayout.LayoutParams.MATCH_PARENT,13,true));
                 }
 
                 @Override
@@ -152,7 +152,7 @@ public class partialPivoting extends baseSystemEquations {
                 final int auxi = i;
 
 
-                ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),Color.YELLOW,getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),Color.YELLOW,defaultColor).setDuration(times.getProgress()*500);
                 colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animator) {
@@ -167,7 +167,7 @@ public class partialPivoting extends baseSystemEquations {
                 colorAnimator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
-                        multipliersLayout.addView(defaultEditText("multiplier"+(auxi-auxk)+" = "+multiplier,0, LinearLayout.LayoutParams.MATCH_PARENT,10,true));
+                        multipliersLayout.addView(defaultEditText("multiplier"+(auxi-auxk)+" = "+multiplier,defaultColor, LinearLayout.LayoutParams.MATCH_PARENT,10,true));
                     }
 
                     @Override
@@ -178,8 +178,8 @@ public class partialPivoting extends baseSystemEquations {
                     @Override
                     public void onAnimationCancel(Animator animator) {
                         try {
-                            ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                            ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxk).setBackgroundColor(defaultColor);
+                            ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxk).setBackgroundColor(defaultColor);
 
                         }catch (Exception e){
                             matrixResult.removeAllViews();
@@ -197,8 +197,8 @@ public class partialPivoting extends baseSystemEquations {
                     expandedMatrix[i][j] = expandedMatrix[i][j] - multiplier*expandedMatrix[k][j];
                     final double value = Math.abs(expandedMatrix[i][j]) <= Math.pow(10,-13) ? 0.0: expandedMatrix[i][j];
 
-                    colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),Color.CYAN,
-                            getResources().getColor(R.color.colorPrimary)).setDuration(times.getProgress()*500);
+                    colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),operativeColor,
+                            defaultColor).setDuration(times.getProgress()*500);
                     colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animator) {
@@ -221,7 +221,7 @@ public class partialPivoting extends baseSystemEquations {
                         public void onAnimationEnd(Animator animator) {
                             try {
                                 ((TableRow) matrixResult.getChildAt(auxk)).getChildAt(auxj)
-                                        .setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                                        .setBackgroundColor(defaultColor);
                                 if (!animations.isEmpty()) animations.remove(0);
                             }catch(Exception e){
                                 matrixResult.removeAllViews();
@@ -230,7 +230,7 @@ public class partialPivoting extends baseSystemEquations {
 
                         @Override
                         public void onAnimationCancel(Animator animator) {
-                            ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            ((TableRow) matrixResult.getChildAt(auxi)).getChildAt(auxj).setBackgroundColor(defaultColor);
                         }
 
                         @Override
