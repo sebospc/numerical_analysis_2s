@@ -24,6 +24,7 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpSecant;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.SecantListAdapter;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -31,6 +32,8 @@ import com.udojava.evalex.Expression;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -69,6 +72,14 @@ public class secantFragment extends baseOneVariableFragments {
             }
         });
         Button runHelp = view.findViewById(R.id.runHelp);
+        Button runChart = view.findViewById(R.id.runChart);
+        runChart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+                executeChart(getContext());
+            }
+        });
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -138,6 +149,14 @@ public class secantFragment extends baseOneVariableFragments {
             ArrayList<Secant> listValues = new ArrayList<>();
         Secant titles = new Secant("n", "Xn", "f(Xn)", "f'(Xn)", "f''(Xn)", "Error");
         listValues.add(titles);
+            List<String> listValuesTitles = new LinkedList<>();
+            listValuesTitles.add("Xn");
+            listValuesTitles.add("f(Xn)");
+            listValuesTitles.add("f'(Xn)");
+            listValuesTitles.add("f''(Xn)");
+            listValuesTitles.add("Error");
+            TableViewModel.getTitles(listValuesTitles);
+            List<List<String>> completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
                     double fx0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
@@ -150,7 +169,15 @@ public class secantFragment extends baseOneVariableFragments {
                         Double den = fx1-fx0;
                         Secant iteZero = new Secant(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(fx0)), String.valueOf(convertirCientifica(fx1)), String.valueOf(convertirCientifica(den)), String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
+                        List<String> listValuesIteZero = new LinkedList<>();
+                        listValuesIteZero.add(String.valueOf(x0));
+                        listValuesIteZero.add(String.valueOf(fx0));
+                        listValuesIteZero.add(String.valueOf(fx1));
+                        listValuesIteZero.add(String.valueOf(den));
+                        listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
+                        completeList.add(listValuesIteZero);
                         while(fx1 != 0 && den != 0 && error > tol && cont < ite) {
+                            ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             Double aux2 = aux1 - (((this.function.with("x", BigDecimal.valueOf(aux1))
                                     .eval().doubleValue()))* (aux1 - aux0) / den);
                             if (errorRel)
@@ -165,7 +192,15 @@ public class secantFragment extends baseOneVariableFragments {
                             cont = cont + 1;
                             Secant iteNext= new Secant(String.valueOf(cont), String.valueOf(convertirNormal(aux0)), String.valueOf(convertirCientifica(fx0)), String.valueOf(convertirCientifica(fx1)), String.valueOf(convertirCientifica(den)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteNext);
+                            listValuesIteNext.add(String.valueOf(x0));
+                            listValuesIteNext.add(String.valueOf(fx0));
+                            listValuesIteNext.add(String.valueOf(fx1));
+                            listValuesIteNext.add(String.valueOf(den));
+                            listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                            completeList.add(listValuesIteNext);
                         }
+                        TableViewModel.getCeldas(completeList);
+                        calc= true;
 
                         if (fx1 == 0) {
                             graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);

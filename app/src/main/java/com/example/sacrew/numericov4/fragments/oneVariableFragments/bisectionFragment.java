@@ -219,6 +219,7 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 cont++;
                             }
                             TableViewModel.getCeldas(completeList);
+                            calc= true;
                             if (ym == 0) {
                                 graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             } else if (error < tol) {
@@ -228,7 +229,7 @@ public class bisectionFragment extends baseOneVariableFragments {
                             } else {
                                 Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                             }
-                            calc= true;
+
                         } else {
                             Toast.makeText(getContext(), "The interval dont have root", Toast.LENGTH_SHORT).show();
 

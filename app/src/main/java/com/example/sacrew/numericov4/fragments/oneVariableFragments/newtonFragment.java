@@ -24,6 +24,7 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewton;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Newton;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.NewtonListAdapter;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -31,6 +32,8 @@ import com.udojava.evalex.Expression;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -147,6 +150,13 @@ public class newtonFragment extends baseOneVariableFragments {
             ArrayList<Newton> listValues = new ArrayList<>();
             Newton titles = new Newton("n", "Xn", "f(Xn)", "f'(Xn)", "Error");
             listValues.add(titles);
+            List<String> listValuesTitles = new LinkedList<>();
+            listValuesTitles.add("Xn");
+            listValuesTitles.add("f(Xn)");
+            listValuesTitles.add("f'(Xn)");
+            listValuesTitles.add("Error");
+            TableViewModel.getTitles(listValuesTitles);
+            List<List<String>> completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
@@ -156,8 +166,15 @@ public class newtonFragment extends baseOneVariableFragments {
                         double error = tol + 1;
                         Newton iteZero = new Newton(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(y0)), String.valueOf(convertirCientifica(y0p)), String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
+                        List<String> listValuesIteZero = new LinkedList<>();
+                        listValuesIteZero.add(String.valueOf(x0));
+                        listValuesIteZero.add(String.valueOf(y0));
+                        listValuesIteZero.add(String.valueOf(y0p));
+                        listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                         double xa = x0;
+                        completeList.add(listValuesIteZero);
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
+                            ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             double xn = (newtonFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
 
@@ -169,7 +186,14 @@ public class newtonFragment extends baseOneVariableFragments {
                             cont++;
                             Newton iteNext = new Newton(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirCientifica(y0)), String.valueOf(convertirCientifica(xn)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteNext);
+                            listValuesIteNext.add(String.valueOf(x0));
+                            listValuesIteNext.add(String.valueOf(y0));
+                            listValuesIteNext.add(String.valueOf(y0p));
+                            listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                            completeList.add(listValuesIteNext);
                         }
+                        TableViewModel.getCeldas(completeList);
+                        calc= true;
                         graphSerie(xa - 0.5, xa, function.getExpression(), graph, Color.BLUE);
                         graphSerie(xa - 0.5, xa, functionG.getExpression(), graph, Color.RED);
                         if (y0 == 0) {

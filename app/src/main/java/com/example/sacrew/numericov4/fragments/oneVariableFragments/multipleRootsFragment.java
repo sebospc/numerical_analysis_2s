@@ -25,6 +25,7 @@ import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRoots;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRootsListAdapter;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -32,6 +33,8 @@ import com.udojava.evalex.Expression;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -71,6 +74,14 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             }
         });
         Button runHelp = view.findViewById(R.id.runHelp);
+        Button runChart = view.findViewById(R.id.runChart);
+        runChart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+                executeChart(getContext());
+            }
+        });
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -128,16 +139,16 @@ public class multipleRootsFragment extends baseOneVariableFragments {
 
         if (error) {
             if (errorToggle.isChecked()) {
-                multipleRootsMethod(xValue, errorValue, ite, true, functionCompose);
+                multipleRootsMethod(xValue, errorValue, ite, true, functionCompose, originalFuncG, originalFuncGPrim);
             } else {
-                multipleRootsMethod(xValue, errorValue, ite, false, functionCompose);
+                multipleRootsMethod(xValue, errorValue, ite, false, functionCompose,originalFuncG, originalFuncGPrim);
             }
         }
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel, String compose) {
+    private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel, String compose, String originalFuncG, String originalFuncGPrim) {
         Expression multipleRootsFunction = new Expression(compose);
         try {
             graph.removeAllSeries();
@@ -146,6 +157,14 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             ArrayList<MultipleRoots> listValues = new ArrayList<>();
             MultipleRoots titles = new MultipleRoots("n", "Xn", "f(Xn)", "f'(Xn)", "f''(Xn)", "Error");
             listValues.add(titles);
+            List<String> listValuesTitles = new LinkedList<>();
+            listValuesTitles.add("Xn");
+            listValuesTitles.add("f(Xn)");
+            listValuesTitles.add("f'(Xn)");
+            listValuesTitles.add("f''(Xn)");
+            listValuesTitles.add("Error");
+            TableViewModel.getTitles(listValuesTitles);
+            List<List<String>> completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (multipleRootsFunction.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
@@ -153,9 +172,17 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                         int cont = 0;
                         double error = tol + 1;
                         double xa = x0;
-                        //MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(y0)),String.valueOf(convertirCientifica(y0p1)), String.valueOf(convertirCientifica(y0p2)), String.valueOf(convertirCientifica(error)));
-                        //listValues.add(iteZero);
+                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0),String.valueOf(originalFuncG), String.valueOf(originalFuncGPrim), String.valueOf(convertirCientifica(error)));
+                        listValues.add(iteZero);
+                        List<String> listValuesIteZero = new LinkedList<>();
+                        listValuesIteZero.add(String.valueOf(x0));
+                        listValuesIteZero.add(String.valueOf(y0));
+                        listValuesIteZero.add(originalFuncG);
+                        listValuesIteZero.add(String.valueOf(originalFuncGPrim));
+                        listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
+                        completeList.add(listValuesIteZero);
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
+                            ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             double xn = (multipleRootsFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                             if (errorRel)
@@ -164,10 +191,17 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                                 error = Math.abs(xn - xa);
                             xa = xn;
                             cont++;
-                            //MultipleRoots iteNext= new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirCientifica(y0)),String.valueOf(convertirCientifica(y0p1)), String.valueOf(convertirCientifica(y0p2)), String.valueOf(convertirCientifica(error)));
-                            //listValues.add(iteNext);
+                            MultipleRoots iteNext= new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0),String.valueOf(originalFuncG), String.valueOf(originalFuncGPrim), String.valueOf(convertirCientifica(error)));
+                            listValues.add(iteNext);
+                            listValuesIteNext.add(String.valueOf(x0));
+                            listValuesIteNext.add(String.valueOf(y0));
+                            listValuesIteNext.add(originalFuncG);
+                            listValuesIteNext.add(String.valueOf(originalFuncGPrim));
+                            listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                            completeList.add(listValuesIteNext);
                         }
-
+                        TableViewModel.getCeldas(completeList);
+                        calc= true;
                         if (y0 == 0) {
                             graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
                             graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
