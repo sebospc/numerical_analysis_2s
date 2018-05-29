@@ -70,6 +70,14 @@ public class newtonFragment extends baseOneVariableFragments {
             }
         });
         Button runHelp = view.findViewById(R.id.runHelp);
+        Button runChart = view.findViewById(R.id.runChart);
+        runChart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+                executeChart(getContext());
+            }
+        });
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)

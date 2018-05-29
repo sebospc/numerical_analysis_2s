@@ -68,6 +68,14 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
         }
         Button runIncremental = view.findViewById(R.id.runIncremental);
         Button runHelp = view.findViewById(R.id.runHelp);
+        Button runChart = view.findViewById(R.id.runChart);
+        runChart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+                executeChart(getContext());
+            }
+        });
         listView = view.findViewById(R.id.listView);
         graph = view.findViewById(R.id.incrementalGraph);
         textFunction = view.findViewById(R.id.function);
@@ -155,10 +163,9 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
         function.setPrecision(100);
         try {
             ArrayList<IncrementalSearch> listValues = new ArrayList<>();
-            List<String> listValuesTitles = new LinkedList<>();
             IncrementalSearch titles = new IncrementalSearch("n", "Xn", "f(Xn)");
             listValues.add(titles);
-            listValuesTitles.add("n");
+            List<String> listValuesTitles = new LinkedList<>();
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
             TableViewModel.getTitles(listValuesTitles);
@@ -178,6 +185,10 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
                         IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirCientifica(y1)));
                         listValues.add(iterFirst);
+                        List<String> listValuesFirst = new LinkedList<>();
+                        listValuesFirst.add(String.valueOf(x0));
+                        listValuesFirst.add(String.valueOf(y0));
+                        completeList.add(listValuesFirst);
                         while (((y1 * y0) > 0) && (cont < ite)) {
                             cont++;
                             x0 = x1;
@@ -186,7 +197,12 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
                             IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirCientifica(y1)));
                             listValues.add(iterNext);
+                            List<String> listValuesNext = new LinkedList<>();
+                            listValuesNext.add(String.valueOf(x0));
+                            listValuesNext.add(String.valueOf(y0));
+                            completeList.add(listValuesNext);
                         }
+                        TableViewModel.getCeldas(completeList);
 
 
                         if (y1 == 0) {
@@ -206,7 +222,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                 } else {
                     iter.setError("Iterate needs be >0");
                 }
-
+                calc= true;
             } else {
                 this.delta.setError("Delta cannot be zero");
             }

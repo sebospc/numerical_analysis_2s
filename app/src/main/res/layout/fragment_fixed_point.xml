@@ -144,7 +144,7 @@
                     android:text="HELP" />
 
                 <Button
-                    android:id="@+id/runChart4"
+                    android:id="@+id/runChart"
                     android:layout_width="198dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

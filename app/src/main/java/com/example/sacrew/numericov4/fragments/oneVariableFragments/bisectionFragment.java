@@ -150,10 +150,11 @@ public class bisectionFragment extends baseOneVariableFragments {
         graph.removeAllSeries();
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
-        List<String> listValuesTitles = new LinkedList<>();
+
         //String matrix[][];
         Bisection titles = new Bisection("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
+        List<String> listValuesTitles = new LinkedList<>();
         listValuesTitles.add("Xi");
         listValuesTitles.add("Xs");
         listValuesTitles.add("Xm");

@@ -24,6 +24,7 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPoint;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPointListAdapter;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -31,6 +32,8 @@ import com.udojava.evalex.Expression;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -70,6 +73,14 @@ public class fixedPointFragment extends baseOneVariableFragments{
             }
         });
         Button runHelp = view.findViewById(R.id.runHelp);
+        Button runChart = view.findViewById(R.id.runChart);
+        runChart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+                executeChart(getContext());
+            }
+        });
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -136,6 +147,13 @@ public class fixedPointFragment extends baseOneVariableFragments{
             ArrayList<FixedPoint> listValues = new ArrayList<>();
         FixedPoint titles = new FixedPoint("n", "Xn", "f(Xn)", "g(Xn)", "Error");
         listValues.add(titles);
+            List<String> listValuesTitles = new LinkedList<>();
+            listValuesTitles.add("Xn");
+            listValuesTitles.add("f(Xn)");
+            listValuesTitles.add("g(Xn)");
+            listValuesTitles.add("Error");
+            TableViewModel.getTitles(listValuesTitles);
+            List<List<String>> completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
@@ -145,8 +163,15 @@ public class fixedPointFragment extends baseOneVariableFragments{
                         double error = tol + 1;
                         FixedPoint iteZero = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(y0)), String.valueOf(convertirCientifica(g0)), String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
+                        List<String> listValuesIteZero = new LinkedList<>();
+                        listValuesIteZero.add(String.valueOf(x0));
+                        listValuesIteZero.add(String.valueOf(y0));
+                        listValuesIteZero.add(String.valueOf(g0));
+                        listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                         double xa = x0;
+                        completeList.add(listValuesIteZero);
                             while ((y0 != 0) && (error > tol) && (cont < ite)) {
+                                ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                                 y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
 
@@ -158,10 +183,14 @@ public class fixedPointFragment extends baseOneVariableFragments{
                                 cont++;
                                 FixedPoint iteNext = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirCientifica(y0)), String.valueOf(convertirCientifica(xn)), String.valueOf(convertirCientifica(error)));
                                 listValues.add(iteNext);
+                                listValuesIteNext.add(String.valueOf(x0));
+                                listValuesIteNext.add(String.valueOf(y0));
+                                listValuesIteNext.add(String.valueOf(g0));
+                                listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                                completeList.add(listValuesIteNext);
                             }
-
-
-
+                        TableViewModel.getCeldas(completeList);
+                            calc = true;
                             if (y0 == 0) {
                                 graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
                                 graphSerie(xa - 0.2, xa+0.2, functionG.getExpression(), graph, Color.RED);

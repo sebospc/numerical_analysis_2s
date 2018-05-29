@@ -25,6 +25,7 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePosition;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePositionListAdapter;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -32,6 +33,8 @@ import com.udojava.evalex.Expression;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -68,6 +71,14 @@ public class falsePositionFragment extends baseOneVariableFragments {
             }
         });
         Button runHelp = view.findViewById(R.id.runHelp);
+        Button runChart = view.findViewById(R.id.runChart);
+        runChart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+                executeChart(getContext());
+            }
+        });
         listView = view.findViewById(R.id.listView);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -138,6 +149,11 @@ public class falsePositionFragment extends baseOneVariableFragments {
         ArrayList<FalsePosition> listValues = new ArrayList<>();
         FalsePosition titles = new FalsePosition("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
+        List<String> listValuesTitles = new LinkedList<>();
+        listValuesTitles.add("Xn");
+        listValuesTitles.add("f(Xn)");
+        TableViewModel.getTitles(listValuesTitles);
+        List<List<String>> completeList = new LinkedList<>();
         if (tol >= 0) {
             if (ite > 0) {
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
@@ -151,9 +167,17 @@ public class falsePositionFragment extends baseOneVariableFragments {
                             double error = tol + 1;
                             FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteZero);
+                            List<String> listValuesIteZero = new LinkedList<>();
+                            listValuesIteZero.add(String.valueOf(xi));
+                            listValuesIteZero.add(String.valueOf(xs));
+                            listValuesIteZero.add(String.valueOf(xm));
+                            listValuesIteZero.add(String.valueOf(ym));
+                            listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                             int cont = 1;
                             double xaux = xm;
+                            completeList.add(listValuesIteZero);
                             while ((ym != 0) && (error > tol) && (cont < ite)) {
+                                ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 if (yi * ym < 0) {
                                     xs = xm;
                                     ys = ym;
@@ -173,8 +197,15 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                     error = Math.abs(xm - xaux);
                                 FalsePosition iteNext = new FalsePosition(String.valueOf(cont), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                                 listValues.add(iteNext);
+                                listValuesIteNext.add(String.valueOf(xi));
+                                listValuesIteNext.add(String.valueOf(xs));
+                                listValuesIteNext.add(String.valueOf(xm));
+                                listValuesIteNext.add(String.valueOf(ym));
+                                listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                                completeList.add(listValuesIteNext);
                                 cont++;
                             }
+                            TableViewModel.getCeldas(completeList);
 
                             if (ym == 0) {
                                 graphSerie(xm - 0.2, xm + 0.2, this.function.getExpression(), graph, Color.BLUE);
@@ -190,6 +221,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
                             } else {
 
                             }
+                            calc= true;
                         } else {
                             Toast.makeText(getContext(), "The interval dont have root", Toast.LENGTH_SHORT).show();
                         }
