@@ -2,10 +2,16 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+import com.example.sacrew.numericov4.fragments.MainActivityTable;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
@@ -26,6 +32,7 @@ public class baseOneVariableFragments extends Fragment {
     EditText iter, textError;
     Expression function;
     graphUtils graphUtils = new graphUtils();
+    boolean calc =false;
 
     public void bootStrap() {
         boolean error = true;
@@ -101,5 +108,12 @@ public class baseOneVariableFragments extends Fragment {
         }
 
         return true;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void executeChart(Context context) {
+        if(calc) {
+            Intent i = new Intent(context, MainActivityTable.class);
+            startActivity(i);
+        }
     }
 }

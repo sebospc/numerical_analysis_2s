@@ -24,6 +24,7 @@ import com.example.sacrew.numericov4.fragments.tableview.model.ColumnHeader;
 import com.example.sacrew.numericov4.fragments.tableview.model.RowHeader;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -34,28 +35,28 @@ import java.util.List;
 public class TableViewModel {
 
     private Context mContext;
-    public static ArrayList<String> listaOriginal = new ArrayList<String>();
-    public static ArrayList<String> listaCeldas = new ArrayList<String>();
+    private static List<String> listaTitulos= new LinkedList<>();
+    private static List<List<String>> listaCeldas = new LinkedList<>();
 
     public TableViewModel(Context context) {
         mContext = context;
 
     }
 
-    public static ArrayList<String> getTitles(ArrayList<String> lista){
-        listaOriginal = lista;
+    public static List<String> getTitles(List<String> lista){
+        listaTitulos = lista;
         return lista;
     }
 
-    public static ArrayList<String> getCeldas(ArrayList<String> lista){
+    public static void getCeldas(List<List<String>> lista){
         listaCeldas = lista;
-        return lista;
     }
 
 
-    public List<RowHeader> getSimpleRowHeaderList() {
-        List<RowHeader> list = new ArrayList<>();
-        for (int i = 0;i< 25+1; i++) {
+
+    private List<RowHeader> getSimpleRowHeaderList() {
+        List<RowHeader> list = new LinkedList<>();
+        for (int i = 0;i<listaCeldas.size(); i++) {
             RowHeader header = new RowHeader(String.valueOf(i),  ""+i);
             list.add(header);
         }
@@ -63,10 +64,10 @@ public class TableViewModel {
     }
 
 
-    public List<ColumnHeader> getSimpleColumnHeaderList() {
-        List<ColumnHeader> list = new ArrayList<>();
-        for (int i = 0; i < getTitles(listaOriginal).size(); i++) {
-            String title = getTitles(listaOriginal).get(i);
+    private List<ColumnHeader> getSimpleColumnHeaderList() {
+        List<ColumnHeader> list = new LinkedList<>();
+        for (int i = 0; i < getTitles(listaTitulos).size(); i++) {
+            String title = getTitles(listaTitulos).get(i);
             ColumnHeader header = new ColumnHeader(String.valueOf(i), title);
             list.add(header);
         }
@@ -75,28 +76,23 @@ public class TableViewModel {
         return list;
     }
 
-    public static List<List<Cell>> getSimpleCellList() {
-        List<List<Cell>> list = new ArrayList<>();
-        List<Cell> cellList = new ArrayList<>();
-        for (int i = 0; i < getCeldas(listaCeldas).size()/5; i++) {
-            Object text = "151515121641611515161321315153153153151514145135155315314431345";
-            String id = i + "-" + i;
+    private List<List<Cell>> getSimpleCellList() {
+        List<List<Cell>> list = new LinkedList<>();
 
-            Cell cell = new Cell(id, text);
-
-            for(int j = 0; j < 1; j++) {
+        for(int i = 0; i < listaCeldas.size(); i++){
+            LinkedList cellList = new LinkedList();
+            List<String> aux = listaCeldas.get(i);
+            for(int j = 0; j< aux.size() ; j++){
+                Object text = aux.get(j);
+                Cell cell = new Cell(j+"-"+i,text);
                 cellList.add(cell);
-
             }
             list.add(cellList);
-
         }
-
-
         return list;
     }
 
-    public static List<List<Cell>> getCellList() {
+    public  List<List<Cell>> getCellList() {
         return getSimpleCellList();
     }
 

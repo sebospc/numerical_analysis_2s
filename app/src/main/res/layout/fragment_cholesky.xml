@@ -4,12 +4,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment.cholesky"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:gravity="center"
         android:text="Cholesky"
-        android:textSize="40dp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,20 +21,31 @@
 
         <Button
             android:id="@+id/run"
-            android:layout_width="wrap_content"
-            android:layout_weight=".5"
-            android:layout_height="match_parent"
-            android:text="run" />
+            android:layout_width="198dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="CALCULATE"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/runHelp"
+            android:layout_width="198dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/Transparent"
+            android:text="HELP" />
 
         <Button
             android:id="@+id/pivoting"
-            android:layout_width="wrap_content"
-
-            android:layout_height="match_parent"
-            android:text="get pivoted matrix" />
+            android:layout_width="198dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="GET PIVOTED"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
