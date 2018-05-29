@@ -127,7 +127,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
         updatefunctions(originalFuncG, error);
 
         this.functionGprim = new Expression(functionRevision(originalFuncGPrim));
-        updatefunctions(originalFuncGPrim,error);
+        updatefunctions(originalFuncGPrim, error);
         try {
             xValue = Double.parseDouble(xvalue.getText().toString());
         } catch (Exception e) {
@@ -141,7 +141,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             if (errorToggle.isChecked()) {
                 multipleRootsMethod(xValue, errorValue, ite, true, functionCompose, originalFuncG, originalFuncGPrim);
             } else {
-                multipleRootsMethod(xValue, errorValue, ite, false, functionCompose,originalFuncG, originalFuncGPrim);
+                multipleRootsMethod(xValue, errorValue, ite, false, functionCompose, originalFuncG, originalFuncGPrim);
             }
         }
     }
@@ -167,12 +167,13 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             List<List<String>> completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
-                    double y0 = (multipleRootsFunction.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
                         double xa = x0;
-                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0),String.valueOf(originalFuncG), String.valueOf(originalFuncGPrim), String.valueOf(convertirCientifica(error)));
+                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0), String.valueOf(originalFuncG), String.valueOf(originalFuncGPrim), String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
@@ -183,7 +184,13 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                         completeList.add(listValuesIteZero);
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
+                            if (xa == 0) {
+                                Toast.makeText(getContext(), "Error divsion 0", Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+
                             double xn = (multipleRootsFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+
                             y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                             if (errorRel)
                                 error = Math.abs(xn - xa) / xn;
@@ -191,7 +198,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                                 error = Math.abs(xn - xa);
                             xa = xn;
                             cont++;
-                            MultipleRoots iteNext= new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0),String.valueOf(originalFuncG), String.valueOf(originalFuncGPrim), String.valueOf(convertirCientifica(error)));
+                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0), String.valueOf(originalFuncG), String.valueOf(originalFuncGPrim), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(x0));
                             listValuesIteNext.add(String.valueOf(y0));
@@ -201,32 +208,31 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                             completeList.add(listValuesIteNext);
                         }
                         TableViewModel.getCeldas(completeList);
-                        calc= true;
+                        calc = true;
                         if (y0 == 0) {
-                            graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
+                            graphSerie(xa - 0.2, xa + 0.2, function.getExpression(), graph, Color.BLUE);
                             graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
                         } else if (error <= tol) {
-                            graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
+                            graphSerie(xa - 0.2, xa + 0.2, function.getExpression(), graph, Color.BLUE);
                             y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
-                            System.out.println("Failed the interval!");
                             Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                         Toast.makeText(getContext(), convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        //System.out.println(x0 + " is a root");
+
                     }
                 } else {
                     iter.setError("Wrong iterates");
-                    //System.out.println("Wrong iterates!");
+
                 }
             } else {
                 textError.setError("Tolerance must be > 0");
-                //System.out.println("Tolerance < 0");
+
             }
             //MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.list_adapter_multiple_roots, listValues);
             //listView.setAdapter(adapter);
@@ -235,7 +241,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
         }
     }
 
-    public void updatefunctions(String function,boolean error) {
+    public void updatefunctions(String function, boolean error) {
         if (!graphFragment.allFunctions.contains(function) && error) {
             graphFragment.allFunctions.add(function);
             textFunction.setAdapter(new ArrayAdapter<String>
