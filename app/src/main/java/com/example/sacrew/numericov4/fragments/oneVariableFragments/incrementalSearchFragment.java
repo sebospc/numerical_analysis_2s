@@ -23,6 +23,7 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSear
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -32,6 +33,8 @@ import com.udojava.evalex.Expression;
 import org.apache.commons.math3.analysis.function.Exp;
 
 import java.text.DecimalFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 import java.math.BigDecimal;
@@ -152,13 +155,23 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
         function.setPrecision(100);
         try {
             ArrayList<IncrementalSearch> listValues = new ArrayList<>();
+            List<String> listValuesTitles = new LinkedList<>();
             IncrementalSearch titles = new IncrementalSearch("n", "Xn", "f(Xn)");
             listValues.add(titles);
+            listValuesTitles.add("n");
+            listValuesTitles.add("Xn");
+            listValuesTitles.add("f(Xn)");
+            TableViewModel.getTitles(listValuesTitles);
+            List<List<String>> completeList = new LinkedList<>();
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                     IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(y0)));
                     listValues.add(iteZero);
+                    List<String> listValuesIteZero = new LinkedList<>();
+                    listValuesIteZero.add(String.valueOf(x0));
+                    listValuesIteZero.add(String.valueOf(y0));
+                    completeList.add(listValuesIteZero);
                     if (y0 != 0) {
                         int cont = 1;
                         double x1 = x0 + delta;

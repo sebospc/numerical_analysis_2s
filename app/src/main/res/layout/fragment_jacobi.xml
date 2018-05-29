@@ -96,4 +96,20 @@
     </LinearLayout>
     </HorizontalScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/runChart"
+            android:layout_width="198dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="TOTAL CHART"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
 </LinearLayout>

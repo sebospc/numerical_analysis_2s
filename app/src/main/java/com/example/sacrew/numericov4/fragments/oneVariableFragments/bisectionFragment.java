@@ -151,7 +151,7 @@ public class bisectionFragment extends baseOneVariableFragments {
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
         List<String> listValuesTitles = new LinkedList<>();
-        String matrix[][];
+        //String matrix[][];
         Bisection titles = new Bisection("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
         listValuesTitles.add("Xi");
@@ -160,7 +160,7 @@ public class bisectionFragment extends baseOneVariableFragments {
         listValuesTitles.add("f(Xm)");
         listValuesTitles.add("Error");
         TableViewModel.getTitles(listValuesTitles);
-        List<List<String>> chicha = new LinkedList<>();
+        List<List<String>> completeList = new LinkedList<>();
         if (tol >= 0) {
             if (ite > 0) {
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
@@ -188,7 +188,7 @@ public class bisectionFragment extends baseOneVariableFragments {
 
 
 
-                            chicha.add(listValuesIteZero);
+                            completeList.add(listValuesIteZero);
                             while ((ym != 0) && (error > tol) && (cont < ite)) {
                                 ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 if (yi * ym < 0) {
@@ -214,10 +214,10 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 listValuesIteNext.add(String.valueOf(xm));
                                 listValuesIteNext.add(String.valueOf(ym));
                                 listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
-                                chicha.add(listValuesIteNext);
+                                completeList.add(listValuesIteNext);
                                 cont++;
                             }
-                            TableViewModel.getCeldas(chicha);
+                            TableViewModel.getCeldas(completeList);
                             if (ym == 0) {
                                 graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             } else if (error < tol) {
