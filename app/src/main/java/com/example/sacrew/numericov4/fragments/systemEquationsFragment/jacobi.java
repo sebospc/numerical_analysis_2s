@@ -17,8 +17,10 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
@@ -31,7 +33,6 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesTex
  */
 public class jacobi extends baseIterativeMethods{
     private EditText error,iters,relaxation;
-    private Button run;
     private ToggleButton errorToggle;
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout initialValues;
@@ -51,13 +52,21 @@ public class jacobi extends baseIterativeMethods{
         error = view.findViewById(R.id.error);
         iters = view.findViewById(R.id.iterations);
         relaxation = view.findViewById(R.id.relaxation);
-        run = view.findViewById(R.id.run);
+        Button run = view.findViewById(R.id.run);
         errorToggle = view.findViewById(R.id.errorToggle);
         initialValues = view.findViewById(R.id.initialValues);
         for(int i = 0; i < count; i++) {
             initialValues.addView(defaultEditText("0",false));
         }
         Button pivoter = view.findViewById(R.id.pivoting);
+        Button runChart = view.findViewById(R.id.runChart);
+        runChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(calc)
+                    executeChart(getContext());
+            }
+        });
         pivoter.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -121,16 +130,37 @@ public class jacobi extends baseIterativeMethods{
         int contador = 0;
         double dispersion = tolerance + 1;
         double [] x0 = initials;
+        List<List<String>> totalInformation = new LinkedList<>();
+        List<String> lisTitles = new LinkedList<>();
+        List<String> aux = new LinkedList<>();
+        for(int i = 0; i < initials.length; i++){
+            lisTitles.add("X"+(i+1));
+            aux.add(String.valueOf(x0[i]));
+
+        }
+        lisTitles.add("Norma");
+        aux.add(String.valueOf(dispersion));
+
+        TableViewModel.getTitles(lisTitles);
+
+        totalInformation.add(aux);
         while(dispersion > tolerance && contador < iters){
+            aux = new LinkedList<>();
             double [] x1 ;
             x1 = calcNewJacobi(x0,expandedMAtrix,relax);
+
             if(errorToggle.isChecked())
                 dispersion = norma(minus(x1,x0));
             else
                 dispersion = norma(minus(x1,x0))/norma(x1);
+            for(double v:x1)aux.add(String.valueOf(v));
+            aux.add(String.valueOf(dispersion));
+            totalInformation.add(aux);
             x0 = x1;
             contador = contador + 1;
         }
+        TableViewModel.getCeldas(totalInformation);
+        calc = true;
         if(dispersion < tolerance){
             for(double val: x0)
                 xValuesText.addView(defaultEditText((val+"      ").substring(0,6)));

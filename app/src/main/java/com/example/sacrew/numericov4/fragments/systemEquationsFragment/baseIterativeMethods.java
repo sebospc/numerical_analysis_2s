@@ -1,5 +1,12 @@
 package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
+import com.example.sacrew.numericov4.fragments.MainActivityTable;
+
 import java.util.Arrays;
 
 /**
@@ -7,6 +14,7 @@ import java.util.Arrays;
  */
 
 public class baseIterativeMethods extends baseSystemEquations {
+    boolean calc = false;
     public double[] minus(double[] x, double[] y){
         double[] aux = new double[x.length];
         for(int i = 0; i < x.length; i++){
@@ -21,5 +29,12 @@ public class baseIterativeMethods extends baseSystemEquations {
         Arrays.sort(aux);
         System.out.println(aux[values.length-1]);
         return aux[values.length-1];
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void executeChart(Context context) {
+        if(calc) {
+            Intent i = new Intent(context, MainActivityTable.class);
+            startActivity(i);
+        }
     }
 }
