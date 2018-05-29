@@ -135,6 +135,8 @@ public class jacobi extends baseIterativeMethods{
             for(double val: x0)
                 xValuesText.addView(defaultEditText((val+"      ").substring(0,6)));
         }else{
+            for(double val: x0)
+                xValuesText.addView(defaultEditText((val+"      ").substring(0,6)));
             Toast.makeText(getContext(),  "Failed", Toast.LENGTH_SHORT).show();
         }
     }
@@ -147,9 +149,7 @@ public class jacobi extends baseIterativeMethods{
             for(int j = 0; j < n ; j++){
                 if( j!= i)
                     suma = suma + expandedMatrix[i][j]*x0[j];
-
             }
-
             double value = (relax*((expandedMatrix[i][n] - suma)/expandedMatrix[i][i]))+(1-relax)*x0[i];
             x[i] = value;
         }
