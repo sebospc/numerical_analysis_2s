@@ -148,8 +148,8 @@ public class jacobi extends baseIterativeMethods{
         int contador = 0;
         double dispersion = tolerance + 1;
         double [] x0 = initials;
-        List<List<String>> totalInformation = new LinkedList<>();
-        List<String> lisTitles = new LinkedList<>();
+        totalInformation = new LinkedList<>();
+        lisTitles = new LinkedList<>();
         List<String> aux = new LinkedList<>();
         for(int i = 0; i < initials.length; i++){
             lisTitles.add("X"+(i+1));
@@ -158,9 +158,6 @@ public class jacobi extends baseIterativeMethods{
         }
         lisTitles.add("Norma");
         aux.add(String.valueOf(dispersion));
-
-        TableViewModel.getTitles(lisTitles);
-
         totalInformation.add(aux);
         while(dispersion > tolerance && contador < iters){
             aux = new LinkedList<>();
@@ -177,7 +174,6 @@ public class jacobi extends baseIterativeMethods{
             x0 = x1;
             contador = contador + 1;
         }
-        TableViewModel.getCeldas(totalInformation);
         calc = true;
         if(dispersion < tolerance){
             for(double val: x0)

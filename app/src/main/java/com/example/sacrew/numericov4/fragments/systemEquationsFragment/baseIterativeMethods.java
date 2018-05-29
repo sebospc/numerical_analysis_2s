@@ -6,14 +6,19 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.example.sacrew.numericov4.fragments.MainActivityTable;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by sacrew on 27/05/18.
  */
 
 public class baseIterativeMethods extends baseSystemEquations {
+    List<List<String>> totalInformation = new LinkedList<>();
+    List<String> lisTitles = new LinkedList<>();
     boolean calc = false;
     public double[] minus(double[] x, double[] y){
         double[] aux = new double[x.length];
@@ -35,6 +40,8 @@ public class baseIterativeMethods extends baseSystemEquations {
         if(calc) {
             Intent i = new Intent(context, MainActivityTable.class);
             startActivity(i);
+            TableViewModel.getTitles(lisTitles);
+            TableViewModel.getCeldas(totalInformation);
         }
     }
 }

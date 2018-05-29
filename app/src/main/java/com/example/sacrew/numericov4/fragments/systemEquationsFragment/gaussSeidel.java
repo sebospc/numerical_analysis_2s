@@ -21,6 +21,7 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpSeidel;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
@@ -136,16 +137,33 @@ public class gaussSeidel extends baseIterativeMethods {
         int contador = 0;
         double dispersion = tolerance + 1;
         double [] x0 = initials;
+        totalInformation = new LinkedList<>();
+        lisTitles = new LinkedList<>();
+        List<String> aux = new LinkedList<>();
+        for(int i = 0; i < initials.length; i++){
+            lisTitles.add("X"+(i+1));
+            aux.add(String.valueOf(x0[i]));
+
+        }
+        lisTitles.add("Norma");
+        aux.add(String.valueOf(dispersion));
+        totalInformation.add(aux);
         while(dispersion > tolerance && contador < iters){
+            aux = new LinkedList<>();
             double [] x1 ;
             x1 = calcNewSeidel(x0,expandedMAtrix,relax);
+            for(double v: x1)System.out.println("new jacb"+v);
             if(errorToggle.isChecked())
                 dispersion = norma(minus(x1,x0));
             else
                 dispersion = norma(minus(x1,x0))/norma(x1);
+            for(double v:x1)aux.add(String.valueOf(v));
+            aux.add(String.valueOf(dispersion));
+            totalInformation.add(aux);
             x0 = x1;
             contador = contador + 1;
         }
+        calc = true;
         if(dispersion < tolerance){
             for(double val: x0)
                 xValuesText.addView(defaultEditText((val+"      ").substring(0,6)));
