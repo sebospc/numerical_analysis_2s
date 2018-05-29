@@ -139,16 +139,16 @@ public class multipleRootsFragment extends baseOneVariableFragments {
 
         if (error) {
             if (errorToggle.isChecked()) {
-                multipleRootsMethod(xValue, errorValue, ite, true, functionCompose, originalFuncG, originalFuncGPrim);
+                multipleRootsMethod(xValue, errorValue, ite, true, functionCompose);
             } else {
-                multipleRootsMethod(xValue, errorValue, ite, false, functionCompose, originalFuncG, originalFuncGPrim);
+                multipleRootsMethod(xValue, errorValue, ite, false, functionCompose);
             }
         }
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel, String compose, String originalFuncG, String originalFuncGPrim) {
+    private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel, String compose) {
         Expression multipleRootsFunction = new Expression(compose);
         try {
             graph.removeAllSeries();
@@ -168,42 +168,45 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-
+                    double y0p1 = (this.functionG.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    double y0p2 = (this.functionGprim.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
                         double xa = x0;
-                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0), String.valueOf(originalFuncG), String.valueOf(originalFuncGPrim), String.valueOf(convertirCientifica(error)));
+                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0), String.valueOf(y0p1), String.valueOf(y0p2), String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(y0));
-                        listValuesIteZero.add(originalFuncG);
-                        listValuesIteZero.add(String.valueOf(originalFuncGPrim));
+                        listValuesIteZero.add(String.valueOf(y0p1));
+                        listValuesIteZero.add(String.valueOf(y0p2));
                         listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                         completeList.add(listValuesIteZero);
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             if (xa == 0) {
-                                Toast.makeText(getContext(), "Error divsion 0", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
                                 break;
                             }
 
                             double xn = (multipleRootsFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
 
                             y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                            y0p1 = (this.functionG.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                            y0p2 = (this.functionGprim.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                             if (errorRel)
                                 error = Math.abs(xn - xa) / xn;
                             else
                                 error = Math.abs(xn - xa);
                             xa = xn;
                             cont++;
-                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0), String.valueOf(originalFuncG), String.valueOf(originalFuncGPrim), String.valueOf(convertirCientifica(error)));
+                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0), String.valueOf(y0p1), String.valueOf(y0p2), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(x0));
                             listValuesIteNext.add(String.valueOf(y0));
-                            listValuesIteNext.add(originalFuncG);
-                            listValuesIteNext.add(String.valueOf(originalFuncGPrim));
+                            listValuesIteNext.add(String.valueOf(y0p1));
+                            listValuesIteNext.add(String.valueOf(y0p2));
                             listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
                             completeList.add(listValuesIteNext);
                         }
