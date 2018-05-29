@@ -6,11 +6,11 @@ import android.util.DisplayMetrics;
 
 import com.example.sacrew.numericov4.R;
 
-public class popUpMultipleRoots extends Activity {
+public class popUpJacobi extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.popup_multiple);
+        setContentView(R.layout.popup_jacobi);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -18,7 +18,7 @@ public class popUpMultipleRoots extends Activity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) (width*0.97), (int) (height*0.17));
+        getWindow().setLayout((int) (width*0.97), (int) (height*0.28));
 
     }
 

@@ -47,8 +47,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="equations" />
+
         <Button
-            android:id="@+id/help"
+            android:id="@+id/runHelp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

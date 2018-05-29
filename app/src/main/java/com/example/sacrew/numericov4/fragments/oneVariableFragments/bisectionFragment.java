@@ -82,8 +82,8 @@ public class bisectionFragment extends baseOneVariableFragments {
                 executeChart(getContext());
             }
         });
-        Button runHelp = view.findViewById(R.id.runHelp);
         listView = view.findViewById(R.id.listView);
+        Button runHelp = view.findViewById(R.id.runHelp);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override

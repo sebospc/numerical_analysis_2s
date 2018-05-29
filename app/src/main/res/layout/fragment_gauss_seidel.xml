@@ -30,7 +30,7 @@
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/runHelp3"
+            android:id="@+id/runHelp"
             android:layout_width="198dp"
             android:layout_height="30dp"
             android:layout_weight="1"

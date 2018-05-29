@@ -40,6 +40,48 @@
         <activity
             android:name=".fragments.customPopUps.popUpMultipleRoots"
             android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpGaussSimple"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpPartialPivoting"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpTotalPivoting"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpCrout"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpDoolittle"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpCholesky"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpInverseMatrix"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpJacobi"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpSeidel"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpNewtonDifferences"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpLagrange"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpLinearSpline"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpQuadraticSpline"
+            android:theme="@style/AppTheme.Custom" />
+        <activity
+            android:name=".fragments.customPopUps.popUpCubicSpline"
+            android:theme="@style/AppTheme.Custom" />
         <activity android:name=".fragments.creditsFragment">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -9,6 +9,7 @@ import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.TextViewCompat;
@@ -133,7 +134,9 @@ public abstract class baseSystemEquations extends Fragment {
         text.setLayoutParams(new TableRow.LayoutParams(weight, 110));
         text.setEms(2);
         text.setMaxLines(1);
-        text.setBackgroundColor(color);
+        text.setTypeface(null, Typeface.BOLD);
+        text.setBackgroundColor(Color.rgb(3,169,244));
+        text.setTextColor(Color.WHITE);
         text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
         if(key)

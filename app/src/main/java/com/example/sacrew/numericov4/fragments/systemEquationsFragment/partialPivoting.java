@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpPartialPivoting;
 
 import java.util.LinkedList;
 
@@ -48,6 +51,14 @@ public class partialPivoting extends baseSystemEquations {
         matrixResult = view.findViewById(R.id.matrixResult);
         Button run = view.findViewById(R.id.run);
         multipliersLayout = view.findViewById(R.id.multipiers);
+        Button runHelp = view.findViewById(R.id.runHelp);
+        runHelp.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                executeHelp();
+            }
+        });
 
         run.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -89,6 +100,12 @@ public class partialPivoting extends baseSystemEquations {
         });
 
         return view;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void executeHelp() {
+        Intent i = new Intent(getContext().getApplicationContext(), popUpPartialPivoting.class);
+        startActivity(i);
     }
 
 

@@ -27,7 +27,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:text="CALCULATE"
+            android:text="CROUT"
             android:textColor="@android:color/white" />
 
         <Button
@@ -36,7 +36,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:background="@color/Transparent"
-            android:text="HELP" />
+            android:text="DOOLITTLE" />
 
         <Button
             android:id="@+id/choleskyButton"
@@ -44,7 +44,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:text="GET PIVOTED"
+            android:text="CHOLESKY"
             android:textColor="@android:color/white" />
     </LinearLayout>
 

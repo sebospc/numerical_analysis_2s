@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpCholesky;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +72,14 @@ public class cholesky extends baseFactorizationMethods{
         Button run = view.findViewById(R.id.run);
         Button pivoter = view.findViewById(R.id.pivoting);
         suma = view.findViewById(R.id.suma);
+        Button runHelp = view.findViewById(R.id.runHelp);
+        runHelp.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                executeHelp();
+            }
+        });
         run.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -90,6 +101,13 @@ public class cholesky extends baseFactorizationMethods{
         });
         return view;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void executeHelp() {
+        Intent i = new Intent(getContext().getApplicationContext(), popUpCholesky.class);
+        startActivity(i);
+    }
+
     public String formating(Complex c){
         if(c.getReal() == -0.0){
             c = new Complex(0.0,c.getImaginary());

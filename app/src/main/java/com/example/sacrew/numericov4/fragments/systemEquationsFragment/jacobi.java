@@ -3,6 +3,7 @@ package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpJacobi;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 
 import java.util.LinkedList;
@@ -60,6 +63,14 @@ public class jacobi extends baseIterativeMethods{
         }
         Button pivoter = view.findViewById(R.id.pivoting);
         Button runChart = view.findViewById(R.id.runChart);
+        Button runHelp = view.findViewById(R.id.runHelp);
+        runHelp.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                executeHelp();
+            }
+        });
         runChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +94,13 @@ public class jacobi extends baseIterativeMethods{
         });
         return view;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void executeHelp() {
+        Intent i = new Intent(getContext().getApplicationContext(), popUpJacobi.class);
+        startActivity(i);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void bootStrap(double[][] expandedMatrix){

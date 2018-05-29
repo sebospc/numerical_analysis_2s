@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="333dp"
+        android:layout_height="203dp"
+        android:gravity="center_horizontal"
+        android:text="This method generates a function defined by segments using polynomials of degree 2 in such a way that the function is continuous, derivable, smooth and passes through all the points."
+        android:textColor="@android:color/white"
+        android:textSize="19sp"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="28dp"
+        tools:textColor="@android:color/white" />
+
+</android.support.constraint.ConstraintLayout>

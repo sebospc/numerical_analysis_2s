@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpInverseMatrix;
 
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.complex.ComplexFormat;
@@ -73,7 +76,6 @@ public class inverseDeterminant extends baseFactorizationMethods {
         });
         return view;
     }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void bootStrap(double[][] expandedMatrix){
