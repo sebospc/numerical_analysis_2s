@@ -34,6 +34,8 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -47,7 +49,6 @@ public class bisectionFragment extends baseOneVariableFragments {
     }
 
     private GraphView graph;
-    private View view;
     public TextView textViewXm, textViewMessage;
     private EditText xi, xs;
 
@@ -58,6 +59,7 @@ public class bisectionFragment extends baseOneVariableFragments {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = null;
         try {
             view = inflater.inflate(R.layout.fragment_bisection, container, false);
         } catch (InflateException e) {
@@ -76,8 +78,8 @@ public class bisectionFragment extends baseOneVariableFragments {
         runChart.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
-            public void onClick(View view) {
-                executeChart();
+            public void onClick(View v) {
+                executeChart(getContext());
             }
         });
         Button runHelp = view.findViewById(R.id.runHelp);
@@ -111,11 +113,7 @@ public class bisectionFragment extends baseOneVariableFragments {
         startActivity(i);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeChart() {
-        Intent i = new Intent(view.getContext(), MainActivityTable.class);
-        startActivity(i);
-    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void execute(boolean error, double errorValue, int ite) {
@@ -152,7 +150,7 @@ public class bisectionFragment extends baseOneVariableFragments {
         graph.removeAllSeries();
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
-        ArrayList<String> listValuesTitles = new ArrayList<String>();
+        List<String> listValuesTitles = new LinkedList<>();
         String matrix[][];
         Bisection titles = new Bisection("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
@@ -162,6 +160,7 @@ public class bisectionFragment extends baseOneVariableFragments {
         listValuesTitles.add("f(Xm)");
         listValuesTitles.add("Error");
         TableViewModel.getTitles(listValuesTitles);
+        List<List<String>> chicha = new LinkedList<>();
         if (tol >= 0) {
             if (ite > 0) {
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
@@ -174,19 +173,24 @@ public class bisectionFragment extends baseOneVariableFragments {
                             double error = tol + 1;
                             Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirCientifica(ym)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteZero);
-                            ArrayList<String> listValuesIteZero = new ArrayList<String>();
+                            List<String> listValuesIteZero = new LinkedList<>();
                             listValuesIteZero.add(String.valueOf(xi));
                             listValuesIteZero.add(String.valueOf(xs));
                             listValuesIteZero.add(String.valueOf(xm));
-                            listValuesIteZero.add(String.valueOf(convertirCientifica(ym)));
+                            listValuesIteZero.add(String.valueOf(ym));
                             listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                             //TableViewModel.getCeldas(listValuesIteZero);
+
+
                             //TableViewModel.getSimpleCellList();
                             int cont = 1;
                             double xaux = xm;
 
-                            ArrayList<String> listValuesIteNext = new ArrayList<String>();
+
+
+                            chicha.add(listValuesIteZero);
                             while ((ym != 0) && (error > tol) && (cont < ite)) {
+                                ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 if (yi * ym < 0) {
                                     xs = xm;
                                     ys = ym;
@@ -208,11 +212,12 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 listValuesIteNext.add(String.valueOf(xi));
                                 listValuesIteNext.add(String.valueOf(xs));
                                 listValuesIteNext.add(String.valueOf(xm));
-                                listValuesIteNext.add(String.valueOf(convertirCientifica(ym)));
+                                listValuesIteNext.add(String.valueOf(ym));
                                 listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                                chicha.add(listValuesIteNext);
                                 cont++;
                             }
-                            TableViewModel.getCeldas(listValuesIteNext);
+                            TableViewModel.getCeldas(chicha);
                             if (ym == 0) {
                                 graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
                             } else if (error < tol) {
@@ -222,6 +227,7 @@ public class bisectionFragment extends baseOneVariableFragments {
                             } else {
                                 Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                             }
+                            calc= true;
                         } else {
                             Toast.makeText(getContext(), "The interval dont have root", Toast.LENGTH_SHORT).show();
 

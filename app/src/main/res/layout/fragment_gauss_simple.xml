@@ -13,13 +13,32 @@
         android:layout_height="53dp"
         android:gravity="center"
         android:text="Gauss Simple"
-        android:textSize="40dp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/run"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="run" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/run"
+            android:layout_width="198dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="CALCULATE"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/runHelp"
+            android:layout_width="198dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/Transparent"
+            android:text="HELP" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

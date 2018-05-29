@@ -12,8 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:gravity="center"
-        android:text="Inverse matrix and determinant"
-        android:textSize="20dp" />
+        android:text="Inverse Matrix and Determinant"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,24 +23,29 @@
 
         <Button
             android:id="@+id/croultButton"
-            android:layout_width="wrap_content"
-            android:layout_weight=".5"
-            android:layout_height="match_parent"
-            android:text="croult" />
+            android:layout_width="198dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="CALCULATE"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/doolittleButton"
-            android:layout_weight=".5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="doolittle" />
+            android:layout_width="198dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/Transparent"
+            android:text="HELP" />
+
         <Button
             android:id="@+id/choleskyButton"
-            android:layout_weight=".5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="cholesky"/>
-
+            android:layout_width="198dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="GET PIVOTED"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <LinearLayout
