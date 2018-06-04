@@ -6,15 +6,19 @@
     tools:context="com.example.sacrew.numericov4.fragments.interpolation">
 
     <RelativeLayout
+        android:id="@+id/auxRel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"
+        android:layout_weight="0.65"
         android:orientation="horizontal">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
 
             <ImageButton
@@ -83,7 +87,7 @@
             <Space
                 android:id="@+id/space"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="37dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView27" />
@@ -102,11 +106,35 @@
         </RelativeLayout>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.35">
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/interpolationGraph"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#ff000000"
+            />
+
+        <ImageButton
+            android:id="@+id/homeGraphButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="14dp"
+            android:background="@null"
+            android:src="@drawable/ic_gps_fixed_black_24dp" />
+    </RelativeLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
-        android:layout_weight="0.5"
+        android:layout_weight="0.7"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:fadingEdgeLength="0dp"

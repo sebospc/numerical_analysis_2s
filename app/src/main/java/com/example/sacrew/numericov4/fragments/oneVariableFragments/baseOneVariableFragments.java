@@ -13,12 +13,15 @@ import android.widget.EditText;
 
 import com.example.sacrew.numericov4.fragments.MainActivityTable;
 import com.example.sacrew.numericov4.fragments.graphFragment;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 import com.example.sacrew.numericov4.graphUtils;
@@ -33,6 +36,9 @@ public class baseOneVariableFragments extends Fragment {
     Expression function;
     graphUtils graphUtils = new graphUtils();
     boolean calc =false;
+    List<List<String>> completeList = new LinkedList<>();
+    List<String> listValuesTitles = new LinkedList<>();
+
 
     public void bootStrap() {
         boolean error = true;
@@ -90,7 +96,7 @@ public class baseOneVariableFragments extends Fragment {
     }
 
     public void graphPoint(double x, double y, PointsGraphSeries.Shape figure, GraphView graph, final Activity activity,
-                           String color, boolean listener) {
+                           int color, boolean listener) {
         graphUtils.graphPoint(x, y, figure, graph, activity, color, listener);
     }
 
@@ -114,6 +120,8 @@ public class baseOneVariableFragments extends Fragment {
         if(calc) {
             Intent i = new Intent(context, MainActivityTable.class);
             startActivity(i);
+            TableViewModel.getTitles(listValuesTitles);
+            TableViewModel.getCeldas(completeList);
         }
     }
 }

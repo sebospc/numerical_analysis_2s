@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.TextViewCompat;
+import android.text.method.DigitsKeyListener;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -136,6 +137,7 @@ public abstract class baseSystemEquations extends Fragment {
         text.setTextColor(Color.WHITE);
         text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
+        text.setKeyListener(DigitsKeyListener.getInstance("0123456789.-E"));
         if(key)
             text.setKeyListener(null);
         text.setText(value);

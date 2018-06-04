@@ -2,6 +2,7 @@ package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 
 import android.animation.AnimatorSet;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,8 +36,8 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesTex
 public class gaussSeidel extends baseIterativeMethods {
 
     private EditText error,iters,relaxation;
-    private Button run;
     private ToggleButton errorToggle;
+    @SuppressLint("StaticFieldLeak")
     public static LinearLayout initialValuesSeidel;
     public gaussSeidel() {
         // Required empty public constructor
@@ -52,7 +53,7 @@ public class gaussSeidel extends baseIterativeMethods {
         error = view.findViewById(R.id.error);
         iters = view.findViewById(R.id.iterations);
         relaxation = view.findViewById(R.id.relaxation);
-        run = view.findViewById(R.id.run);
+        Button run = view.findViewById(R.id.run);
         errorToggle = view.findViewById(R.id.errorToggle);
         initialValuesSeidel = view.findViewById(R.id.initialValues);
         Button runHelp = view.findViewById(R.id.runHelp);
@@ -61,6 +62,14 @@ public class gaussSeidel extends baseIterativeMethods {
             @Override
             public void onClick(View view) {
                 executeHelp();
+            }
+        });
+        Button runChart = view.findViewById(R.id.runChart);
+        runChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(calc)
+                    executeChart(getContext());
             }
         });
         for(int i = 0; i < count; i++) {
@@ -143,7 +152,6 @@ public class gaussSeidel extends baseIterativeMethods {
         for(int i = 0; i < initials.length; i++){
             lisTitles.add("X"+(i+1));
             aux.add(String.valueOf(x0[i]));
-
         }
         lisTitles.add("Norma");
         aux.add(String.valueOf(dispersion));
@@ -167,6 +175,8 @@ public class gaussSeidel extends baseIterativeMethods {
             for(double val: x0)
                 xValuesText.addView(defaultEditText((val+"      ").substring(0,6)));
         }else{
+            for(double val: x0)
+                xValuesText.addView(defaultEditText((val+"      ").substring(0,6)));
             Toast.makeText(getContext(),  "Failed", Toast.LENGTH_SHORT).show();
         }
     }

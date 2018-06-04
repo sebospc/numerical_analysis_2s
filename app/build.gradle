@@ -13,14 +13,19 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-debug.pro'
         }
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:support-v4:26.1.0'
@@ -32,11 +37,8 @@ dependencies {
     implementation 'com.github.markushi:circlebutton:1.1'
     implementation 'com.android.support:support-v13:26.1.0'
     implementation files('libs/evalx.jar')
-
-    compile 'com.nightonke:boommenu:2.1.1'
-    compile 'com.evrencoskun.library:tableview:0.8.8'
-
-    implementation 'com.nightonke:boommenu:2.1.1'
+    implementation 'com.evrencoskun.library:tableview:0.8.8'
     implementation files('libs/commons-math3-3.6.1.jar')
-
+    implementation files('libs/symja-2015-09-26.jar')
 }
+

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpCubicSpline;
 
 /**
@@ -30,7 +29,7 @@ public class splineCubico extends baseInterpolationMethods {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_spline_cubico, container, false);
+        View view = inflater.inflate(R.layout.fragment_cubic_spline, container, false);
         Button runHelp = view.findViewById(R.id.runHelp);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
