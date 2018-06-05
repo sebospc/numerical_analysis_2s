@@ -19,6 +19,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep interface org.matheclipse.core.**{*;}
+-keep class org.matheclipse.core.**{*;}
+-keepnames class **
+
 -ignorewarnings
 -dontwarn *
+
 

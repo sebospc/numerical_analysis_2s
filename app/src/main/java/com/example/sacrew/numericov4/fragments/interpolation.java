@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
+import android.util.Pair;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -38,9 +39,12 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 import org.matheclipse.core.basic.Config;
 import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
+import org.matheclipse.core.eval.TeXUtilities;
 import org.matheclipse.parser.client.eval.DoubleEvaluator;
 import org.matheclipse.parser.client.eval.DoubleVariable;
 import org.matheclipse.parser.client.eval.IDoubleValue;
+
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,7 +59,7 @@ public class interpolation extends Fragment {
     private int count = 3;
     private graphUtils graphUtils = new graphUtils();
     public static GraphView interpolationGraph;
-    private HashMap<EditText, PointsGraphSeries<DataPoint>> viewToPoint = new HashMap<>();
+    private HashMap<EditText, Pair<PointsGraphSeries<DataPoint>,Integer>> viewToPoint = new HashMap<>();
     private List<Integer> poolColors = new LinkedList<>();
     public interpolation() {
         // Required empty public constructor
@@ -70,7 +74,7 @@ public class interpolation extends Fragment {
         View view = inflater.inflate(R.layout.fragment_interpolation, container, false);
         //EvalEngine.DOUBLE_PRECISION = 30;
 
-        ExprEvaluator util = new ExprEvaluator(false, 100);
+      /*  ExprEvaluator util = new ExprEvaluator(false, 100);
         String javaForm = util.toJavaForm("sin(x)*cos(x)+x+x+x+x");
         IDoubleValue vd = new DoubleVariable(3.0);
         DoubleEvaluator engine = new DoubleEvaluator(true);
@@ -84,16 +88,16 @@ public class interpolation extends Fragment {
         double d = engine.evaluate("x*x+log(x)");
         System.out.println("ln "+d);
         vd.setValue(4.0);
-        Config.PARSER_USE_LOWERCASE_SYMBOLS = false;
+        Config.PARSER_USE_LOWERCASE_SYMBOLS = false;*/
         // false -> switch to Mathematica syntax mode:
-        //EvalEngine engine = new EvalEngine(false);
-        //
-        //TeXUtilities texUtil = new TeXUtilities(engine, false);
+        EvalEngine engine = new EvalEngine(false);
 
-       // StringWriter stw = new StringWriter();
-       // texUtil.toTeX("x*x*x-x*e^x", stw);
+        TeXUtilities texUtil = new TeXUtilities(engine, false);
+
+       StringWriter stw = new StringWriter();
+       texUtil.toTeX("x*x*x-x*e^x", stw);
         // print: \sum_{i = 1}^{n}i
-        //System.out.println(stw.toString());
+        System.out.println(stw.toString());
         // prints: D(Times(Sin(x),Cos(x)),x)
 
         for(float i = 0; i < 360; i += 360 / 20) {
@@ -185,7 +189,8 @@ public class interpolation extends Fragment {
             EditText key = defaultEditText(String.valueOf(checkInteger + 1),auxColor);
             ((TableRow) vectors.getChildAt(0)).addView(key);
             ((TableRow) vectors.getChildAt(1)).addView(defaultEditText("0",auxColor));
-            viewToPoint.put(key,updatePointGraph(checkInteger+1,0,auxColor));
+
+            viewToPoint.put(key, new Pair<>(updatePointGraph(checkInteger + 1, 0, auxColor), auxColor));
             count = count + 1;
         } catch (Exception isDouble) {
             try {
@@ -196,7 +201,7 @@ public class interpolation extends Fragment {
                 ((TableRow) vectors.getChildAt(0)).addView(key);
                 ((TableRow) vectors.getChildAt(1)).addView(defaultEditText("0",auxColor));
 
-                viewToPoint.put(key,updatePointGraph(checkDouble+1,0,auxColor));
+                viewToPoint.put(key,new Pair<>(updatePointGraph(checkDouble+1,0,auxColor),auxColor));
                 count = count + 1;
             } catch (Exception d) {
                 text.setError("invalid number");
@@ -212,7 +217,7 @@ public class interpolation extends Fragment {
             EditText key = (EditText) ((TableRow) vectors.getChildAt(0)).getChildAt(last);
             ((TableRow) vectors.getChildAt(0)).removeViewAt(last);
             ((TableRow) vectors.getChildAt(1)).removeViewAt(last);
-            interpolationGraph.removeSeries(viewToPoint.get(key));
+            interpolationGraph.removeSeries(viewToPoint.get(key).first);
             viewToPoint.remove(key);
             count = count - 1;
         }
@@ -237,7 +242,7 @@ public class interpolation extends Fragment {
             aux.addView(key);
             aux2.addView(defaultEditText("0",auxColor));
 
-            viewToPoint.put(key,updatePointGraph(i,0,auxColor));
+            viewToPoint.put(key,new Pair <>(updatePointGraph(i,0,auxColor),auxColor));
         }
         vectors.addView(aux, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         vectors.addView(aux2, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
@@ -267,21 +272,20 @@ public class interpolation extends Fragment {
                         EditText key = target;
                         int aux = ((TableRow) vectors.getChildAt(0)).indexOfChild(key);
                         if (aux != -1) {
-                            interpolationGraph.removeSeries(viewToPoint.get(key));
+                            interpolationGraph.removeSeries(viewToPoint.get(key).first);
                             x = Double.parseDouble(target.getText().toString());
                             y = Double.parseDouble(((EditText) ((TableRow) vectors.getChildAt(1)).getChildAt(aux)).getText().toString());
                         } else {
                             key = ((EditText) ((TableRow) vectors.getChildAt(0)).getChildAt(((TableRow) vectors.getChildAt(1)).indexOfChild(target)));
-                            interpolationGraph.removeSeries(viewToPoint.get(key));
+                            interpolationGraph.removeSeries(viewToPoint.get(key).first);
                             x = Double.parseDouble(key.getText().toString());
                             y = Double.parseDouble(target.getText().toString());
                         }
 
 
                         if(viewToPoint.containsKey(key)){
-                            int auxColor = poolColors.remove(0);
-                            poolColors.add(auxColor);
-                            viewToPoint.put(key,updatePointGraph(x,y,auxColor));
+                            int auxColor = viewToPoint.get(key).second;
+                            viewToPoint.put(key, new Pair<>(updatePointGraph(x, y, auxColor), auxColor));
                         }
                     } catch (Exception ignored) {
 
