@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.lagrange;
@@ -36,13 +37,24 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
+
 import org.matheclipse.core.basic.Config;
-import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.eval.TeXUtilities;
-import org.matheclipse.parser.client.eval.DoubleEvaluator;
-import org.matheclipse.parser.client.eval.DoubleVariable;
-import org.matheclipse.parser.client.eval.IDoubleValue;
+import org.matheclipse.core.interfaces.IAST;
+import org.matheclipse.core.interfaces.IExpr;
+import org.matheclipse.parser.client.SyntaxError;
+import org.matheclipse.parser.client.math.MathException;
+import java.io.StringWriter;
+
+import org.matheclipse.core.basic.Config;
+import org.matheclipse.core.eval.EvalEngine;
+import org.matheclipse.core.eval.TeXUtilities;
+import org.matheclipse.parser.client.SyntaxError;
+import org.matheclipse.parser.client.math.MathException;
+import java.io.StringWriter;
+import static org.matheclipse.core.expression.F.*;
+
 
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -72,34 +84,27 @@ public class interpolation extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_interpolation, container, false);
-        //EvalEngine.DOUBLE_PRECISION = 30;
+        Config.PARSER_USE_LOWERCASE_SYMBOLS = true;
 
-      /*  ExprEvaluator util = new ExprEvaluator(false, 100);
-        String javaForm = util.toJavaForm("sin(x)*cos(x)+x+x+x+x");
-        IDoubleValue vd = new DoubleVariable(3.0);
-        DoubleEvaluator engine = new DoubleEvaluator(true);
-        EvalEngine aux = new EvalEngine();
-        aux.setNumericPrecision(25);
-        aux.evaluate("x*x+log(x)");
-        engine.defineVariable("x", 2);
+        ExprEvaluator util = new ExprEvaluator(false, 100);
 
-        //engine.val
-        //double d = aux.evaluate("x*x+log(x)").evalNumber().reDoubleValue();
-        double d = engine.evaluate("x*x+log(x)");
-        System.out.println("ln "+d);
-        vd.setValue(4.0);
-        Config.PARSER_USE_LOWERCASE_SYMBOLS = false;*/
-        // false -> switch to Mathematica syntax mode:
-        EvalEngine engine = new EvalEngine(false);
-
-        TeXUtilities texUtil = new TeXUtilities(engine, false);
-
-       StringWriter stw = new StringWriter();
-       texUtil.toTeX("x*x*x-x*e^x", stw);
-        // print: \sum_{i = 1}^{n}i
-        System.out.println(stw.toString());
+        // Show an expression in the Java form:
+        // Note: single character identifiers are case sensistive
+        // (the "D()" function input must be written as upper case character)
+        String javaForm = util.toJavaForm("D(sin(x)*cos(x),x)");
         // prints: D(Times(Sin(x),Cos(x)),x)
+        System.out.println(javaForm.toString());
 
+        // Use the Java form to create an expression with F.* static methods:
+        IAST function = D(Times(Sin(x), Cos(x)), x);
+        IExpr result = util.evaluate(function);
+        // print: Cos(x)^2-Sin(x)^2
+        System.out.println(result.toString());
+        StringWriter stw = new StringWriter();
+
+        TeXUtilities texUtil = new TeXUtilities(new EvalEngine(false), false);
+        texUtil.toTeX("x+x*x/2",stw);
+        System.out.println(stw.toString());
         for(float i = 0; i < 360; i += 360 / 20) {
             float[] hsv = new float[3];
             hsv[0] = i;
