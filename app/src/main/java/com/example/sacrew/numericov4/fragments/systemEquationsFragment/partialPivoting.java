@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.animations
 public class partialPivoting extends baseSystemEquations {
 
     private LinearLayout multipliersLayout;
+    ScrollView scrollview;
 
     public partialPivoting() {
         // Required empty public constructor
@@ -98,7 +100,7 @@ public class partialPivoting extends baseSystemEquations {
 
             }
         });
-
+        scrollview = ((ScrollView) view.findViewById(R.id.scrollMultipliers));
         return view;
     }
 
@@ -129,6 +131,7 @@ public class partialPivoting extends baseSystemEquations {
                 @Override
                 public void onAnimationEnd(Animator animator) {
                     if (!animations.isEmpty()) animations.remove(0);
+                    scrollview.fullScroll(ScrollView.FOCUS_DOWN);
                 }
 
                 @Override
@@ -173,6 +176,7 @@ public class partialPivoting extends baseSystemEquations {
                     @Override
                     public void onAnimationEnd(Animator animator) {
                         if (!animations.isEmpty()) animations.remove(0);
+                        scrollview.fullScroll(ScrollView.FOCUS_DOWN);
                     }
 
                     @Override

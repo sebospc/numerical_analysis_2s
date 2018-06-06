@@ -25,10 +25,16 @@ public class mathExpressions extends AppCompatActivity {
 
     public void setFunction(String function){
         mathView.getSettings().setUseWideViewPort(true);
-        mathView.getSettings().setUseWideViewPort(true);
-        mathView.setVerticalScrollBarEnabled(true);
-        mathView.setHorizontalScrollBarEnabled(true);
-        mathView.setDisplayText("$${"+function+function+"}$$");
+        mathView.getSettings().setLoadWithOverviewMode(true);
+        if(function.length() < 30)
+            mathView.setTextSize(100);
+        else if(function.length() < 80)
+            mathView.setTextSize(80);
+        else mathView.setTextSize(60);
+        mathView.setDisplayText("${"+function+"\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$");
+        mathView.getSettings().setJavaScriptEnabled(true);
+        mathView.getSettings().setBuiltInZoomControls(true);
+        mathView.getSettings().setDisplayZoomControls(true);
         //app:text="$${- x+x\\,\\left\( -1.0+x\\right\)}$$"
         /*System.out.println("function "+function);
         String expr = "$${"+function.replace("\\","\\\\")+"}$$";

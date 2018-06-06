@@ -115,6 +115,9 @@ public class newtonInterpolator extends baseInterpolationMethods {
             Config.PARSER_USE_LOWERCASE_SYMBOLS = false;
             EvalEngine engine = new EvalEngine(false);
             IExpr outLatex = engine.evaluate(F.Simplify(result));
+            IExpr expanded = engine.evaluate(F.FullSimplify(result));
+            System.out.println("simplify : " +outLatex.toString());
+            System.out.println("full : " +expanded.toString());
             TeXUtilities texUtil = new TeXUtilities(engine, false);
 
             StringWriter stw = new StringWriter();

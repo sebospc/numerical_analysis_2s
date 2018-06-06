@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.animations
 public class gaussSimple extends baseSystemEquations {
 
     private LinearLayout multipliersLayout;
+    ScrollView scrollview;
 
     public gaussSimple() {
         // Required empty public constructor
@@ -76,7 +78,8 @@ public class gaussSimple extends baseSystemEquations {
 
         });
 
-
+        scrollview = ((ScrollView) view.findViewById(R.id.scrollMultipliers));
+        scrollview.fullScroll(ScrollView.FOCUS_DOWN);
 
 
         return view;
@@ -103,11 +106,13 @@ public class gaussSimple extends baseSystemEquations {
                 @Override
                 public void onAnimationStart(Animator animator) {
                     multipliersLayout.addView(defaultEditText("stage "+auxk,defaultColor, LinearLayout.LayoutParams.MATCH_PARENT,13,true));
+                    scrollview.fullScroll(ScrollView.FOCUS_DOWN);
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
                     if(!animations.isEmpty())animations.remove(0);
+                    scrollview.fullScroll(ScrollView.FOCUS_DOWN);
                 }
 
                 @Override
@@ -146,11 +151,13 @@ public class gaussSimple extends baseSystemEquations {
                     @Override
                     public void onAnimationStart(Animator animator) {
                         multipliersLayout.addView(defaultEditText("multiplier"+(auxi-auxk)+" = "+multiplier,defaultColor, LinearLayout.LayoutParams.MATCH_PARENT,10,true));
+
                     }
 
                     @Override
                     public void onAnimationEnd(Animator animator) {
                         if(!animations.isEmpty())animations.remove(0);
+                        scrollview.fullScroll(ScrollView.FOCUS_DOWN);
                     }
 
                     @Override

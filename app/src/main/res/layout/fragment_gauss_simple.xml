@@ -55,7 +55,9 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="none">
+                android:scrollbars="none"
+
+                >
 
                 <HorizontalScrollView
                     android:id="@+id/scrollView"
@@ -84,11 +86,13 @@
                 android:gravity="center"
                 android:textSize="25dp"/>
             <ScrollView
+                android:id="@+id/scrollMultipliers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fadingEdgeLength="0dp"
                 android:fillViewport="true"
-                android:overScrollMode="never">
+                android:overScrollMode="never"
+                >
                 <LinearLayout
                     android:id="@+id/multipiers"
                     android:layout_width="match_parent"
