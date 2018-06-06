@@ -16,7 +16,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Spline cubico"
+            android:text="Cubic Spline"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />

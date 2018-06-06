@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="149dp"
                     android:gravity="center_horizontal"
-                    android:text="This project contains lots of numerical methods about one-variable equations, systems of equations and interpolation. Some of them were implemented with parallel computing. You will can found roots in different functions, solve matrixes and equations."
+                    android:text="This project contains lots of numerical methods about one-variable equations, systems of equations and interpolation. Some of them were implemented with parallel computing. You will be able to found roots in different functions, solve matrixes and equations."
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:layout_editor_absoluteX="26dp"

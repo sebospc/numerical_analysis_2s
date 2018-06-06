@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:background="@color/colorPrimary">
+    android:background="@color/helpColor"
+    tools:background="@color/helpColor">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="333dp"
-        android:layout_height="203dp"
+        android:layout_height="357dp"
+        android:drawableBottom="@drawable/jacobi2"
+        android:drawableTop="@drawable/jacobi"
         android:gravity="center_horizontal"
         android:text="This method is an extension of the fixed point method. The system Ax = b is transformed into the system x = Tx + C. A vector x1 is found from a vector x0. With x1, x2 is calculated and so on until a certain tolerance is met. This presents a relaxed of 1, minus or more."
         android:textColor="@android:color/white"

@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:background="@color/colorPrimary">
+    android:background="@color/helpColor"
+    tools:background="@color/helpColor">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="333dp"
-        android:layout_height="203dp"
+        android:layout_height="216dp"
+        android:drawableBottom="@drawable/pivoteo_parcial"
         android:gravity="center_horizontal"
         android:text="This method checks the largest of the first column and exchanges rows until this major is as a pivot and then applies Gaussian elimination. So on until the system of equations is solved."
         android:textColor="@android:color/white"

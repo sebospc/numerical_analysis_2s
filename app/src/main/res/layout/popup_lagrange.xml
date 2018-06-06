@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:background="@color/colorPrimary">
+    android:background="@color/helpColor"
+    tools:background="@color/helpColor">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="333dp"
-        android:layout_height="203dp"
+        android:layout_height="303dp"
+        android:drawableBottom="@drawable/lagrange"
         android:gravity="center_horizontal"
-        android:text="This method starts from a set of n + 1 known points. It is described as follows: y = sum (Lk (x) * f (Xk)) from k = 0 until n. Where for each i, the value of Li (x) is determined as the product: produc (x-xi / xk-xi) from i = 0, i! = k until n. In this way it is guaranteed that the polynomial found passes through all the given points."
+        android:text="This method starts from a set of n + 1 known points. In this way it is guaranteed that the polynomial found passes through all the given points."
         android:textColor="@android:color/white"
         android:textSize="19sp"
         tools:layout_editor_absoluteX="26dp"

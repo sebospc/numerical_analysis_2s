@@ -8,6 +8,7 @@
     <color name="white">#cccccc</color>
     <color name="bg_line">#E7E7E7</color>
     <color name="bg_color">#FF99DCD7</color>
+    <color name="helpColor">#1E88E5</color>
 
     <color name="cell_background_color">#ffffff</color>
     <color name="cell_text_color">#1f1f1f</color>
