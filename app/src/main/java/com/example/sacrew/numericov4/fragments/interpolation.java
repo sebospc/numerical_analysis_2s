@@ -72,7 +72,7 @@ public class interpolation extends Fragment {
     private graphUtils graphUtils = new graphUtils();
     public static GraphView interpolationGraph;
     private HashMap<EditText, Pair<PointsGraphSeries<DataPoint>,Integer>> viewToPoint = new HashMap<>();
-    private List<Integer> poolColors = new LinkedList<>();
+    public static List<Integer> poolColors = new LinkedList<>();
     public interpolation() {
         // Required empty public constructor
     }

@@ -1,0 +1,4 @@
+-keep public class org.matheclipse.core.** {*; }
+-keep interface org.matheclipse.core.interfaces.IPattern
+-keep android.webkit.SafeBrowsingResponse
+-keep android.webkit.RenderProcessGoneDetail

@@ -89,10 +89,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".fragments.MainActivityTable">
-        <intent-filter>
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".fragments.interpolationFragments.mathExpressions"></activity>
     </application>
 
 </manifest>
