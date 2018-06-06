@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:background="@color/colorPrimary">
+    android:background="@color/helpColor"
+    tools:background="@color/helpColor">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="333dp"
-        android:layout_height="203dp"
+        android:layout_height="181dp"
+        android:drawableBottom="@drawable/cubico"
         android:gravity="center_horizontal"
         android:text="This method generates a function defined by segments using polynomials of degree 3 in such a way that the function is continuous, derivable, smooth and passes through all the points."
         android:textColor="@android:color/white"

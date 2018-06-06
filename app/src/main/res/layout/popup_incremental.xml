@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:background="@color/colorPrimary">
+    android:background="@color/helpColor"
+    tools:background="@color/helpColor">
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="333dp"
-        android:layout_height="203dp"
+        android:layout_width="350dp"
+        android:layout_height="347dp"
+        android:drawableBottom="@drawable/incremental_search"
         android:gravity="center_horizontal"
         android:text="This method supposes a continuous function that presents a change of sign and looks for an approximation  to the root of a function by means of the repetition of a number of times that the user enters, an initial  point and a delta, defined as the change between the initial point and the next point."
         android:textColor="@android:color/white"
         android:textSize="19sp"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="28dp"
+        tools:layout_editor_absoluteX="17dp"
+        tools:layout_editor_absoluteY="16dp"
         tools:textColor="@android:color/white" />
 
 </android.support.constraint.ConstraintLayout>

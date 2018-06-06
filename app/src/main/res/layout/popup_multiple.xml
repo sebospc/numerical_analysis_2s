@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/helpColor"
+    tools:background="@color/helpColor">
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="333dp"
-        android:layout_height="257dp"
+        android:layout_height="206dp"
+        android:drawableBottom="@drawable/multiple_roots"
         android:gravity="center_horizontal"
         android:text="This methods is deriving from fixed point method and solve the problem of multiple roots."
         android:textColor="@android:color/white"
