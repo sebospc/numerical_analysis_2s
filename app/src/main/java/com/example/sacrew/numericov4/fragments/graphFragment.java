@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -53,6 +54,7 @@ public class graphFragment extends Fragment {
     private LinearLayout hiderA;
     private boolean isup = true;
     private Map<Integer, List<LineGraphSeries<DataPoint>>> viewToFunction;
+    @SuppressLint("UseSparseArrays")
     private Map<Integer, Integer> viewToColor = new HashMap<>();
     private View view;
     private List <Integer> colors = new LinkedList<>();
@@ -125,8 +127,33 @@ public class graphFragment extends Fragment {
                 hide(view);
             }
         });
-        for(LineGraphSeries<DataPoint> v: graphUtils.graphPharallel(200,"x",0,getContext()))
-            graph.addSeries(v);
+        ImageButton homeGraph = view.findViewById(R.id.homeGraphButton);
+        final List<LineGraphSeries<DataPoint>> listSeries = graphUtils.graphPharallel(200, "x", 0, getContext());
+        homeGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                for (LineGraphSeries<DataPoint> inSerie : listSeries)
+                    graph.removeSeries(inSerie);
+                graph.getViewport().setYAxisBoundsManual(true);
+                graph.getViewport().setMinY(-50);
+                graph.getViewport().setMaxY(50);
+
+                graph.getViewport().setXAxisBoundsManual(true);
+                graph.getViewport().setMinX(-50);
+                graph.getViewport().setMaxX(50);
+                graph.getViewport().setScrollable(true);
+                graph.getViewport().setScrollableY(true);
+                graph.getViewport().setScalable(true);
+                graph.getViewport().setScalableY(true);
+                for (LineGraphSeries<DataPoint> inSerie : listSeries)
+                    graph.addSeries(inSerie);
+            }
+        });
+        for (LineGraphSeries<DataPoint> inSerie : listSeries)
+            graph.addSeries(inSerie);
+        for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(200, "x", 0, getContext()))
+            graph.addSeries(inSerie);
         return view;
 
 
@@ -270,10 +297,10 @@ public class graphFragment extends Fragment {
             graph.getViewport().setXAxisBoundsManual(true);
             graph.getViewport().setMinX(-50);
             graph.getViewport().setMaxX(50);
-            graph.getViewport().setScrollable(true); // enables horizontal scrolling
-            graph.getViewport().setScrollableY(true); // enables vertical scrolling
-            graph.getViewport().setScalable(true);// esto genera errores se podria solucionar pero
-            graph.getViewport().setScalableY(true);// es complejo, es para el zoom
+            graph.getViewport().setScrollable(true);
+            graph.getViewport().setScrollableY(true);
+            graph.getViewport().setScalable(true);
+            graph.getViewport().setScalableY(true);
 
             for (LineGraphSeries<DataPoint> inSerie : viewToFunction.get(code))
                 graph.addSeries(inSerie);

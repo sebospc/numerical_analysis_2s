@@ -2,12 +2,10 @@ package com.example.sacrew.numericov4;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.widget.Toast;
 
-import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -20,7 +18,6 @@ import com.udojava.evalex.Expression;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class graphUtils {
     private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
@@ -54,8 +51,8 @@ public class graphUtils {
         graph.addSeries(serie);
     }
 
-    public void graphPoint(double x, double y, PointsGraphSeries.Shape figure, GraphView graph, final Activity activity,
-                                  String color, boolean listener){
+    public PointsGraphSeries<DataPoint> graphPoint(double x, double y, PointsGraphSeries.Shape figure, GraphView graph, final Activity activity,
+                                                   int color, boolean listener){
         PointsGraphSeries<DataPoint> root = new PointsGraphSeries<>(new DataPoint[] {
                 new DataPoint(x, y)
         });
@@ -68,7 +65,8 @@ public class graphUtils {
             });
         graph.addSeries(root);
         root.setShape(figure);
-        root.setColor(Color.parseColor(color));
+        root.setColor(color);
+        return root;
     }
 
     public String functionRevision(String function){

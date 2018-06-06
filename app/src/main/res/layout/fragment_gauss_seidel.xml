@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment.gaussSeidel"
     android:ems="4"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment.gaussSeidel">
 
 
     <TextView
@@ -47,45 +47,56 @@
             android:textColor="@android:color/white" />
     </LinearLayout>
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/relaxation"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:hint="Relaxation" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/iterations"
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Iters" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="error" />
+                <EditText
+                    android:id="@+id/relaxation"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Relaxation" />
 
-        <ToggleButton
-            android:id="@+id/errorToggle"
-            android:layout_width="32dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/check"
-            android:textOff=""
-            android:textOn="" />
+                <EditText
+                    android:id="@+id/iterations"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Iters" />
 
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="error" />
+
+                <ToggleButton
+                    android:id="@+id/errorToggle"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/check"
+                    android:textOff=""
+                    android:textOn="" />
+
+            </LinearLayout>
+
+
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="30dp">
+
         <LinearLayout
             android:id="@+id/initialValues"
             android:layout_width="match_parent"
@@ -100,7 +111,8 @@
         android:id="@+id/textView38"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
+        </LinearLayout>
+    </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

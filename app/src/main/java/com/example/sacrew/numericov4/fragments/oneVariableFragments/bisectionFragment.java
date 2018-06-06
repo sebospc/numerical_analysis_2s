@@ -154,14 +154,14 @@ public class bisectionFragment extends baseOneVariableFragments {
         //String matrix[][];
         Bisection titles = new Bisection("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
-        List<String> listValuesTitles = new LinkedList<>();
+        listValuesTitles = new LinkedList<>();
         listValuesTitles.add("Xi");
         listValuesTitles.add("Xs");
         listValuesTitles.add("Xm");
         listValuesTitles.add("f(Xm)");
         listValuesTitles.add("Error");
         TableViewModel.getTitles(listValuesTitles);
-        List<List<String>> completeList = new LinkedList<>();
+        completeList = new LinkedList<>();
         if (tol >= 0) {
             if (ite > 0) {
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
@@ -180,16 +180,9 @@ public class bisectionFragment extends baseOneVariableFragments {
                             listValuesIteZero.add(String.valueOf(xm));
                             listValuesIteZero.add(String.valueOf(ym));
                             listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
-                            //TableViewModel.getCeldas(listValuesIteZero);
-
-
-                            //TableViewModel.getSimpleCellList();
                             int cont = 1;
                             double xaux = xm;
-
-
-
-                            completeList.add(listValuesIteZero);
+                            //completeList.add(listValuesIteZero);
                             while ((ym != 0) && (error > tol) && (cont < ite)) {
                                 ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 if (yi * ym < 0) {
@@ -202,7 +195,7 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 xaux = xm;
                                 xm = (xi + xs) / 2;
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
-                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#FA4659", false);
+                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#FA4659"), false);
                                 if (errorRel) {
                                     error = Math.abs(xm - xaux) / xm;
                                 } else {
@@ -218,12 +211,12 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 completeList.add(listValuesIteNext);
                                 cont++;
                             }
-                            TableViewModel.getCeldas(completeList);
+                            //TableViewModel.getCeldas(completeList);
                             calc= true;
                             if (ym == 0) {
-                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             } else if (error < tol) {
-                                graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                                graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                                 graphSerie(xaux-0.2, xaux+0.2, this.function.getExpression(), graph, Color.BLUE);
                                 Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                             } else {
@@ -236,10 +229,10 @@ public class bisectionFragment extends baseOneVariableFragments {
                         }
                     } else {
                         Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                        graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                     }
                 } else {
-                    graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                    graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
 
                 }
             } else {

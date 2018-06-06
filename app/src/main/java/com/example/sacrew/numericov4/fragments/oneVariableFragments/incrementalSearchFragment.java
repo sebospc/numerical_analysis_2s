@@ -2,6 +2,7 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -165,11 +166,11 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             ArrayList<IncrementalSearch> listValues = new ArrayList<>();
             IncrementalSearch titles = new IncrementalSearch("n", "Xn", "f(Xn)");
             listValues.add(titles);
-            List<String> listValuesTitles = new LinkedList<>();
+            listValuesTitles = new LinkedList<>();
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
-            TableViewModel.getTitles(listValuesTitles);
-            List<List<String>> completeList = new LinkedList<>();
+            //TableViewModel.getTitles(listValuesTitles);
+            completeList = new LinkedList<>();
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
@@ -202,11 +203,11 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             listValuesNext.add(String.valueOf(y0));
                             completeList.add(listValuesNext);
                         }
-                        TableViewModel.getCeldas(completeList);
+                        //TableViewModel.getCeldas(completeList);
 
 
                         if (y1 == 0) {
-                            graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                            graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
 
                         } else if (y1 * y0 < 0) {
@@ -215,7 +216,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         }
 
                     } else {
-                        graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                        graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                         Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
                     }
 

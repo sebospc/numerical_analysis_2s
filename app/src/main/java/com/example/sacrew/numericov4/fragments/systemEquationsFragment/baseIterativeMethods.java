@@ -16,7 +16,7 @@ import java.util.List;
  * Created by sacrew on 27/05/18.
  */
 
-public class baseIterativeMethods extends baseSystemEquations {
+public abstract class baseIterativeMethods extends baseSystemEquations {
     List<List<String>> totalInformation = new LinkedList<>();
     List<String> lisTitles = new LinkedList<>();
     boolean calc = false;

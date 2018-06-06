@@ -149,11 +149,11 @@ public class falsePositionFragment extends baseOneVariableFragments {
         ArrayList<FalsePosition> listValues = new ArrayList<>();
         FalsePosition titles = new FalsePosition("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
-        List<String> listValuesTitles = new LinkedList<>();
+        listValuesTitles = new LinkedList<>();
         listValuesTitles.add("Xn");
         listValuesTitles.add("f(Xn)");
-        TableViewModel.getTitles(listValuesTitles);
-        List<List<String>> completeList = new LinkedList<>();
+        //TableViewModel.getTitles(listValuesTitles);
+        completeList = new LinkedList<>();
         if (tol >= 0) {
             if (ite > 0) {
                 double yi = (this.function.with("x", BigDecimal.valueOf(xi)).eval()).doubleValue();
@@ -205,19 +205,17 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                 completeList.add(listValuesIteNext);
                                 cont++;
                             }
-                            TableViewModel.getCeldas(completeList);
+                            //TableViewModel.getCeldas(completeList);
 
                             if (ym == 0) {
                                 graphSerie(xm - 0.2, xm + 0.2, this.function.getExpression(), graph, Color.BLUE);
-                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                                 Toast.makeText(getContext(), convertirNormal(xm) + " is an aproximate root", Toast.LENGTH_SHORT).show();
 
                             } else if (error < tol) {
                                 graphSerie(xm - 0.2, xm + 0.2, this.function.getExpression(), graph, Color.BLUE);
-                                graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                                graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                                 Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-
-
                             } else {
 
                             }
@@ -227,11 +225,11 @@ public class falsePositionFragment extends baseOneVariableFragments {
                         }
                     } else {
                         Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                        graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                     }
                 } else {
                     Toast.makeText(getContext(), convertirNormal(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                    graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                    graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                 }
             } else {
                 iter.setError("Wrong iterates");

@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="31dp"
             android:layout_weight="5"
-            android:max="4000"
+            android:max="1000"
             android:progress="500" />
     </LinearLayout>
 

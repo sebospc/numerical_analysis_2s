@@ -154,7 +154,6 @@ public class jacobi extends baseIterativeMethods{
         for(int i = 0; i < initials.length; i++){
             lisTitles.add("X"+(i+1));
             aux.add(String.valueOf(x0[i]));
-
         }
         lisTitles.add("Norma");
         aux.add(String.valueOf(dispersion));
@@ -199,7 +198,4 @@ public class jacobi extends baseIterativeMethods{
         }
         return x;
     }
-
-
-
 }

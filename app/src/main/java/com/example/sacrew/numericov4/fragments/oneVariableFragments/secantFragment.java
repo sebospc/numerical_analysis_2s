@@ -149,14 +149,14 @@ public class secantFragment extends baseOneVariableFragments {
             ArrayList<Secant> listValues = new ArrayList<>();
         Secant titles = new Secant("n", "Xn", "f(Xn)", "f'(Xn)", "f''(Xn)", "Error");
         listValues.add(titles);
-            List<String> listValuesTitles = new LinkedList<>();
+            listValuesTitles = new LinkedList<>();
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
             listValuesTitles.add("f'(Xn)");
             listValuesTitles.add("f''(Xn)");
             listValuesTitles.add("Error");
-            TableViewModel.getTitles(listValuesTitles);
-            List<List<String>> completeList = new LinkedList<>();
+            //TableViewModel.getTitles(listValuesTitles);
+            completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
                     double fx0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
@@ -199,23 +199,23 @@ public class secantFragment extends baseOneVariableFragments {
                             listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
                             completeList.add(listValuesIteNext);
                         }
-                        TableViewModel.getCeldas(completeList);
+                        //TableViewModel.getCeldas(completeList);
                         calc= true;
 
                         if (fx1 == 0) {
                             graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
-                            graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                            graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             Toast.makeText(getContext(),  convertirNormal(aux1) + " is a root", Toast.LENGTH_SHORT).show();
                         } else if (error <= tol) {
                             graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
                             fx1 = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
-                            graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                            graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             Toast.makeText(getContext(),  convertirNormal(aux1) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(),  "Failedl!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        graphPoint(x0, fx0, PointsGraphSeries.Shape.POINT, graph, getActivity(), "#0E9577", true);
+                        graphPoint(x0, fx0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                         Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                     }
                 } else {
