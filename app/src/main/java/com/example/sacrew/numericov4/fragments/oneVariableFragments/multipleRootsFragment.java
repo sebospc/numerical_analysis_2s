@@ -236,8 +236,8 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                 textError.setError("Tolerance must be > 0");
 
             }
-            //MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.list_adapter_multiple_roots, listValues);
-            //listView.setAdapter(adapter);
+            MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.list_adapter_multiple_roots, listValues);
+            listView.setAdapter(adapter);
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
         }
