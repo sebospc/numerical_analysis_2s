@@ -161,7 +161,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
-                        FixedPoint iteZero = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(y0)), String.valueOf(convertirCientifica(g0)), String.valueOf(convertirCientifica(error)));
+                        FixedPoint iteZero = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(g0)), String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
@@ -181,7 +181,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
                                     error = Math.abs(xn - xa);
                                 xa = xn;
                                 cont++;
-                                FixedPoint iteNext = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirCientifica(y0)), String.valueOf(convertirCientifica(xn)), String.valueOf(convertirCientifica(error)));
+                                FixedPoint iteNext = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(g0)), String.valueOf(convertirCientifica(error)));
                                 listValues.add(iteNext);
                                 listValuesIteNext.add(String.valueOf(x0));
                                 listValuesIteNext.add(String.valueOf(y0));

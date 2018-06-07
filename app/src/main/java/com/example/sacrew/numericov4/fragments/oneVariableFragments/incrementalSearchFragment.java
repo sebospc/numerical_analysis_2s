@@ -174,7 +174,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(y0)));
+                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)));
                     listValues.add(iteZero);
                     List<String> listValuesIteZero = new LinkedList<>();
                     listValuesIteZero.add(String.valueOf(x0));
@@ -184,7 +184,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         int cont = 1;
                         double x1 = x0 + delta;
                         double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirCientifica(y1)));
+                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirNormal(y1)));
                         listValues.add(iterFirst);
                         List<String> listValuesFirst = new LinkedList<>();
                         listValuesFirst.add(String.valueOf(x0));
@@ -196,7 +196,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             y0 = y1;
                             x1 = x0 + delta;
                             y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirCientifica(y1)));
+                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirNormal(y1)));
                             listValues.add(iterNext);
                             List<String> listValuesNext = new LinkedList<>();
                             listValuesNext.add(String.valueOf(x0));
