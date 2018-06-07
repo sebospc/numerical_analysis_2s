@@ -30,7 +30,7 @@
             android:gravity="center_horizontal"
             android:text="Stiven Ramirez Arango"
             android:textColor="@android:color/white"
-            android:textSize="19sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
@@ -43,7 +43,7 @@
             android:gravity="center_horizontal"
             android:text="sramir70@eafit.edu.co"
             android:textColor="@android:color/white"
-            android:textSize="19sp"
+            android:textSize="17sp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
             tools:textColor="@android:color/white" />
@@ -71,7 +71,7 @@
             android:gravity="center_horizontal"
             android:text="Sebastian Ospina Cabarcas"
             android:textColor="@android:color/white"
-            android:textSize="19sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
@@ -84,18 +84,13 @@
             android:gravity="center_horizontal"
             android:text="sospin26@eafit.edu.co"
             android:textColor="@android:color/white"
-            android:textSize="19sp"
+            android:textSize="17sp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
             tools:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/textView18"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/textView19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -111,8 +106,20 @@
             android:gravity="center_horizontal"
             android:text="Libraries"
             android:textColor="@android:color/white"
-            android:textSize="19sp"
+            android:textSize="17sp"
             android:textStyle="bold"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Numerical Analysis by Francisco Correa"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
             tools:textColor="@android:color/white" />
@@ -124,7 +131,7 @@
             android:gravity="center_horizontal"
             android:text="EvalEx by Udo Klimaschewski"
             android:textColor="@android:color/white"
-            android:textSize="19sp"
+            android:textSize="17sp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
             tools:textColor="@android:color/white" />
@@ -136,7 +143,7 @@
             android:gravity="center_horizontal"
             android:text="GraphView by Jonas Grehring"
             android:textColor="@android:color/white"
-            android:textSize="19sp"
+            android:textSize="17sp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
             tools:textColor="@android:color/white" />
@@ -148,7 +155,7 @@
             android:gravity="center_horizontal"
             android:text="TableView by Evren Coşkun"
             android:textColor="@android:color/white"
-            android:textSize="19sp"
+            android:textSize="17sp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
             tools:textColor="@android:color/white" />
@@ -160,7 +167,31 @@
             android:gravity="center_horizontal"
             android:text="Math - Complex by Apache"
             android:textColor="@android:color/white"
-            android:textSize="19sp"
+            android:textSize="17sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Symja by Axel Kramer"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Katex by Hour Glass"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
             tools:textColor="@android:color/white" />
