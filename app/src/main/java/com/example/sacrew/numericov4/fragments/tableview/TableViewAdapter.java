@@ -238,15 +238,16 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
                         .getRowHeaderSortingStatus();
                 if (sortState != SortState.ASCENDING) {
                     Log.d("TableViewAdapter", "Order Ascending");
-                    TableViewAdapter.this.getTableView().sortRowHeader(SortState.ASCENDING);
+                    //TableViewAdapter.this.getTableView().sortRowHeader(SortState.ASCENDING);
                 } else {
                     Log.d("TableViewAdapter", "Order Descending");
-                    TableViewAdapter.this.getTableView().sortRowHeader(SortState.DESCENDING);
+                    //TableViewAdapter.this.getTableView().sortRowHeader(SortState.DESCENDING);
                 }
             }
         });
         return corner;
     }
+
 
     @Override
     public int getColumnHeaderItemViewType(int position) {
