@@ -20,20 +20,20 @@ import static com.example.sacrew.numericov4.fragments.interpolation.vectors;
  */
 
 public abstract class baseInterpolationMethods extends Fragment {
-    public double[] xn;
-    public double[] fxn;
+    protected double[] xn;
+    protected double[] fxn;
     static List<LineGraphSeries<DataPoint>> constantSerie;
     protected graphUtils utilsOfGraph = new graphUtils();
-    public boolean calc = false;
-    public String function = "";
-    public Boolean bootStrap(){
+    protected boolean calc = false;
+    protected String function = "";
+    protected Boolean bootStrap(){
         int length = ((TableRow)vectors.getChildAt(0)).getChildCount();
         xn = new double[length];
         fxn = new double[length];
 
         for(int i = 0; i < ((TableRow)vectors.getChildAt(0)).getChildCount(); i++){
-            double x = -1;
-            double y = -1;
+            double x;
+            double y;
             try {
                 x = Double.parseDouble(((EditText) ((TableRow) vectors.getChildAt(0)).getChildAt(i)).getText().toString());
             }catch (Exception e){
@@ -54,22 +54,19 @@ public abstract class baseInterpolationMethods extends Fragment {
         return true;
     }
 
-    public void updateGraph( String function, Context context,int iters){
+    protected void updateGraph( String function, Context context,int iters){
 
         int color = poolColors.remove(0);
         poolColors.add(color);
-        System.out.println("color "+color);
-        System.out.println("va a graficar !!");
         constantSerie = utilsOfGraph.bestGraphPharallel(iters,function,color,context);
         for(LineGraphSeries<DataPoint> v : constantSerie)
             interpolationGraph.addSeries(v);
 
     }
-    public void cleanGraph(){
+    protected void cleanGraph(){
         if(constantSerie != null){
             for(LineGraphSeries<DataPoint> v : constantSerie)
                 interpolationGraph.removeSeries(v);
-
         }
     }
 

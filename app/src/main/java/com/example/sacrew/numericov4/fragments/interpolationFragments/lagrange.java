@@ -119,8 +119,6 @@ public class lagrange extends baseInterpolationMethods{
                 stw = new StringWriter();
                 //simpliying p function
                 IExpr expanded = util.evaluate(F.ExpandAll(temp));
-                System.out.println("expended " + expanded.toString());
-                System.out.println("simplfied expanded " + util.evaluate(F.Simplify(expanded)));
                 IExpr simplifiedPFunction = util.evaluate(F.FullSimplify(expanded));
                 //creating latex p function
                 texUtil.toTeX(simplifiedPFunction, stw);
@@ -143,10 +141,8 @@ public class lagrange extends baseInterpolationMethods{
                 if(i!=j){
                     numerator.append("*").append("(x-(").append(xn[j]).append("))");
                     denominator.append("*(").append(xn[i]).append("-(").append(xn[j]).append("))");
-
                 }
             }
-
             if ((util.evaluate(denominator.toString())).toString().equals("0.0")){
                 Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
                 return false;
@@ -154,7 +150,6 @@ public class lagrange extends baseInterpolationMethods{
             String aux = "("+numerator+"/("+denominator+"))";
             functions.add(aux);
         }
-
         calc = true;
         return true;
     }

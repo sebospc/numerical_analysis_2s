@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Pair;
 import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
@@ -16,6 +17,7 @@ import com.jjoe64.graphview.series.Series;
 import com.udojava.evalex.Expression;
 
 import org.matheclipse.core.eval.EvalEngine;
+import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.interfaces.IExpr;
 import org.matheclipse.parser.client.eval.DoubleEvaluator;
 import org.matheclipse.parser.client.eval.DoubleVariable;
@@ -84,7 +86,7 @@ public class graphUtils {
             return function;
     }
 
-    public List<LineGraphSeries<DataPoint>> bestGraphPharallel(int iters, String funcitonExpr, int color, Context context) {
+    public List<LineGraphSeries<DataPoint>> bestGraphPharallel(int iters, String functionExpr, int color, Context context) {
         int realIters = iters * 2;
         int perCore = (int) Math.ceil(realIters / NUMBER_OF_CORES) * 2;
         double each = (realIters * 0.1 * -1);
@@ -93,7 +95,7 @@ public class graphUtils {
 
         bestThreadGraph[] values = new bestThreadGraph[NUMBER_OF_CORES];
         for (int i = 0; i < cores.length; i++) {
-            values[i] = new bestThreadGraph(each, end, funcitonExpr, color, perCore);
+            values[i] = new bestThreadGraph(each, end, functionExpr, color, perCore);
             cores[i] = new Thread(values[i]);
             cores[i].start();
             each = (each + (perCore * 0.1) - 0.1);
@@ -110,7 +112,57 @@ public class graphUtils {
         }
         return listSeries;
     }
+    //(function,(color,(init,end))
+    public List<LineGraphSeries<DataPoint>> graphPharallelByFunctions(List<Pair<String,Pair<Integer,Pair<Double,Double>>>> functions){
 
+        int maxThreads = NUMBER_OF_CORES;
+        if(functions.size() < NUMBER_OF_CORES){
+            maxThreads = functions.size();
+        }
+
+
+        Thread [] cores = new Thread [maxThreads];
+        bestThreadGraph [] values = new bestThreadGraph[maxThreads];
+        int i = 0;
+
+        List<LineGraphSeries<DataPoint>> listSeries = new LinkedList<>();
+        for(Pair<String,Pair<Integer,Pair<Double,Double>>> func :functions){
+            if(i == maxThreads){
+                i = 0;
+            }
+
+            if(cores[i] == null){
+                double init = func.second.second.first;
+                double end = func.second.second.second;
+
+                values[i] = new bestThreadGraph(init,end,func.first,func.second.first,(int)(Math.ceil(Math.abs(end-init)/0.1)));
+                cores[i] =new Thread(values[i]);
+                cores[i].start();
+
+            }else{
+                try {
+                    cores[i].join();
+                    listSeries.add(values[i].getSeries());
+                    cores[i] = null;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            i+=1;
+        }
+        for(int j = 0; j < maxThreads; j++){
+            if(cores[j] != null){
+                try {
+                    cores[j].join();
+                    listSeries.add(values[j].getSeries());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        return listSeries;
+    }
     public List<LineGraphSeries<DataPoint>> graphPharallel(int iters, String funcitonExpr, int color, Context context) {
         int realIters = iters * 2;
         int perCore = (int) Math.ceil(realIters / NUMBER_OF_CORES) * 2;
@@ -162,7 +214,7 @@ public class graphUtils {
         public void run() {
             double y;
             double x = this.x;
-            EvalEngine aux = new EvalEngine();
+            ExprEvaluator aux = new ExprEvaluator();
             IDoubleValue vd = new DoubleVariable(3.0);
 
             try {
@@ -177,7 +229,7 @@ public class graphUtils {
                     this.series.appendData(new DataPoint(x, y), true, perCore * 2);
 
 
-                    x = x + 0.1;
+                    x = Math.round((x + 0.1)* 1000.0) / 1000.0;
                 }
             } catch (Exception ignored) {
 

@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.MainActivityTable;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewtonDifferences;
 
 
@@ -25,8 +22,6 @@ import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.eval.TeXUtilities;
 import org.matheclipse.core.expression.F;
 import org.matheclipse.core.interfaces.IExpr;
-import org.matheclipse.core.reflection.system.ExpandAll;
-import org.matheclipse.parser.client.eval.DoubleEvaluator;
 
 import java.io.StringWriter;
 import java.util.LinkedList;
@@ -86,7 +81,9 @@ public class newtonInterpolator extends baseInterpolationMethods {
             }
         });
 
-        return view;
+
+
+       return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -102,13 +99,14 @@ public class newtonInterpolator extends baseInterpolationMethods {
             derivs = new LinkedList<>();
             newtonInterpolation(fxn, 0, 1, new double[fxn.length - 1]);
             if (errorDivision) {
+
                 StringBuilder uglyFunction = new StringBuilder(String.valueOf(fxn[0]));
                 StringBuilder prev = new StringBuilder("");
                 for (int i = 1; i < derivs.size(); i++) {
                     prev.append("(x-").append(String.valueOf(xn[i - 1])).append(")");
                     uglyFunction.append("+").append(String.valueOf(derivs.get(i)[0])).append(prev);
                 }
-                EvalEngine util = new EvalEngine();
+                ExprEvaluator util = new ExprEvaluator();
                 IExpr result = util.evaluate(uglyFunction.toString());
 
                 //to latex
