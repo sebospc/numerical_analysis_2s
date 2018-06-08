@@ -111,7 +111,6 @@ public class newtonInterpolator extends baseInterpolationMethods {
                 EvalEngine util = new EvalEngine();
                 IExpr result = util.evaluate(uglyFunction.toString());
 
-
                 //to latex
                 EvalEngine engine = new EvalEngine(false);
                 IExpr outLatex = engine.evaluate(F.Simplify(result));
