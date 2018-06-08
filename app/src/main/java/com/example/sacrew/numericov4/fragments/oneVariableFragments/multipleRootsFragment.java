@@ -174,7 +174,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                         int cont = 0;
                         double error = tol + 1;
                         double xa = x0;
-                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0), String.valueOf(y0p1), String.valueOf(y0p2), String.valueOf(convertirCientifica(error)));
+                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(y0p1)), String.valueOf(convertirNormal(y0p2)), String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
@@ -201,7 +201,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                                 error = Math.abs(xn - xa);
                             xa = xn;
                             cont++;
-                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(y0), String.valueOf(y0p1), String.valueOf(y0p2), String.valueOf(convertirCientifica(error)));
+                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(y0p1)), String.valueOf(convertirNormal(y0p2)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(x0));
                             listValuesIteNext.add(String.valueOf(y0));
@@ -236,8 +236,8 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                 textError.setError("Tolerance must be > 0");
 
             }
-            //MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.list_adapter_multiple_roots, listValues);
-            //listView.setAdapter(adapter);
+            MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.list_adapter_multiple_roots, listValues);
+            listView.setAdapter(adapter);
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
         }

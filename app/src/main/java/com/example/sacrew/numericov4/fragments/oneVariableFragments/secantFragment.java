@@ -167,7 +167,7 @@ public class secantFragment extends baseOneVariableFragments {
                         Double aux0 = x0;
                         Double aux1 = x1;
                         Double den = fx1-fx0;
-                        Secant iteZero = new Secant(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirCientifica(fx0)), String.valueOf(convertirCientifica(fx1)), String.valueOf(convertirCientifica(den)), String.valueOf(convertirCientifica(error)));
+                        Secant iteZero = new Secant(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(fx0)), String.valueOf(convertirNormal(fx1)), String.valueOf(convertirNormal(den)), String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
@@ -190,7 +190,7 @@ public class secantFragment extends baseOneVariableFragments {
                             fx1  = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
                             den = fx1 - fx0;
                             cont = cont + 1;
-                            Secant iteNext= new Secant(String.valueOf(cont), String.valueOf(convertirNormal(aux0)), String.valueOf(convertirCientifica(fx0)), String.valueOf(convertirCientifica(fx1)), String.valueOf(convertirCientifica(den)), String.valueOf(convertirCientifica(error)));
+                            Secant iteNext= new Secant(String.valueOf(cont), String.valueOf(convertirNormal(aux0)), String.valueOf(convertirNormal(fx0)), String.valueOf(convertirNormal(fx1)), String.valueOf(convertirNormal(den)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(x0));
                             listValuesIteNext.add(String.valueOf(fx0));

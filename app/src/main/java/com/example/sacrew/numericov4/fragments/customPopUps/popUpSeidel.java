@@ -18,7 +18,7 @@ public class popUpSeidel extends Activity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) (width*0.97), (int) (height*0.67));
+        getWindow().setLayout((int) (width*0.97), (int) (height*0.70));
 
     }
 
