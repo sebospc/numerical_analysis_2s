@@ -25,6 +25,7 @@ import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.eval.TeXUtilities;
 import org.matheclipse.core.expression.F;
 import org.matheclipse.core.interfaces.IExpr;
+import org.matheclipse.core.reflection.system.ExpandAll;
 import org.matheclipse.parser.client.eval.DoubleEvaluator;
 
 import java.io.StringWriter;
@@ -37,7 +38,7 @@ import java.util.List;
  */
 public class newtonInterpolator extends baseInterpolationMethods {
 
-    private List<List<Double>> derivs;
+    private List<double []> derivs;
     private boolean errorDivision = true;
 
     public newtonInterpolator() {
@@ -70,7 +71,8 @@ public class newtonInterpolator extends baseInterpolationMethods {
                 if(calc) {
                     Intent i = new Intent(getContext(), mathExpressions.class);
                     Bundle b = new Bundle();
-                    b.putString("key", function); //Your id
+
+                    b.putString("key","$${"+function+"\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$"); //Your id
                     i.putExtras(b); //Put your id to your next Intent
                     startActivity(i);
                 }
@@ -83,6 +85,7 @@ public class newtonInterpolator extends baseInterpolationMethods {
                 executeHelp();
             }
         });
+
         return view;
     }
 
@@ -94,59 +97,59 @@ public class newtonInterpolator extends baseInterpolationMethods {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void execute() {
-        bootStrap();
-        derivs = new LinkedList<>();
-        newtonInterpolation(fxn, 0, 1, new LinkedList<Double>());
-        if (errorDivision) {
-            StringBuilder uglyFunction = new StringBuilder(String.valueOf(fxn.get(0)));
-            StringBuilder prev = new StringBuilder("");
-            for (int i = 1; i < derivs.size(); i++) {
-                System.out.println("xn[" + i + "]=" + xn.get(i - 1));
-                System.out.println("deriv[" + i + "]=" + derivs.get(i).get(0));
-                prev.append("(x-").append(String.valueOf(xn.get(i - 1))).append(")");
-                uglyFunction.append("+").append(String.valueOf(derivs.get(i).get(0))).append(prev);
+        boolean errorValues = bootStrap();
+        if(errorValues) {
+            derivs = new LinkedList<>();
+            newtonInterpolation(fxn, 0, 1, new double[fxn.length - 1]);
+            if (errorDivision) {
+                StringBuilder uglyFunction = new StringBuilder(String.valueOf(fxn[0]));
+                StringBuilder prev = new StringBuilder("");
+                for (int i = 1; i < derivs.size(); i++) {
+                    prev.append("(x-").append(String.valueOf(xn[i - 1])).append(")");
+                    uglyFunction.append("+").append(String.valueOf(derivs.get(i)[0])).append(prev);
+                }
+                EvalEngine util = new EvalEngine();
+                IExpr result = util.evaluate(uglyFunction.toString());
+
+
+                //to latex
+                EvalEngine engine = new EvalEngine(false);
+                IExpr outLatex = engine.evaluate(F.Simplify(result));
+
+                TeXUtilities texUtil = new TeXUtilities(engine, false);
+                StringWriter stw = new StringWriter();
+                texUtil.toTeX(outLatex, stw);
+                //add new expression type latex
+                function = stw.toString();
+
+                //update graph
+                updateGraph(outLatex.toString(), getContext(), (int) Math.ceil(((xn[xn.length - 1] - xn[0]) * 10) + 20));
+                //variable to open equations
+                calc = true;
             }
-            ExprEvaluator util = new ExprEvaluator(false, 100);
-            System.out.println("ugly " + uglyFunction.toString());
-            IExpr result = util.evaluate(uglyFunction.toString());
-
-            System.out.println("pretty " + result.toString());
-
-            Config.PARSER_USE_LOWERCASE_SYMBOLS = false;
-            EvalEngine engine = new EvalEngine(false);
-            IExpr outLatex = engine.evaluate(F.Simplify(result));
-            IExpr expanded = engine.evaluate(F.FullSimplify(result));
-            System.out.println("simplify : " +outLatex.toString());
-            System.out.println("full : " +expanded.toString());
-            TeXUtilities texUtil = new TeXUtilities(engine, false);
-
-            StringWriter stw = new StringWriter();
-            texUtil.toTeX(outLatex, stw);
-
-            System.out.println("latex: " + stw.toString());
-            updateGraph(uglyFunction.toString(), getContext());
-            function = stw.toString();
-            calc = true;
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void newtonInterpolation(List<Double> fxn, int difference, int i, List<Double> auxFxn) {
-        if (fxn.size() == 1) {
-            derivs.add(fxn);
-        } else if (i == fxn.size()) {
-            derivs.add(fxn);
-            newtonInterpolation(auxFxn, difference + 1, 1, new LinkedList<Double>());
+    public void newtonInterpolation(double[] actualValues, int difference, int i, double[] auxFxn) {
+        System.out.println("actual values "+actualValues.length+" i: "+i);
+        if (actualValues.length == 1) {
+            derivs.add(actualValues);
+        } else if (i == actualValues.length) {
+            System.out.println("STOP auxFxn: "+auxFxn.length);
+            derivs.add(actualValues);
+            System.out.println("new length " + (auxFxn.length-1));
+            newtonInterpolation(auxFxn, difference + 1, 1, new double[auxFxn.length-1]);
+
         } else {
-            System.out.println("difference " + difference + " i " + i + " size " + xn.size());
-            double denominator = (xn.get(i + difference) - xn.get(i - 1));
+            double denominator = (xn[i + difference] - xn[i - 1]);
             if (denominator == 0) {
                 Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
                 errorDivision = false;
             }
-            double newFxn = (fxn.get(i) - fxn.get(i - 1)) / denominator;
-            auxFxn.add(newFxn);
-            newtonInterpolation(fxn, difference, i + 1, auxFxn);
+            double newFxn = (actualValues[i] - actualValues[i - 1]) / denominator;
+            auxFxn[i-1] = newFxn;
+            newtonInterpolation(actualValues, difference, i + 1, auxFxn);
         }
     }
 }

@@ -38,25 +38,13 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
-import org.matheclipse.core.basic.Config;
-import org.matheclipse.core.eval.ExprEvaluator;
-import org.matheclipse.core.eval.TeXUtilities;
-import org.matheclipse.core.interfaces.IAST;
-import org.matheclipse.core.interfaces.IExpr;
-import org.matheclipse.parser.client.SyntaxError;
-import org.matheclipse.parser.client.math.MathException;
-import java.io.StringWriter;
 
-import org.matheclipse.core.basic.Config;
 import org.matheclipse.core.eval.EvalEngine;
-import org.matheclipse.core.eval.TeXUtilities;
-import org.matheclipse.parser.client.SyntaxError;
-import org.matheclipse.parser.client.math.MathException;
-import java.io.StringWriter;
-import static org.matheclipse.core.expression.F.*;
+import org.matheclipse.core.expression.F;
+import org.matheclipse.parser.client.eval.DoubleEvaluator;
+import org.matheclipse.parser.client.eval.DoubleVariable;
+import org.matheclipse.parser.client.eval.IDoubleValue;
 
-
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -84,27 +72,7 @@ public class interpolation extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_interpolation, container, false);
-        Config.PARSER_USE_LOWERCASE_SYMBOLS = true;
 
-        ExprEvaluator util = new ExprEvaluator(false, 100);
-
-        // Show an expression in the Java form:
-        // Note: single character identifiers are case sensistive
-        // (the "D()" function input must be written as upper case character)
-        String javaForm = util.toJavaForm("D(sin(x)*cos(x),x)");
-        // prints: D(Times(Sin(x),Cos(x)),x)
-        System.out.println(javaForm.toString());
-
-        // Use the Java form to create an expression with F.* static methods:
-        IAST function = D(Times(Sin(x), Cos(x)), x);
-        IExpr result = util.evaluate(function);
-        // print: Cos(x)^2-Sin(x)^2
-        System.out.println(result.toString());
-        StringWriter stw = new StringWriter();
-
-        TeXUtilities texUtil = new TeXUtilities(new EvalEngine(false), false);
-        texUtil.toTeX("x+x*x/2",stw);
-        System.out.println(stw.toString());
         for(float i = 0; i < 360; i += 360 / 20) {
             float[] hsv = new float[3];
             hsv[0] = i;
@@ -117,6 +85,11 @@ public class interpolation extends Fragment {
         interpolationGraph = view.findViewById(R.id.interpolationGraph);
         ImageButton add = view.findViewById(R.id.addRow);
         ImageButton homeGraph = view.findViewById(R.id.homeGraphButton);
+        DoubleEvaluator engine = new DoubleEvaluator();
+
+        IDoubleValue vd = new DoubleVariable(3.0);
+        engine.defineVariable("x",vd);
+
         final List<LineGraphSeries<DataPoint>> listSeries = graphUtils.graphPharallel(50, "x", 0, getContext());
         homeGraph.setOnClickListener(new View.OnClickListener() {
             @Override

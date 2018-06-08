@@ -222,7 +222,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                             graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);

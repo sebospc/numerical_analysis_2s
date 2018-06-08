@@ -31,7 +31,7 @@ public class mathExpressions extends AppCompatActivity {
         else if(function.length() < 80)
             mathView.setTextSize(80);
         else mathView.setTextSize(60);
-        mathView.setDisplayText("${"+function+"\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$");
+        mathView.setDisplayText(function);
         mathView.getSettings().setJavaScriptEnabled(true);
         mathView.getSettings().setBuiltInZoomControls(true);
         mathView.getSettings().setDisplayZoomControls(true);

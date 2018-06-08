@@ -2,3 +2,4 @@
 -keep interface org.matheclipse.core.interfaces.IPattern
 -keep android.webkit.SafeBrowsingResponse
 -keep android.webkit.RenderProcessGoneDetail
+-keep org.apache.** {*;}
