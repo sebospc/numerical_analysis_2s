@@ -25,11 +25,13 @@ import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
+import com.irozon.sneaker.Sneaker;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
+
 
 import org.apache.commons.math3.analysis.function.Exp;
 
@@ -208,16 +210,18 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
 
                         if (y1 == 0) {
                             graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
 
                         } else if (y1 * y0 < 0) {
-                            Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
+
                             graphSerie(x0-0.2,x1+0.2,function.getExpression(),graph,getResources().getColor(R.color.colorPrimary));
                         }
 
                     } else {
                         graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                        Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
+
                     }
 
                 } else {
@@ -226,12 +230,14 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                 calc= true;
             } else {
                 this.delta.setError("Delta cannot be zero");
+
             }
             IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.list_adapter_incremental_search, listValues);
             listView.setAdapter(adapter);
 
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+
         }
 
 
