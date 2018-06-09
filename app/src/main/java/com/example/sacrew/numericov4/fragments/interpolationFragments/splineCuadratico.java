@@ -107,11 +107,9 @@ public class splineCuadratico extends baseSpliners{
         int n = supermatrix.length;
         int j = 0;
         int z = 0;
-        ExprEvaluator util = new ExprEvaluator();
-        EvalEngine engine = new EvalEngine(false);
-        TeXUtilities texUtil = new TeXUtilities(engine, false);
+
         function += "$${x^2a_{n} + xb_{n} + c_{n}}$$";
-        StringWriter stw;
+
         //normal
         for(int i = 0; i < inequality.length; i++) {
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
@@ -121,17 +119,14 @@ public class splineCuadratico extends baseSpliners{
             supermatrix[j][n] = aux.first.second;
 
             String auxj = String.valueOf(z-j);
-            String equation = supermatrix[j][z]+"a_{"+auxj+"}+"+aux.first.first+"b_{"+auxj+"}+c_{"+auxj+"}";
-            stw = new StringWriter();
-            texUtil.toTeX(engine.evaluate(equation),stw);
+            String equation = supermatrix[j][z]+"a_{"+auxj+"}+"+aux.first.first+"b_{"+auxj+"}+c_{"+auxj+"} = "+aux.first.second;
+
             function += "$${"+equation+" \\qquad with \\enspace ("+aux.first.first+","+aux.first.second+")\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
             supermatrix[j+1][z] = Math.pow(aux.second.first,2);
             supermatrix[j+1][z+1] = aux.second.first;
             supermatrix[j+1][z+2] = 1;
             supermatrix[j+1][n] = aux.second.second;
-            stw = new StringWriter();
-            equation = supermatrix[j+1][z]+"a_{"+auxj+"}+"+aux.second.first+"b_{"+auxj+"}+c_{"+auxj+"}";
-            texUtil.toTeX(engine.evaluate(equation),stw);
+            equation = supermatrix[j+1][z]+"a_{"+auxj+"}+"+aux.second.first+"b_{"+auxj+"}+c_{"+auxj+"} = "+aux.second.second;
             function += "$${"+equation+" \\qquad with \\enspace ("+aux.second.first+","+aux.second.second+")\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
             z += 3;
             j += 2;
@@ -168,6 +163,10 @@ public class splineCuadratico extends baseSpliners{
         j = 0;
         equations = new LinkedList<>();
         function += "$${p(x) = \\begin{cases}";
+        StringWriter stw;
+        ExprEvaluator util = new ExprEvaluator();
+        EvalEngine engine = new EvalEngine(false);
+        TeXUtilities texUtil = new TeXUtilities(engine, false);
         for(int i = 0; i < inequality.length; i++){
 
             String auxFunc = result[j]+"*(x^2)+"+result[j+1]+"*x+"+result[j+2];

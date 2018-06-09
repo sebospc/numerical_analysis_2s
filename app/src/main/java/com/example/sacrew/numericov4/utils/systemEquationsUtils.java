@@ -33,9 +33,11 @@ public class systemEquationsUtils {
             }
             if(expandedMatrix[auxi][auxi] == 0) {
                 //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-                return values;
+                return null;
             }
-            values[auxi] = (expandedMatrix[auxi][n+1]-sumatoria)/expandedMatrix[auxi][auxi];
+            double aux = (expandedMatrix[auxi][n+1]-sumatoria)/expandedMatrix[auxi][auxi];
+            if(Math.abs(aux) < 10E-13)aux = 0;
+            values[auxi] = aux;
 
         }
 
@@ -99,7 +101,9 @@ public class systemEquationsUtils {
                     //Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
                 double multiplier = expandedMatrix[i][k] / expandedMatrix[k][k];
                 for(int j = k; j < expandedMatrix.length + 1; j++){
-                    expandedMatrix[i][j] = expandedMatrix[i][j] - multiplier*expandedMatrix[k][j];
+                    double aux = expandedMatrix[i][j] - multiplier*expandedMatrix[k][j];
+                    if(Math.abs(aux) < 10E-13) aux = 0;
+                    expandedMatrix[i][j] = aux;
                 }
             }
         }
