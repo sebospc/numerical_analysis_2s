@@ -29,10 +29,10 @@ import static com.example.sacrew.numericov4.fragments.interpolation.poolColors;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class splineLineal extends baseSpliners{
+public class splineLinear extends baseSpliners{
 
 
-    public splineLineal() {
+    public splineLinear() {
         // Required empty public constructor
     }
 
@@ -108,7 +108,7 @@ public class splineLineal extends baseSpliners{
         EvalEngine engine = new EvalEngine(false);
         TeXUtilities texUtil = new TeXUtilities(engine, false);
         for(int i = 0; i < inequality.length; i++){
-            Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
+                Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             double check = (aux.second.first-aux.first.first);
             if(check == 0) {
                 Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
@@ -118,7 +118,6 @@ public class splineLineal extends baseSpliners{
             int color = poolColors.remove(0);
             poolColors.add(color);
 
-            System.out.println("en iter"+i+" "+aux);
             String functionSimplfied = util.evaluate(F.FullSimplify(util.evaluate(aux.second.second+"+("+numerator+"/"+"("+check+"))*(x-("+aux.second.first+"))"))).toString();
             equations.add(new Pair<>(functionSimplfied,new Pair<>(color,new Pair<>(aux.first.first,aux.second.first))));
             stw = new StringWriter();

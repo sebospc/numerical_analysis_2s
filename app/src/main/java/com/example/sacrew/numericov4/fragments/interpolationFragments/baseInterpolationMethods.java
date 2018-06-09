@@ -5,7 +5,7 @@ import android.content.Context;
 import android.widget.EditText;
 import android.widget.TableRow;
 
-import com.example.sacrew.numericov4.graphUtils;
+import com.example.sacrew.numericov4.utils.graphUtils;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 

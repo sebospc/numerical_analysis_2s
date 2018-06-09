@@ -23,15 +23,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.lagrange;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.newtonInterpolator;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.splineCuadratico;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.splineCubico;
-import com.example.sacrew.numericov4.fragments.interpolationFragments.splineLineal;
-import com.example.sacrew.numericov4.graphUtils;
+import com.example.sacrew.numericov4.fragments.interpolationFragments.splineLinear;
+import com.example.sacrew.numericov4.utils.graphUtils;
 import com.example.sacrew.numericov4.pagerAdapter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -39,8 +38,6 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
 
-import org.matheclipse.core.eval.EvalEngine;
-import org.matheclipse.core.expression.F;
 import org.matheclipse.parser.client.eval.DoubleEvaluator;
 import org.matheclipse.parser.client.eval.DoubleVariable;
 import org.matheclipse.parser.client.eval.IDoubleValue;
@@ -132,7 +129,7 @@ public class interpolation extends Fragment {
         List<Fragment> fragments = new LinkedList<>();
         fragments.add(new newtonInterpolator());
         fragments.add(new lagrange());
-        fragments.add(new splineLineal());
+        fragments.add(new splineLinear());
         fragments.add(new splineCuadratico());
         fragments.add(new splineCubico());
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);

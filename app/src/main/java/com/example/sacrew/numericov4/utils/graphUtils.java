@@ -1,4 +1,4 @@
-package com.example.sacrew.numericov4;
+package com.example.sacrew.numericov4.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -216,7 +216,12 @@ public class graphUtils {
             double x = this.x;
             ExprEvaluator aux = new ExprEvaluator();
             IDoubleValue vd = new DoubleVariable(3.0);
-
+            if( x > this.end){
+                y = x;
+                x = this.end;
+                this.end = y;
+            }
+            y = -1;
             try {
                 engine.defineVariable("x", vd);
                 engine.evaluate(function);

@@ -7,10 +7,14 @@
     tools:context=".fragments.interpolationFragments.mathExpressions">
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:overScrollMode="never">
         <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:overScrollMode="never">
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
@@ -18,7 +22,7 @@
 
                 android:id="@+id/math_view"
                 android:layout_width="wrap_content"
-                android:layout_height="600dp" />
+                android:layout_height="wrap_content" />
         </FrameLayout>
         </ScrollView>
     </HorizontalScrollView>
