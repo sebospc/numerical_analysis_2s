@@ -4,8 +4,10 @@ package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,6 +22,9 @@ import android.widget.ToggleButton;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpSeidel;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +42,8 @@ public class gaussSeidel extends baseIterativeMethods {
 
     private EditText error,iters,relaxation;
     private ToggleButton errorToggle;
+    String mensaje = "";
+
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout initialValuesSeidel;
     public gaussSeidel() {
@@ -177,7 +184,9 @@ public class gaussSeidel extends baseIterativeMethods {
         }else{
             for(double val: x0)
                 xValuesText.addView(defaultEditText((val+"      ").substring(0,6)));
-            Toast.makeText(getContext(),  "Failed", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(),  "Failed", Toast.LENGTH_SHORT).show();
+            mensaje = "The method failed!";
+            styleWrongMessage(mensaje);
         }
     }
 
@@ -195,6 +204,28 @@ public class gaussSeidel extends baseIterativeMethods {
             x[i] = value;
         }
         return x;
+    }
+
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
+                            .setColor(Color.TRANSPARENT).show();
+                }
+            };
+
+    private void styleWrongMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
     }
 
 }

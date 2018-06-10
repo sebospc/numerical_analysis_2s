@@ -11,6 +11,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.TextViewCompat;
 import android.text.method.DigitsKeyListener;
@@ -24,6 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 
 import java.text.DecimalFormat;
 import java.util.LinkedList;
@@ -346,11 +350,14 @@ public abstract class baseSystemEquations extends Fragment {
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     private double[] substitution(double [][] expandedMatrix,int basura){//regression
+        String message = "";
         xValuesText.removeAllViews();
         int n = expandedMatrix.length-1;
         double[] values = new double[n+1];
         if(expandedMatrix[n][n] == 0) {
-            Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+            message = "Error division 0";
+            styleWrongMessage(message);
             return values;
         }
         double x = expandedMatrix[n][n+1]/expandedMatrix[n][n];
@@ -363,7 +370,9 @@ public abstract class baseSystemEquations extends Fragment {
                 sumatoria = sumatoria + expandedMatrix[auxi][p]*values[p];
             }
             if(expandedMatrix[auxi][auxi] == 0) {
-                Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+                message = "Error division 0";
+                styleWrongMessage(message);
                 return values;
             }
             values[auxi] = (expandedMatrix[auxi][n+1]-sumatoria)/expandedMatrix[auxi][auxi];
@@ -389,6 +398,7 @@ public abstract class baseSystemEquations extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public double[][] totalPivot(int k, double [][] expandedMAtrix, int [] marks, TableLayout table,int color,boolean acces){
         double mayor = 0.0;
+        String message = "";
         int higherRow= k;
         int higherColumn = k;
         for(int r = k; r< expandedMAtrix.length; r++){
@@ -401,7 +411,9 @@ public abstract class baseSystemEquations extends Fragment {
             }
         }
         if(mayor == 0){
-            Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
+                message = "Error division 0";
+                styleWrongMessage(message);
         }else{
             if(higherRow != k)
                 swapRows(k,higherRow,expandedMAtrix,table,color);
@@ -452,6 +464,27 @@ public abstract class baseSystemEquations extends Fragment {
                 pivoted = true;
             }
         }
+    }
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
+                            .setColor(Color.TRANSPARENT).show();
+                }
+            };
+
+    private void styleWrongMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
     }
 
 }

@@ -2,8 +2,10 @@ package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +20,9 @@ import android.widget.Toast;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpInverseMatrix;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.complex.ComplexFormat;
@@ -33,6 +38,7 @@ public class inverseDeterminant extends baseFactorizationMethods {
     private Complex[][] matrixUComplex;
     private TableLayout matrixResult;
     private TextView determinant;
+    String mensaje = "";
     private int actual = -1;
     public inverseDeterminant() {
         // Required empty public constructor
@@ -164,7 +170,9 @@ public class inverseDeterminant extends baseFactorizationMethods {
         int n = matrixLComplex.length-1;
         Complex [] x = new Complex[n+1];
         if(matrixUComplex[0][0].getReal() == 0 && matrixUComplex[0][0].getImaginary() == 0) {
-            Toast.makeText(getContext(), "Error division 0 in progressive substitution 1", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Error division 0 in progressive substitution 1", Toast.LENGTH_SHORT).show();
+            mensaje = "Error division 0 in progressive substitution 1";
+            styleWrongMessage(mensaje);
             return x;
         }
         x[0] = matrixUComplex[0][n+1].divide(matrixUComplex[0][0]);
@@ -174,7 +182,9 @@ public class inverseDeterminant extends baseFactorizationMethods {
                 sumatoria = sumatoria.add(matrixLComplex[i][p].multiply(x[p]));
             }
             if(matrixLComplex[i][i].getReal() == 0 && matrixLComplex[i][i].getImaginary() == 0) {
-                Toast.makeText(getContext(), "Error division 0 in progressive substitution 2", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Error division 0 in progressive substitution 2", Toast.LENGTH_SHORT).show();
+                mensaje = "Error division 0 in progressive substitution 2";
+                styleWrongMessage(mensaje);
                 return x;
             }
             x[i] = (matrixLComplex[i][n+1].subtract(sumatoria)).divide(matrixLComplex[i][i]);
@@ -191,7 +201,9 @@ public class inverseDeterminant extends baseFactorizationMethods {
         int n = expandedMatrix.length-1;
         Complex[] values = new Complex[n+1];
         if(expandedMatrix[n][n].getReal() == 0 && expandedMatrix[n][n].getImaginary() == 0) {
-            Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+            mensaje = "Error division 0";
+            styleWrongMessage(mensaje);
             return values;
         }
         Complex x = expandedMatrix[n][n+1].divide(expandedMatrix[n][n]);
@@ -204,7 +216,9 @@ public class inverseDeterminant extends baseFactorizationMethods {
                 sumatoria = sumatoria.add(expandedMatrix[auxi][p].multiply(values[p]))  ;
             }
             if(expandedMatrix[auxi][auxi].getReal() == 0 && expandedMatrix[auxi][auxi].getImaginary() == 0) {
-                Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+                mensaje = "Error division 0";
+                styleWrongMessage(mensaje);
                return values;
             }
             values[auxi] = (expandedMatrix[auxi][n+1].subtract(sumatoria)).divide(expandedMatrix[auxi][auxi]);
@@ -230,4 +244,25 @@ public class inverseDeterminant extends baseFactorizationMethods {
         else return new ComplexFormat().format(c).replaceAll("\\s+","");
     }
 
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
+                            .setColor(Color.TRANSPARENT).show();
+                }
+            };
+
+    private void styleWrongMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
 }

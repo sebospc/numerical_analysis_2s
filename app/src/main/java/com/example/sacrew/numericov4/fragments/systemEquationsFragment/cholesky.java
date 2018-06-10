@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,6 +25,9 @@ import android.widget.Toast;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpCholesky;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,6 +51,7 @@ public class cholesky extends baseFactorizationMethods{
     private Complex[][] matrixUCholesky;
     private TextView suma;
     private ComplexFormat formater;
+    String message = "";
 
     public cholesky() {
         // Required empty public constructor
@@ -332,7 +337,9 @@ public class cholesky extends baseFactorizationMethods{
                     animations.add(animatronix);
                 }
                 if(matrixUCholesky[k][k].getReal() == 0 && matrixUCholesky[k][k].getImaginary() == 0) {
-                    Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+                    message = "Error division 0";
+                    styleWrongMessage(message);
                     System.out.println(matrixUCholesky[k][k].toString());
                     return;
                 }
@@ -439,7 +446,9 @@ public class cholesky extends baseFactorizationMethods{
                     animations.add(animatronix);
                 }
                 if(matrixLCholesky[k][k].getReal() == 0 && matrixLCholesky[k][k].getImaginary() == 0) {
-                    Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+                    message = "Error division 0";
+                    styleWrongMessage(message);
                     System.out.println(matrixLCholesky[k][k].toString());
                     return;
                 }
@@ -587,7 +596,9 @@ public class cholesky extends baseFactorizationMethods{
         int n = matrixLCholesky.length-1;
         Complex [] x = new Complex[n+1];
         if(matrixUCholesky[0][0].getReal() == 0 && matrixUCholesky[0][0].getImaginary() == 0) {
-            Toast.makeText(getContext(), "Error division 0 in progressive substitution", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Error division 0 in progressive substitution", Toast.LENGTH_SHORT).show();
+            message = "Error division 0 in progressive substitution";
+            styleWrongMessage(message);
             return x;
         }
         x[0] = matrixUCholesky[0][n+1].divide(matrixUCholesky[0][0]);
@@ -597,7 +608,9 @@ public class cholesky extends baseFactorizationMethods{
                 sumatoria = sumatoria.add(matrixLCholesky[i][p].multiply(x[p]));
             }
             if(matrixLCholesky[i][i].getReal() == 0 && matrixLCholesky[i][i].getImaginary() == 0) {
-                Toast.makeText(getContext(), "Error division 0 in progressive substitution", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Error division 0 in progressive substitution", Toast.LENGTH_SHORT).show();
+                message = "Error division 0 in progressive substitution";
+                styleWrongMessage(message);
                 return x;
             }
             x[i] = (matrixLCholesky[i][n+1].subtract(sumatoria)).divide(matrixLCholesky[i][i]);
@@ -614,7 +627,9 @@ public class cholesky extends baseFactorizationMethods{
         int n = expandedMatrix.length-1;
         Complex[] values = new Complex[n+1];
         if(expandedMatrix[n][n].getReal() == 0 && expandedMatrix[n][n].getImaginary() == 0) {
-            Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+            message = "Error division 0";
+            styleWrongMessage(message);
             return;
         }
         Complex x = expandedMatrix[n][n+1].divide(expandedMatrix[n][n]);
@@ -627,7 +642,9 @@ public class cholesky extends baseFactorizationMethods{
                 sumatoria = sumatoria.add(expandedMatrix[auxi][p].multiply(values[p]))  ;
             }
             if(expandedMatrix[auxi][auxi].getReal() == 0 && expandedMatrix[auxi][auxi].getImaginary() == 0) {
-                Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
+                message = "Error division 0";
+                styleWrongMessage(message);
                 return;
             }
             values[auxi] = (expandedMatrix[auxi][n+1].subtract(sumatoria)).divide(expandedMatrix[auxi][auxi]);
@@ -638,6 +655,27 @@ public class cholesky extends baseFactorizationMethods{
             xValuesText.addView(defaultEditText((formating(val)+"            ").substring(0,6)));
         }
 
+    }
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
+                            .setColor(Color.TRANSPARENT).show();
+                }
+            };
+
+    private void styleWrongMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
     }
 
 }
