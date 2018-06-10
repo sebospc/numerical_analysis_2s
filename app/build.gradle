@@ -7,7 +7,7 @@ android {
     }
     defaultConfig {
         applicationId "com.example.sacrew.numericov4"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         multiDexEnabled true
         versionCode 1
@@ -54,5 +54,6 @@ dependencies {
     implementation 'io.github.kexanie.library:MathView:0.0.6'
     implementation 'in.hourglass.mathrender:katexmathview:1.0'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.irozon.sneaker:sneaker:1.0.3'
 
 }
