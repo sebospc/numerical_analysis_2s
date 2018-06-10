@@ -55,5 +55,6 @@ dependencies {
     implementation 'in.hourglass.mathrender:katexmathview:1.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.irozon.sneaker:sneaker:1.0.3'
+    implementation 'com.github.johnpersano:supertoasts:2.0'
 
 }

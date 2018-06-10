@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -26,6 +27,10 @@ import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
 
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.udojava.evalex.Expression;
 
 
@@ -107,6 +112,15 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
         Intent i = new Intent(getContext().getApplicationContext(), popUpIncrementalSearch.class);
         startActivity(i);
     }
+
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperToast.create(view.getContext(), null, Style.DURATION_SHORT).show();
+                }
+            };
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -212,10 +226,28 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             graphPoint(x1,y1,color);
                             //graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             //Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
+                            SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                                    .setButtonText("UNDO")
+                                    .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                                    .setProgressBarColor(Color.WHITE)
+                                    .setText(convertirNormal(x1) + " is a root")
+                                    .setDuration(Style.DURATION_LONG)
+                                    .setFrame(Style.FRAME_LOLLIPOP)
+                                    .setColor(Color.rgb(30,136,229))
+                                    .setAnimations(Style.ANIMATIONS_POP).show();
 
                         } else if (y1 * y0 < 0) {
                             //Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
                           //  graphSerie(x0-0.2,x1+0.2,function.getExpression(),graph,getResources().getColor(R.color.colorPrimary));
+                            SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                                    .setButtonText("UNDO")
+                                    .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                                    .setProgressBarColor(Color.WHITE)
+                                    .setText("[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root")
+                                    .setDuration(Style.DURATION_LONG)
+                                    .setFrame(Style.FRAME_LOLLIPOP)
+                                    .setColor(Color.rgb(30,136,229))
+                                    .setAnimations(Style.ANIMATIONS_POP).show();
                         }
 
                     } else {
@@ -224,28 +256,64 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         graphPoint(x0,y0,color);
                         //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                         //Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(getActivity(), popUpMessage.class);
-                        startActivity(i);
+                        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                                .setButtonText("UNDO")
+                                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                                .setProgressBarColor(Color.WHITE)
+                                .setText(convertirNormal(x0) + " is a root")
+                                .setDuration(Style.DURATION_LONG)
+                                .setFrame(Style.FRAME_LOLLIPOP)
+                                .setColor(Color.rgb(50,230,29))
+                                .setAnimations(Style.ANIMATIONS_POP).show();
                     }
 
                 } else {
                     iter.setError("Iterate needs be >0");
-                    Intent i = new Intent(getActivity(), popUpMessage.class);
-                    startActivity(i);
+                    SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                            .setButtonText("UNDO")
+                            .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                            .setProgressBarColor(Color.WHITE)
+                            .setText("Iterate needs be >0")
+                            .setDuration(Style.DURATION_LONG)
+                            .setFrame(Style.FRAME_LOLLIPOP)
+                            .setColor(Color.rgb(230,29,70))
+                            .setAnimations(Style.ANIMATIONS_POP).show();
                 }
                 //calc= true;
             } else {
                 this.delta.setError("Delta cannot be zero");
-                Intent i = new Intent(getActivity(), popUpMessage.class);
-                startActivity(i);
+                SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                        .setButtonText("UNDO")
+                        .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                        .setProgressBarColor(Color.WHITE)
+                        .setText("Delta cannot be zero")
+                        .setDuration(Style.DURATION_LONG)
+                        .setFrame(Style.FRAME_LOLLIPOP)
+                        .setColor(Color.rgb(230,29,70))
+                        .setAnimations(Style.ANIMATIONS_POP).show();
             }
             IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.list_adapter_incremental_search, listValues);
             listView.setAdapter(adapter);
-
+            SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                    .setButtonText("UNDO")
+                    .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                    .setProgressBarColor(Color.WHITE)
+                    .setText("The method does not converge")
+                    .setDuration(Style.DURATION_LONG)
+                    .setFrame(Style.FRAME_LOLLIPOP)
+                    .setColor(Color.rgb(230,29,70))
+                    .setAnimations(Style.ANIMATIONS_POP).show();
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getActivity(), popUpMessage.class);
-            startActivity(i);
+            SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                    .setButtonText("UNDO")
+                    .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                    .setProgressBarColor(Color.WHITE)
+                    .setText("Unexpected error posibly nan")
+                    .setDuration(Style.DURATION_LONG)
+                    .setFrame(Style.FRAME_LOLLIPOP)
+                    .setColor(Color.rgb(230,29,70))
+                    .setAnimations(Style.ANIMATIONS_POP).show();
         }
 
 
