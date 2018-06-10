@@ -166,6 +166,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
                         listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                         double xa = x0;
                         completeList.add(listValuesIteZero);
+                        calc= true;
                             while ((y0 != 0) && (error > tol) && (cont < ite)) {
                                 ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
@@ -185,7 +186,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
                                 completeList.add(listValuesIteNext);
                             }
                         //TableViewModel.getCeldas(completeList);
-                            calc = true;
+                            //calc = true;
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphSerie(function.getExpression(),0, xa*2,color);

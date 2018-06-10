@@ -170,6 +170,7 @@ public class secantFragment extends baseOneVariableFragments {
                         listValuesIteZero.add(String.valueOf(fx0));
                         listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                         completeList.add(listValuesIteZero);
+                        calc= true;
                         while(fx1 != 0 && den != 0 && error > tol && cont < ite) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             Double aux2 = aux1 - (((this.function.with("x", BigDecimal.valueOf(aux1))
@@ -192,7 +193,7 @@ public class secantFragment extends baseOneVariableFragments {
                             completeList.add(listValuesIteNext);
                         }
                         //TableViewModel.getCeldas(completeList);
-                        calc= true;
+                        //calc= true;
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphSerie(function.getExpression(),0,aux1*2,color);

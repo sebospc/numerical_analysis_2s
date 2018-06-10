@@ -181,6 +181,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
                             int cont = 1;
                             double xaux = xm;
                             completeList.add(listValuesIteZero);
+                            calc= true;
                             while ((ym != 0) && (error > tol) && (cont < ite)) {
                                 ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 if (yi * ym < 0) {
@@ -231,7 +232,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
                             } else {
                                 Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                             }
-                            calc= true;
+                            //calc= true;
                         } else {
                             Toast.makeText(getContext(), "The interval dont have root", Toast.LENGTH_SHORT).show();
                         }

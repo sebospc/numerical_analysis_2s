@@ -180,6 +180,7 @@ public class bisectionFragment extends baseOneVariableFragments {
                             int cont = 1;
                             double xaux = xm;
                             //completeList.add(listValuesIteZero);
+                            calc= true;
                             while ((ym != 0) && (error > tol) && (cont < ite)) {
                                 ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 if (yi * ym < 0) {
@@ -209,7 +210,7 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 cont++;
                             }
                             //TableViewModel.getCeldas(completeList);
-                            calc= true;
+                            //calc= true;
                             int color = poolColors.remove(0);
                             poolColors.add(color);
                             graphSerie(function.getExpression(),0, xm*2,color);
