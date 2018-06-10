@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -59,6 +60,8 @@ public class systemEquations extends Fragment {
     public static AnimatorSet animatorSet = new AnimatorSet();
     @SuppressLint("StaticFieldLeak")
     public static ImageButton backMAtrix;
+    @SuppressLint("StaticFieldLeak")
+    public static LinearLayout xIndex;
     public static double [][]matrixBackpack;
     public static Boolean pivoted = false;
 
@@ -80,6 +83,8 @@ public class systemEquations extends Fragment {
 
         ImageButton add = view.findViewById(R.id.addRow);
         ImageButton remove = view.findViewById(R.id.deleteRow);
+        xIndex = view.findViewById(R.id.arrayXindex);
+        xIndex.setVisibility(View.GONE);
         backMAtrix = view.findViewById(R.id.backButton);
         backMAtrix.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +104,9 @@ public class systemEquations extends Fragment {
                     matrixAText.addView(row);
                     bValuesText.addView(defaultEditText(matrixBackpack[i][matrixBackpack.length]+""));
                 }
+                
                 backMAtrix.setVisibility(View.GONE);
+                xIndex.setVisibility(View.GONE);
                 pivoted = false;
             }
         });
@@ -261,7 +268,7 @@ public class systemEquations extends Fragment {
         text.setBackground(null);
         text.setTextColor(Color.WHITE);
         text.setTypeface(null, Typeface.BOLD);
-        text.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        text.setBackgroundColor(Color.parseColor("#FF303F9F"));
         text.setTextSize(TypedValue.COMPLEX_UNIT_DIP,10);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
         text.setKeyListener(DigitsKeyListener.getInstance("0123456789.-E"));

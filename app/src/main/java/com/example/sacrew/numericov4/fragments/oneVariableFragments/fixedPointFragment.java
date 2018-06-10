@@ -172,7 +172,6 @@ public class fixedPointFragment extends baseOneVariableFragments{
                                 ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                                 y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-
                                 if (errorRel)
                                     error = Math.abs(xn - xa) / xn;
                                 else

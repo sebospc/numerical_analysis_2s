@@ -36,6 +36,7 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.matrixATex
 import static com.example.sacrew.numericov4.fragments.systemEquations.matrixBackpack;
 import static com.example.sacrew.numericov4.fragments.systemEquations.pivoted;
 import static com.example.sacrew.numericov4.fragments.systemEquations.times;
+import static com.example.sacrew.numericov4.fragments.systemEquations.xIndex;
 import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesText;
 import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
 /**
@@ -150,6 +151,7 @@ public abstract class baseSystemEquations extends Fragment {
     public double[][] swapRows(int k, int higherRow, double[][] expandedMatrix){
         return swapRows(k,higherRow,expandedMatrix,matrixResult,defaultColor);
     }
+
     public double[][] swapRows(int k, int higherRow, final double[][] expandedMatrix, final TableLayout table,int color){
         final int length = expandedMatrix.length;
         final int auxK = k;
@@ -235,10 +237,11 @@ public abstract class baseSystemEquations extends Fragment {
     }
 
 
-    public void swapColumn(int k, int higherColumn, double[][] expandedMatrix, int [] marks, TableLayout table){
-        swapColumn(k,higherColumn,expandedMatrix,marks,table,defaultColor);
+
+    public void swapColumn(int k, int higherColumn, double[][] expandedMatrix, int [] marks, TableLayout table,int color){
+        swapColumn(k,higherColumn,expandedMatrix,marks,table,color,false);
     }
-    public void swapColumn(int k, int higherColumn, double[][] expandedMatrix, int [] marks, final TableLayout table,int color){
+    public void swapColumn(int k, int higherColumn, double[][] expandedMatrix, int [] marks, final TableLayout table,int color, boolean acces){
         if(marks != null) {
             int aux = marks[k];
             marks[k] = marks[higherColumn];
@@ -261,6 +264,10 @@ public abstract class baseSystemEquations extends Fragment {
 
                     ((TableRow) table.getChildAt(auxi)).getChildAt(auxk)
                             .setBackgroundColor((Integer) animator.getAnimatedValue());
+                    if(acces && auxi == 0){
+                        xIndex.getChildAt(auxHigherColumn).setBackgroundColor((Integer) animator.getAnimatedValue());
+                        xIndex.getChildAt(auxk).setBackgroundColor((Integer) animator.getAnimatedValue());
+                    }
                 }
             });
             colorAnimator.addListener(new Animator.AnimatorListener() {
@@ -277,6 +284,15 @@ public abstract class baseSystemEquations extends Fragment {
                         EditText textAux2 = (EditText) ((TableRow) table.getChildAt(auxi)).getChildAt(auxk);
                         textAux.setText(textAux2.getText().toString());
                         textAux2.setText(aux2);
+                        if(acces && auxi == 0){
+                            EditText textXAux = (EditText)xIndex.getChildAt(auxHigherColumn);
+                            String tempAcces = textXAux.getText().toString();
+                            EditText textXAux2 = (EditText)xIndex.getChildAt(auxk);
+                            textXAux.setText(textXAux2.getText().toString());
+                            textXAux2.setText(tempAcces);
+                            xIndex.getChildAt(auxHigherColumn).setBackgroundColor(Color.parseColor("#429ffd"));
+                            xIndex.getChildAt(auxk).setBackgroundColor(Color.parseColor("#429ffd"));
+                        }
                         if (!animations.isEmpty()) animations.remove(0);
                     }catch (Exception e){
                         table.removeAllViews();
@@ -289,6 +305,10 @@ public abstract class baseSystemEquations extends Fragment {
                             .setBackgroundColor(defaultColor);
                     ((TableRow) table.getChildAt(auxi)).getChildAt(auxk)
                             .setBackgroundColor(defaultColor);
+                    if(acces){
+                        xIndex.getChildAt(auxHigherColumn).setBackgroundColor(Color.parseColor("#429ffd"));
+                        xIndex.getChildAt(auxk).setBackgroundColor(Color.parseColor("#429ffd"));
+                    }
 
                 }
 
@@ -364,6 +384,10 @@ public abstract class baseSystemEquations extends Fragment {
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     public double[][] totalPivot(int k, double [][] expandedMAtrix, int [] marks, TableLayout table,int color){
+        return totalPivot(k,expandedMAtrix,marks,table,color,false);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public double[][] totalPivot(int k, double [][] expandedMAtrix, int [] marks, TableLayout table,int color,boolean acces){
         double mayor = 0.0;
         int higherRow= k;
         int higherColumn = k;
@@ -382,13 +406,14 @@ public abstract class baseSystemEquations extends Fragment {
             if(higherRow != k)
                 swapRows(k,higherRow,expandedMAtrix,table,color);
             if(higherColumn != k)
-                swapColumn(k,higherColumn,expandedMAtrix,marks,table,color);
+                swapColumn(k,higherColumn,expandedMAtrix,marks,table,color,acces);
         }
         return expandedMAtrix;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void securePivot(){
+
         double [][] expandedMatrix = getMatrix();
         if(animatorSet != null) {
             animatorSet.removeAllListeners();
@@ -399,6 +424,13 @@ public abstract class baseSystemEquations extends Fragment {
         animations = new LinkedList<>();
 
         if(expandedMatrix != null) {
+            xIndex.removeAllViews();
+            for(int i = 0; i < expandedMatrix.length;i++){
+                xIndex.addView(defaultEditText("X"+(i+1),Color.parseColor("#429ffd"),100,10,true));
+            }
+            xIndex.setVisibility(View.VISIBLE);
+
+
             if (!pivoted) {
                 int[] marks = new int[expandedMatrix.length];
                 for (int i = 0; i < marks.length; i++) {
@@ -413,7 +445,7 @@ public abstract class baseSystemEquations extends Fragment {
                     ((EditText) bValuesText.getChildAt(i)).setKeyListener(null);
                 }
                 for (int i = 0; i < expandedMatrix.length; i++) {
-                    totalPivot(i, expandedMatrix, marks, matrixAText,getResources().getColor(R.color.colorPrimary));
+                    totalPivot(i, expandedMatrix, marks, matrixAText,defaultColor,true);
                 }
                 animatorSet.playSequentially(animations);
                 animatorSet.start();

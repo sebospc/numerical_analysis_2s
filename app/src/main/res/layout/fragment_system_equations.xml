@@ -94,7 +94,7 @@
                 android:layout_height="200dp"
                 android:layout_below="@+id/textView22"
                 android:layout_marginLeft="24dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="0dp"
                 android:layout_toEndOf="@+id/relativeLayout4"
                 android:layout_toRightOf="@+id/relativeLayout4">
@@ -155,8 +155,32 @@
                 android:layout_below="@+id/addRow"
                 android:layout_marginBottom="150dp"
                 android:gravity="center|bottom"
-                android:background="@color/colorPrimary"
+                android:background="#429ffd"
                 android:src="@drawable/ic_previous"/>
+
+            <RelativeLayout
+                android:id="@+id/xIndex"
+                android:layout_width="30dp"
+                android:layout_height="200dp"
+                android:layout_alignStart="@+id/deleteRow"
+                android:layout_below="@+id/addRow"
+                android:layout_alignLeft="@+id/deleteRow"
+
+                >
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    android:overScrollMode="never">
+
+                    <LinearLayout
+                        android:id="@+id/arrayXindex"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" />
+
+                </ScrollView>
+            </RelativeLayout>
 
         </RelativeLayout>
     </RelativeLayout>
