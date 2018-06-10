@@ -24,7 +24,8 @@ import org.matheclipse.core.expression.F;
 import java.io.StringWriter;
 import java.util.LinkedList;
 
-import static com.example.sacrew.numericov4.fragments.interpolation.poolColors;
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+
 
 /**
  * A simple {@link Fragment} subclass.

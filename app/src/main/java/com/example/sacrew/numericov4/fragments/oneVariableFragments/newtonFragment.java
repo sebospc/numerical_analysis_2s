@@ -36,13 +36,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class newtonFragment extends baseOneVariableFragments {
 
-    private GraphView graph;
     private Expression functionG;
     private View view;
     private ListView listView;
@@ -69,6 +70,7 @@ public class newtonFragment extends baseOneVariableFragments {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+                cleanGraph();
                 bootStrap();
             }
         });
@@ -89,7 +91,6 @@ public class newtonFragment extends baseOneVariableFragments {
                 executeHelp();
             }
         });
-        graph = view.findViewById(R.id.newtonGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
@@ -144,7 +145,7 @@ public class newtonFragment extends baseOneVariableFragments {
     private void newtonMethod(Double x0, Double tol, int ite, boolean errorRel, String functionCompose) {
         Expression newtonFunction = new Expression(functionCompose);
         try {
-            graph.removeAllSeries();
+
 
             function.setPrecision(100);
             ArrayList<Newton> listValues = new ArrayList<>();
@@ -176,7 +177,7 @@ public class newtonFragment extends baseOneVariableFragments {
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             double xn = (newtonFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                            y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                            y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
 
                             if (errorRel)
                                 error = Math.abs(xn - xa) / xn;
@@ -194,22 +195,33 @@ public class newtonFragment extends baseOneVariableFragments {
                         }
                         //TableViewModel.getCeldas(completeList);
                         calc= true;
-                        graphSerie(xa - 0.5, xa, function.getExpression(), graph, Color.BLUE);
-                        graphSerie(xa - 0.5, xa, functionG.getExpression(), graph, Color.RED);
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphSerie(function.getExpression(),0,xa*2,color);
+                        //graphSerie(xa - 0.5, xa, function.getExpression(), graph, Color.BLUE);
                         if (y0 == 0) {
-                            graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                            color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphPoint(xa,y0,color);
+                            //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
 
                         } else if (error <= tol) {
-                            y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                            graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                            color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphPoint(xa,y0,color);
+
+                            //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
                             System.out.println("Failed the interval!");
                             Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphPoint(x0,y0,color);
+                        //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                         Toast.makeText(getContext(), convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
 
                     }

@@ -8,8 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.25"
+        android:layout_height="30dp"
         android:orientation="vertical">
 
         <TextView
@@ -21,17 +20,11 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <com.jjoe64.graphview.GraphView
-            android:id="@+id/bisectionGraph"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.31">
+        android:layout_height="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +36,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight=".9"
                 android:orientation="horizontal">
 
                 <AutoCompleteTextView
@@ -51,7 +43,6 @@
                     android:layout_width="164dp"
                     android:layout_height="wrap_content"
                     android:hint="Function" />
-
                 <EditText
                     android:id="@+id/iterations"
                     android:layout_width="55dp"
@@ -74,13 +65,11 @@
                     android:background="@drawable/check"
                     android:textOff=""
                     android:textOn="" />
-
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight=".9"
                 android:orientation="horizontal">
 
                 <EditText
@@ -135,13 +124,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.2"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight=".15"
             android:orientation="vertical">
 
             <LinearLayout
@@ -180,7 +167,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -196,7 +182,7 @@
                     <ListView
                         android:id="@+id/listView"
                         android:layout_width="match_parent"
-                        android:layout_height="144dp">
+                        android:layout_height="match_parent">
 
                     </ListView>
 

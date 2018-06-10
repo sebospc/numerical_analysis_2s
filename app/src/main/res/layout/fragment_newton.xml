@@ -8,8 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.25"
+        android:layout_height="30dp"
         android:orientation="vertical">
 
         <TextView
@@ -21,17 +20,11 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <com.jjoe64.graphview.GraphView
-            android:id="@+id/newtonGraph"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.31">
+        android:layout_height="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,7 +105,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.2"
         android:orientation="vertical">
 
         <LinearLayout
@@ -173,7 +165,7 @@
                     <ListView
                         android:id="@+id/listView"
                         android:layout_width="match_parent"
-                        android:layout_height="122dp">
+                        android:layout_height="match_parent">
 
                     </ListView>
 

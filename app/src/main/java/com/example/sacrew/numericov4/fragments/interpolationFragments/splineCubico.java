@@ -25,7 +25,8 @@ import org.matheclipse.core.expression.F;
 import java.io.StringWriter;
 import java.util.LinkedList;
 
-import static com.example.sacrew.numericov4.fragments.interpolation.poolColors;
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -140,8 +141,9 @@ public class splineCubico extends baseSpliners {
         }
         int k = j;
         z = 0;
-        function += "$${\\qquad 3x^2a_{n} + 2xb_{n} + c_{n} = 3x^2 a_{n+1}+ 2xb_{n+1} + c_{n+1}}$$";
+        function += "$${\\text{first derivative}}$$ $${\\qquad 3x^2a_{n} + 2xb_{n} + c_{n} = 3x^2 a_{n+1}+ 2xb_{n+1} + c_{n+1}}$$";
         //primera derivada
+
         for(int i = 0; i < inequality.length-1;i++){
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             System.out.println("second derivative "+aux);
@@ -160,7 +162,7 @@ public class splineCubico extends baseSpliners {
         }
         z = 0;
         // segunda derivada
-        function += "$${\\qquad 6xa_{n} + 2b_{n} = 6xa_{n+1} + 2b_{n+1}}$$ ";
+        function += "$${\\text{second derivative}}$$ $${\\qquad 6xa_{n} + 2b_{n} = 6xa_{n+1} + 2b_{n+1}}$$ ";
         for(int i = 0; i < inequality.length -1;i++){
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
 
@@ -210,6 +212,7 @@ public class splineCubico extends baseSpliners {
         for(int i = 0; i < inequality.length; i++){
 
             String auxFunc = result[j]+"*(x^3)+"+result[j+1]+"*x^2+"+result[j+2]+"*x+"+result[j+3];
+            String auxFuncToLatex = roundOff(result[j])+"*(x^3)+"+roundOff(result[j+1])+"*x^2+"+roundOff(result[j+2])+"*x+"+roundOff(result[j+3]);
             System.out.println("result j+3 "+result[j+3]);
             String funcSimplify = util.evaluate(F.FullSimplify(util.evaluate(auxFunc))).toString();
             int color = poolColors.remove(0);
@@ -217,7 +220,7 @@ public class splineCubico extends baseSpliners {
              aux = inequality[i];
             equations.add(new Pair<>(funcSimplify,new Pair<>(color,new Pair<>(aux.first.first,aux.second.first))));
             stw = new StringWriter();
-            texUtil.toTeX(funcSimplify, stw);
+            texUtil.toTeX(util.evaluate(F.FullSimplify(util.evaluate(auxFuncToLatex))).toString(), stw);
             function += stw.toString() +" & "+aux.first.first+" \\leq "+aux.second.first;
             if(i < inequality.length-1) function += "\\\\";
             j += 4;
@@ -225,5 +228,4 @@ public class splineCubico extends baseSpliners {
         function += "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
         return true;
     }
-
 }

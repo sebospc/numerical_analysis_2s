@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,7 +50,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
     }
 
 
-    private GraphView graph;
+
     private View view;
     private ListView listView;
     private EditText xi, xs;
@@ -67,6 +69,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+                cleanGraph();
                 bootStrap();
             }
         });
@@ -87,7 +90,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
                 executeHelp();
             }
         });
-        graph = view.findViewById(R.id.falseGraph);
+
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
@@ -144,14 +147,16 @@ public class falsePositionFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void falsePosition(double xi, double xs, double tol, int ite, boolean errorRel) {
-        graph.removeAllSeries();
         function.setPrecision(100);
         ArrayList<FalsePosition> listValues = new ArrayList<>();
         FalsePosition titles = new FalsePosition("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
         listValuesTitles = new LinkedList<>();
+        listValuesTitles.add("Xi");
+        listValuesTitles.add("Xs");
         listValuesTitles.add("Xn");
         listValuesTitles.add("f(Xn)");
+        listValuesTitles.add("Error");
         //TableViewModel.getTitles(listValuesTitles);
         completeList = new LinkedList<>();
         if (tol >= 0) {
@@ -206,18 +211,25 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                 cont++;
                             }
                             //TableViewModel.getCeldas(completeList);
-
+                            int color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphSerie(function.getExpression(),0, xs*2,color);
                             if (ym == 0) {
-                                graphSerie(xm - 0.2, xm + 0.2, this.function.getExpression(), graph, Color.BLUE);
-                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                                color = poolColors.remove(0);
+                                poolColors.add(color);
+                                graphPoint(xm,ym,color);
+                                //graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                                 Toast.makeText(getContext(), convertirNormal(xm) + " is an aproximate root", Toast.LENGTH_SHORT).show();
 
                             } else if (error < tol) {
-                                graphSerie(xm - 0.2, xm + 0.2, this.function.getExpression(), graph, Color.BLUE);
-                                graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                                color = poolColors.remove(0);
+                                poolColors.add(color);
+                                graphPoint(xm,ym,color);
+                                //graphSerie(xm - 0.2, xm + 0.2, this.function.getExpression(), graph, Color.BLUE);
+                                //graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                                 Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                             } else {
-
+                                Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                             }
                             calc= true;
                         } else {
@@ -225,16 +237,20 @@ public class falsePositionFragment extends baseOneVariableFragments {
                         }
                     } else {
                         Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphPoint(xs,ys,color);
+                        //graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                     }
                 } else {
                     Toast.makeText(getContext(), convertirNormal(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                    graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                    int color = poolColors.remove(0);
+                    poolColors.add(color);
+                    graphPoint(xi,yi,color);
+                    //graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                 }
             } else {
                 iter.setError("Wrong iterates");
-
-
             }
         } else {
             textError.setError("Tolerance must be > 0");

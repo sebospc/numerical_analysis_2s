@@ -38,6 +38,8 @@ import java.util.List;
 import java.util.Map;
 
 import at.markushi.ui.CircleButton;
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+
 
 
 
@@ -56,7 +58,7 @@ public class graphFragment extends Fragment {
     @SuppressLint("UseSparseArrays")
     private Map<Integer, Integer> viewToColor = new HashMap<>();
     private View view;
-    private List <Integer> colors = new LinkedList<>();
+
     private graphUtils graphUtils = new graphUtils();
     static public List <String> allFunctions = new LinkedList<>();
 
@@ -73,21 +75,9 @@ public class graphFragment extends Fragment {
 
 
 
-
-        //define colors
-        colors.add(Color.parseColor("#FF6D24"));
-        colors.add(Color.parseColor("#00204A"));
-        colors.add(Color.parseColor("#248888"));
-        colors.add(Color.parseColor("#FD2E2E"));
-        colors.add(Color.parseColor("#096C47"));
-        colors.add(Color.parseColor("#BB0029"));
-        colors.add(Color.parseColor("#4A772F"));
-        colors.add(Color.parseColor("#F54D42"));
-        colors.add(Color.parseColor("#682666"));
-
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_graph,container,false);
-
+        isup = true;
 
         parentLinearLayout = (LinearLayout) view.findViewById(R.id.parent_linear_layout);
 
@@ -127,7 +117,7 @@ public class graphFragment extends Fragment {
             }
         });
         ImageButton homeGraph = view.findViewById(R.id.homeGraphButton);
-        final List<LineGraphSeries<DataPoint>> listSeries = graphUtils.graphPharallel(200, "x", 0, getContext());
+        final List<LineGraphSeries<DataPoint>> listSeries = graphUtils.graphPharallel(200, "x", 0);
         homeGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +141,7 @@ public class graphFragment extends Fragment {
         });
         for (LineGraphSeries<DataPoint> inSerie : listSeries)
             graph.addSeries(inSerie);
-        for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(200, "x", 0, getContext()))
+        for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(200, "x", 0))
             graph.addSeries(inSerie);
         return view;
 
@@ -263,8 +253,8 @@ public class graphFragment extends Fragment {
             int code = ((View) v.getParent()).findViewById(R.id.function_edit_text).hashCode();
             // define color
             if (!viewToColor.containsKey(code)) {
-                int color = colors.remove(0);
-                colors.add(color);
+                int color = poolColors.remove(0);
+                poolColors.add(color);
                 viewToColor.put(code, color);
             }
             seek.setProgressTintList(ColorStateList.valueOf(viewToColor.get(code)));
@@ -281,7 +271,7 @@ public class graphFragment extends Fragment {
              * important
              */
             List<LineGraphSeries<DataPoint>> listSeries = graphUtils
-                    .graphPharallel(iter, function, viewToColor.get(code), getContext());
+                    .graphPharallel(iter, function, viewToColor.get(code));
 
             if (viewToFunction.containsKey(code))
                 for (LineGraphSeries<DataPoint> inSerie : viewToFunction.get(code))

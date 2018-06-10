@@ -36,14 +36,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class secantFragment extends baseOneVariableFragments {
-
-    private GraphView graph;
 
     private View view;
     private ListView listView;
@@ -68,6 +67,7 @@ public class secantFragment extends baseOneVariableFragments {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+                cleanGraph();
                 bootStrap();
             }
         });
@@ -88,7 +88,6 @@ public class secantFragment extends baseOneVariableFragments {
                 executeHelp();
             }
         });
-        graph = view.findViewById(R.id.secantGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
@@ -143,7 +142,6 @@ public class secantFragment extends baseOneVariableFragments {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void secantMethod(Double x0, Double x1, Double tol, int ite, boolean errorRel) {
         try {
-            graph.removeAllSeries();
 
             function.setPrecision(100);
             ArrayList<Secant> listValues = new ArrayList<>();
@@ -201,21 +199,31 @@ public class secantFragment extends baseOneVariableFragments {
                         }
                         //TableViewModel.getCeldas(completeList);
                         calc= true;
-
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphSerie(function.getExpression(),0,aux1*2,color);
                         if (fx1 == 0) {
-                            graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
-                            graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                            color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphPoint(aux1,fx1,color);
+                            //graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
+                            //graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             Toast.makeText(getContext(),  convertirNormal(aux1) + " is a root", Toast.LENGTH_SHORT).show();
                         } else if (error <= tol) {
-                            graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
-                            fx1 = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
-                            graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                            //graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
+                            color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphPoint(aux1,fx1,color);
+                            //graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             Toast.makeText(getContext(),  convertirNormal(aux1) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(),  "Failedl!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        graphPoint(x0, fx0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphPoint(x0,fx0,color);
+                        //graphPoint(x0, fx0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                         Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                     }
                 } else {

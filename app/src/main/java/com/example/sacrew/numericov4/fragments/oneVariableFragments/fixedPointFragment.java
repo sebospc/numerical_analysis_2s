@@ -36,6 +36,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
 
 /**
@@ -43,7 +44,6 @@ import java.util.Locale;
  */
 public class fixedPointFragment extends baseOneVariableFragments{
 
-    private GraphView graph;
     private Expression functionG;
     private View view;
     private ListView listView;
@@ -69,6 +69,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+                cleanGraph();
                 bootStrap();
             }
         });
@@ -89,7 +90,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
                 executeHelp();
             }
         });
-        graph = view.findViewById(R.id.fixedGraph);
+
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
@@ -141,8 +142,6 @@ public class fixedPointFragment extends baseOneVariableFragments{
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel) {
         try {
-            graph.removeAllSeries();
-
             function.setPrecision(100);
             ArrayList<FixedPoint> listValues = new ArrayList<>();
         FixedPoint titles = new FixedPoint("n", "Xn", "f(Xn)", "g(Xn)", "Error");
@@ -150,7 +149,6 @@ public class fixedPointFragment extends baseOneVariableFragments{
             listValuesTitles = new LinkedList<>();
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
-            listValuesTitles.add("g(Xn)");
             listValuesTitles.add("Error");
             //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
@@ -166,14 +164,13 @@ public class fixedPointFragment extends baseOneVariableFragments{
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(y0));
-                        listValuesIteZero.add(String.valueOf(g0));
                         listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                         double xa = x0;
                         completeList.add(listValuesIteZero);
                             while ((y0 != 0) && (error > tol) && (cont < ite)) {
                                 ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                                y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                                y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
 
                                 if (errorRel)
                                     error = Math.abs(xn - xa) / xn;
@@ -183,32 +180,39 @@ public class fixedPointFragment extends baseOneVariableFragments{
                                 cont++;
                                 FixedPoint iteNext = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(g0)), String.valueOf(convertirCientifica(error)));
                                 listValues.add(iteNext);
-                                listValuesIteNext.add(String.valueOf(x0));
+                                listValuesIteNext.add(String.valueOf(xa));
                                 listValuesIteNext.add(String.valueOf(y0));
-                                listValuesIteNext.add(String.valueOf(g0));
                                 listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
                                 completeList.add(listValuesIteNext);
                             }
                         //TableViewModel.getCeldas(completeList);
                             calc = true;
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphSerie(function.getExpression(),0, xa*2,color);
                             if (y0 == 0) {
-                                graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
-                                graphSerie(xa - 0.2, xa+0.2, functionG.getExpression(), graph, Color.RED);
-                                graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                                //graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
+                                //graphSerie(xa - 0.2, xa+0.2, functionG.getExpression(), graph, Color.RED);
+                                color = poolColors.remove(0);
+                                poolColors.add(color);
+                                graphPoint(xa,y0,color);
+                                //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                                 Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
 
                             } else if (error <= tol) {
-                                graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
-                                graphSerie(xa - 0.2, xa+0.2, functionG.getExpression(), graph, Color.RED);
-                                y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                                graphPoint(xa, (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue(), PointsGraphSeries.Shape.POINT, graph, getActivity(),Color.parseColor( "#0E9577"), true);
+                                color = poolColors.remove(0);
+                                poolColors.add(color);
+                                graphPoint(xa,y0,color);
                                 Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
                             }
 
                     } else {
-                        graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphPoint(x0,y0,color);
+                        //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                         Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
 
                     }

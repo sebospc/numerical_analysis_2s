@@ -11,8 +11,9 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.List;
 
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 import static com.example.sacrew.numericov4.fragments.interpolation.interpolationGraph;
-import static com.example.sacrew.numericov4.fragments.interpolation.poolColors;
+
 import static com.example.sacrew.numericov4.fragments.interpolation.vectors;
 
 /**
@@ -69,5 +70,11 @@ public abstract class baseInterpolationMethods extends Fragment {
                 interpolationGraph.removeSeries(v);
         }
     }
-
+    public double roundOff(double number) {
+        double accuracy = 20;
+        number = number * accuracy;
+        number = Math.ceil(number);
+        number = number / accuracy;
+        return number;
+    }
 }

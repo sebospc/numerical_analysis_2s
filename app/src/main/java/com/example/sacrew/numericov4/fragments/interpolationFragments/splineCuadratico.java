@@ -25,7 +25,8 @@ import org.matheclipse.core.expression.F;
 import java.io.StringWriter;
 import java.util.LinkedList;
 
-import static com.example.sacrew.numericov4.fragments.interpolation.poolColors;
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -135,7 +136,7 @@ public class splineCuadratico extends baseSpliners{
         int k = j;
         z = 0;
 
-        function += "$${\\text{first derivative}}$$ $${2xa_{n} + b_{n} = 2xa_{n+1} + b_{n+1}}$$";
+            function += "$${\\text{first derivative}}$$ $${2xa_{n} + b_{n} = 2xa_{n+1} + b_{n+1}}$$";
         for(int i = 0; i< inequality.length-1;i++){
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux2 = inequality[i+1];
@@ -170,13 +171,14 @@ public class splineCuadratico extends baseSpliners{
         for(int i = 0; i < inequality.length; i++){
 
             String auxFunc = result[j]+"*(x^2)+"+result[j+1]+"*x+"+result[j+2];
+            String auxToLatex = roundOff(result[j])+"*(x^2)+"+roundOff(result[j+1])+"*x+"+roundOff(result[j+2]);
             String funcSimplify = util.evaluate(F.FullSimplify(util.evaluate(auxFunc))).toString();
             int color = poolColors.remove(0);
             poolColors.add(color);
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             equations.add(new Pair<>(funcSimplify,new Pair<>(color,new Pair<>(aux.first.first,aux.second.first))));
             stw = new StringWriter();
-            texUtil.toTeX(funcSimplify, stw);
+            texUtil.toTeX(util.evaluate(F.FullSimplify(util.evaluate(auxToLatex))).toString(), stw);
             function += stw.toString() +" & "+aux.first.first+" \\leq "+aux.second.first;
             if(i < inequality.length-1) function += "\\\\";
             j += 3;

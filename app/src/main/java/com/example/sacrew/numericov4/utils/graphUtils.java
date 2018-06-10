@@ -16,12 +16,9 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
 import com.udojava.evalex.Expression;
 
-import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
-import org.matheclipse.core.interfaces.IExpr;
 import org.matheclipse.parser.client.eval.DoubleEvaluator;
 import org.matheclipse.parser.client.eval.DoubleVariable;
-import org.matheclipse.parser.client.eval.IDouble0Function;
 import org.matheclipse.parser.client.eval.IDoubleValue;
 
 import java.math.BigDecimal;
@@ -61,22 +58,21 @@ public class graphUtils {
         graph.addSeries(serie);
     }
 
-    public PointsGraphSeries<DataPoint> graphPoint(double x, double y, PointsGraphSeries.Shape figure, GraphView graph, final Activity activity,
-                                                   int color, boolean listener) {
-        PointsGraphSeries<DataPoint> root = new PointsGraphSeries<>(new DataPoint[]{
+    public PointsGraphSeries<DataPoint> graphPoint(double x, double y, PointsGraphSeries.Shape figure, int color, boolean listener) {
+        PointsGraphSeries<DataPoint> point = new PointsGraphSeries<>(new DataPoint[]{
                 new DataPoint(x, y)
         });
         if (listener)
-            root.setOnDataPointTapListener(new OnDataPointTapListener() {
+            point.setOnDataPointTapListener(new OnDataPointTapListener() {
                 @Override
                 public void onTap(Series series, DataPointInterface dataPoint) {
-                    Toast.makeText(activity, "(" + dataPoint.getX() + " , " + dataPoint.getY() + ")", Toast.LENGTH_SHORT).show();
+                    //some shit here
+                    //Toast.makeText(activity, "(" + dataPoint.getX() + " , " + dataPoint.getY() + ")", Toast.LENGTH_SHORT).show();
                 }
             });
-        graph.addSeries(root);
-        root.setShape(figure);
-        root.setColor(color);
-        return root;
+        point.setShape(figure);
+        point.setColor(color);
+        return point;
     }
 
     public String functionRevision(String function) {
@@ -163,7 +159,7 @@ public class graphUtils {
         }
         return listSeries;
     }
-    public List<LineGraphSeries<DataPoint>> graphPharallel(int iters, String funcitonExpr, int color, Context context) {
+    public List<LineGraphSeries<DataPoint>> graphPharallel(int iters, String funcitonExpr, int color) {
         int realIters = iters * 2;
         int perCore = (int) Math.ceil(realIters / NUMBER_OF_CORES) * 2;
         double each = (realIters * 0.1 * -1);
@@ -175,8 +171,8 @@ public class graphUtils {
             values[i] = new threadGraph(each, end, funcitonExpr, color, perCore);
             cores[i] = new Thread(values[i]);
             cores[i].start();
-            each = (each + (perCore * 0.1) - 0.1);
-            end = (each + (perCore * 0.1) + 0.1);
+            each = (each + (perCore * 0.1) - 0.2);
+            end = (each + (perCore * 0.1) + 0.2);
         }
         List<LineGraphSeries<DataPoint>> listSeries = new LinkedList<>();
         for (int i = 0; i < cores.length; i++) {
@@ -184,7 +180,7 @@ public class graphUtils {
                 cores[i].join();
                 listSeries.add(values[i].getSeries());
             } catch (Exception e) {
-                Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+                System.out.println(e);
             }
         }
         return listSeries;
@@ -272,7 +268,8 @@ public class graphUtils {
             this.function.setPrecision(5);
             double y;
             double x = this.x;
-
+            if( x > this.end){y = x; x = this.end; this.end = y;}
+            y = -1;
             while (x <= this.end) {
                 try {
                     y = (this.function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
@@ -281,7 +278,7 @@ public class graphUtils {
                 } catch (Exception ignored) {
 
                 }
-                x = x + 0.1;
+                x = (x + 0.1);
             }
             series.setColor(color);
             //graphFragment.listSeries.add(series);

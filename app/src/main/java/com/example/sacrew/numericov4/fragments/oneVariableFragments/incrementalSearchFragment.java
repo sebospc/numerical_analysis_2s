@@ -24,22 +24,20 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSear
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
-import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.PointsGraphSeries;
+
 import com.udojava.evalex.Expression;
 
-import org.apache.commons.math3.analysis.function.Exp;
 
-import java.text.DecimalFormat;
+
+
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
+
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
 
 /**
@@ -53,7 +51,6 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
     }
 
     private View view;
-    private GraphView graph;
     private TextView xValue;
     private TextView delta;
     private ListView listView;
@@ -78,7 +75,6 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             }
         });
         listView = view.findViewById(R.id.listView);
-        graph = view.findViewById(R.id.incrementalGraph);
         textFunction = view.findViewById(R.id.function);
         xValue = view.findViewById(R.id.x_value);
         delta = view.findViewById(R.id.delta);
@@ -87,6 +83,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+                cleanGraph();
                 bootStrap();
             }
         });
@@ -160,7 +157,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void incrementalSearchMethod(Double x0, Double delta, int ite) {
-        graph.removeAllSeries();
+        double firstX0 =x0;
         function.setPrecision(100);
         try {
             ArrayList<IncrementalSearch> listValues = new ArrayList<>();
@@ -204,19 +201,26 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             completeList.add(listValuesNext);
                         }
                         //TableViewModel.getCeldas(completeList);
-
-
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphSerie(function.getExpression(),0,x1,color);
                         if (y1 == 0) {
-                            graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                             color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphPoint(x1,y1,color);
+                            //graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
 
                         } else if (y1 * y0 < 0) {
                             Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
-                            graphSerie(x0-0.2,x1+0.2,function.getExpression(),graph,getResources().getColor(R.color.colorPrimary));
+                          //  graphSerie(x0-0.2,x1+0.2,function.getExpression(),graph,getResources().getColor(R.color.colorPrimary));
                         }
 
                     } else {
-                        graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphPoint(x0,y0,color);
+                        //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                         Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
                     }
 

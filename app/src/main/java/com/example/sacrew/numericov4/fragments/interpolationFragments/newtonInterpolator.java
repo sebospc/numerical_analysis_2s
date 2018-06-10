@@ -101,26 +101,29 @@ public class newtonInterpolator extends baseInterpolationMethods {
             if (errorDivision) {
 
                 StringBuilder uglyFunction = new StringBuilder(String.valueOf(fxn[0]));
+                StringBuilder auxToLAtexFunc = new StringBuilder(String.valueOf(roundOff(fxn[0])));
                 StringBuilder prev = new StringBuilder("");
+                StringBuilder auxPrev = new StringBuilder("");
                 for (int i = 1; i < derivs.size(); i++) {
-                    prev.append("(x-").append(String.valueOf(xn[i - 1])).append(")");
+                    prev.append("(x-(").append(String.valueOf(xn[i - 1])).append("))");
+                    auxPrev.append("(x-(").append(String.valueOf(roundOff(xn[i - 1]))).append("))");
                     uglyFunction.append("+").append(String.valueOf(derivs.get(i)[0])).append(prev);
+                    auxToLAtexFunc.append("+").append(roundOff(derivs.get(i)[0])).append(auxPrev);
                 }
                 ExprEvaluator util = new ExprEvaluator();
-                IExpr result = util.evaluate(uglyFunction.toString());
 
                 //to latex
                 EvalEngine engine = new EvalEngine(false);
-                IExpr outLatex = engine.evaluate(F.Simplify(result));
+
 
                 TeXUtilities texUtil = new TeXUtilities(engine, false);
                 StringWriter stw = new StringWriter();
-                texUtil.toTeX(outLatex, stw);
+                texUtil.toTeX(engine.evaluate(F.Simplify(util.evaluate(auxToLAtexFunc.toString()))), stw);
                 //add new expression type latex
                 function = stw.toString();
 
                 //update graph
-                updateGraph(outLatex.toString(), getContext(), (int) Math.ceil(((xn[xn.length - 1] - xn[0]) * 10) + 20));
+                updateGraph(engine.evaluate(F.Simplify(util.evaluate(uglyFunction.toString()))).toString(), getContext(), (int) Math.ceil(((xn[xn.length - 1] - xn[0]) * 10) + 20));
                 //variable to open equations
                 calc = true;
             }

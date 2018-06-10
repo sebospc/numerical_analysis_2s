@@ -37,13 +37,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class multipleRootsFragment extends baseOneVariableFragments {
 
-    private GraphView graph;
+
     private Expression functionG, functionGprim;
     private View view;
     private TextView xvalue;
@@ -70,6 +72,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+                cleanGraph();
                 bootStrap();
             }
         });
@@ -90,7 +93,6 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                 executeHelp();
             }
         });
-        graph = view.findViewById(R.id.multipleGraph);
         textFunction = view.findViewById(R.id.function);
         iter = view.findViewById(R.id.iterations);
         textError = view.findViewById(R.id.error);
@@ -151,7 +153,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
     private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel, String compose) {
         Expression multipleRootsFunction = new Expression(compose);
         try {
-            graph.removeAllSeries();
+
 
             function.setPrecision(100);
             ArrayList<MultipleRoots> listValues = new ArrayList<>();
@@ -192,9 +194,9 @@ public class multipleRootsFragment extends baseOneVariableFragments {
 
                             double xn = (multipleRootsFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
 
-                            y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                            y0p1 = (this.functionG.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                            y0p2 = (this.functionGprim.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                            y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+                            y0p1 = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+                            y0p2 = (this.functionGprim.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             if (errorRel)
                                 error = Math.abs(xn - xa) / xn;
                             else
@@ -203,7 +205,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                             cont++;
                             MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(y0p1)), String.valueOf(convertirNormal(y0p2)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteNext);
-                            listValuesIteNext.add(String.valueOf(x0));
+                            listValuesIteNext.add(String.valueOf(xa));
                             listValuesIteNext.add(String.valueOf(y0));
                             listValuesIteNext.add(String.valueOf(y0p1));
                             listValuesIteNext.add(String.valueOf(y0p2));
@@ -212,20 +214,31 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                         }
                         //TableViewModel.getCeldas(completeList);
                         calc = true;
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphSerie(function.getExpression(),0,xa*2,color);
                         if (y0 == 0) {
-                            graphSerie(xa - 0.2, xa + 0.2, function.getExpression(), graph, Color.BLUE);
-                            graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                            //graphSerie(xa - 0.2, xa + 0.2, function.getExpression(), graph, Color.BLUE);
+                            //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                            color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphPoint(xa,y0,color);
                             Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
                         } else if (error <= tol) {
-                            graphSerie(xa - 0.2, xa + 0.2, function.getExpression(), graph, Color.BLUE);
-                            y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                            graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                            //graphSerie(xa - 0.2, xa + 0.2, function.getExpression(), graph, Color.BLUE);
+                            color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphPoint(xa,y0,color);
+                            //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                        int color = poolColors.remove(0);
+                        poolColors.add(color);
+                        graphPoint(x0,y0,color);
+                        //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                         Toast.makeText(getContext(), convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                     }
                 } else {

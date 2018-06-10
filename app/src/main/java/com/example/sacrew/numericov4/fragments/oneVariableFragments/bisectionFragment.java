@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.TabLayout;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +21,10 @@ import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
-import com.example.sacrew.numericov4.fragments.MainActivityTable;
-import com.example.sacrew.numericov4.fragments.creditsFragment;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.BisectionListAdapter;
-import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
 
@@ -36,6 +32,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
 
 /**
@@ -48,7 +46,6 @@ public class bisectionFragment extends baseOneVariableFragments {
         // Required empty public constructor
     }
 
-    private GraphView graph;
     public TextView textViewXm, textViewMessage;
     private EditText xi, xs;
 
@@ -70,6 +67,7 @@ public class bisectionFragment extends baseOneVariableFragments {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+                cleanGraph();
                 bootStrap();
                 //execute();
             }
@@ -91,7 +89,6 @@ public class bisectionFragment extends baseOneVariableFragments {
                 executeHelp();
             }
         });
-        graph = view.findViewById(R.id.bisectionGraph);
         textFunction = view.findViewById(R.id.function);
         textViewMessage = view.findViewById(R.id.textViewMessage);
         textViewXm = view.findViewById(R.id.textViewXm);
@@ -147,7 +144,7 @@ public class bisectionFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void bisectionMethod(double xi, double xs, double tol, int ite, boolean errorRel) {
-        graph.removeAllSeries();
+
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
 
@@ -195,7 +192,7 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 xaux = xm;
                                 xm = (xi + xs) / 2;
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
-                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#FA4659"), false);
+                                graphPoint(xm, ym,  Color.parseColor("#FA4659"));
                                 if (errorRel) {
                                     error = Math.abs(xm - xaux) / xm;
                                 } else {
@@ -213,11 +210,16 @@ public class bisectionFragment extends baseOneVariableFragments {
                             }
                             //TableViewModel.getCeldas(completeList);
                             calc= true;
+                            int color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphSerie(function.getExpression(),0, xm*2,color);
                             if (ym == 0) {
-                                graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                                graphPoint(xm,ym,Color.GREEN);
+                                //graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             } else if (error < tol) {
-                                graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                                graphSerie(xaux-0.2, xaux+0.2, this.function.getExpression(), graph, Color.BLUE);
+                                graphPoint(xm,ym,Color.GREEN);
+                                //graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+
                                 Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
@@ -229,10 +231,11 @@ public class bisectionFragment extends baseOneVariableFragments {
                         }
                     } else {
                         Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                        graphPoint(xs, ys,Color.GREEN);
                     }
                 } else {
-                    graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                    graphPoint(xi,yi,Color.GREEN);
+                    //graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
 
                 }
             } else {

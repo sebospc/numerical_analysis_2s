@@ -46,6 +46,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -57,7 +59,7 @@ public class interpolation extends Fragment {
     private graphUtils graphUtils = new graphUtils();
     public static GraphView interpolationGraph;
     private HashMap<EditText, Pair<PointsGraphSeries<DataPoint>,Integer>> viewToPoint = new HashMap<>();
-    public static List<Integer> poolColors = new LinkedList<>();
+
     public interpolation() {
         // Required empty public constructor
     }
@@ -70,13 +72,7 @@ public class interpolation extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_interpolation, container, false);
 
-        for(float i = 0; i < 360; i += 360 / 20) {
-            float[] hsv = new float[3];
-            hsv[0] = i;
-            hsv[1] = (float) Math.random();
-            hsv[2] = (float) Math.random();
-            poolColors.add(Color.HSVToColor(hsv));
-        }
+
         vectors = view.findViewById(R.id.vectors);
         ViewPager slideView = view.findViewById(R.id.pager);
         interpolationGraph = view.findViewById(R.id.interpolationGraph);
@@ -87,7 +83,7 @@ public class interpolation extends Fragment {
         IDoubleValue vd = new DoubleVariable(3.0);
         engine.defineVariable("x",vd);
 
-        final List<LineGraphSeries<DataPoint>> listSeries = graphUtils.graphPharallel(50, "x", 0, getContext());
+        final List<LineGraphSeries<DataPoint>> listSeries = graphUtils.graphPharallel(50, "x", 0);
         homeGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +143,7 @@ public class interpolation extends Fragment {
         interpolationGraph.getViewport().setScrollableY(true); // enables vertical scrolling
         interpolationGraph.getViewport().setScalable(true);// esto genera errores se podria solucionar pero
         interpolationGraph.getViewport().setScalableY(true);// es complejo, es para el zoom
-        for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(50, "x", 0, getContext()))
+        for (LineGraphSeries<DataPoint> inSerie : listSeries)
             interpolationGraph.addSeries(inSerie);
 
         return view;
@@ -199,9 +195,12 @@ public class interpolation extends Fragment {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     public PointsGraphSeries<DataPoint> updatePointGraph(double x, double y,int color) {
-        return graphUtils.graphPoint(x, y, PointsGraphSeries.Shape.POINT, interpolationGraph, getActivity(), color, false);
+
+        PointsGraphSeries<DataPoint> point = graphUtils.graphPoint(x, y, PointsGraphSeries.Shape.POINT, color, false);
+        interpolationGraph.addSeries(point);
+        return point;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

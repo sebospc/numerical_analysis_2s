@@ -1,6 +1,6 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
-import android.app.Activity;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,9 @@ import android.widget.EditText;
 import com.example.sacrew.numericov4.fragments.MainActivityTable;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
-import com.jjoe64.graphview.GraphView;
+
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
 
@@ -24,15 +26,19 @@ import java.util.Locale;
 
 import com.example.sacrew.numericov4.utils.graphUtils;
 
+import static com.example.sacrew.numericov4.fragments.oneVariable.graphOneVariable;
+
 /**
  * Created by sacrew on 27/05/18.
  */
 
-public class baseOneVariableFragments extends Fragment {
+public abstract class baseOneVariableFragments extends Fragment {
     AutoCompleteTextView textFunction;
     EditText iter, textError;
     Expression function;
     graphUtils graphUtils = new graphUtils();
+    static List<PointsGraphSeries<DataPoint>> points;
+    static List<LineGraphSeries<DataPoint>> series;
     boolean calc =false;
     List<List<String>> completeList = new LinkedList<>();
     List<String> listValuesTitles = new LinkedList<>();
@@ -89,15 +95,6 @@ public class baseOneVariableFragments extends Fragment {
         return graphUtils.functionRevision(function);
     }
 
-    public void graphSerie(double start, double end, String funcitonExpr, GraphView graph, int color) {
-        graphUtils.graphSerie(start, end, funcitonExpr, graph, color);
-    }
-
-    public void graphPoint(double x, double y, PointsGraphSeries.Shape figure, GraphView graph, final Activity activity,
-                           int color, boolean listener) {
-        graphUtils.graphPoint(x, y, figure, graph, activity, color, listener);
-    }
-
     public boolean checkSyntax(String function, EditText text) {
         try {
             new Expression(functionRevision(function)).with("x", "0").eval();
@@ -121,5 +118,22 @@ public class baseOneVariableFragments extends Fragment {
             TableViewModel.getTitles(listValuesTitles);
             TableViewModel.getCeldas(completeList);
         }
+    }
+    public void graphSerie(String function,double x, double y,int color){
+        series = graphUtils.graphPharallel((int)(Math.abs(y-x)/0.1),function,color);
+        for(LineGraphSeries<DataPoint> v : series) graphOneVariable.addSeries(v);
+    }
+    public void graphPoint(double x, double y, int color){
+
+        PointsGraphSeries<DataPoint> point = graphUtils.graphPoint(x, y, PointsGraphSeries.Shape.POINT, color, false);
+        graphOneVariable.addSeries(point);
+        points.add(point);
+    }
+
+    public void cleanGraph(){
+        if(series!=null) for(LineGraphSeries<DataPoint> v : series) graphOneVariable.removeSeries(v);
+        if(points!=null) for(PointsGraphSeries<DataPoint> v : points) graphOneVariable.removeSeries(v);
+        points = new LinkedList<>();
+        series = new LinkedList<>();
     }
 }
