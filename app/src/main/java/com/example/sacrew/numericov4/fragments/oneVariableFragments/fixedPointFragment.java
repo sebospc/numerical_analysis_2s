@@ -128,7 +128,6 @@ public class fixedPointFragment extends baseOneVariableFragments{
             error = false;
         }
 
-
         if(error) {
             if(errorToggle.isChecked()){
                 fixedPointMethod(xValue,errorValue,ite,true);
@@ -149,6 +148,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
             listValuesTitles = new LinkedList<>();
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
+            listValuesTitles.add("g(Xn)");
             listValuesTitles.add("Error");
             //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
@@ -164,6 +164,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(y0));
+                        listValuesIteZero.add(String.valueOf(g0));
                         listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                         double xa = x0;
                         completeList.add(listValuesIteZero);
@@ -182,6 +183,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
                                 listValues.add(iteNext);
                                 listValuesIteNext.add(String.valueOf(xa));
                                 listValuesIteNext.add(String.valueOf(y0));
+                                listValuesIteNext.add(String.valueOf(g0));
                                 listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
                                 completeList.add(listValuesIteNext);
                             }
