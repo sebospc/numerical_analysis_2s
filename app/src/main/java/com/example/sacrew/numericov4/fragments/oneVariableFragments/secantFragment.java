@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.app.Fragment;
 import android.view.InflateException;
@@ -25,6 +26,9 @@ import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.SecantListAdapter;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -106,6 +110,40 @@ public class secantFragment extends baseOneVariableFragments {
         startActivity(i);
     }
 
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
+                            .setColor(Color.TRANSPARENT).show();
+                }
+            };
+
+    private void styleCorrectMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(76,175,80))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
+    private void styleWrongMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void execute(boolean error, double errorValue, int ite){
         this.xi.setError(null);
@@ -141,6 +179,7 @@ public class secantFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void secantMethod(Double x0, Double x1, Double tol, int ite, boolean errorRel) {
+        String message = "";
         try {
 
             function.setPrecision(100);
@@ -203,36 +242,51 @@ public class secantFragment extends baseOneVariableFragments {
                             graphPoint(aux1,fx1,color);
                             //graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
                             //graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            Toast.makeText(getContext(),  convertirNormal(aux1) + " is a root", Toast.LENGTH_SHORT).show();
+                            message = convertirNormal(aux1) + " is a root";
+                            styleCorrectMessage(message);
+                            //Toast.makeText(getContext(),  convertirNormal(aux1) + " is a root", Toast.LENGTH_SHORT).show();
                         } else if (error <= tol) {
                             //graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(aux1,fx1,color);
                             //graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            Toast.makeText(getContext(),  convertirNormal(aux1) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                            message = convertirNormal(aux1) + " is an aproximate root";
+                            styleCorrectMessage(message);
+
+                            //Toast.makeText(getContext(),  convertirNormal(aux1) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(),  "Failedl!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(),  "Failedl!", Toast.LENGTH_SHORT).show();
+                            message = "The method failed!";
+                            styleWrongMessage(message);
                         }
                     } else {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(x0,fx0,color);
                         //graphPoint(x0, fx0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                        Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                        message = convertirNormal(x0) + " is an aproximate root";
+                        styleCorrectMessage(message);
                     }
                 } else {
                     iter.setError("Wrong iterates");
-                    Toast.makeText(getContext(),  "Wrong iterates!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(),  "Wrong iterates!", Toast.LENGTH_SHORT).show();
+                    message = "Wrong iterates";
+                    styleWrongMessage(message);
                 }
             } else {
                 textError.setError("Tolerance must be > 0");
+                message = "Tolerance must be > 0";
+                styleWrongMessage(message);
 
             }
             SecantListAdapter adapter = new SecantListAdapter(getContext(), R.layout.list_adapter_secant, listValues);
             listView.setAdapter(adapter);
         }catch(Exception e){
-            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+            message = "Unexpected error posibly nan";
+            styleWrongMessage(message);
         }
     }
 

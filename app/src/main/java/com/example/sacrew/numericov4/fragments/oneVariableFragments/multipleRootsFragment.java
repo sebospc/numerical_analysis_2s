@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.app.Fragment;
 import android.view.InflateException;
@@ -26,6 +27,9 @@ import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRoo
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRootsListAdapter;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -116,6 +120,40 @@ public class multipleRootsFragment extends baseOneVariableFragments {
         startActivity(i);
     }
 
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
+                            .setColor(Color.TRANSPARENT).show();
+                }
+            };
+
+    private void styleCorrectMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(76,175,80))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
+    private void styleWrongMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void execute(boolean error, double errorValue, int ite) {
         Double xValue = 0.0;
@@ -151,6 +189,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel, String compose) {
+        String message = "";
         Expression multipleRootsFunction = new Expression(compose);
         try {
 
@@ -224,36 +263,49 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(xa,y0,color);
-                            Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
+                            message = convertirNormal(xa) + " is a root";
+                            styleCorrectMessage(message);
                         } else if (error <= tol) {
                             //graphSerie(xa - 0.2, xa + 0.2, function.getExpression(), graph, Color.BLUE);
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(xa,y0,color);
                             //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                            message = convertirNormal(xa) + " is an aproximate root";
+                            styleCorrectMessage(message);
+                            //Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                            message = "The method failed!";
+                            styleWrongMessage(message);
                         }
                     } else {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(x0,y0,color);
                         //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                        Toast.makeText(getContext(), convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                        message = convertirNormal(x0) + " is an aproximate root";
+                        styleCorrectMessage(message);
+                        //Toast.makeText(getContext(), convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     iter.setError("Wrong iterates");
-
+                    message = "Wrong iterates";
+                    styleWrongMessage(message);
                 }
             } else {
                 textError.setError("Tolerance must be > 0");
+                message = "Tolerance must be > 0";
+                styleWrongMessage(message);
 
             }
             MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.list_adapter_multiple_roots, listValues);
             listView.setAdapter(adapter);
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+            message = "Unexpected error posibly nan";
+            styleWrongMessage(message);
         }
     }
 

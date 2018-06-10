@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -25,6 +26,9 @@ import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPoint;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPointListAdapter;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
@@ -111,6 +115,40 @@ public class fixedPointFragment extends baseOneVariableFragments{
         startActivity(i);
     }
 
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
+                            .setColor(Color.TRANSPARENT).show();
+                }
+            };
+
+    private void styleCorrectMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(76,175,80))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
+    private void styleWrongMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void execute(boolean error, double errorValue, int ite){
         Double xValue = 0.0;
@@ -140,6 +178,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel) {
+        String message = "";
         try {
             function.setPrecision(100);
             ArrayList<FixedPoint> listValues = new ArrayList<>();
@@ -196,14 +235,19 @@ public class fixedPointFragment extends baseOneVariableFragments{
                                 poolColors.add(color);
                                 graphPoint(xa,y0,color);
                                 //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                                Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
-
+                                //Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
+                                message = convertirNormal(xa) + " is a root";
+                                styleCorrectMessage(message);
                             } else if (error <= tol) {
                                 color = poolColors.remove(0);
                                 poolColors.add(color);
                                 graphPoint(xa,y0,color);
-                                Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                                message = convertirNormal(xa) + " is an aproximate root";
+                                styleCorrectMessage(message);
+                                //Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                             } else {
+                                message = "Failed the interval!";
+                                styleWrongMessage(message);
                                 Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
                             }
 
@@ -212,20 +256,27 @@ public class fixedPointFragment extends baseOneVariableFragments{
                         poolColors.add(color);
                         graphPoint(x0,y0,color);
                         //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                        Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-
+                        //Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                        message = convertirNormal(x0) + " is an aproximate root";
+                        styleCorrectMessage(message);
                     }
                 } else {
                     iter.setError("Wrong iterates");
+                    message = "Wrong iterates";
+                    styleWrongMessage(message);
                 }
             } else {
                 textError.setError("Tolerance must be > 0");
+                message = "Tolerance must be > 0";
+                styleWrongMessage(message);
 
             }
             FixedPointListAdapter adapter = new FixedPointListAdapter(getContext(), R.layout.list_adapter_fixed_point, listValues);
             listView.setAdapter(adapter);
         }catch(Exception e){
-            Toast.makeText(getActivity(), "Unexpected error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Unexpected error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            message = "Unexpected error: "+e.getMessage();
+            styleWrongMessage(message);
       }
     }
     public void updatefunctions(String function,boolean error){

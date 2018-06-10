@@ -118,9 +118,34 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
 
                 @Override
                 public void onClick(View view, Parcelable token) {
-                    SuperToast.create(view.getContext(), null, Style.DURATION_SHORT).show();
+                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
+                            .setColor(Color.TRANSPARENT).show();
                 }
             };
+
+    private void styleCorrectMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(76,175,80))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
+    private void styleWrongMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -173,6 +198,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void incrementalSearchMethod(Double x0, Double delta, int ite) {
         double firstX0 =x0;
+        String message = "";
         function.setPrecision(100);
         try {
             ArrayList<IncrementalSearch> listValues = new ArrayList<>();
@@ -226,28 +252,15 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             graphPoint(x1,y1,color);
                             //graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             //Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
-                            SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                                    .setButtonText("UNDO")
-                                    .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                                    .setProgressBarColor(Color.WHITE)
-                                    .setText(convertirNormal(x1) + " is a root")
-                                    .setDuration(Style.DURATION_LONG)
-                                    .setFrame(Style.FRAME_LOLLIPOP)
-                                    .setColor(Color.rgb(30,136,229))
-                                    .setAnimations(Style.ANIMATIONS_POP).show();
+                            message = convertirNormal(x1) + " is a root";
+                            styleCorrectMessage(message);
 
                         } else if (y1 * y0 < 0) {
                             //Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
                           //  graphSerie(x0-0.2,x1+0.2,function.getExpression(),graph,getResources().getColor(R.color.colorPrimary));
-                            SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                                    .setButtonText("UNDO")
-                                    .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                                    .setProgressBarColor(Color.WHITE)
-                                    .setText("[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root")
-                                    .setDuration(Style.DURATION_LONG)
-                                    .setFrame(Style.FRAME_LOLLIPOP)
-                                    .setColor(Color.rgb(30,136,229))
-                                    .setAnimations(Style.ANIMATIONS_POP).show();
+                            message = "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root";
+                            styleCorrectMessage(message);
+
                         }
 
                     } else {
@@ -256,64 +269,27 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         graphPoint(x0,y0,color);
                         //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                         //Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
-                        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                                .setButtonText("UNDO")
-                                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                                .setProgressBarColor(Color.WHITE)
-                                .setText(convertirNormal(x0) + " is a root")
-                                .setDuration(Style.DURATION_LONG)
-                                .setFrame(Style.FRAME_LOLLIPOP)
-                                .setColor(Color.rgb(50,230,29))
-                                .setAnimations(Style.ANIMATIONS_POP).show();
+                        message = convertirNormal(x0) + " is a root";
+                        styleCorrectMessage(message);
                     }
 
                 } else {
                     iter.setError("Iterate needs be >0");
-                    SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                            .setButtonText("UNDO")
-                            .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                            .setProgressBarColor(Color.WHITE)
-                            .setText("Iterate needs be >0")
-                            .setDuration(Style.DURATION_LONG)
-                            .setFrame(Style.FRAME_LOLLIPOP)
-                            .setColor(Color.rgb(230,29,70))
-                            .setAnimations(Style.ANIMATIONS_POP).show();
+                    message = "Iterate needs be >0";
+                    styleWrongMessage(message);
                 }
                 //calc= true;
             } else {
                 this.delta.setError("Delta cannot be zero");
-                SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                        .setButtonText("UNDO")
-                        .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                        .setProgressBarColor(Color.WHITE)
-                        .setText("Delta cannot be zero")
-                        .setDuration(Style.DURATION_LONG)
-                        .setFrame(Style.FRAME_LOLLIPOP)
-                        .setColor(Color.rgb(230,29,70))
-                        .setAnimations(Style.ANIMATIONS_POP).show();
+                message = "Delta cannot be zero";
+                styleWrongMessage(message);
             }
             IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.list_adapter_incremental_search, listValues);
             listView.setAdapter(adapter);
-            SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                    .setButtonText("UNDO")
-                    .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                    .setProgressBarColor(Color.WHITE)
-                    .setText("The method does not converge")
-                    .setDuration(Style.DURATION_LONG)
-                    .setFrame(Style.FRAME_LOLLIPOP)
-                    .setColor(Color.rgb(230,29,70))
-                    .setAnimations(Style.ANIMATIONS_POP).show();
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-            SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                    .setButtonText("UNDO")
-                    .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                    .setProgressBarColor(Color.WHITE)
-                    .setText("Unexpected error posibly nan")
-                    .setDuration(Style.DURATION_LONG)
-                    .setFrame(Style.FRAME_LOLLIPOP)
-                    .setColor(Color.rgb(230,29,70))
-                    .setAnimations(Style.ANIMATIONS_POP).show();
+            //Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+            message = "Unexpected error posibly nan";
+            styleWrongMessage(message);
         }
 
 
