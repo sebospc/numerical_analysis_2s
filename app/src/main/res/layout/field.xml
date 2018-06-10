@@ -32,23 +32,24 @@
     <at.markushi.ui.CircleButton
         android:id="@+id/graph_button"
         android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:layout_weight="1"
-        android:src="@drawable/ic_check_box_black_24dp"
+        android:src="@drawable/ic_check_circle_black_24dp"
         android:onClick="onGraphIt"
-        app:cb_color="#36af0a"
+        app:cb_color="#ffffff"
         app:cb_pressedRingWidth="6dp">
 
     </at.markushi.ui.CircleButton>
 
+
     <at.markushi.ui.CircleButton
         android:id="@+id/delete_button"
         android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:layout_weight="1"
-        android:src="@drawable/ic_cancel_black_24dp"
+        android:src="@drawable/ic_remove_circle_black_24dp"
         android:onClick="onDelete"
-        app:cb_color="#af100a"
+        app:cb_color="#ffffff"
         app:cb_pressedRingWidth="8dp">
 
     </at.markushi.ui.CircleButton>

@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/home/sebastian/App/android%20studio/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_zoom_out_map_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/home/sebastian/App/android%20studio/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_remove_circle_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,11 +28,11 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="height" value="18" />
-                            <entry key="outputName" value="ic_zoom_out_map_black_24dp" />
+                            <entry key="height" value="50" />
+                            <entry key="outputName" value="ic_remove_circle_black_24dp" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="$USER_HOME$" />
-                            <entry key="width" value="18" />
+                            <entry key="width" value="50" />
                           </map>
                         </option>
                       </PersistentState>

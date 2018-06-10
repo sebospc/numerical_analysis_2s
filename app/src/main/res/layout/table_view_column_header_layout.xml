@@ -63,7 +63,8 @@
                 android:paddingRight="-5dp"
                 android:scaleType="fitXY"
                 android:visibility="gone"
-                app:srcCompat="@drawable/ic_down" />
+                app:srcCompat="@drawable/ic_down"
+                tools:ignore="VectorDrawableCompat" />
         </LinearLayout>
 
         <View
