@@ -212,8 +212,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             graphPoint(x1,y1,color);
                             //graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             //Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
-                            MDToast mdToast = MDToast.makeText(Context context, String message, int duration, int type);
-                            mdToast.show();
+
                         } else if (y1 * y0 < 0) {
                             //Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
                           //  graphSerie(x0-0.2,x1+0.2,function.getExpression(),graph,getResources().getColor(R.color.colorPrimary));
