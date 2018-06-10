@@ -37,7 +37,6 @@ public class FixedPointListAdapter extends ArrayAdapter<FixedPoint> {
         TextView textViewN;
         TextView textViewXn;
         TextView textViewFXn;
-        TextView textViewGXn;
         TextView textViewError;
     }
 
@@ -60,11 +59,10 @@ public class FixedPointListAdapter extends ArrayAdapter<FixedPoint> {
         String n = getItem(position).getN();
         String xn = getItem(position).getXn();
         String fXn = getItem(position).getFXn();
-        String gXn = getItem(position).getGXn();
         String error = getItem(position).getError();
 
         //Create the person object with the information
-        FixedPoint fixedPoint = new FixedPoint(n,xn,fXn, gXn, error);
+        FixedPoint fixedPoint = new FixedPoint(n,xn,fXn, error);
 
         //create the view result for showing the animation
         final View result;
@@ -80,7 +78,6 @@ public class FixedPointListAdapter extends ArrayAdapter<FixedPoint> {
             holder.textViewN = convertView.findViewById(R.id.textViewN);
             holder.textViewXn = convertView.findViewById(R.id.textViewXn);
             holder.textViewFXn = convertView.findViewById(R.id.textViewFXn);
-            holder.textViewGXn = convertView.findViewById(R.id.textViewGXn);
             holder.textViewError = convertView.findViewById(R.id.textViewError);
 
             result = convertView;
@@ -101,30 +98,25 @@ public class FixedPointListAdapter extends ArrayAdapter<FixedPoint> {
         holder.textViewN.setText(fixedPoint.getN());
         holder.textViewXn.setText(fixedPoint.getXn());
         holder.textViewFXn.setText(fixedPoint.getFXn());
-        holder.textViewGXn.setText(fixedPoint.getGXn());
         holder.textViewError.setText(fixedPoint.getError());
 
         if (holder.textViewN.getText() == "n" ) {
             holder.textViewN.setTextColor(Color.WHITE);
             holder.textViewXn.setTextColor(Color.WHITE);
             holder.textViewFXn.setTextColor(Color.WHITE);
-            holder.textViewGXn.setTextColor(Color.WHITE);
             holder.textViewError.setTextColor(Color.WHITE);
             holder.textViewN.setBackgroundColor(Color.rgb(63,81,181));
             holder.textViewXn.setBackgroundColor(Color.rgb(63,81,181));
             holder.textViewFXn.setBackgroundColor(Color.rgb(63,81,181));
-            holder.textViewGXn.setBackgroundColor(Color.rgb(63,81,181));
             holder.textViewError.setBackgroundColor(Color.rgb(63,81,181));
         }else{
             holder.textViewN.setTextColor(Color.BLACK);
             holder.textViewXn.setTextColor(Color.BLACK);
             holder.textViewFXn.setTextColor(Color.BLACK);
-            holder.textViewGXn.setTextColor(Color.BLACK);
             holder.textViewError.setTextColor(Color.BLACK);
             holder.textViewN.setBackgroundColor(Color.TRANSPARENT);
             holder.textViewXn.setBackgroundColor(Color.TRANSPARENT);
             holder.textViewFXn.setBackgroundColor(Color.TRANSPARENT);
-            holder.textViewGXn.setBackgroundColor(Color.TRANSPARENT);
             holder.textViewError.setBackgroundColor(Color.TRANSPARENT);
         }
 

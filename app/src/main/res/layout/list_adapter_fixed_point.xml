@@ -62,16 +62,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewGXn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text="TextView"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-
-            <TextView
                 android:id="@+id/textViewError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -145,13 +145,11 @@ public class secantFragment extends baseOneVariableFragments {
 
             function.setPrecision(100);
             ArrayList<Secant> listValues = new ArrayList<>();
-        Secant titles = new Secant("n", "Xn", "f(Xn)", "f'(Xn)", "f''(Xn)", "Error");
+        Secant titles = new Secant("n", "Xn", "f(Xn)",  "Error");
         listValues.add(titles);
             listValuesTitles = new LinkedList<>();
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
-            listValuesTitles.add("f'(Xn)");
-            listValuesTitles.add("f''(Xn)");
             listValuesTitles.add("Error");
             //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
@@ -165,13 +163,11 @@ public class secantFragment extends baseOneVariableFragments {
                         Double aux0 = x0;
                         Double aux1 = x1;
                         Double den = fx1-fx0;
-                        Secant iteZero = new Secant(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(fx0)), String.valueOf(convertirNormal(fx1)), String.valueOf(convertirNormal(den)), String.valueOf(convertirCientifica(error)));
+                        Secant iteZero = new Secant(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(fx0)),  String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(fx0));
-                        listValuesIteZero.add(String.valueOf(fx1));
-                        listValuesIteZero.add(String.valueOf(den));
                         listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                         completeList.add(listValuesIteZero);
                         while(fx1 != 0 && den != 0 && error > tol && cont < ite) {
@@ -188,12 +184,10 @@ public class secantFragment extends baseOneVariableFragments {
                             fx1  = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
                             den = fx1 - fx0;
                             cont = cont + 1;
-                            Secant iteNext= new Secant(String.valueOf(cont), String.valueOf(convertirNormal(aux0)), String.valueOf(convertirNormal(fx0)), String.valueOf(convertirNormal(fx1)), String.valueOf(convertirNormal(den)), String.valueOf(convertirCientifica(error)));
+                            Secant iteNext= new Secant(String.valueOf(cont), String.valueOf(convertirNormal(aux0)), String.valueOf(convertirNormal(fx0)), String.valueOf(convertirCientifica(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(x0));
                             listValuesIteNext.add(String.valueOf(fx0));
-                            listValuesIteNext.add(String.valueOf(fx1));
-                            listValuesIteNext.add(String.valueOf(den));
                             listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
                             completeList.add(listValuesIteNext);
                         }
@@ -237,7 +231,7 @@ public class secantFragment extends baseOneVariableFragments {
             SecantListAdapter adapter = new SecantListAdapter(getContext(), R.layout.list_adapter_secant, listValues);
             listView.setAdapter(adapter);
         }catch(Exception e){
-          //  Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
         }
     }
 
