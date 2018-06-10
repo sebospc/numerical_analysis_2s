@@ -21,30 +21,28 @@
 
         <Button
             android:id="@+id/run"
-            android:layout_width="198dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
             android:text="CALCULATE"
             android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/runHelp"
-            android:layout_width="198dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/Transparent"
-            android:text="HELP" />
+            android:text="help" />
 
         <Button
             android:id="@+id/pivoting"
-            android:layout_width="198dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
             android:text="GET PIVOTED"
             android:textColor="@android:color/white" />
-
     </LinearLayout>
 
     <ScrollView

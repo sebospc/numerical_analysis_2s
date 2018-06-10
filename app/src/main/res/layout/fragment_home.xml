@@ -45,21 +45,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="149dp"
                     android:gravity="center_horizontal"
-                    android:text="This project contains lots of numerical methods about one-variable equations, systems of equations and interpolation. Some of them were implemented with parallel computing. You will be able to found roots in different functions, solve matrixes and equations."
+                    android:text="This project contains lots of numerical methods about one-variable equations, systems of equations and interpolation. Some of them were implemented with parallel computing. You will be able to found roots in different functions, solve matrixes and find interpolating polynomials."
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:layout_editor_absoluteX="26dp"
                     tools:layout_editor_absoluteY="217dp" />
 
-                <Button
-                    android:id="@+id/btnCredits"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:text="CREDITS"
-                    android:textColor="@android:color/white"
-                    tools:layout_editor_absoluteX="104dp"
-                    tools:layout_editor_absoluteY="434dp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnCredits"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:text="CREDITS"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 

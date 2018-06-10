@@ -13,7 +13,7 @@
         android:layout_height="53dp"
         android:gravity="center"
         android:text="Inverse Matrix and Determinant"
-        android:textSize="20dp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -23,28 +23,27 @@
 
         <Button
             android:id="@+id/croultButton"
-            android:layout_width="198dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="CROUT"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="crout"
             android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/doolittleButton"
-            android:layout_width="198dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/Transparent"
-            android:text="DOOLITTLE" />
+            android:text="doolittle" />
 
         <Button
             android:id="@+id/choleskyButton"
-            android:layout_width="198dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="CHOLESKY"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="cholesky"
             android:textColor="@android:color/white" />
     </LinearLayout>
 

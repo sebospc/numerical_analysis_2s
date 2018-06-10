@@ -71,35 +71,32 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/runIncremental"
-                android:layout_width="198dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/Transparent"
                 android:backgroundTint="@color/colorPrimary"
                 android:text="CALCULATE"
                 android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/runHelp"
-                android:layout_width="196dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/Transparent"
-                android:text="HELP"
-                android:textColor="@android:color/black" />
+                android:text="help" />
 
             <Button
                 android:id="@+id/runChart"
-                android:layout_width="198dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:text="TOTAL CHART"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="CHART"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 

@@ -23,21 +23,19 @@
 
         <Button
             android:id="@+id/run"
-            android:layout_width="198dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
             android:text="CALCULATE"
             android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/runHelp"
-            android:layout_width="198dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/Transparent"
-            android:text="HELP" />
-
+            android:text="help" />
     </LinearLayout>
 
     <LinearLayout
@@ -77,13 +75,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="multipliers"
                 android:gravity="center"
-                android:textSize="25dp"/>
+                android:text="Multipliers"
+                android:textSize="25dp" />
             <ScrollView
                 android:id="@+id/scrollMultipliers"
                 android:layout_width="match_parent"

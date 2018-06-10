@@ -34,13 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Run" />
-        <Button
-            android:id="@+id/showEquations"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="equations" />
+            android:backgroundTint="@color/colorPrimary"
+            android:text="CALCULATE"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/runHelp"
@@ -48,6 +44,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="help" />
+
+        <Button
+            android:id="@+id/showEquations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="equations"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
 
 
