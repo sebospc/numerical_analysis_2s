@@ -8,14 +8,12 @@ public class FixedPoint {
     private String n;
     private String xn;
     private String fXn;
-    private String gXn;
     private String error;
 
-    public FixedPoint(String n, String xn, String fXn, String gXn, String error) {
+    public FixedPoint(String n, String xn, String fXn, String error) {
         this.n = n;
         this.xn=xn;
         this.fXn=fXn;
-        this.gXn=gXn;
         this.error=error;
     }
 
@@ -41,14 +39,6 @@ public class FixedPoint {
 
     public void setFXn(String fXn) {
         this.fXn = fXn;
-    }
-
-    public String getGXn() {
-        return gXn;
-    }
-
-    public void setGXn(String gXn) {
-        this.gXn = gXn;
     }
 
     public String getError() {

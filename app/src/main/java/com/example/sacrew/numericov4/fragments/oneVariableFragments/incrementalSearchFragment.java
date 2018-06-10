@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
+import com.example.sacrew.numericov4.fragments.customPopUps.popUpMessage;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
@@ -187,6 +188,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         listValuesFirst.add(String.valueOf(x0));
                         listValuesFirst.add(String.valueOf(y0));
                         completeList.add(listValuesFirst);
+                        calc= true;
                         while (((y1 * y0) > 0) && (cont < ite)) {
                             cont++;
                             x0 = x1;
@@ -209,10 +211,10 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             poolColors.add(color);
                             graphPoint(x1,y1,color);
                             //graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
 
                         } else if (y1 * y0 < 0) {
-                            Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
                           //  graphSerie(x0-0.2,x1+0.2,function.getExpression(),graph,getResources().getColor(R.color.colorPrimary));
                         }
 
@@ -221,21 +223,29 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         poolColors.add(color);
                         graphPoint(x0,y0,color);
                         //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                        Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getActivity(), popUpMessage.class);
+                        startActivity(i);
                     }
 
                 } else {
                     iter.setError("Iterate needs be >0");
+                    Intent i = new Intent(getActivity(), popUpMessage.class);
+                    startActivity(i);
                 }
-                calc= true;
+                //calc= true;
             } else {
                 this.delta.setError("Delta cannot be zero");
+                Intent i = new Intent(getActivity(), popUpMessage.class);
+                startActivity(i);
             }
             IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.list_adapter_incremental_search, listValues);
             listView.setAdapter(adapter);
 
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getActivity(), popUpMessage.class);
+            startActivity(i);
         }
 
 

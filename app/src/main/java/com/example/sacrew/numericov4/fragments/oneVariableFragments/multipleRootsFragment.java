@@ -185,6 +185,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                         listValuesIteZero.add(String.valueOf(y0p2));
                         listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                         completeList.add(listValuesIteZero);
+                        calc= true;
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             if (xa == 0) {
@@ -213,7 +214,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                             completeList.add(listValuesIteNext);
                         }
                         //TableViewModel.getCeldas(completeList);
-                        calc = true;
+                        //calc = true;
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphSerie(function.getExpression(),0,xa*2,color);

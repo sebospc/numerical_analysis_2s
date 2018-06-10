@@ -143,12 +143,11 @@ public class fixedPointFragment extends baseOneVariableFragments{
         try {
             function.setPrecision(100);
             ArrayList<FixedPoint> listValues = new ArrayList<>();
-        FixedPoint titles = new FixedPoint("n", "Xn", "f(Xn)", "g(Xn)", "Error");
+        FixedPoint titles = new FixedPoint("n", "Xn", "f(Xn)", "Error");
         listValues.add(titles);
             listValuesTitles = new LinkedList<>();
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
-            listValuesTitles.add("g(Xn)");
             listValuesTitles.add("Error");
             //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
@@ -159,15 +158,15 @@ public class fixedPointFragment extends baseOneVariableFragments{
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
-                        FixedPoint iteZero = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(g0)), String.valueOf(convertirCientifica(error)));
+                        FixedPoint iteZero = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)),  String.valueOf(convertirCientifica(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(y0));
-                        listValuesIteZero.add(String.valueOf(g0));
                         listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
                         double xa = x0;
                         completeList.add(listValuesIteZero);
+                        calc= true;
                             while ((y0 != 0) && (error > tol) && (cont < ite)) {
                                 ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 double xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
@@ -178,16 +177,15 @@ public class fixedPointFragment extends baseOneVariableFragments{
                                     error = Math.abs(xn - xa);
                                 xa = xn;
                                 cont++;
-                                FixedPoint iteNext = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(g0)), String.valueOf(convertirCientifica(error)));
+                                FixedPoint iteNext = new FixedPoint(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirCientifica(error)));
                                 listValues.add(iteNext);
                                 listValuesIteNext.add(String.valueOf(xa));
                                 listValuesIteNext.add(String.valueOf(y0));
-                                listValuesIteNext.add(String.valueOf(g0));
                                 listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
                                 completeList.add(listValuesIteNext);
                             }
                         //TableViewModel.getCeldas(completeList);
-                            calc = true;
+                            //calc = true;
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphSerie(function.getExpression(),0, xa*2,color);
