@@ -2,8 +2,10 @@ package com.example.sacrew.numericov4.fragments.interpolationFragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Pair;
@@ -15,6 +17,9 @@ import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpLinearSpline;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 
 import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
@@ -32,7 +37,7 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
  */
 public class splineLinear extends baseSpliners{
 
-
+    String mensaje = "";
     public splineLinear() {
         // Required empty public constructor
     }
@@ -112,7 +117,9 @@ public class splineLinear extends baseSpliners{
                 Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             double check = (aux.second.first-aux.first.first);
             if(check == 0) {
-                Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
+                mensaje = "Error division by 0";
+                styleWrongMessage(mensaje);
                 return false;
             }
             double numerator = (aux.second.second-aux.first.second);
@@ -129,6 +136,28 @@ public class splineLinear extends baseSpliners{
                     //"x = \\begin{cases} a & 3\\leq b \\leq 4  \\\\ c &\\text{if } d\n \\end{cases}";
         }
         return true;
+    }
+
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
+                            .setColor(Color.TRANSPARENT).show();
+                }
+            };
+
+    private void styleWrongMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
     }
 
 }

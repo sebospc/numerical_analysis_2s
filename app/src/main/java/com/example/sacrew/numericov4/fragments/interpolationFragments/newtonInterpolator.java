@@ -2,8 +2,10 @@ package com.example.sacrew.numericov4.fragments.interpolationFragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewtonDifferences;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 
 
 import org.matheclipse.core.basic.Config;
@@ -34,6 +39,7 @@ import java.util.List;
 public class newtonInterpolator extends baseInterpolationMethods {
 
     private List<double []> derivs;
+    String mensaje = "";
     private boolean errorDivision = true;
 
     public newtonInterpolator() {
@@ -144,12 +150,36 @@ public class newtonInterpolator extends baseInterpolationMethods {
         } else {
             double denominator = (xn[i + difference] - xn[i - 1]);
             if (denominator == 0) {
-                Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
+                mensaje = "Error division by 0";
+                styleWrongMessage(mensaje);
                 errorDivision = false;
             }
             double newFxn = (actualValues[i] - actualValues[i - 1]) / denominator;
             auxFxn[i-1] = newFxn;
             newtonInterpolation(actualValues, difference, i + 1, auxFxn);
         }
+    }
+
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
+                            .setColor(Color.TRANSPARENT).show();
+                }
+            };
+
+    private void styleWrongMessage(String message){
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
     }
 }
