@@ -248,7 +248,7 @@ public class fixedPointFragment extends baseOneVariableFragments{
                             } else {
                                 message = "Failed the interval!";
                                 styleWrongMessage(message);
-                                Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
                             }
 
                     } else {
