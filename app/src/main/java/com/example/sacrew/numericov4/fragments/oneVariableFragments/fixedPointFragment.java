@@ -188,31 +188,6 @@ public class fixedPointFragment extends baseOneVariableFragments {
                         listValues.add(new FixedPoint("","","",""));
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-<<<<<<< HEAD
-                        graphSerie(function.getExpression(),0, xa*2,color);
-                            if (y0 == 0) {
-                                //graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
-                                //graphSerie(xa - 0.2, xa+0.2, functionG.getExpression(), graph, Color.RED);
-                                color = poolColors.remove(0);
-                                poolColors.add(color);
-                                graphPoint(xa,y0,color);
-                                //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                                //Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
-                                message = convertirNormal(xa) + " is a root";
-                                styleCorrectMessage(message);
-                            } else if (error <= tol) {
-                                color = poolColors.remove(0);
-                                poolColors.add(color);
-                                graphPoint(xa,y0,color);
-                                message = convertirNormal(xa) + " is an aproximate root";
-                                styleCorrectMessage(message);
-                                //Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                            } else {
-                                message = "Failed the interval!";
-                                styleWrongMessage(message);
-                                //Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
-                            }
-=======
                         graphSerie(function.getExpression(), 0, xa , color);
                         if (y0 == 0) {
                             color = poolColors.remove(0);
@@ -228,7 +203,6 @@ public class fixedPointFragment extends baseOneVariableFragments {
                         } else {
                             styleWrongMessage("The method failed with " + ite + " iterations!");
                         }
->>>>>>> 3c97d63c0593fbbd89211ad1a9ac6040e2b22180
 
                     } else {
                         int color = poolColors.remove(0);

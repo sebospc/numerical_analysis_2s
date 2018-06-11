@@ -22,17 +22,11 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.systemEquations;
 import com.github.johnpersano.supertoasts.library.Style;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 
-import java.text.DecimalFormat;
 import java.util.LinkedList;
-import java.util.Locale;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquations.bValuesText;
@@ -108,7 +102,7 @@ public abstract class baseSystemEquations extends Fragment {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public TextView defaultEditText(String value) {
+    public TextView defaultTextView(String value) {
         return defaultEditText(value, defaultColor,100,10,true);
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -326,7 +320,7 @@ public abstract class baseSystemEquations extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void substitution(double[][] expandedMatrix){
         for(double val: substitution(expandedMatrix,-1)){
-            xValuesText.addView(defaultEditText((val+"            ").substring(0,6)));
+            xValuesText.addView(defaultTextView((val+"            ").substring(0,6)));
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -338,7 +332,7 @@ public abstract class baseSystemEquations extends Fragment {
             clean[marks[i]] = val;
         }
         for(double val:clean){
-            xValuesText.addView(defaultEditText((val+"            ").substring(0,6)));
+            xValuesText.addView(defaultTextView((val+"            ").substring(0,6)));
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
