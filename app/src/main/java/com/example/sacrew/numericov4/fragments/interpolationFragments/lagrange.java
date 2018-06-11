@@ -132,7 +132,7 @@ public class lagrange extends baseInterpolationMethods{
                 function = function+ "$${ p(x) =  \\sum_{k = 0}^n L_{k}(x)f(x_{k})}$$";
                 function = function + " $${p(x) = " + stw + "\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
 
-                updateGraph(simplifiedPFunction.toString(), getContext(), (int) Math.ceil(((xn[xn.length - 1] - xn[0]) * 10) + 20));
+                updateGraph(simplifiedPFunction.toString(), getContext(), (int) Math.ceil((Math.abs(xn[xn.length - 1] - xn[0]) * 10) + 10));
             }
         }
     }

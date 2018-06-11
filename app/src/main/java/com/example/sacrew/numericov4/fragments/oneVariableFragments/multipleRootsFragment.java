@@ -131,8 +131,6 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             xvalue.setError("Invalid Xi");
             error = false;
         }
-        String functionCompose = "x-(((" + function.getExpression() + ")*(" + originalFuncG +
-                "))/(((" + originalFuncG + ")^2)-((" + function.getExpression() + ")*(" + originalFuncGPrim + "))))";
 
         if (error) {
             if (errorToggle.isChecked()) {

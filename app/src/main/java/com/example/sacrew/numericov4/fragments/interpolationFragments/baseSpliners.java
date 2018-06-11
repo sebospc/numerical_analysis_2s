@@ -11,7 +11,7 @@ import java.util.List;
 import static com.example.sacrew.numericov4.fragments.interpolation.interpolationGraph;
 
 
-public class baseSpliners extends baseInterpolationMethods {
+public abstract class baseSpliners extends baseInterpolationMethods {
     // first pair <= x <= second pair
     // each pair have their f(x) value :)
     Pair[] inequality;
@@ -27,6 +27,7 @@ public class baseSpliners extends baseInterpolationMethods {
     }
     public void updateGraph(){
         constantSerie = utilsOfGraph.graphPharallelByFunctions(equations);
+        System.out.println("size functions "+equations.size()+" total serie "+constantSerie.size());
         for(LineGraphSeries<DataPoint> v : constantSerie)
             interpolationGraph.addSeries(v);
     }

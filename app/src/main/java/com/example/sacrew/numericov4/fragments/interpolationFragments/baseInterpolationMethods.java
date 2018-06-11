@@ -65,6 +65,7 @@ public abstract class baseInterpolationMethods extends Fragment {
         int color = poolColors.remove(0);
         poolColors.add(color);
         constantSerie = utilsOfGraph.bestGraphPharallel(iters,function,color,context);
+
         for(LineGraphSeries<DataPoint> v : constantSerie)
             interpolationGraph.addSeries(v);
 

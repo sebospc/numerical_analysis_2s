@@ -127,6 +127,7 @@ public class graphUtils {
                 i = 0;
             }
 
+
             if(cores[i] == null){
                 double init = func.second.second.first;
                 double end = func.second.second.second;
@@ -140,6 +141,11 @@ public class graphUtils {
                     cores[i].join();
                     listSeries.add(values[i].getSeries());
                     cores[i] = null;
+                    double init = func.second.second.first;
+                    double end = func.second.second.second;
+                    values[i] = new bestThreadGraph(init,end,func.first,func.second.first,(int)(Math.ceil(Math.abs(end-init)/0.1)));
+                    cores[i] =new Thread(values[i]);
+                    cores[i].start();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -162,8 +168,8 @@ public class graphUtils {
     public List<LineGraphSeries<DataPoint>> graphPharallel(int iters, String funcitonExpr, int color) {
         int realIters = iters * 2;
         int perCore = (int) Math.ceil(realIters / NUMBER_OF_CORES) * 2;
-        double each = (realIters * 0.1 * -1);
-        double end = (each + (perCore * 0.1) - 0.1);
+        double each = (realIters * 0.1 *-1) ;
+        double end = (each + (perCore * 0.1));
         double lastEnd = each*-1;
         Thread[] cores = new Thread[NUMBER_OF_CORES];
 
@@ -173,8 +179,9 @@ public class graphUtils {
             cores[i] = new Thread(values[i]);
             cores[i].start();
             each = (each + (perCore* 0.1));
-            end = (each + (perCore* 0.1));
-            if(i == cores.length - 2) { //error de redondeo
+            end = (end + (perCore* 0.1));
+            if(i == cores.length - 1) { //error de redondeo
+                System.out.println("entro");
                 end = lastEnd;
             }
         }
@@ -199,7 +206,7 @@ public class graphUtils {
         private int color;
         private int perCore;
         private DoubleEvaluator engine = new DoubleEvaluator();
-        private LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+        private LineGraphSeries<DataPoint> series ;
 
         bestThreadGraph(double x, double end, String function, int color, int perCore) {
             this.x = x;
@@ -213,6 +220,7 @@ public class graphUtils {
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public void run() {
+            series = new LineGraphSeries<>();
             double y;
             double x = this.x;
             ExprEvaluator aux = new ExprEvaluator();

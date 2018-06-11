@@ -109,7 +109,6 @@ public class splineCubico extends baseSpliners {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean cubicSpline(){
         function = "";
-        System.out.println(inequality);
         double [][] superMatrix = new double[4*inequality.length][4*inequality.length+1];
         int n = superMatrix.length;
         int j = 0;
@@ -151,7 +150,7 @@ public class splineCubico extends baseSpliners {
 
         for(int i = 0; i < inequality.length-1;i++){
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
-            System.out.println("second derivative "+aux);
+
             superMatrix[k][z] = 3*Math.pow(aux.second.first,2);
             superMatrix[k][z+1] = 2*aux.second.first;
             superMatrix[k][z+2] = 1;
@@ -195,10 +194,7 @@ public class splineCubico extends baseSpliners {
         superMatrix[k+1][4*(inequality.length-1)+1] = 2;
         equation = superMatrix[k+1][4*(inequality.length-1)]+"a_{"+(inequality.length-1)+"}+2b_{"+(inequality.length-1)+"} = 0";
         function+="$${"+equation+" \\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
-        for(double [] v: superMatrix){
-            for(double g: v) System.out.print(g+"  ");
-            System.out.println();
-        }
+
         double[] result = systemUtils.eliminationWithTotalPivot(superMatrix);
         if(result == null){
             //Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
@@ -215,12 +211,10 @@ public class splineCubico extends baseSpliners {
         EvalEngine engine = new EvalEngine(false);
         TeXUtilities texUtil = new TeXUtilities(engine, false);
         j = 0;
-        for(double v: result)System.out.println("result = "+v);
         for(int i = 0; i < inequality.length; i++){
 
             String auxFunc = result[j]+"*(x^3)+"+result[j+1]+"*x^2+"+result[j+2]+"*x+"+result[j+3];
             String auxFuncToLatex = roundOff(result[j])+"*(x^3)+"+roundOff(result[j+1])+"*x^2+"+roundOff(result[j+2])+"*x+"+roundOff(result[j+3]);
-            System.out.println("result j+3 "+result[j+3]);
             String funcSimplify = util.evaluate(F.FullSimplify(util.evaluate(auxFunc))).toString();
             int color = poolColors.remove(0);
             poolColors.add(color);

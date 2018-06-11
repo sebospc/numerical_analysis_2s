@@ -183,7 +183,9 @@ public class splineCuadratico extends baseSpliners{
             int color = poolColors.remove(0);
             poolColors.add(color);
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
+            System.out.println("iter  "+i+" values "+new Pair<>(funcSimplify,new Pair<>(color,new Pair<>(aux.first.first,aux.second.first))));
             equations.add(new Pair<>(funcSimplify,new Pair<>(color,new Pair<>(aux.first.first,aux.second.first))));
+
             stw = new StringWriter();
             texUtil.toTeX(util.evaluate(F.FullSimplify(util.evaluate(auxToLatex))).toString(), stw);
             function += stw.toString() +" & "+aux.first.first+" \\leq "+aux.second.first;
