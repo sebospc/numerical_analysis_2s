@@ -106,11 +106,6 @@ public abstract class baseSystemEquations extends Fragment {
 
 
 
-    public static String convertirTexto(String val){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#.##");
-        return num.format(val);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public TextView defaultEditText(String value) {
@@ -243,10 +238,6 @@ public abstract class baseSystemEquations extends Fragment {
     }
 
 
-
-    public void swapColumn(int k, int higherColumn, double[][] expandedMatrix, int [] marks, TableLayout table,int color){
-        swapColumn(k,higherColumn,expandedMatrix,marks,table,color,false);
-    }
     public void swapColumn(int k, int higherColumn, double[][] expandedMatrix, int [] marks, final TableLayout table,int color, boolean acces){
         if(marks != null) {
             int aux = marks[k];
@@ -472,21 +463,22 @@ public abstract class baseSystemEquations extends Fragment {
 
                 @Override
                 public void onClick(View view, Parcelable token) {
-                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
-                            .setColor(Color.TRANSPARENT).show();
+                    SuperActivityToast.cancelAllSuperToasts();
                 }
             };
 
-    private void styleWrongMessage(String message){
+    public void styleWrongMessage(String message){
+        SuperActivityToast.cancelAllSuperToasts();
         SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setIndeterminate(true)
                 .setButtonText("UNDO")
                 .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
                 .setProgressBarColor(Color.WHITE)
                 .setText(message)
-                .setDuration(Style.DURATION_LONG)
                 .setFrame(Style.FRAME_LOLLIPOP)
                 .setColor(Color.rgb(244,67,54))
                 .setAnimations(Style.ANIMATIONS_POP).show();
     }
+
 
 }

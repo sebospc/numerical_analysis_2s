@@ -37,6 +37,7 @@ import com.example.sacrew.numericov4.fragments.systemEquationsFragment.jacobi;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.partialPivoting;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.totalPivoting;
 import com.example.sacrew.numericov4.pagerAdapter;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 
 
 import java.util.LinkedList;
@@ -77,6 +78,8 @@ public class systemEquations extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //clear toasts
+        SuperActivityToast.cancelAllSuperToasts();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_system_equations,container,false);
 
@@ -141,12 +144,11 @@ public class systemEquations extends Fragment {
         ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                SuperActivityToast.cancelAllSuperToasts();
                 animatorSet.removeAllListeners();
                 animatorSet.end();
                 animatorSet.cancel();

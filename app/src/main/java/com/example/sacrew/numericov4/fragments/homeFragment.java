@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +35,8 @@ public class homeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //clear toasts
+        SuperActivityToast.cancelAllSuperToasts();
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_home, container, false);

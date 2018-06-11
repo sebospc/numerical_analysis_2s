@@ -108,7 +108,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight=".15"
         android:orientation="vertical">
 
         <LinearLayout
@@ -153,11 +152,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
                 <ListView
                     android:id="@+id/listView"
                     android:layout_width="match_parent"
@@ -170,6 +164,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>

@@ -2,35 +2,25 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpMessage;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
 
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.udojava.evalex.Expression;
 
 
@@ -113,39 +103,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
         startActivity(i);
     }
 
-    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
-            new SuperActivityToast.OnButtonClickListener() {
 
-                @Override
-                public void onClick(View view, Parcelable token) {
-                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
-                            .setColor(Color.TRANSPARENT).show();
-                }
-            };
-
-    private void styleCorrectMessage(String message){
-        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                .setButtonText("UNDO")
-                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                .setProgressBarColor(Color.WHITE)
-                .setText(message)
-                .setDuration(Style.DURATION_LONG)
-                .setFrame(Style.FRAME_LOLLIPOP)
-                .setColor(Color.rgb(76,175,80))
-                .setAnimations(Style.ANIMATIONS_POP).show();
-    }
-
-    private void styleWrongMessage(String message){
-        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                .setButtonText("UNDO")
-                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                .setProgressBarColor(Color.WHITE)
-                .setText(message)
-                .setDuration(Style.DURATION_LONG)
-                .setFrame(Style.FRAME_LOLLIPOP)
-                .setColor(Color.rgb(244,67,54))
-                .setAnimations(Style.ANIMATIONS_POP).show();
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -197,8 +155,6 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void incrementalSearchMethod(Double x0, Double delta, int ite) {
-        double firstX0 =x0;
-        String message = "";
         function.setPrecision(100);
         try {
             ArrayList<IncrementalSearch> listValues = new ArrayList<>();
@@ -207,12 +163,11 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             listValuesTitles = new LinkedList<>();
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
-            //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)));
+                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)));
                     listValues.add(iteZero);
                     List<String> listValuesIteZero = new LinkedList<>();
                     listValuesIteZero.add(String.valueOf(x0));
@@ -222,7 +177,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         int cont = 1;
                         double x1 = x0 + delta;
                         double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirNormal(y1)));
+                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(normalTransformation(y1)));
                         listValues.add(iterFirst);
                         List<String> listValuesFirst = new LinkedList<>();
                         listValuesFirst.add(String.valueOf(x0));
@@ -235,61 +190,47 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             y0 = y1;
                             x1 = x0 + delta;
                             y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont), String.valueOf(convertirNormal(x1)), String.valueOf(convertirNormal(y1)));
+                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(normalTransformation(y1)));
                             listValues.add(iterNext);
                             List<String> listValuesNext = new LinkedList<>();
                             listValuesNext.add(String.valueOf(x0));
                             listValuesNext.add(String.valueOf(y0));
                             completeList.add(listValuesNext);
                         }
-                        //TableViewModel.getCeldas(completeList);
+                        listValues.add(new IncrementalSearch("","",""));
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphSerie(function.getExpression(),0,x1,color);
+                        graphSerie(function.getExpression(),0,x0,color);
                         if (y1 == 0) {
-                             color = poolColors.remove(0);
+                            color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(x1,y1,color);
-                            //graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            //Toast.makeText(getContext(), convertirNormal(x1) + " is a root", Toast.LENGTH_SHORT).show();
-                            message = convertirNormal(x1) + " is a root";
-                            styleCorrectMessage(message);
-
+                            styleCorrectMessage(normalTransformation(x1) + " is a root");
                         } else if (y1 * y0 < 0) {
-                            //Toast.makeText(getContext(), "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
-                          //  graphSerie(x0-0.2,x1+0.2,function.getExpression(),graph,getResources().getColor(R.color.colorPrimary));
-                            message = "[" + convertirNormal(x0) + ", " + convertirNormal(x1) + "] is an interval with root";
-                            styleCorrectMessage(message);
-
+                            styleCorrectMessage("[" + normalTransformation(x0) + ", " + normalTransformation(x1) + "] is an interval with root");
+                        }else{
+                            styleWrongMessage("Root dont found");
                         }
 
                     } else {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(x0,y0,color);
-                        //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                        //Toast.makeText(getContext(), convertirNormal(x0) + " is a root", Toast.LENGTH_SHORT).show();
-                        message = convertirNormal(x0) + " is a root";
-                        styleCorrectMessage(message);
+                        styleCorrectMessage(normalTransformation(x0) + " is a root");
                     }
 
                 } else {
                     iter.setError("Iterate needs be >0");
-                    message = "Iterate needs be >0";
-                    styleWrongMessage(message);
+                    styleWrongMessage("Iterate needs be >0");
                 }
-                //calc= true;
             } else {
                 this.delta.setError("Delta cannot be zero");
-                message = "Delta cannot be zero";
-                styleWrongMessage(message);
+                styleWrongMessage("Delta cannot be zero");
             }
             IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.list_adapter_incremental_search, listValues);
             listView.setAdapter(adapter);
         } catch (Exception e) {
-            //Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-            message = "Unexpected error posibly nan";
-            styleWrongMessage(message);
+            styleWrongMessage("Unexpected error posibly nan");
         }
 
 

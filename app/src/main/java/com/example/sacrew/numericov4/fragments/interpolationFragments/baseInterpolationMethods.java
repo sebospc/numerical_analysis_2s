@@ -2,10 +2,15 @@ package com.example.sacrew.numericov4.fragments.interpolationFragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Parcelable;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TableRow;
 
 import com.example.sacrew.numericov4.utils.graphUtils;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -77,4 +82,27 @@ public abstract class baseInterpolationMethods extends Fragment {
         number = number / accuracy;
         return number;
     }
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperActivityToast.cancelAllSuperToasts();
+                }
+            };
+
+    public void styleWrongMessage(String message){
+        SuperActivityToast.cancelAllSuperToasts();
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setIndeterminate(true)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
+
 }

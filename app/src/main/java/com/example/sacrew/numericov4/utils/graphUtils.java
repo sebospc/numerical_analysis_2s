@@ -164,15 +164,19 @@ public class graphUtils {
         int perCore = (int) Math.ceil(realIters / NUMBER_OF_CORES) * 2;
         double each = (realIters * 0.1 * -1);
         double end = (each + (perCore * 0.1) - 0.1);
+        double lastEnd = each*-1;
         Thread[] cores = new Thread[NUMBER_OF_CORES];
 
         threadGraph[] values = new threadGraph[NUMBER_OF_CORES];
         for (int i = 0; i < cores.length; i++) {
-            values[i] = new threadGraph(each, end, funcitonExpr, color, perCore);
+            values[i] = new threadGraph(each-5, end, funcitonExpr, color, perCore);
             cores[i] = new Thread(values[i]);
             cores[i].start();
-            each = (each + (perCore * 0.1) - 0.2);
-            end = (each + (perCore * 0.1) + 0.2);
+            each = (each + (perCore* 0.1));
+            end = (each + (perCore* 0.1));
+            if(i == cores.length - 2) { //error de redondeo
+                end = lastEnd;
+            }
         }
         List<LineGraphSeries<DataPoint>> listSeries = new LinkedList<>();
         for (int i = 0; i < cores.length; i++) {
@@ -183,6 +187,7 @@ public class graphUtils {
                 System.out.println(e);
             }
         }
+
         return listSeries;
 
     }
@@ -278,7 +283,8 @@ public class graphUtils {
                 } catch (Exception ignored) {
 
                 }
-                x = (x + 0.1);
+                x = Math.round((x + 0.1)* 1000.0) / 1000.0;
+                //x = (x + 0.1);
             }
             series.setColor(color);
             //graphFragment.listSeries.add(series);

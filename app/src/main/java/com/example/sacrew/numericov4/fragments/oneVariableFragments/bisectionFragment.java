@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
@@ -26,10 +24,6 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.BisectionListAdapter;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 
 
 import java.math.BigDecimal;
@@ -114,39 +108,7 @@ public class bisectionFragment extends baseOneVariableFragments {
         startActivity(i);
     }
 
-    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
-            new SuperActivityToast.OnButtonClickListener() {
 
-                @Override
-                public void onClick(View view, Parcelable token) {
-                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
-                            .setColor(Color.TRANSPARENT).show();
-                }
-            };
-
-    private void styleCorrectMessage(String message){
-        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                .setButtonText("UNDO")
-                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                .setProgressBarColor(Color.WHITE)
-                .setText(message)
-                .setDuration(Style.DURATION_LONG)
-                .setFrame(Style.FRAME_LOLLIPOP)
-                .setColor(Color.rgb(76,175,80))
-                .setAnimations(Style.ANIMATIONS_POP).show();
-    }
-
-    private void styleWrongMessage(String message){
-        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                .setButtonText("UNDO")
-                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                .setProgressBarColor(Color.WHITE)
-                .setText(message)
-                .setDuration(Style.DURATION_LONG)
-                .setFrame(Style.FRAME_LOLLIPOP)
-                .setColor(Color.rgb(244,67,54))
-                .setAnimations(Style.ANIMATIONS_POP).show();
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void execute(boolean error, double errorValue, int ite) {
@@ -180,11 +142,10 @@ public class bisectionFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void bisectionMethod(double xi, double xs, double tol, int ite, boolean errorRel) {
-        String message = "";
+        double initial = xs;
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
 
-        //String matrix[][];
         Bisection titles = new Bisection("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
         listValuesTitles = new LinkedList<>();
@@ -205,17 +166,17 @@ public class bisectionFragment extends baseOneVariableFragments {
                             double xm = (xi + xs) / 2;
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
-                            Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirNormal(ym)), String.valueOf(convertirCientifica(error)));
+                            Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteZero);
                             List<String> listValuesIteZero = new LinkedList<>();
                             listValuesIteZero.add(String.valueOf(xi));
                             listValuesIteZero.add(String.valueOf(xs));
                             listValuesIteZero.add(String.valueOf(xm));
                             listValuesIteZero.add(String.valueOf(ym));
-                            listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
+                            listValuesIteZero.add(String.valueOf(cientificTransformation(error)));
                             int cont = 1;
                             double xaux = xm;
-                            //completeList.add(listValuesIteZero);
+                            completeList.add(listValuesIteZero);
                             calc= true;
                             while ((ym != 0) && (error > tol) && (cont < ite)) {
                                 ArrayList<String> listValuesIteNext = new ArrayList<String>();
@@ -235,65 +196,49 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 } else {
                                     error = Math.abs(xm - xaux);
                                 }
-                                Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirNormal(ym)), String.valueOf(convertirCientifica(error)));
+                                Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
                                 listValues.add(iteNext);
                                 listValuesIteNext.add(String.valueOf(xi));
                                 listValuesIteNext.add(String.valueOf(xs));
                                 listValuesIteNext.add(String.valueOf(xm));
                                 listValuesIteNext.add(String.valueOf(ym));
-                                listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                                listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                                 completeList.add(listValuesIteNext);
                                 cont++;
                             }
-                            //TableViewModel.getCeldas(completeList);
-                            //calc= true;
+                            listValues.add(new Bisection("","","","","",""));
                             int color = poolColors.remove(0);
                             poolColors.add(color);
-                            graphSerie(function.getExpression(),0, xm*2,color);
+                            graphSerie(function.getExpression(),0, initial,color);
                             if (ym == 0) {
                                 graphPoint(xm,ym,Color.GREEN);
-                                //graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                                message = convertirNormal(xm) + " is an aproximate root";
-                                styleCorrectMessage(message);
+                                styleCorrectMessage(normalTransformation(xm) + " is an aproximate root");
                             } else if (error < tol) {
                                 graphPoint(xm,ym,Color.GREEN);
-                                //graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                                message = convertirNormal(xaux) + " is an aproximate root";
-                                styleCorrectMessage(message);
-                                //Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                                styleCorrectMessage(normalTransformation(xaux) + " is an aproximate root");
                             } else {
-                                //Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
-                                message = "The method failed!";
-                                styleWrongMessage(message);
+                                styleWrongMessage("The method failed with "+ite+" iterations!");
                             }
 
                         } else {
-                            //Toast.makeText(getContext(), "The interval dont have root", Toast.LENGTH_SHORT).show();
-                            message = "The interval does not have root";
-                            styleWrongMessage(message);
+                            styleWrongMessage("Bad interval");
 
                         }
                     } else {
-                        //Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        message = convertirNormal(xs) + " is an aproximate root";
-                        styleCorrectMessage(message);
+                        styleCorrectMessage(normalTransformation(xs) + " is an aproximate root");
                         graphPoint(xs, ys,Color.GREEN);
                     }
                 } else {
                     graphPoint(xi,yi,Color.GREEN);
-                    //graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                    message = "The method does not converge";
-                    styleWrongMessage(message);
+                    styleWrongMessage("The method does not converge");
                 }
             } else {
                 iter.setError("Wrong iterates");
-                message ="Wrong iterates";
-                styleWrongMessage(message);
+                styleWrongMessage("Wrong iterates");
             }
         } else {
             textError.setError("Tolerance must be > 0");
-            message ="Tolerance must be > 0";
-            styleWrongMessage(message);
+            styleWrongMessage("Tolerance must be > 0");
         }
 
         BisectionListAdapter adapter = new BisectionListAdapter(getContext(), R.layout.list_adapter_bisection, listValues);
