@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.systemEquations;
 import com.github.johnpersano.supertoasts.library.Style;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.github.johnpersano.supertoasts.library.SuperToast;
@@ -50,6 +51,7 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.animations
 public abstract class baseSystemEquations extends Fragment {
     protected TableLayout matrixResult;
     //int defaultColor = Color.rgb(3,169,244);
+
     int defaultColor = Color.parseColor("#FF303F9F"); //primary
     int operativeColor = Color.parseColor("#64DD17");
 
