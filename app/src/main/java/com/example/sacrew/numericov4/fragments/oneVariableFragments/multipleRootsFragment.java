@@ -120,39 +120,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
         startActivity(i);
     }
 
-    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
-            new SuperActivityToast.OnButtonClickListener() {
 
-                @Override
-                public void onClick(View view, Parcelable token) {
-                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
-                            .setColor(Color.TRANSPARENT).show();
-                }
-            };
-
-    private void styleCorrectMessage(String message){
-        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                .setButtonText("UNDO")
-                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                .setProgressBarColor(Color.WHITE)
-                .setText(message)
-                .setDuration(Style.DURATION_LONG)
-                .setFrame(Style.FRAME_LOLLIPOP)
-                .setColor(Color.rgb(76,175,80))
-                .setAnimations(Style.ANIMATIONS_POP).show();
-    }
-
-    private void styleWrongMessage(String message){
-        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                .setButtonText("UNDO")
-                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                .setProgressBarColor(Color.WHITE)
-                .setText(message)
-                .setDuration(Style.DURATION_LONG)
-                .setFrame(Style.FRAME_LOLLIPOP)
-                .setColor(Color.rgb(244,67,54))
-                .setAnimations(Style.ANIMATIONS_POP).show();
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void execute(boolean error, double errorValue, int ite) {

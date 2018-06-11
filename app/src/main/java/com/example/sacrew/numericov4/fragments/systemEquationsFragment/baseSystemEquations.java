@@ -472,21 +472,22 @@ public abstract class baseSystemEquations extends Fragment {
 
                 @Override
                 public void onClick(View view, Parcelable token) {
-                    SuperToast.create(view.getContext(), null, Style.DURATION_VERY_SHORT)
-                            .setColor(Color.TRANSPARENT).show();
+                    SuperActivityToast.cancelAllSuperToasts();
                 }
             };
 
-    private void styleWrongMessage(String message){
+    public void styleWrongMessage(String message){
+        SuperActivityToast.cancelAllSuperToasts();
         SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setIndeterminate(true)
                 .setButtonText("UNDO")
                 .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
                 .setProgressBarColor(Color.WHITE)
                 .setText(message)
-                .setDuration(Style.DURATION_LONG)
                 .setFrame(Style.FRAME_LOLLIPOP)
                 .setColor(Color.rgb(244,67,54))
                 .setAnimations(Style.ANIMATIONS_POP).show();
     }
+
 
 }

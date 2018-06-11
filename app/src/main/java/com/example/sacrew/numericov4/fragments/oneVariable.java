@@ -30,6 +30,7 @@ import com.example.sacrew.numericov4.fragments.oneVariableFragments.newtonFragme
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.secantFragment;
 import com.example.sacrew.numericov4.pagerAdapter;
 import com.example.sacrew.numericov4.utils.graphUtils;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -57,6 +58,8 @@ public class oneVariable extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //clear toasts
+        SuperActivityToast.cancelAllSuperToasts();
         View view = inflater.inflate(R.layout.fragment_one_variable, container, false);
         isup = false;
         ImageButton hider = view.findViewById(R.id.buttonHide);
@@ -102,6 +105,23 @@ public class oneVariable extends Fragment {
         fragments.add(new multipleRootsFragment());
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
+        slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //clear toasts
+                SuperActivityToast.cancelAllSuperToasts();
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         for (LineGraphSeries<DataPoint> inSerie : listSeries)
             graphOneVariable.removeSeries(inSerie);
         graphOneVariable.getViewport().setYAxisBoundsManual(true);

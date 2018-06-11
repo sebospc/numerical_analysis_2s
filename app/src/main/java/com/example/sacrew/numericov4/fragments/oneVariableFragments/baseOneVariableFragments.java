@@ -4,8 +4,11 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -14,6 +17,9 @@ import com.example.sacrew.numericov4.fragments.MainActivityTable;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
@@ -135,5 +141,39 @@ public abstract class baseOneVariableFragments extends Fragment {
         if(points!=null) for(PointsGraphSeries<DataPoint> v : points) graphOneVariable.removeSeries(v);
         points = new LinkedList<>();
         series = new LinkedList<>();
+    }
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperActivityToast.cancelAllSuperToasts();
+                }
+            };
+
+    public void styleCorrectMessage(String message){
+        SuperActivityToast.cancelAllSuperToasts();
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setIndeterminate(true)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(76,175,80))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
+    public void styleWrongMessage(String message){
+        SuperActivityToast.cancelAllSuperToasts();
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setIndeterminate(true)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
     }
 }

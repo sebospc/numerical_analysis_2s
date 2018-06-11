@@ -32,6 +32,7 @@ import com.example.sacrew.numericov4.fragments.interpolationFragments.splineCubi
 import com.example.sacrew.numericov4.fragments.interpolationFragments.splineLinear;
 import com.example.sacrew.numericov4.utils.graphUtils;
 import com.example.sacrew.numericov4.pagerAdapter;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -69,6 +70,8 @@ public class interpolation extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //clear toasts
+        SuperActivityToast.cancelAllSuperToasts();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_interpolation, container, false);
 
@@ -130,6 +133,22 @@ public class interpolation extends Fragment {
         fragments.add(new splineCubico());
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
+        slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                SuperActivityToast.cancelAllSuperToasts();
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         initialize(count);
         for (LineGraphSeries<DataPoint> inSerie : listSeries)
             interpolationGraph.addSeries(inSerie);

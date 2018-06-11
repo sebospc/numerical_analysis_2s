@@ -22,11 +22,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.sacrew.numericov4.R;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 
 public class MainActivityTable extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //clear toasts
+        SuperActivityToast.cancelAllSuperToasts();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_view_main);
 

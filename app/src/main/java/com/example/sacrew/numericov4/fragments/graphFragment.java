@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.utils.graphUtils;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -72,8 +75,8 @@ public class graphFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
+        //clear toasts
+        SuperActivityToast.cancelAllSuperToasts();
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_graph,container,false);
@@ -247,7 +250,8 @@ public class graphFragment extends Fragment {
 
             error = checkSyntax(function);
             if(!error) {
-                Toast.makeText(getActivity(), "Invalid function", Toast.LENGTH_SHORT).show();
+                styleWrongMessage("Invalid function");
+                //Toast.makeText(getActivity(), "Invalid function", Toast.LENGTH_SHORT).show();
                 return;
             }
             int code = ((View) v.getParent()).findViewById(R.id.function_edit_text).hashCode();
@@ -295,7 +299,7 @@ public class graphFragment extends Fragment {
                 graph.addSeries(inSerie);
 
         }catch (Exception e){
-            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
+            styleWrongMessage(e.toString());
         }
 
     }
@@ -308,5 +312,26 @@ public class graphFragment extends Fragment {
             return false;
         }
         return true;
+    }
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperActivityToast.cancelAllSuperToasts();
+                }
+            };
+
+    public void styleWrongMessage(String message){
+        SuperActivityToast.cancelAllSuperToasts();
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setIndeterminate(true)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(244,67,54))
+                .setAnimations(Style.ANIMATIONS_POP).show();
     }
 }
