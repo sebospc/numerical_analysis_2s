@@ -10,6 +10,8 @@
         android:layout_height="53dp"
         android:gravity="center"
         android:text="Cholesky"
+        android:drawableRight="@drawable/ic_next"
+        android:drawableLeft="@drawable/ic_previous"
         android:textSize="24sp"
         android:textStyle="bold" />
 

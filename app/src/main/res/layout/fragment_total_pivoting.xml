@@ -12,6 +12,8 @@
         android:gravity="center"
         android:text="Total Pivoting"
         android:textSize="24sp"
+        android:drawableRight="@drawable/ic_next"
+        android:drawableLeft="@drawable/ic_previous"
         android:textStyle="bold" />
 
     <LinearLayout

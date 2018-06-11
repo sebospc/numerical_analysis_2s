@@ -12,6 +12,7 @@
         android:layout_height="53dp"
         android:gravity="center"
         android:text="Gauss Seidel"
+        android:drawableLeft="@drawable/ic_previous"
         android:textSize="24sp"
         android:textStyle="bold" />
 

@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Incremental Search"
             android:textAlignment="center"
+            android:drawableRight="@drawable/ic_next"
             android:textSize="24sp"
             android:textStyle="bold" />
 
