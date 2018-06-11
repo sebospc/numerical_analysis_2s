@@ -189,7 +189,7 @@ public class fixedPointFragment extends baseOneVariableFragments {
                         listValues.add(new FixedPoint("","","",""));
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-<<<<<<< HEAD
+
                         graphSerie(function.getExpression(),0, xa*2,color);
                             if (y0 == 0) {
                                 //graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
@@ -213,8 +213,6 @@ public class fixedPointFragment extends baseOneVariableFragments {
                                 styleWrongMessage(message);
                                 //Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
                             }
-=======
->>>>>>> 345eef148f6e3cb1b7cde8fa061b356f58d19550
                         graphSerie(function.getExpression(), 0, xa , color);
                         if (y0 == 0) {
                             color = poolColors.remove(0);
