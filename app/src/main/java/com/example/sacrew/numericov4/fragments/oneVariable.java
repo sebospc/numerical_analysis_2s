@@ -109,12 +109,12 @@ public class oneVariable extends Fragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 //clear toasts
-                SuperActivityToast.cancelAllSuperToasts();
+
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                SuperActivityToast.cancelAllSuperToasts();
             }
 
             @Override

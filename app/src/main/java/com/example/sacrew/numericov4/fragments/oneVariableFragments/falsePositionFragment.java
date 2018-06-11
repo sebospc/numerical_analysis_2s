@@ -2,11 +2,9 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -26,16 +24,9 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePosition;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePositionListAdapter;
-import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -114,9 +105,6 @@ public class falsePositionFragment extends baseOneVariableFragments {
     }
 
 
-
-
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void execute(boolean error, double errorValue, int ite) {
         this.xi.setError(null);
@@ -155,7 +143,6 @@ public class falsePositionFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void falsePosition(double xi, double xs, double tol, int ite, boolean errorRel) {
-        String message = "";
         function.setPrecision(100);
         ArrayList<FalsePosition> listValues = new ArrayList<>();
         FalsePosition titles = new FalsePosition("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
@@ -179,14 +166,14 @@ public class falsePositionFragment extends baseOneVariableFragments {
                             double xm = xi - (yi * (xi - xs)) / (yi - ys);
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
-                            FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirNormal(ym)), String.valueOf(convertirCientifica(error)));
+                            FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteZero);
                             List<String> listValuesIteZero = new LinkedList<>();
                             listValuesIteZero.add(String.valueOf(xi));
                             listValuesIteZero.add(String.valueOf(xs));
                             listValuesIteZero.add(String.valueOf(xm));
                             listValuesIteZero.add(String.valueOf(ym));
-                            listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
+                            listValuesIteZero.add(String.valueOf(cientificTransformation(error)));
                             int cont = 1;
                             double xaux = xm;
                             completeList.add(listValuesIteZero);
@@ -201,26 +188,24 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                     yi = ym;
                                 }
                                 xaux = xm;
-                                //graphStraight(xi,yi,xs,ys,graph);
                                 xm = xi - ((yi * (xi - xs)) / (yi - ys));
-                                //graphPoint(xm,0,PointsGraphSeries.Shape.POINT,graph,getActivity(),"#FA4659",false);
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
 
                                 if (errorRel)
                                     error = Math.abs(xm - xaux) / xm;
                                 else
                                     error = Math.abs(xm - xaux);
-                                FalsePosition iteNext = new FalsePosition(String.valueOf(cont), String.valueOf(convertirNormal(xi)), String.valueOf(convertirNormal(xs)), String.valueOf(convertirNormal(xm)), String.valueOf(convertirNormal(ym)), String.valueOf(convertirCientifica(error)));
+                                FalsePosition iteNext = new FalsePosition(String.valueOf(cont), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
                                 listValues.add(iteNext);
                                 listValuesIteNext.add(String.valueOf(xi));
                                 listValuesIteNext.add(String.valueOf(xs));
                                 listValuesIteNext.add(String.valueOf(xm));
                                 listValuesIteNext.add(String.valueOf(ym));
-                                listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                                listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                                 completeList.add(listValuesIteNext);
                                 cont++;
                             }
-                            //TableViewModel.getCeldas(completeList);
+                            listValues.add(new FalsePosition("","","","","",""));
                             int color = poolColors.remove(0);
                             poolColors.add(color);
                             graphSerie(function.getExpression(),0, xs*2,color);
@@ -228,45 +213,32 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                 color = poolColors.remove(0);
                                 poolColors.add(color);
                                 graphPoint(xm,ym,color);
-                                //graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                                //Toast.makeText(getContext(), convertirNormal(xm) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                                message = convertirNormal(xm) + " is an aproximate root";
-                                styleCorrectMessage(message);
+
+                                styleCorrectMessage(normalTransformation(xm) + " is an aproximate root");
                             } else if (error < tol) {
                                 color = poolColors.remove(0);
                                 poolColors.add(color);
                                 graphPoint(xm,ym,color);
-                                //graphSerie(xm - 0.2, xm + 0.2, this.function.getExpression(), graph, Color.BLUE);
-                                //graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                                Toast.makeText(getContext(), convertirNormal(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                                message = convertirNormal(xaux) + " is an aproximate root";
-                                styleCorrectMessage(message);
+                                Toast.makeText(getContext(), normalTransformation(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+
+                                styleCorrectMessage(normalTransformation(xaux) + " is an aproximate root");
 
                             } else {
-                                //Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
-                                message = "The method failed!";
-                                styleWrongMessage(message);
+                                styleWrongMessage("The method failed with "+ite+" iterations!");
                             }
-                            //calc= true;
                         } else {
-                            //Toast.makeText(getContext(), "The interval dont have root", Toast.LENGTH_SHORT).show();
-                            message = "The interval does not have root";
-
-                            styleWrongMessage(message);
+                            styleWrongMessage("Bad interval");
                         }
                     } else {
-                        //Toast.makeText(getContext(), convertirNormal(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        message = convertirNormal(xs) + " is an aproximate root";
-                        styleCorrectMessage(message);
+                        styleCorrectMessage(normalTransformation(xs) + " is an aproximate root");
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(xs,ys,color);
                         //graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                     }
                 } else {
-                    //Toast.makeText(getContext(), convertirNormal(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                    message = convertirNormal(xi) + " is an aproximate root";
-                    styleCorrectMessage(message);
+                    //Toast.makeText(getContext(), normalTransformation(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                    styleCorrectMessage(normalTransformation(xi) + " is an aproximate root");
                     int color = poolColors.remove(0);
                     poolColors.add(color);
                     graphPoint(xi,yi,color);
@@ -274,13 +246,11 @@ public class falsePositionFragment extends baseOneVariableFragments {
                 }
             } else {
                 iter.setError("Wrong iterates");
-                message = "Wrong iterates";
-                styleWrongMessage(message);
+                styleWrongMessage("Wrong iterates");
             }
         } else {
             textError.setError("Tolerance must be > 0");
-            message = "Tolerance must be > 0";
-            styleWrongMessage(message);
+            styleWrongMessage("Tolerance must be > 0");
         }
         FalsePositionListAdapter adapter = new FalsePositionListAdapter(getContext(), R.layout.list_adapter_false_position, listValues);
         listView.setAdapter(adapter);

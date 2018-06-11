@@ -2,10 +2,8 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.app.Fragment;
 import android.view.InflateException;
@@ -17,7 +15,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
@@ -25,20 +22,12 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewton;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Newton;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.NewtonListAdapter;
-import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
@@ -126,7 +115,6 @@ public class newtonFragment extends baseOneVariableFragments {
         this.functionG = new Expression(functionRevision(originalFuncG));
         error = checkSyntax(originalFuncG, textFunctionG) && error;
         updatefunctions(originalFuncG);
-        String originalFunc = this.function.getExpression();
 
         try {
             xValue = Double.parseDouble(xvalue.getText().toString());
@@ -134,22 +122,21 @@ public class newtonFragment extends baseOneVariableFragments {
             xvalue.setError("Invalid Xi");
             error = false;
         }
-        String functionCompose = "x-((" + originalFunc + ")/(" + originalFuncG + "))";
 
         if (error) {
             if (errorToggle.isChecked()) {
-                newtonMethod(xValue, errorValue, ite, true, functionCompose);
+                newtonMethod(xValue, errorValue, ite, true);
             } else {
-                newtonMethod(xValue, errorValue, ite, false, functionCompose);
+                newtonMethod(xValue, errorValue, ite, false);
             }
         }
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void newtonMethod(Double x0, Double tol, int ite, boolean errorRel, String functionCompose) {
+    private void newtonMethod(Double x0, Double tol, int ite, boolean errorRel) {
         String message = "";
-        Expression newtonFunction = new Expression(functionCompose);
+
         try {
 
 
@@ -167,24 +154,37 @@ public class newtonFragment extends baseOneVariableFragments {
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    double y0p = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    double y0p = (this.functionG.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
-                        Newton iteZero = new Newton(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(y0p)), String.valueOf(convertirCientifica(error)));
+                        Newton iteZero = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(y0));
                         listValuesIteZero.add(String.valueOf(y0p));
-                        listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(error)));
                         double xa = x0;
                         completeList.add(listValuesIteZero);
                         calc= true;
+                        Expression newtonFunction;
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
-                            double xn = (newtonFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                            y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+                            double xn = Double.NaN;
+                            try{
+                                newtonFunction = new Expression("x-"+y0/y0p);
+                                xn = (newtonFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+                                y0 = Double.NaN;
+                                y0p = Double.NaN;
+                                y0p = (this.functionG.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
+                                y0 = (this.function.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
+
+                            }catch (Exception e){
+                                message = "Unexpected error: "+e.getMessage();
+                                styleWrongMessage(message);
+                            }
+
 
                             if (errorRel)
                                 error = Math.abs(xn - xa) / xn;
@@ -192,14 +192,15 @@ public class newtonFragment extends baseOneVariableFragments {
                                 error = Math.abs(xn - xa);
                             xa = xn;
                             cont++;
-                            Newton iteNext = new Newton(String.valueOf(cont), String.valueOf(convertirNormal(xa)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(y0p)), String.valueOf(convertirCientifica(error)));
+                            Newton iteNext = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(x0));
                             listValuesIteNext.add(String.valueOf(y0));
                             listValuesIteNext.add(String.valueOf(y0p));
-                            listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                             completeList.add(listValuesIteNext);
                         }
+                        listValues.add(new Newton("","","","",""));
                         //TableViewModel.getCeldas(completeList);
 
                         int color = poolColors.remove(0);
@@ -211,8 +212,8 @@ public class newtonFragment extends baseOneVariableFragments {
                             poolColors.add(color);
                             graphPoint(xa,y0,color);
                             //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            //Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
-                            message = convertirNormal(xa) + " is a root";
+                            //Toast.makeText(getContext(), normalTransformation(xa) + " is a root", Toast.LENGTH_SHORT).show();
+                            message = normalTransformation(xa) + " is a root";
                             styleCorrectMessage(message);
                         } else if (error <= tol) {
                             color = poolColors.remove(0);
@@ -220,22 +221,17 @@ public class newtonFragment extends baseOneVariableFragments {
                             graphPoint(xa,y0,color);
 
                             //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            message = convertirNormal(xa) + " is an aproximate root";
+                            message = normalTransformation(xa) + " is an aproximate root";
                             styleCorrectMessage(message);
-                            // Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(getContext(), normalTransformation(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
-                            //System.out.println("Failed the interval!");
-                            message = "Failed the interval!";
-                            styleWrongMessage(message);
-                            //Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
+                            styleWrongMessage("The method failed with "+ite+" iterations!");
                         }
                     } else {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(x0,y0,color);
-                        //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                        //Toast.makeText(getContext(), convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        message = convertirNormal(x0) + " is an aproximate root";
+                        message = normalTransformation(x0) + " is an aproximate root";
                         styleCorrectMessage(message);
                     }
                 } else {

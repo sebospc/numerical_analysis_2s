@@ -2,10 +2,8 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.app.Fragment;
 import android.view.InflateException;
@@ -13,11 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
@@ -25,20 +21,11 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpSecant;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.SecantListAdapter;
-import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.PointsGraphSeries;
-import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
@@ -169,12 +156,12 @@ public class secantFragment extends baseOneVariableFragments {
                         Double aux0 = x0;
                         Double aux1 = x1;
                         Double den = fx1-fx0;
-                        Secant iteZero = new Secant(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(fx0)),  String.valueOf(convertirCientifica(error)));
+                        Secant iteZero = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(fx0)),  String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(fx0));
-                        listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(error)));
                         completeList.add(listValuesIteZero);
                         calc= true;
                         while(fx1 != 0 && den != 0 && error > tol && cont < ite) {
@@ -188,18 +175,25 @@ public class secantFragment extends baseOneVariableFragments {
                             aux0 = aux1;
                             fx0 = fx1;
                             aux1 = aux2;
-                            fx1  = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
+                            try{
+                                fx1 = Double.NaN;
+                                fx1  = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
+                            }catch (Exception e){
+                                message = "Unexpected error posibly nan";
+                                styleWrongMessage(message);
+                            }
+
                             den = fx1 - fx0;
                             cont = cont + 1;
-                            Secant iteNext= new Secant(String.valueOf(cont), String.valueOf(convertirNormal(aux0)), String.valueOf(convertirNormal(fx0)), String.valueOf(convertirCientifica(error)));
+                            Secant iteNext= new Secant(String.valueOf(cont), String.valueOf(normalTransformation(aux0)), String.valueOf(normalTransformation(fx0)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(x0));
                             listValuesIteNext.add(String.valueOf(fx0));
-                            listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                             completeList.add(listValuesIteNext);
                         }
-                        //TableViewModel.getCeldas(completeList);
-                        //calc= true;
+                        listValues.add(new Secant("","","",""));
+
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphSerie(function.getExpression(),0,aux1*2,color);
@@ -207,33 +201,27 @@ public class secantFragment extends baseOneVariableFragments {
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(aux1,fx1,color);
-                            //graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
-                            //graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            message = convertirNormal(aux1) + " is a root";
+                            message = normalTransformation(aux1) + " is a root";
                             styleCorrectMessage(message);
-                            //Toast.makeText(getContext(),  convertirNormal(aux1) + " is a root", Toast.LENGTH_SHORT).show();
                         } else if (error <= tol) {
-                            //graphSerie(aux1-0.2, aux1+0.2, function.getExpression(), graph, Color.BLUE);
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(aux1,fx1,color);
                             //graphPoint(aux1, fx1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            message = convertirNormal(aux1) + " is an aproximate root";
+                            message = normalTransformation(aux1) + " is an aproximate root";
                             styleCorrectMessage(message);
 
-                            //Toast.makeText(getContext(),  convertirNormal(aux1) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(),  normalTransformation(aux1) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                         } else {
-                            //Toast.makeText(getContext(),  "Failedl!", Toast.LENGTH_SHORT).show();
-                            message = "The method failed!";
-                            styleWrongMessage(message);
+                            styleWrongMessage("The method failed in iteration "+cont);
                         }
                     } else {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(x0,fx0,color);
                         //graphPoint(x0, fx0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                        //Toast.makeText(getContext(),  convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        message = convertirNormal(x0) + " is an aproximate root";
+                        //Toast.makeText(getContext(),  normalTransformation(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                        message = normalTransformation(x0) + " is an aproximate root";
                         styleCorrectMessage(message);
                     }
                 } else {

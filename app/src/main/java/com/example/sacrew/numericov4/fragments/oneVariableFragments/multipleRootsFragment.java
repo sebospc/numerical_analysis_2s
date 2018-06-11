@@ -2,10 +2,8 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.app.Fragment;
 import android.view.InflateException;
@@ -25,21 +23,12 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpMultipleRoots;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRoots;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRootsListAdapter;
-import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
-import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
@@ -147,18 +136,16 @@ public class multipleRootsFragment extends baseOneVariableFragments {
 
         if (error) {
             if (errorToggle.isChecked()) {
-                multipleRootsMethod(xValue, errorValue, ite, true, functionCompose);
+                multipleRootsMethod(xValue, errorValue, ite, true);
             } else {
-                multipleRootsMethod(xValue, errorValue, ite, false, functionCompose);
+                multipleRootsMethod(xValue, errorValue, ite, false);
             }
         }
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel, String compose) {
-        String message = "";
-        Expression multipleRootsFunction = new Expression(compose);
+    private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel) {
         try {
 
 
@@ -183,97 +170,91 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                         int cont = 0;
                         double error = tol + 1;
                         double xa = x0;
-                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(y0p1)), String.valueOf(convertirNormal(y0p2)), String.valueOf(convertirCientifica(error)));
+                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p1)), String.valueOf(normalTransformation(y0p2)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(y0));
                         listValuesIteZero.add(String.valueOf(y0p1));
                         listValuesIteZero.add(String.valueOf(y0p2));
-                        listValuesIteZero.add(String.valueOf(convertirCientifica(error)));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(error)));
                         completeList.add(listValuesIteZero);
                         calc= true;
+                        Expression multipleRootsFunction;
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             if (xa == 0) {
                                 Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
                                 break;
                             }
-
-                            double xn = (multipleRootsFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+                            //double xn = (multipleRootsFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
 
                             y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             y0p1 = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             y0p2 = (this.functionGprim.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+                            multipleRootsFunction = new Expression("x-("+y0*y0p1+")/("+(Math.pow(y0p1,2)-(y0*y0p2))+")");
+                            double xn = Double.NaN;
+                            try{
+                                xn = (multipleRootsFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+                            }catch (Exception e){
+                                styleWrongMessage("Unexpected error posibly nan");
+                            }
+
                             if (errorRel)
                                 error = Math.abs(xn - xa) / xn;
                             else
                                 error = Math.abs(xn - xa);
                             xa = xn;
                             cont++;
-                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(convertirNormal(x0)), String.valueOf(convertirNormal(y0)), String.valueOf(convertirNormal(y0p1)), String.valueOf(convertirNormal(y0p2)), String.valueOf(convertirCientifica(error)));
+                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p1)), String.valueOf(normalTransformation(y0p2)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(xa));
                             listValuesIteNext.add(String.valueOf(y0));
                             listValuesIteNext.add(String.valueOf(y0p1));
                             listValuesIteNext.add(String.valueOf(y0p2));
-                            listValuesIteNext.add(String.valueOf(convertirCientifica(error)));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                             completeList.add(listValuesIteNext);
                         }
-                        //TableViewModel.getCeldas(completeList);
-                        //calc = true;
+                        listValues.add(new MultipleRoots("","","","","",""));
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphSerie(function.getExpression(),0,xa*2,color);
                         if (y0 == 0) {
-                            //graphSerie(xa - 0.2, xa + 0.2, function.getExpression(), graph, Color.BLUE);
-                            //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(xa,y0,color);
-                            //Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
-                            message = convertirNormal(xa) + " is a root";
-                            styleCorrectMessage(message);
+                            styleCorrectMessage(normalTransformation(xa) + " is a root");
                         } else if (error <= tol) {
-                            //graphSerie(xa - 0.2, xa + 0.2, function.getExpression(), graph, Color.BLUE);
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(xa,y0,color);
-                            //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            message = convertirNormal(xa) + " is an aproximate root";
-                            styleCorrectMessage(message);
-                            //Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+
+                            styleCorrectMessage(normalTransformation(xa) + " is an aproximate root");
                         } else {
-                            //Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
-                            message = "The method failed!";
-                            styleWrongMessage(message);
+                            styleWrongMessage("The method failed in iteration: "+ite);
                         }
                     } else {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(x0,y0,color);
                         //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                        message = convertirNormal(x0) + " is an aproximate root";
-                        styleCorrectMessage(message);
-                        //Toast.makeText(getContext(), convertirNormal(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                        styleCorrectMessage(normalTransformation(x0) + " is an aproximate root");
+                        //Toast.makeText(getContext(), normalTransformation(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     iter.setError("Wrong iterates");
-                    message = "Wrong iterates";
-                    styleWrongMessage(message);
+                    styleWrongMessage("Wrong iterates");
                 }
             } else {
                 textError.setError("Tolerance must be > 0");
-                message = "Tolerance must be > 0";
-                styleWrongMessage(message);
+                styleWrongMessage("Tolerance must be > 0");
 
             }
             MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.list_adapter_multiple_roots, listValues);
             listView.setAdapter(adapter);
         } catch (Exception e) {
             //Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-            message = "Unexpected error posibly nan";
-            styleWrongMessage(message);
+            styleWrongMessage("Unexpected error posibly nan");
         }
     }
 

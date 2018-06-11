@@ -48,6 +48,14 @@ public abstract class baseOneVariableFragments extends Fragment {
     boolean calc =false;
     List<List<String>> completeList = new LinkedList<>();
     List<String> listValuesTitles = new LinkedList<>();
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperActivityToast.cancelAllSuperToasts();
+                }
+            };
 
 
     public void bootStrap() {
@@ -81,13 +89,13 @@ public abstract class baseOneVariableFragments extends Fragment {
         execute(error, errorValue, ite);
     }
 
-    public String convertirCientifica(double val) {
+    public String cientificTransformation(double val) {
         Locale.setDefault(Locale.US);
         DecimalFormat num = new DecimalFormat("#.##E0");
         return num.format(val);
     }
 
-    public String convertirNormal(double val) {
+    public String normalTransformation(double val) {
         Locale.setDefault(Locale.US);
         DecimalFormat num = new DecimalFormat("#.##");
         return num.format(val);
@@ -104,14 +112,11 @@ public abstract class baseOneVariableFragments extends Fragment {
     public boolean checkSyntax(String function, EditText text) {
         try {
             new Expression(functionRevision(function)).with("x", "0").eval();
-        } catch (NumberFormatException e) {
-            System.out.println("number");
-            return true;
         } catch (Expression.ExpressionException e) {
-            System.out.println("expression exception" + e.getMessage());
             text.setError("Invalid function");
-
             return false;
+        } catch (Exception e) {
+            return true;
         }
 
         return true;
@@ -126,7 +131,7 @@ public abstract class baseOneVariableFragments extends Fragment {
         }
     }
     public void graphSerie(String function,double x, double y,int color){
-        series = graphUtils.graphPharallel((int)(Math.abs(y-x)/0.1),function,color);
+        series = graphUtils.graphPharallel((int)(Math.abs(y-x)*2/0.1),function,color);
         for(LineGraphSeries<DataPoint> v : series) graphOneVariable.addSeries(v);
     }
     public void graphPoint(double x, double y, int color){
@@ -142,14 +147,7 @@ public abstract class baseOneVariableFragments extends Fragment {
         points = new LinkedList<>();
         series = new LinkedList<>();
     }
-    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
-            new SuperActivityToast.OnButtonClickListener() {
 
-                @Override
-                public void onClick(View view, Parcelable token) {
-                    SuperActivityToast.cancelAllSuperToasts();
-                }
-            };
 
     public void styleCorrectMessage(String message){
         SuperActivityToast.cancelAllSuperToasts();

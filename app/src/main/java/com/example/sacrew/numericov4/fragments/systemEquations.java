@@ -144,12 +144,11 @@ public class systemEquations extends Fragment {
         ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                SuperActivityToast.cancelAllSuperToasts();
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                SuperActivityToast.cancelAllSuperToasts();
                 animatorSet.removeAllListeners();
                 animatorSet.end();
                 animatorSet.cancel();

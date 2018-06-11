@@ -136,12 +136,12 @@ public class interpolation extends Fragment {
         slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                SuperActivityToast.cancelAllSuperToasts();
+
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                SuperActivityToast.cancelAllSuperToasts();
             }
 
             @Override
