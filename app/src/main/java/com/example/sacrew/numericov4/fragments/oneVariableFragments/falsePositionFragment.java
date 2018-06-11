@@ -143,6 +143,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void falsePosition(double xi, double xs, double tol, int ite, boolean errorRel) {
+        double initial = xs;
         function.setPrecision(100);
         ArrayList<FalsePosition> listValues = new ArrayList<>();
         FalsePosition titles = new FalsePosition("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
@@ -153,7 +154,6 @@ public class falsePositionFragment extends baseOneVariableFragments {
         listValuesTitles.add("Xn");
         listValuesTitles.add("f(Xn)");
         listValuesTitles.add("Error");
-        //TableViewModel.getTitles(listValuesTitles);
         completeList = new LinkedList<>();
         if (tol >= 0) {
             if (ite > 0) {
@@ -208,7 +208,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
                             listValues.add(new FalsePosition("","","","","",""));
                             int color = poolColors.remove(0);
                             poolColors.add(color);
-                            graphSerie(function.getExpression(),0, xs*2,color);
+                            graphSerie(function.getExpression(),0, initial,color);
                             if (ym == 0) {
                                 color = poolColors.remove(0);
                                 poolColors.add(color);
@@ -219,8 +219,6 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                 color = poolColors.remove(0);
                                 poolColors.add(color);
                                 graphPoint(xm,ym,color);
-                                Toast.makeText(getContext(), normalTransformation(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-
                                 styleCorrectMessage(normalTransformation(xaux) + " is an aproximate root");
 
                             } else {
@@ -237,12 +235,10 @@ public class falsePositionFragment extends baseOneVariableFragments {
                         //graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                     }
                 } else {
-                    //Toast.makeText(getContext(), normalTransformation(xi) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                     styleCorrectMessage(normalTransformation(xi) + " is an aproximate root");
                     int color = poolColors.remove(0);
                     poolColors.add(color);
                     graphPoint(xi,yi,color);
-                    //graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                 }
             } else {
                 iter.setError("Wrong iterates");

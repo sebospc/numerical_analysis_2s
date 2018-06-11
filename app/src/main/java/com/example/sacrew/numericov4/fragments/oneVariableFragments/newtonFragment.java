@@ -135,8 +135,6 @@ public class newtonFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void newtonMethod(Double x0, Double tol, int ite, boolean errorRel) {
-        String message = "";
-
         try {
 
 
@@ -181,8 +179,7 @@ public class newtonFragment extends baseOneVariableFragments {
                                 y0 = (this.function.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
 
                             }catch (Exception e){
-                                message = "Unexpected error: "+e.getMessage();
-                                styleWrongMessage(message);
+                                styleWrongMessage("Unexpected error posibly NaN ");
                             }
 
 
@@ -201,29 +198,22 @@ public class newtonFragment extends baseOneVariableFragments {
                             completeList.add(listValuesIteNext);
                         }
                         listValues.add(new Newton("","","","",""));
-                        //TableViewModel.getCeldas(completeList);
 
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphSerie(function.getExpression(),0,xa*2,color);
-                        //graphSerie(xa - 0.5, xa, function.getExpression(), graph, Color.BLUE);
+                        graphSerie(function.getExpression(),0,xa,color);
                         if (y0 == 0) {
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(xa,y0,color);
-                            //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            //Toast.makeText(getContext(), normalTransformation(xa) + " is a root", Toast.LENGTH_SHORT).show();
-                            message = normalTransformation(xa) + " is a root";
-                            styleCorrectMessage(message);
+
+                            styleCorrectMessage(normalTransformation(xa) + " is a root");
                         } else if (error <= tol) {
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(xa,y0,color);
 
-                            //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            message = normalTransformation(xa) + " is an aproximate root";
-                            styleCorrectMessage(message);
-                            // Toast.makeText(getContext(), normalTransformation(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                            styleCorrectMessage(normalTransformation(xa) + " is an aproximate root");
                         } else {
                             styleWrongMessage("The method failed with "+ite+" iterations!");
                         }
@@ -231,25 +221,20 @@ public class newtonFragment extends baseOneVariableFragments {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(x0,y0,color);
-                        message = normalTransformation(x0) + " is an aproximate root";
-                        styleCorrectMessage(message);
+                        styleCorrectMessage(normalTransformation(x0) + " is an aproximate root");
                     }
                 } else {
                     iter.setError("Wrong iterates");
-                    message = "Wrong iterates";
-                    styleWrongMessage(message);
+                    styleWrongMessage("Wrong iterates");
                 }
             } else {
                 textError.setError("Tolerance must be > 0");
-                message = "Tolerance must be > 0";
-                styleWrongMessage(message);
+                styleWrongMessage("Tolerance must be > 0");
             }
             NewtonListAdapter adapter = new NewtonListAdapter(getContext(), R.layout.list_adapter_newton, listValues);
             listView.setAdapter(adapter);
         } catch (Exception e) {
-           // Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-            message = "Unexpected error posibly nan";
-            styleWrongMessage(message);
+            styleWrongMessage("Unexpected error posibly NaN");
         }
     }
 

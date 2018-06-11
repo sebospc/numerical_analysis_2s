@@ -187,7 +187,6 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                                 Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
                                 break;
                             }
-                            //double xn = (multipleRootsFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
 
                             y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             y0p1 = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
@@ -197,7 +196,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                             try{
                                 xn = (multipleRootsFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             }catch (Exception e){
-                                styleWrongMessage("Unexpected error posibly nan");
+                                styleWrongMessage("Unexpected error posibly NaN");
                             }
 
                             if (errorRel)
@@ -218,7 +217,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                         listValues.add(new MultipleRoots("","","","","",""));
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphSerie(function.getExpression(),0,xa*2,color);
+                        graphSerie(function.getExpression(),0,xa,color);
                         if (y0 == 0) {
                             color = poolColors.remove(0);
                             poolColors.add(color);
@@ -237,9 +236,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(x0,y0,color);
-                        //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                         styleCorrectMessage(normalTransformation(x0) + " is an aproximate root");
-                        //Toast.makeText(getContext(), normalTransformation(x0) + " is an aproximate root", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     iter.setError("Wrong iterates");
@@ -253,7 +250,6 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             MultipleRootsListAdapter adapter = new MultipleRootsListAdapter(getContext(), R.layout.list_adapter_multiple_roots, listValues);
             listView.setAdapter(adapter);
         } catch (Exception e) {
-            //Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
             styleWrongMessage("Unexpected error posibly nan");
         }
     }

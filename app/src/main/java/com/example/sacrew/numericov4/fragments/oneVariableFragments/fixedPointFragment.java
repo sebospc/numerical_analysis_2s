@@ -135,7 +135,6 @@ public class fixedPointFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel) {
-        String message = "";
         try {
             function.setPrecision(100);
             ArrayList<FixedPoint> listValues = new ArrayList<>();
@@ -145,12 +144,10 @@ public class fixedPointFragment extends baseOneVariableFragments {
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
             listValuesTitles.add("Error");
-            //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    double g0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
@@ -164,6 +161,7 @@ public class fixedPointFragment extends baseOneVariableFragments {
                         completeList.add(listValuesIteZero);
                         calc = true;
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
+                            System.out.println(" conta "+cont);
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             double xn = Double.NaN;
                             try {
@@ -171,8 +169,7 @@ public class fixedPointFragment extends baseOneVariableFragments {
                                 xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                                 y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             } catch (Exception e) {
-                                message = "Unexpected error NaN";
-                                styleWrongMessage(message);
+                                styleWrongMessage("Unexpected error NaN");
                             }
 
                             if (errorRel)
@@ -189,27 +186,19 @@ public class fixedPointFragment extends baseOneVariableFragments {
                             completeList.add(listValuesIteNext);
                         }
                         listValues.add(new FixedPoint("","","",""));
-                        //TableViewModel.getCeldas(completeList);
-                        //calc = true;
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphSerie(function.getExpression(), 0, xa * 2, color);
+                        graphSerie(function.getExpression(), 0, xa , color);
                         if (y0 == 0) {
-                            //graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
-                            //graphSerie(xa - 0.2, xa+0.2, functionG.getExpression(), graph, Color.RED);
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(xa, y0, color);
-                            //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            //Toast.makeText(getContext(), normalTransformation(xa) + " is a root", Toast.LENGTH_SHORT).show();
-                            message = normalTransformation(xa) + " is a root";
-                            styleCorrectMessage(message);
+                            styleCorrectMessage(normalTransformation(xa) + " is a root");
                         } else if (error <= tol) {
                             color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(xa, y0, color);
-                            message = normalTransformation(xa) + " is an aproximate root";
-                            styleCorrectMessage(message);
+                            styleCorrectMessage(normalTransformation(xa) + " is an aproximate root");
 
                         } else {
                             styleWrongMessage("The method failed with " + ite + " iterations!");
@@ -219,26 +208,20 @@ public class fixedPointFragment extends baseOneVariableFragments {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(x0, y0, color);
-                        message = normalTransformation(x0) + " is an aproximate root";
-                        styleCorrectMessage(message);
+                        styleCorrectMessage(normalTransformation(x0) + " is an aproximate root");
                     }
                 } else {
                     iter.setError("Wrong iterates");
-                    message = "Wrong iterates";
-                    styleWrongMessage(message);
+                    styleWrongMessage("Wrong iterates");
                 }
             } else {
                 textError.setError("Tolerance must be > 0");
-                message = "Tolerance must be > 0";
-                styleWrongMessage(message);
-
+                styleWrongMessage("Tolerance must be > 0");
             }
             FixedPointListAdapter adapter = new FixedPointListAdapter(getContext(), R.layout.list_adapter_fixed_point, listValues);
             listView.setAdapter(adapter);
         } catch (Exception e) {
-            //Toast.makeText(getActivity(), "Unexpected error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-            message = "Unexpected error: " + e.getMessage();
-            styleWrongMessage(message);
+            styleWrongMessage("Unexpected error: " + e.getMessage());
         }
     }
 

@@ -142,11 +142,10 @@ public class bisectionFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void bisectionMethod(double xi, double xs, double tol, int ite, boolean errorRel) {
-        String message = "";
+        double initial = xs;
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
 
-        //String matrix[][];
         Bisection titles = new Bisection("n", "Xi", "Xs", "Xm", "f(Xm)", "Error");
         listValues.add(titles);
         listValuesTitles = new LinkedList<>();
@@ -210,50 +209,36 @@ public class bisectionFragment extends baseOneVariableFragments {
                             listValues.add(new Bisection("","","","","",""));
                             int color = poolColors.remove(0);
                             poolColors.add(color);
-                            graphSerie(function.getExpression(),0, xm*2,color);
+                            graphSerie(function.getExpression(),0, initial,color);
                             if (ym == 0) {
                                 graphPoint(xm,ym,Color.GREEN);
-                                //graphPoint(xm, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                                message = normalTransformation(xm) + " is an aproximate root";
-                                styleCorrectMessage(message);
+                                styleCorrectMessage(normalTransformation(xm) + " is an aproximate root");
                             } else if (error < tol) {
                                 graphPoint(xm,ym,Color.GREEN);
-                                //graphPoint(xaux, ym, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                                message = normalTransformation(xaux) + " is an aproximate root";
-                                styleCorrectMessage(message);
-                                //Toast.makeText(getContext(), normalTransformation(xaux) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                                styleCorrectMessage(normalTransformation(xaux) + " is an aproximate root");
                             } else {
-                                //Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                                 styleWrongMessage("The method failed with "+ite+" iterations!");
                             }
 
                         } else {
-                            //Toast.makeText(getContext(), "The interval dont have root", Toast.LENGTH_SHORT).show();
-                            message = "Bad interval";
-                            styleWrongMessage(message);
+                            styleWrongMessage("Bad interval");
 
                         }
                     } else {
-                        //Toast.makeText(getContext(), normalTransformation(xs) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                        message = normalTransformation(xs) + " is an aproximate root";
-                        styleCorrectMessage(message);
+                        styleCorrectMessage(normalTransformation(xs) + " is an aproximate root");
                         graphPoint(xs, ys,Color.GREEN);
                     }
                 } else {
                     graphPoint(xi,yi,Color.GREEN);
-                    //graphPoint(xi, yi, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                    message = "The method does not converge";
-                    styleWrongMessage(message);
+                    styleWrongMessage("The method does not converge");
                 }
             } else {
                 iter.setError("Wrong iterates");
-                message ="Wrong iterates";
-                styleWrongMessage(message);
+                styleWrongMessage("Wrong iterates");
             }
         } else {
             textError.setError("Tolerance must be > 0");
-            message ="Tolerance must be > 0";
-            styleWrongMessage(message);
+            styleWrongMessage("Tolerance must be > 0");
         }
 
         BisectionListAdapter adapter = new BisectionListAdapter(getContext(), R.layout.list_adapter_bisection, listValues);

@@ -131,7 +131,7 @@ public abstract class baseOneVariableFragments extends Fragment {
         }
     }
     public void graphSerie(String function,double x, double y,int color){
-        series = graphUtils.graphPharallel((int)(Math.abs(y-x)*2/0.1),function,color);
+        series = graphUtils.graphPharallel((int)(Math.abs(y-x)/0.1),function,color);
         for(LineGraphSeries<DataPoint> v : series) graphOneVariable.addSeries(v);
     }
     public void graphPoint(double x, double y, int color){

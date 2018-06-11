@@ -23,11 +23,7 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpTotalPivoting;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 
 import java.util.LinkedList;
 
@@ -126,9 +122,8 @@ public class totalPivoting extends baseSystemEquations {
             animations.add(stage);
             for (int i = k + 1; i < expandedMatrix.length; i++){
                 if(expandedMatrix[k][k] == 0)
-                    //Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
-                    mensaje = "Error division 0";
-                    styleWrongMessage(mensaje);
+                    styleWrongMessage("Error division by 0");
+
                 final double multiplier = expandedMatrix[i][k] / expandedMatrix[k][k];
                 final int auxi = i;
 

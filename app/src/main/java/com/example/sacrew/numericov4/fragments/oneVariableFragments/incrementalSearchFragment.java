@@ -155,8 +155,6 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void incrementalSearchMethod(Double x0, Double delta, int ite) {
-        double firstX0 =x0;
-        String message = "";
         function.setPrecision(100);
         try {
             ArrayList<IncrementalSearch> listValues = new ArrayList<>();
@@ -165,7 +163,6 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             listValuesTitles = new LinkedList<>();
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
-            //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
             if (delta != 0) {
                 if (ite > 0) {
@@ -201,24 +198,16 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             completeList.add(listValuesNext);
                         }
                         listValues.add(new IncrementalSearch("","",""));
-                        //TableViewModel.getCeldas(completeList);
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphSerie(function.getExpression(),0,x1,color);
+                        graphSerie(function.getExpression(),0,x0,color);
                         if (y1 == 0) {
-                             color = poolColors.remove(0);
+                            color = poolColors.remove(0);
                             poolColors.add(color);
                             graphPoint(x1,y1,color);
-                            //graphPoint(x1, y1, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                            //Toast.makeText(getContext(), normalTransformation(x1) + " is a root", Toast.LENGTH_SHORT).show();
-                            message = normalTransformation(x1) + " is a root";
-                            styleCorrectMessage(message);
-
+                            styleCorrectMessage(normalTransformation(x1) + " is a root");
                         } else if (y1 * y0 < 0) {
-                            //Toast.makeText(getContext(), "[" + normalTransformation(x0) + ", " + normalTransformation(x1) + "] is an interval with root", Toast.LENGTH_SHORT).show();
-                          //  graphSerie(x0-0.2,x1+0.2,function.getExpression(),graph,getResources().getColor(R.color.colorPrimary));
-                            message = "[" + normalTransformation(x0) + ", " + normalTransformation(x1) + "] is an interval with root";
-                            styleCorrectMessage(message);
+                            styleCorrectMessage("[" + normalTransformation(x0) + ", " + normalTransformation(x1) + "] is an interval with root");
                         }else{
                             styleWrongMessage("Root dont found");
                         }
@@ -227,29 +216,21 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
                         graphPoint(x0,y0,color);
-                        //graphPoint(x0, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                        //Toast.makeText(getContext(), normalTransformation(x0) + " is a root", Toast.LENGTH_SHORT).show();
-                        message = normalTransformation(x0) + " is a root";
-                        styleCorrectMessage(message);
+                        styleCorrectMessage(normalTransformation(x0) + " is a root");
                     }
 
                 } else {
                     iter.setError("Iterate needs be >0");
-                    message = "Iterate needs be >0";
-                    styleWrongMessage(message);
+                    styleWrongMessage("Iterate needs be >0");
                 }
-                //calc= true;
             } else {
                 this.delta.setError("Delta cannot be zero");
-                message = "Delta cannot be zero";
-                styleWrongMessage(message);
+                styleWrongMessage("Delta cannot be zero");
             }
             IncrementalSearchListAdapter adapter = new IncrementalSearchListAdapter(getContext(), R.layout.list_adapter_incremental_search, listValues);
             listView.setAdapter(adapter);
         } catch (Exception e) {
-            //Toast.makeText(getActivity(), "Unexpected error posibly nan", Toast.LENGTH_SHORT).show();
-            message = "Unexpected error posibly nan";
-            styleWrongMessage(message);
+            styleWrongMessage("Unexpected error posibly nan");
         }
 
 
