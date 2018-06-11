@@ -1,11 +1,8 @@
 package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,14 +12,8 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpInverseMatrix;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.complex.ComplexFormat;
@@ -159,7 +150,7 @@ public class inverseDeterminant extends baseFactorizationMethods {
         for(Complex[] aux: inverse){
             TableRow row = new TableRow(getContext());
             for(Complex val: aux){
-                row.addView(defaultEditText((formating(val)+"      ").substring(0,6)));
+                row.addView(defaultTextView((formating(val)+"      ").substring(0,6)));
             }
             matrixResult.addView(row);
         }

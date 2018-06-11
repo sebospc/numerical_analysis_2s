@@ -175,7 +175,7 @@ public class graphUtils {
 
         threadGraph[] values = new threadGraph[NUMBER_OF_CORES];
         for (int i = 0; i < cores.length; i++) {
-            values[i] = new threadGraph(each-5, end, funcitonExpr, color, perCore);
+            values[i] = new threadGraph(each-1, end, funcitonExpr, color, perCore);
             cores[i] = new Thread(values[i]);
             cores[i].start();
             each = (each + (perCore* 0.1));

@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,14 +19,9 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpCholesky;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -141,8 +135,8 @@ public class cholesky extends baseFactorizationMethods{
             for(int j = 0; j<= matrixLCholesky.length; j++){
                 matrixLCholesky[i][j] = new Complex(0,0);
                 matrixUCholesky[i][j] = new Complex(0,0);
-                rowU.addView(defaultEditText(formating(matrixUCholesky[i][j])));
-                rowL.addView(defaultEditText(formating(matrixLCholesky[i][j])));
+                rowU.addView(defaultTextView(formating(matrixUCholesky[i][j])));
+                rowL.addView(defaultTextView(formating(matrixLCholesky[i][j])));
             }
             matrixLText.addView(rowL);
             matrixUText.addView(rowU);
@@ -652,7 +646,7 @@ public class cholesky extends baseFactorizationMethods{
         }
 
         for(Complex val:values){
-            xValuesText.addView(defaultEditText((formating(val)+"            ").substring(0,6)));
+            xValuesText.addView(defaultTextView((formating(val)+"            ").substring(0,6)));
         }
 
     }

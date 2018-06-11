@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,14 +19,9 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpDoolittle;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 
 import java.util.LinkedList;
 
@@ -111,8 +105,8 @@ public class doolittle extends baseFactorizationMethods {
             TableRow rowU = new TableRow(getContext());
             TableRow rowL = new TableRow(getContext());
             for(int j = 0; j<= matrixL.length; j++){
-                rowU.addView(defaultEditText(matrixU[i][j]+""));
-                rowL.addView(defaultEditText(matrixL[i][j]+""));
+                rowU.addView(defaultTextView(matrixU[i][j]+""));
+                rowL.addView(defaultTextView(matrixL[i][j]+""));
             }
             matrixLText.addView(rowL);
             matrixUText.addView(rowU);
