@@ -150,7 +150,7 @@ public class interpolation extends Fragment {
             }
         });
         initialize(count);
-        for (LineGraphSeries<DataPoint> inSerie : listSeries)
+        for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(50, "x", 0))
             interpolationGraph.addSeries(inSerie);
         interpolationGraph.getViewport().setYAxisBoundsManual(true);
         interpolationGraph.getViewport().setMinY(-3);
@@ -162,8 +162,6 @@ public class interpolation extends Fragment {
         interpolationGraph.getViewport().setScrollableY(true); // enables vertical scrolling
         interpolationGraph.getViewport().setScalable(true);// esto genera errores se podria solucionar pero
         interpolationGraph.getViewport().setScalableY(true);// es complejo, es para el zoom
-        for (LineGraphSeries<DataPoint> inSerie : listSeries)
-            interpolationGraph.addSeries(inSerie);
 
         return view;
     }

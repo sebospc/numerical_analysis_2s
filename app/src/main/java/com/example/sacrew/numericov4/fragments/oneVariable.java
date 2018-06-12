@@ -114,7 +114,7 @@ public class oneVariable extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                SuperActivityToast.cancelAllSuperToasts();
+
             }
 
             @Override
@@ -122,8 +122,6 @@ public class oneVariable extends Fragment {
 
             }
         });
-        for (LineGraphSeries<DataPoint> inSerie : listSeries)
-            graphOneVariable.removeSeries(inSerie);
         graphOneVariable.getViewport().setYAxisBoundsManual(true);
         graphOneVariable.getViewport().setMinY(-3);
         graphOneVariable.getViewport().setMaxY(3);
@@ -135,7 +133,7 @@ public class oneVariable extends Fragment {
         graphOneVariable.getViewport().setScrollableY(true);
         graphOneVariable.getViewport().setScalable(true);
         graphOneVariable.getViewport().setScalableY(true);
-        for (LineGraphSeries<DataPoint> inSerie : listSeries)
+        for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(50, "x", 0))
             graphOneVariable.addSeries(inSerie);
         return view;
     }
@@ -169,7 +167,7 @@ public class oneVariable extends Fragment {
                     0,                 // toXDelta
                     hiderB.getHeight(),  // fromYDelta
                     0);                // toYDelta
-            animate.setDuration(400);
+            animate.setDuration(200);
             animate.setFillAfter(true);
             hiderB.startAnimation(animate);
 
