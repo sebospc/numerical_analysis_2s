@@ -194,7 +194,6 @@ public class graphFragment extends Fragment {
                     }, 200);
                 }
             });
-            //v.setBackgroundResource(R.drawable.ic_arrow_upward_black_24dp);
             isup = false;
         }else{ //up
             hiderA = view.findViewById(R.id.hiderA);
