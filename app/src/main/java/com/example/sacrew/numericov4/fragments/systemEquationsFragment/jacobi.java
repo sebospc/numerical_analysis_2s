@@ -171,6 +171,7 @@ public class jacobi extends baseIterativeMethods{
         if(dispersion < tolerance){
             for(double val: x0)
                 xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
+            styleCorrectMessage("The method converges");
         }else{
             for(double val: x0)
                 xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));

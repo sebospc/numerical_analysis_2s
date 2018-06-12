@@ -461,6 +461,19 @@ public abstract class baseSystemEquations extends Fragment {
                 }
             };
 
+    public void styleCorrectMessage(String message){
+        SuperActivityToast.cancelAllSuperToasts();
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setIndeterminate(true)
+                .setButtonText("UNDO")
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setProgressBarColor(Color.WHITE)
+                .setText(message)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(Color.rgb(76,175,80))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
     public void styleWrongMessage(String message){
         SuperActivityToast.cancelAllSuperToasts();
         SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
