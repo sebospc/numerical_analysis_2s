@@ -5,6 +5,12 @@ import android.widget.Toast;
 
 
 public class systemEquationsUtils {
+    public double[] manager(double[][] expandedMatrix){
+        double[] aux = eliminationWithTotalPivot(expandedMatrix);
+        if(aux != null) return aux;
+
+        return simpleElimination(expandedMatrix);
+    }
     private double[] substitution(double[][] expandedMatrix, int [] marks){
         double [] result = substitution(expandedMatrix,-1);
         if(result == null) return null;
@@ -32,7 +38,6 @@ public class systemEquationsUtils {
                 sumatoria = sumatoria + expandedMatrix[auxi][p]*values[p];
             }
             if(expandedMatrix[auxi][auxi] == 0) {
-                //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
                 return null;
             }
             double aux = (expandedMatrix[auxi][n+1]-sumatoria)/expandedMatrix[auxi][auxi];
@@ -78,7 +83,6 @@ public class systemEquationsUtils {
             }
         }
         if(mayor == 0){
-            //Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
             return null;
         }else{
             if(higherRow != k)
@@ -88,17 +92,22 @@ public class systemEquationsUtils {
         }
         return expandedMAtrix;
     }
-    public double[] eliminationWithTotalPivot(double [][] expandedMatrix){
-        int[] marks = new int[expandedMatrix.length];
+    public double[] eliminationWithTotalPivot(double [][] matrix){
+        int[] marks = new int[matrix.length];
+        double [][] expandedMatrix = new double[matrix.length][matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            expandedMatrix[i] = matrix[i].clone();
+        }
+
         for(int i = 0; i< marks.length; i++)
             marks[i] =i;
 
         for(int k = 0; k< expandedMatrix.length-1; k++){
             expandedMatrix = totalPivot(k,expandedMatrix, marks);
+
             if(expandedMatrix == null) return null;
             for (int i = k + 1; i < expandedMatrix.length; i++){
                 if(expandedMatrix[k][k] == 0) return null;
-                    //Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
                 double multiplier = expandedMatrix[i][k] / expandedMatrix[k][k];
                 for(int j = k; j < expandedMatrix.length + 1; j++){
                     double aux = expandedMatrix[i][j] - multiplier*expandedMatrix[k][j];
@@ -108,6 +117,22 @@ public class systemEquationsUtils {
             }
         }
         return substitution(expandedMatrix, marks);
+    }
+
+    public double[] simpleElimination( double [][] expandedMatrix){
+        double[][] aux = new double[expandedMatrix.length][expandedMatrix.length];
+        for(int k = 0; k< expandedMatrix.length-1; k++){
+            for (int i = k + 1; i < expandedMatrix.length; i++){
+                if(expandedMatrix[k][k] == 0) {
+                    return null;
+                }
+                final double multiplier = expandedMatrix[i][k] / expandedMatrix[k][k];
+                for(int j = k; j < expandedMatrix.length + 1; j++){
+                    aux[i][j] = expandedMatrix[i][j] - multiplier*expandedMatrix[k][j];
+                }
+            }
+        }
+        return substitution(aux, -1);
     }
 
 

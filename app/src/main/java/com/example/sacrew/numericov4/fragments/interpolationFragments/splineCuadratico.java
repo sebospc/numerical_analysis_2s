@@ -159,7 +159,7 @@ public class splineCuadratico extends baseSpliners{
         }
         function += "$${\\text{second derivative}}$$ $${a_{1} = 0\\qquad \\qquad}$$";
         supermatrix[k][0] = 1;
-        double [] result = systemUtils.eliminationWithTotalPivot(supermatrix);
+        double [] result = systemUtils.manager(supermatrix);
         if(result == null){
             styleWrongMessage("Error division by 0");
             return false;
