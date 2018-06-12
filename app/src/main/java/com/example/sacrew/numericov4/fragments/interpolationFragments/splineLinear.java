@@ -130,7 +130,7 @@ public class splineLinear extends baseSpliners{
             function += stw.toString() +" & "+aux.first.first+" \\leq "+aux.second.first;
             if(i < inequality.length-1)
                 function +="\\\\";
-                    //"x = \\begin{cases} a & 3\\leq b \\leq 4  \\\\ c &\\text{if } d\n \\end{cases}";
+            
         }
         return true;
     }

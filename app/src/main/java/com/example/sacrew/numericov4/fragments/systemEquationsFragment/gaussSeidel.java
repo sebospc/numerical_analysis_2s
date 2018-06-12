@@ -31,7 +31,7 @@ public class gaussSeidel extends baseIterativeMethods {
 
     private EditText error,iters,relaxation;
     private ToggleButton errorToggle;
-
+    private boolean errorDivision = false;
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout initialValuesSeidel;
     public gaussSeidel() {
@@ -98,6 +98,7 @@ public class gaussSeidel extends baseIterativeMethods {
     @Override
     public void bootStrap(double[][] expandedMatrix){
         xValuesText.removeAllViews();
+        errorDivision = false;
         double [] initial = new double[expandedMatrix.length];
         for(int i = 0;i<initialValuesSeidel.getChildCount();i++){
             EditText aux = ((EditText)initialValuesSeidel.getChildAt(i));
@@ -151,28 +152,37 @@ public class gaussSeidel extends baseIterativeMethods {
         lisTitles.add("Error");
         aux.add(String.valueOf(dispersion));
         totalInformation.add(aux);
+        calc = true;
         while(dispersion > tolerance && contador < iters){
             aux = new LinkedList<>();
             double [] x1 ;
             x1 = calcNewSeidel(x0,expandedMAtrix,relax);
-            if(errorToggle.isChecked())
-                dispersion = rule(minus(x1,x0));
-            else
-                dispersion = rule(minus(x1,x0))/ rule(x1);
+            try {
+                if (errorToggle.isChecked())
+                    dispersion = rule(minus(x1, x0));
+                else
+                    dispersion = rule(minus(x1, x0)) / rule(x1);
+            }catch (ArithmeticException ignored){
+
+            }
             for(double v:x1)aux.add(String.valueOf(v));
             aux.add(String.valueOf(dispersion));
             totalInformation.add(aux);
             x0 = x1;
             contador = contador + 1;
+            if(errorDivision){
+                styleWrongMessage("Error division by zero");
+                return;
+            }
         }
-        calc = true;
+
         if(dispersion < tolerance){
             for(double val: x0)
                 xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
         }else{
             for(double val: x0)
                 xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
-            styleWrongMessage("The method failed with "+iters+" iterations!");
+            styleWrongMessage("The method failed in "+contador+" iteration!");
         }
     }
 
@@ -183,10 +193,24 @@ public class gaussSeidel extends baseIterativeMethods {
         for(int i = 0; i < n ; i++){
             double suma = 0;
             for(int j = 0; j < n ; j++){
-                if( j!= i)
-                    suma = suma + expandedMatrix[i][j]*x[j];
+                if( j!= i) {
+                    try {
+                        suma = suma + expandedMatrix[i][j] * x[j];
+                    }catch (ArithmeticException ignored){
+
+                    }
+                }
             }
-            double value = (relax*((expandedMatrix[i][n] - suma)/expandedMatrix[i][i]))+(1-relax)*x0[i];
+            double denominator = expandedMatrix[i][i];
+            if(denominator == 0){
+                errorDivision = true;
+            }
+            double value = Double.NaN;
+            try {
+                value = (relax * ((expandedMatrix[i][n] - suma) / denominator)) + (1 - relax) * x0[i];
+            }catch (ArithmeticException ignored){
+
+            }
             x[i] = value;
         }
         return x;

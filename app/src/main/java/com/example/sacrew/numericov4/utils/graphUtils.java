@@ -112,9 +112,9 @@ public class graphUtils {
     public List<LineGraphSeries<DataPoint>> graphPharallelByFunctions(List<Pair<String,Pair<Integer,Pair<Double,Double>>>> functions){
 
         int maxThreads = NUMBER_OF_CORES;
-        if(functions.size() < NUMBER_OF_CORES){
+        if(functions.size() < NUMBER_OF_CORES)
             maxThreads = functions.size();
-        }
+
 
 
         Thread [] cores = new Thread [maxThreads];
@@ -123,9 +123,9 @@ public class graphUtils {
 
         List<LineGraphSeries<DataPoint>> listSeries = new LinkedList<>();
         for(Pair<String,Pair<Integer,Pair<Double,Double>>> func :functions){
-            if(i == maxThreads){
+            if(i == maxThreads)
                 i = 0;
-            }
+
 
 
             if(cores[i] == null){
@@ -140,9 +140,9 @@ public class graphUtils {
                 try {
                     cores[i].join();
                     listSeries.add(values[i].getSeries());
-                    cores[i] = null;
                     double init = func.second.second.first;
                     double end = func.second.second.second;
+                    //do another serie
                     values[i] = new bestThreadGraph(init,end,func.first,func.second.first,(int)(Math.ceil(Math.abs(end-init)/0.1)));
                     cores[i] =new Thread(values[i]);
                     cores[i].start();
