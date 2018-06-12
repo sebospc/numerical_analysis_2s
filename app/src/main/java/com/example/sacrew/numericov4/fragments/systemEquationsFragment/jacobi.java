@@ -180,6 +180,17 @@ public class jacobi extends baseIterativeMethods {
                 return;
             }
         }
+<<<<<<< HEAD
+        calc = true;
+        if(dispersion < tolerance){
+            for(double val: x0)
+                xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
+            styleCorrectMessage("The method converges");
+        }else{
+            for(double val: x0)
+                xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
+            styleWrongMessage("The method failed with "+iters+" iterations!");
+=======
 
 
         if (dispersion < tolerance) {
@@ -189,6 +200,7 @@ public class jacobi extends baseIterativeMethods {
             for (double val : x0)
                 xValuesText.addView(defaultTextView((val + "      ").substring(0, 6)));
             styleWrongMessage("The method failed in " + contador+ " iteration!");
+>>>>>>> 9c29ce816dbdfb23e37df9996c9bcd9a30895df0
         }
     }
 

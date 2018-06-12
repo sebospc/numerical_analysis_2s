@@ -23,7 +23,6 @@ public abstract class baseSpliners extends baseInterpolationMethods {
             inequality[i] = new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<>(xn[i], fxn[i]), new Pair<>(xn[i + 1], fxn[i + 1]));
             System.out.println(inequality[i]);
         }
-
     }
     public void updateGraph(){
         constantSerie = utilsOfGraph.graphPharallelByFunctions(equations);
