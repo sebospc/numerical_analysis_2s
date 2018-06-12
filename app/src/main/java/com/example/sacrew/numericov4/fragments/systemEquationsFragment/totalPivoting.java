@@ -37,7 +37,6 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.times;
 public class totalPivoting extends baseSystemEquations {
     private LinearLayout multipliersLayout;
     ScrollView scrollview;
-    String mensaje = "";
     public totalPivoting() {
         // Required empty public constructor
     }

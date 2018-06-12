@@ -169,7 +169,7 @@ public class oneVariable extends Fragment {
                     0,                 // toXDelta
                     hiderB.getHeight(),  // fromYDelta
                     0);                // toYDelta
-            animate.setDuration(200);
+            animate.setDuration(400);
             animate.setFillAfter(true);
             hiderB.startAnimation(animate);
 

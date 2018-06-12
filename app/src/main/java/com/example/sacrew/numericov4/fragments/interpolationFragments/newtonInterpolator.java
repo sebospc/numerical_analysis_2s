@@ -39,7 +39,6 @@ import java.util.List;
 public class newtonInterpolator extends baseInterpolationMethods {
 
     private List<double []> derivs;
-    String mensaje = "";
     private boolean errorDivision = true;
 
     public newtonInterpolator() {
@@ -150,9 +149,7 @@ public class newtonInterpolator extends baseInterpolationMethods {
         } else {
             double denominator = (xn[i + difference] - xn[i - 1]);
             if (denominator == 0) {
-                //Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
-                mensaje = "Error division by 0";
-                styleWrongMessage(mensaje);
+                styleWrongMessage("Error division by 0");
                 errorDivision = false;
             }
             double newFxn = (actualValues[i] - actualValues[i - 1]) / denominator;

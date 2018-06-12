@@ -38,7 +38,6 @@ public class croult extends baseFactorizationMethods{
     private TableLayout matrixLText;
     private TableLayout matrixUText;
     private TextView suma;
-    String message = "";
 
     public croult() {
         // Required empty public constructor
@@ -295,9 +294,7 @@ public class croult extends baseFactorizationMethods{
                     animations.add(animatronix);
                 }
                 if(matrixU[k][k] == 0) {
-                    //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-                    message = "Error division 0";
-                    styleWrongMessage(message);
+                    styleWrongMessage("Error division 0");
                     return;
                 }
 
@@ -399,9 +396,7 @@ public class croult extends baseFactorizationMethods{
                     animations.add(animatronix);
                 }
                 if(matrixL[k][k] == 0) {
-                    //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-                    message = "Error division 0";
-                    styleWrongMessage(message);
+                    styleWrongMessage("Error division 0");
                     return;
                 }
                 matrixU[k][j] = (expandedMatrix[k][j] - suma3)/matrixL[k][k];

@@ -57,7 +57,7 @@ public class systemEquations extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public  static SeekBar times;
     public static List<Animator> animations;
-    public static int count =  4;
+    public static int count;
     public static AnimatorSet animatorSet = new AnimatorSet();
     @SuppressLint("StaticFieldLeak")
     public static ImageButton backMAtrix;
@@ -78,6 +78,7 @@ public class systemEquations extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        count = 4;
         //clear toasts
         SuperActivityToast.cancelAllSuperToasts();
         // Inflate the layout for this fragment

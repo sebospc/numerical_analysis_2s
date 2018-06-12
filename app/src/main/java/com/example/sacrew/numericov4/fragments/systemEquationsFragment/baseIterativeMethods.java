@@ -27,7 +27,7 @@ public abstract class baseIterativeMethods extends baseSystemEquations {
         }
         return aux;
     }
-    public double norma(double[] values){
+    public double rule(double[] values){
         double [] aux = new double[values.length];
         for(int i = 0; i < values.length; i++)
             aux[i]= Math.abs(values[i]);

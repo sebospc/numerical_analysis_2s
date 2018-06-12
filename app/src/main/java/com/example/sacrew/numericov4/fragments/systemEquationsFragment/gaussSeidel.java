@@ -31,7 +31,6 @@ public class gaussSeidel extends baseIterativeMethods {
 
     private EditText error,iters,relaxation;
     private ToggleButton errorToggle;
-    String mensaje = "";
 
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout initialValuesSeidel;
@@ -149,7 +148,7 @@ public class gaussSeidel extends baseIterativeMethods {
             lisTitles.add("X"+(i+1));
             aux.add(String.valueOf(x0[i]));
         }
-        lisTitles.add("Norma");
+        lisTitles.add("Error");
         aux.add(String.valueOf(dispersion));
         totalInformation.add(aux);
         while(dispersion > tolerance && contador < iters){
@@ -157,9 +156,9 @@ public class gaussSeidel extends baseIterativeMethods {
             double [] x1 ;
             x1 = calcNewSeidel(x0,expandedMAtrix,relax);
             if(errorToggle.isChecked())
-                dispersion = norma(minus(x1,x0));
+                dispersion = rule(minus(x1,x0));
             else
-                dispersion = norma(minus(x1,x0))/norma(x1);
+                dispersion = rule(minus(x1,x0))/ rule(x1);
             for(double v:x1)aux.add(String.valueOf(v));
             aux.add(String.valueOf(dispersion));
             totalInformation.add(aux);
@@ -173,9 +172,7 @@ public class gaussSeidel extends baseIterativeMethods {
         }else{
             for(double val: x0)
                 xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
-            //Toast.makeText(getContext(),  "Failed", Toast.LENGTH_SHORT).show();
-            mensaje = "The method failed!";
-            styleWrongMessage(mensaje);
+            styleWrongMessage("The method failed with "+iters+" iterations!");
         }
     }
 

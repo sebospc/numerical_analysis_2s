@@ -37,7 +37,6 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
  * A simple {@link Fragment} subclass.
  */
 public class splineCuadratico extends baseSpliners{
-    String mensaje ="";
     private systemEquationsUtils systemUtils = new systemEquationsUtils();
     public splineCuadratico() {
         // Required empty public constructor
@@ -162,9 +161,7 @@ public class splineCuadratico extends baseSpliners{
         supermatrix[k][0] = 1;
         double [] result = systemUtils.eliminationWithTotalPivot(supermatrix);
         if(result == null){
-            //Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
-            mensaje = "Error division by 0";
-            styleWrongMessage(mensaje);
+            styleWrongMessage("Error division by 0");
             return false;
         }
         function += "$${result}$$";

@@ -37,7 +37,6 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
  */
 public class splineLinear extends baseSpliners{
 
-    String mensaje = "";
     public splineLinear() {
         // Required empty public constructor
     }
@@ -117,9 +116,7 @@ public class splineLinear extends baseSpliners{
                 Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             double check = (aux.second.first-aux.first.first);
             if(check == 0) {
-                //Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
-                mensaje = "Error division by 0";
-                styleWrongMessage(mensaje);
+                styleWrongMessage("Error division by 0");
                 return false;
             }
             double numerator = (aux.second.second-aux.first.second);

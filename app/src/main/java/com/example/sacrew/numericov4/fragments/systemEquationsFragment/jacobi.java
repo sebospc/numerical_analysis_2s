@@ -30,7 +30,6 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesTex
 public class jacobi extends baseIterativeMethods{
     private EditText error,iters,relaxation;
     private ToggleButton errorToggle;
-    String mensaje = "";
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout initialValues;
 
@@ -149,18 +148,19 @@ public class jacobi extends baseIterativeMethods{
             lisTitles.add("X"+(i+1));
             aux.add(String.valueOf(x0[i]));
         }
-        lisTitles.add("Norma");
+        lisTitles.add("Error");
         aux.add(String.valueOf(dispersion));
         totalInformation.add(aux);
         while(dispersion > tolerance && contador < iters){
+
             aux = new LinkedList<>();
             double [] x1 ;
             x1 = calcNewJacobi(x0,expandedMAtrix,relax);
 
             if(errorToggle.isChecked())
-                dispersion = norma(minus(x1,x0));
+                dispersion = rule(minus(x1,x0));
             else
-                dispersion = norma(minus(x1,x0))/norma(x1);
+                dispersion = rule(minus(x1,x0))/ rule(x1);
             for(double v:x1)aux.add(String.valueOf(v));
             aux.add(String.valueOf(dispersion));
             totalInformation.add(aux);
@@ -174,9 +174,7 @@ public class jacobi extends baseIterativeMethods{
         }else{
             for(double val: x0)
                 xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
-            //Toast.makeText(getContext(),  "Failed", Toast.LENGTH_SHORT).show();
-            mensaje = "The method failed!";
-            styleWrongMessage(mensaje);
+            styleWrongMessage("The method failed with "+iters+" iterations!");
         }
     }
 
@@ -189,7 +187,16 @@ public class jacobi extends baseIterativeMethods{
                 if( j!= i)
                     suma = suma + expandedMatrix[i][j]*x0[j];
             }
-            double value = (relax*((expandedMatrix[i][n] - suma)/expandedMatrix[i][i]))+(1-relax)*x0[i];
+            double denominator =expandedMatrix[i][i];
+            if(denominator  == 0){
+                styleWrongMessage("Error division by 0");
+                return x;
+            }
+            System.out.println("expandedMatrix["+i+"]"+"["+n+"] = "+expandedMatrix[i][n]);
+            System.out.println("suma ="+suma);
+            System.out.println("denominator ="+denominator);
+            double value = (relax*((expandedMatrix[i][n] - suma)/denominator))+(1-relax)*x0[i];
+            System.out.println("value : "+value);
             x[i] = value;
         }
         return x;

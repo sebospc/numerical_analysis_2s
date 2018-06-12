@@ -37,7 +37,6 @@ import java.util.List;
 public class lagrange extends baseInterpolationMethods{
 
     private List<String> functions;
-    String mensaje = "";
     public lagrange() {
         // Required empty public constructor
     }
@@ -150,9 +149,7 @@ public class lagrange extends baseInterpolationMethods{
                 }
             }
             if ((util.evaluate(denominator.toString())).toString().equals("0.0")){
-                //Toast.makeText(getContext(), "Error division by 0", Toast.LENGTH_SHORT).show();
-                mensaje = "Error division by 0";
-                styleWrongMessage(mensaje);
+                styleWrongMessage("Error division by 0");
                 return false;
             }
             String aux = "("+numerator+"/("+denominator+"))";

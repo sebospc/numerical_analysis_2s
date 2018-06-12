@@ -32,7 +32,7 @@ public abstract class baseInterpolationMethods extends Fragment {
     protected graphUtils utilsOfGraph = new graphUtils();
     protected boolean calc = false;
     protected String function = "";
-    protected Boolean bootStrap(){
+    protected boolean bootStrap(){
         int length = ((TableRow)vectors.getChildAt(0)).getChildCount();
         xn = new double[length];
         fxn = new double[length];

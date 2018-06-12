@@ -45,7 +45,6 @@ public class cholesky extends baseFactorizationMethods{
     private Complex[][] matrixUCholesky;
     private TextView suma;
     private ComplexFormat formater;
-    String message = "";
 
     public cholesky() {
         // Required empty public constructor
@@ -331,17 +330,13 @@ public class cholesky extends baseFactorizationMethods{
                     animations.add(animatronix);
                 }
                 if(matrixUCholesky[k][k].getReal() == 0 && matrixUCholesky[k][k].getImaginary() == 0) {
-                    //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-                    message = "Error division 0";
-                    styleWrongMessage(message);
+                    styleWrongMessage("Error division 0");
                     System.out.println(matrixUCholesky[k][k].toString());
                     return;
                 }
                 matrixLCholesky[i][k] = (new Complex(expandedMatrix[i][k],0).subtract(suma2))
                         .divide(matrixUCholesky[k][k]);
-                //matrixL[i][k] = (expandedMatrix[i][k]-suma2)/matrixU[k][k];
                 final String temp1 = formating(matrixLCholesky[i][k]);
-                //final double temp1 = matrixL[i][k];
                 ValueAnimator animatronix2 = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
                         defaultColor).setDuration(times.getProgress()*500);
                 animatronix2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -441,8 +436,7 @@ public class cholesky extends baseFactorizationMethods{
                 }
                 if(matrixLCholesky[k][k].getReal() == 0 && matrixLCholesky[k][k].getImaginary() == 0) {
                    // Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-                    message = "Error division 0";
-                    styleWrongMessage(message);
+                    styleWrongMessage("Error division 0");
                     System.out.println(matrixLCholesky[k][k].toString());
                     return;
                 }
@@ -590,9 +584,7 @@ public class cholesky extends baseFactorizationMethods{
         int n = matrixLCholesky.length-1;
         Complex [] x = new Complex[n+1];
         if(matrixUCholesky[0][0].getReal() == 0 && matrixUCholesky[0][0].getImaginary() == 0) {
-            //Toast.makeText(getContext(), "Error division 0 in progressive substitution", Toast.LENGTH_SHORT).show();
-            message = "Error division 0 in progressive substitution";
-            styleWrongMessage(message);
+            styleWrongMessage("Error division 0 in progressive substitution");
             return x;
         }
         x[0] = matrixUCholesky[0][n+1].divide(matrixUCholesky[0][0]);
@@ -602,9 +594,7 @@ public class cholesky extends baseFactorizationMethods{
                 sumatoria = sumatoria.add(matrixLCholesky[i][p].multiply(x[p]));
             }
             if(matrixLCholesky[i][i].getReal() == 0 && matrixLCholesky[i][i].getImaginary() == 0) {
-                //Toast.makeText(getContext(), "Error division 0 in progressive substitution", Toast.LENGTH_SHORT).show();
-                message = "Error division 0 in progressive substitution";
-                styleWrongMessage(message);
+                styleWrongMessage("Error division 0 in progressive substitution");
                 return x;
             }
             x[i] = (matrixLCholesky[i][n+1].subtract(sumatoria)).divide(matrixLCholesky[i][i]);
@@ -621,9 +611,7 @@ public class cholesky extends baseFactorizationMethods{
         int n = expandedMatrix.length-1;
         Complex[] values = new Complex[n+1];
         if(expandedMatrix[n][n].getReal() == 0 && expandedMatrix[n][n].getImaginary() == 0) {
-            //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-            message = "Error division 0";
-            styleWrongMessage(message);
+            styleWrongMessage("Error division 0");
             return;
         }
         Complex x = expandedMatrix[n][n+1].divide(expandedMatrix[n][n]);
@@ -636,9 +624,7 @@ public class cholesky extends baseFactorizationMethods{
                 sumatoria = sumatoria.add(expandedMatrix[auxi][p].multiply(values[p]))  ;
             }
             if(expandedMatrix[auxi][auxi].getReal() == 0 && expandedMatrix[auxi][auxi].getImaginary() == 0) {
-                //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-                message = "Error division 0";
-                styleWrongMessage(message);
+                styleWrongMessage("Error division 0");
                 return;
             }
             values[auxi] = (expandedMatrix[auxi][n+1].subtract(sumatoria)).divide(expandedMatrix[auxi][auxi]);

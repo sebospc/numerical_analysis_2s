@@ -45,7 +45,6 @@ public class gaussSimple extends baseSystemEquations {
 
     private LinearLayout multipliersLayout;
     ScrollView scrollview;
-    String mensaje = "";
 
     public gaussSimple() {
         // Required empty public constructor
@@ -133,9 +132,7 @@ public class gaussSimple extends baseSystemEquations {
             animations.add(stage);
             for (int i = k + 1; i < expandedMatrix.length; i++){
                 if(expandedMatrix[k][k] == 0) {
-                    //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-                    mensaje = "Error division 0";
-                    styleWrongMessage(mensaje);
+                    styleWrongMessage("Error division 0");
                     return;
                 }
                 final double multiplier = expandedMatrix[i][k] / expandedMatrix[k][k];
