@@ -194,7 +194,7 @@ public class splineCubico extends baseSpliners {
         equation = superMatrix[k+1][4*(inequality.length-1)]+"a_{"+(inequality.length-1)+"}+2b_{"+(inequality.length-1)+"} = 0";
         function+="$${"+equation+" \\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
 
-        double[] result = systemUtils.eliminationWithTotalPivot(superMatrix);
+        double[] result = systemUtils.manager(superMatrix);
         if(result == null){
             styleWrongMessage("Error division by 0");
             return false;
