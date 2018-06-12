@@ -150,7 +150,7 @@ public class interpolation extends Fragment {
             }
         });
         initialize(count);
-        for (LineGraphSeries<DataPoint> inSerie : listSeries)
+        for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(50, "x", 0))
             interpolationGraph.addSeries(inSerie);
         interpolationGraph.getViewport().setYAxisBoundsManual(true);
         interpolationGraph.getViewport().setMinY(-3);

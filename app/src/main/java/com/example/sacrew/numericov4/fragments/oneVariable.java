@@ -122,7 +122,7 @@ public class oneVariable extends Fragment {
 
             }
         });
-        for (LineGraphSeries<DataPoint> inSerie : listSeries)
+        for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(50, "x", 0))
             graphOneVariable.removeSeries(inSerie);
         graphOneVariable.getViewport().setYAxisBoundsManual(true);
         graphOneVariable.getViewport().setMinY(-3);
