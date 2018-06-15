@@ -3,7 +3,7 @@ package com.example.sacrew.numericov4.fragments;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -23,7 +23,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.utils.graphUtils;
@@ -34,13 +33,13 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.udojava.evalex.Expression;
 
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import at.markushi.ui.CircleButton;
+
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
 
@@ -260,7 +259,8 @@ public class graphFragment extends Fragment {
                 poolColors.add(color);
                 viewToColor.put(code, color);
             }
-            seek.setProgressTintList(ColorStateList.valueOf(viewToColor.get(code)));
+            if(Build.VERSION.SDK_INT > 21)
+                seek.setProgressTintList(ColorStateList.valueOf(viewToColor.get(code)));
             /*
              * autocomplete allFunctions
              */

@@ -1,9 +1,5 @@
 package com.example.sacrew.numericov4.utils;
 
-import android.widget.Toast;
-
-
-
 public class systemEquationsUtils {
     public double[] manager(double[][] expandedMatrix){
         double[] aux = eliminationWithTotalPivot(expandedMatrix);

@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:windowSoftInputMode="adjustPan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:windowSoftInputMode="adjustPan"
+    tools:context="com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +14,11 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Fixed Point"
-            android:drawableRight="@drawable/ic_next"
+            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_previous"
-                android:textAlignment="center"
+            android:drawableRight="@drawable/ic_next"
+            android:gravity="center"
+            android:text="Fixed Point"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -26,8 +26,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        >
+        android:layout_height="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -121,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/colorPrimary"
+                android:theme="@style/colorButtonPrimary"
                 android:text="CALCULATE"
                 android:textColor="@android:color/white" />
 
@@ -137,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/colorPrimary"
+                android:theme="@style/colorButtonPrimary"
                 android:text="CHART"
                 android:textColor="@android:color/white" />
         </LinearLayout>

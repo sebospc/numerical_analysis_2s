@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,6 @@ import android.widget.TextView;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpCholesky;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.complex.ComplexFormat;
 
@@ -37,6 +33,8 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.bValuesTex
 import static com.example.sacrew.numericov4.fragments.systemEquations.matrixAText;
 import static com.example.sacrew.numericov4.fragments.systemEquations.times;
 import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesText;
+
+
 
 public class cholesky extends baseFactorizationMethods{
     private TableLayout matrixLText;

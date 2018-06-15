@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:windowSoftInputMode="adjustPan"
-    tools:context="com.example.sacrew.numericov4.fragments.interpolationFragments.splineCubico">
+    tools:context="com.example.sacrew.numericov4.fragments.interpolationFragments.cubicSpline">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Cubic Spline"
             android:drawableLeft="@drawable/ic_previous"
-            android:textAlignment="center"
+            android:gravity="center"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -32,11 +32,11 @@
         android:orientation="horizontal">
 
         <Button
+            android:theme="@style/colorButtonPrimary"
             android:id="@+id/run"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
             android:text="CALCULATE"
             android:textColor="@android:color/white" />
 
@@ -48,11 +48,11 @@
             android:text="help" />
 
         <Button
+            android:theme="@style/colorButtonPrimary"
             android:id="@+id/showEquations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
             android:text="equations"
             android:textColor="@android:color/white" />
     </LinearLayout>

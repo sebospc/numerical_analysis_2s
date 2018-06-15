@@ -28,7 +28,6 @@ import android.widget.TextView;
 import com.evrencoskun.tableview.ITableView;
 import com.evrencoskun.tableview.adapter.recyclerview.holder.AbstractSorterViewHolder;
 import com.evrencoskun.tableview.sort.SortState;
-
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.tableview.model.ColumnHeader;
 

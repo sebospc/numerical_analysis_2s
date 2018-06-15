@@ -6,7 +6,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -28,6 +28,7 @@ import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 
 import java.util.LinkedList;
 
+import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
 import static com.example.sacrew.numericov4.fragments.systemEquations.bValuesText;
 import static com.example.sacrew.numericov4.fragments.systemEquations.backMAtrix;
@@ -37,7 +38,6 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.pivoted;
 import static com.example.sacrew.numericov4.fragments.systemEquations.times;
 import static com.example.sacrew.numericov4.fragments.systemEquations.xIndex;
 import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesText;
-import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
 /**
  * Created by sacrew on 23/05/18.
  */

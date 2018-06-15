@@ -12,10 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.oneVariableFragments.incrementalSearchFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by User on 3/14/2017.

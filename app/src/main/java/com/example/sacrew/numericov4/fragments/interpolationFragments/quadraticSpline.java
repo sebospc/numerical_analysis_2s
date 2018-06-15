@@ -2,10 +2,8 @@ package com.example.sacrew.numericov4.fragments.interpolationFragments;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Pair;
@@ -13,19 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpQuadraticSpline;
 import com.example.sacrew.numericov4.utils.systemEquationsUtils;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 
 import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.eval.TeXUtilities;
 import org.matheclipse.core.expression.F;
+import org.matheclipse.core.interfaces.IExpr;
 
 import java.io.StringWriter;
 import java.util.LinkedList;
@@ -36,9 +31,9 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class splineCuadratico extends baseSpliners{
+public class quadraticSpline extends baseSpliners{
     private systemEquationsUtils systemUtils = new systemEquationsUtils();
-    public splineCuadratico() {
+    public quadraticSpline() {
         // Required empty public constructor
     }
 
@@ -176,15 +171,22 @@ public class splineCuadratico extends baseSpliners{
 
             String auxFunc = result[j]+"*(x^2)+"+result[j+1]+"*x+"+result[j+2];
             String auxToLatex = roundOff(result[j])+"*(x^2)+"+roundOff(result[j+1])+"*x+"+roundOff(result[j+2]);
-            String funcSimplify = util.evaluate(F.FullSimplify(util.evaluate(auxFunc))).toString();
+            IExpr funcSimplify = util.evaluate(F.ExpandAll(util.evaluate(auxFunc)));
+            if(Build.VERSION.SDK_INT > 19){
+                funcSimplify = util.evaluate(F.FullSimplify(funcSimplify));
+            }
             int color = poolColors.remove(0);
             poolColors.add(color);
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             System.out.println("iter  "+i+" values "+new Pair<>(funcSimplify,new Pair<>(color,new Pair<>(aux.first.first,aux.second.first))));
-            equations.add(new Pair<>(funcSimplify,new Pair<>(color,new Pair<>(aux.first.first,aux.second.first))));
+            equations.add(new Pair<>(funcSimplify.toString(),new Pair<>(color,new Pair<>(aux.first.first,aux.second.first))));
 
             stw = new StringWriter();
-            texUtil.toTeX(util.evaluate(F.FullSimplify(util.evaluate(auxToLatex))).toString(), stw);
+            IExpr outToLatex = util.evaluate(F.ExpandAll(util.evaluate(auxToLatex)));
+            if(Build.VERSION.SDK_INT > 19){
+                outToLatex = util.evaluate(F.FullSimplify(outToLatex));
+            }
+            texUtil.toTeX(outToLatex, stw);
             function += stw.toString() +" & "+aux.first.first+" \\leq "+aux.second.first;
             if(i < inequality.length-1) function += "\\\\";
             j += 3;

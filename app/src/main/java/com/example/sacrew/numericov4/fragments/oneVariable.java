@@ -2,23 +2,19 @@ package com.example.sacrew.numericov4.fragments;
 
 
 import android.annotation.TargetApi;
+import android.support.v4.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment;
@@ -34,7 +30,6 @@ import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import java.util.LinkedList;
 import java.util.List;

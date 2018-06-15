@@ -1,6 +1,5 @@
 package com.example.sacrew.numericov4.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;

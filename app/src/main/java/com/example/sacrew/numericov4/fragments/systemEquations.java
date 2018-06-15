@@ -4,14 +4,13 @@ package com.example.sacrew.numericov4.fragments;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
+import android.support.v4.app.Fragment;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
-import android.text.InputType;
 import android.text.method.DigitsKeyListener;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -21,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -38,7 +36,6 @@ import com.example.sacrew.numericov4.fragments.systemEquationsFragment.partialPi
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.totalPivoting;
 import com.example.sacrew.numericov4.pagerAdapter;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-
 
 import java.util.LinkedList;
 import java.util.List;

@@ -23,7 +23,6 @@ import com.example.sacrew.numericov4.fragments.tableview.model.Cell;
 import com.example.sacrew.numericov4.fragments.tableview.model.ColumnHeader;
 import com.example.sacrew.numericov4.fragments.tableview.model.RowHeader;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

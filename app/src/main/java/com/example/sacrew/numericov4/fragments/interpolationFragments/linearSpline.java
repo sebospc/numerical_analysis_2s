@@ -2,10 +2,8 @@ package com.example.sacrew.numericov4.fragments.interpolationFragments;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Pair;
@@ -13,18 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpLinearSpline;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 
 import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.eval.TeXUtilities;
 import org.matheclipse.core.expression.F;
+import org.matheclipse.core.interfaces.IExpr;
 
 import java.io.StringWriter;
 import java.util.LinkedList;
@@ -35,9 +30,9 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class splineLinear extends baseSpliners{
+public class linearSpline extends baseSpliners{
 
-    public splineLinear() {
+    public linearSpline() {
         // Required empty public constructor
     }
 
@@ -123,8 +118,12 @@ public class splineLinear extends baseSpliners{
             int color = poolColors.remove(0);
             poolColors.add(color);
 
-            String functionSimplfied = util.evaluate(F.FullSimplify(util.evaluate(aux.second.second+"+("+numerator+"/"+"("+check+"))*(x-("+aux.second.first+"))"))).toString();
-            equations.add(new Pair<>(functionSimplfied,new Pair<>(color,new Pair<>(aux.first.first,aux.second.first))));
+            IExpr functionSimplfied = util.evaluate(F.ExpandAll(util.evaluate(aux.second.second+"+("+numerator+"/"+"("+check+"))*(x-("+aux.second.first+"))")));
+            if(Build.VERSION.SDK_INT > 19){
+                functionSimplfied =  util.evaluate(F.FullSimplify(functionSimplfied));
+            }
+
+            equations.add(new Pair<>(functionSimplfied.toString(),new Pair<>(color,new Pair<>(aux.first.first,aux.second.first))));
             stw = new StringWriter();
             texUtil.toTeX(functionSimplfied, stw);
             function += stw.toString() +" & "+aux.first.first+" \\leq "+aux.second.first;

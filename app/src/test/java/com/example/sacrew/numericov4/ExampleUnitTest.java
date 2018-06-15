@@ -2,7 +2,7 @@ package com.example.sacrew.numericov4;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit test, which will bootStrap on the development machine (host).

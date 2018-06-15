@@ -2,24 +2,17 @@ package com.example.sacrew.numericov4.fragments.interpolationFragments;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpLagrange;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-
 
 import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
@@ -110,7 +103,11 @@ public class lagrange extends baseInterpolationMethods{
                 //creating and simplfiying numerator and denominators
                 for (int i = 0; i < functions.size(); i++) {
 
-                    IExpr functionLSimplified = util.evaluate(F.FullSimplify(util.evaluate(functions.get(i))));
+                    IExpr functionLSimplified = util.evaluate(functions.get(i));
+                    if(Build.VERSION.SDK_INT > 19) {
+                        functionLSimplified = util.evaluate(F.FullSimplify(functionLSimplified));
+                    }
+
                     stw = new StringWriter();
                     texUtil.toTeX(functionLSimplified, stw);
                     //creating each L function
@@ -123,8 +120,11 @@ public class lagrange extends baseInterpolationMethods{
 
                 stw = new StringWriter();
                 //simpliying p function
-                IExpr expanded = util.evaluate(F.ExpandAll(temp));
-                IExpr simplifiedPFunction = util.evaluate(F.FullSimplify(expanded));
+                IExpr simplifiedPFunction= util.evaluate(F.ExpandAll(temp));
+                if(Build.VERSION.SDK_INT > 19){
+                    simplifiedPFunction = util.evaluate(F.FullSimplify(simplifiedPFunction));
+                }
+
                 //creating latex p function
                 texUtil.toTeX(simplifiedPFunction, stw);
 

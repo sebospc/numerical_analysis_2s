@@ -22,11 +22,11 @@
         android:orientation="horizontal">
 
         <Button
+            android:theme="@style/colorButtonPrimary"
             android:id="@+id/run"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
             android:text="CALCULATE"
             android:textColor="@android:color/white" />
 
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
+            android:theme="@style/colorButtonPrimary"
             android:text="GET PIVOTED"
             android:textColor="@android:color/white" />
     </LinearLayout>

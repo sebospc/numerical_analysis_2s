@@ -1,15 +1,7 @@
 package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
-import android.graphics.Color;
 import android.os.Build;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
-import android.view.View;
-import android.widget.Toast;
-
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 
 /**
  * Created by sacrew on 25/05/18.

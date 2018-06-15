@@ -19,12 +19,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.BisectionListAdapter;
-
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -20,18 +20,14 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSear
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
-
 import com.udojava.evalex.Expression;
 
-
-
-
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 

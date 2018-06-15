@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,11 +23,11 @@
         android:orientation="horizontal">
 
         <Button
+            android:theme="@style/colorButtonPrimary"
             android:id="@+id/croultButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
             android:text="crout"
             android:textColor="@android:color/white" />
 
@@ -40,11 +39,11 @@
             android:text="doolittle" />
 
         <Button
+            android:theme="@style/colorButtonPrimary"
             android:id="@+id/choleskyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
             android:text="cholesky"
             android:textColor="@android:color/white" />
     </LinearLayout>
@@ -88,7 +87,6 @@
                 android:id="@+id/determinant"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:text="D(A) = "
                 android:gravity="center"
                 android:textSize="15dp"/>

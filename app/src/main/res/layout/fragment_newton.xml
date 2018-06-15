@@ -18,7 +18,7 @@
             android:text="Newton"
             android:drawableRight="@drawable/ic_next"
             android:drawableLeft="@drawable/ic_previous"
-            android:textAlignment="center"
+            android:gravity="center"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -116,11 +116,11 @@
             android:orientation="horizontal">
 
             <Button
+                android:theme="@style/colorButtonPrimary"
                 android:id="@+id/runNewton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/colorPrimary"
                 android:text="CALCULATE"
                 android:textColor="@android:color/white" />
 
@@ -132,11 +132,11 @@
                 android:text="help" />
 
             <Button
+                android:theme="@style/colorButtonPrimary"
                 android:id="@+id/runChart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/colorPrimary"
                 android:text="CHART"
                 android:textColor="@android:color/white" />
         </LinearLayout>

@@ -2,12 +2,12 @@ package com.example.sacrew.numericov4.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.support.v4.app.Fragment;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.InputType;
@@ -27,21 +27,16 @@ import android.widget.TableRow;
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.lagrange;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.newtonInterpolator;
-import com.example.sacrew.numericov4.fragments.interpolationFragments.splineCuadratico;
-import com.example.sacrew.numericov4.fragments.interpolationFragments.splineCubico;
-import com.example.sacrew.numericov4.fragments.interpolationFragments.splineLinear;
-import com.example.sacrew.numericov4.utils.graphUtils;
+import com.example.sacrew.numericov4.fragments.interpolationFragments.quadraticSpline;
+import com.example.sacrew.numericov4.fragments.interpolationFragments.cubicSpline;
+import com.example.sacrew.numericov4.fragments.interpolationFragments.linearSpline;
 import com.example.sacrew.numericov4.pagerAdapter;
+import com.example.sacrew.numericov4.utils.graphUtils;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
-
-
-import org.matheclipse.parser.client.eval.DoubleEvaluator;
-import org.matheclipse.parser.client.eval.DoubleVariable;
-import org.matheclipse.parser.client.eval.IDoubleValue;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -81,11 +76,6 @@ public class interpolation extends Fragment {
         interpolationGraph = view.findViewById(R.id.interpolationGraph);
         ImageButton add = view.findViewById(R.id.addRow);
         ImageButton homeGraph = view.findViewById(R.id.homeGraphButton);
-        DoubleEvaluator engine = new DoubleEvaluator();
-
-        IDoubleValue vd = new DoubleVariable(3.0);
-        engine.defineVariable("x",vd);
-
         final List<LineGraphSeries<DataPoint>> listSeries = graphUtils.graphPharallel(50, "x", 0);
         homeGraph.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,9 +118,9 @@ public class interpolation extends Fragment {
         List<Fragment> fragments = new LinkedList<>();
         fragments.add(new newtonInterpolator());
         fragments.add(new lagrange());
-        fragments.add(new splineLinear());
-        fragments.add(new splineCuadratico());
-        fragments.add(new splineCubico());
+        fragments.add(new linearSpline());
+        fragments.add(new quadraticSpline());
+        fragments.add(new cubicSpline());
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
         slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -248,7 +238,6 @@ public class interpolation extends Fragment {
         text.setBackground(null);
         text.setTextColor(Color.WHITE);
         text.setTypeface(null, Typeface.BOLD);
-        //text.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         text.setBackgroundColor(color);
         text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
         text.setGravity(Gravity.CENTER_HORIZONTAL);

@@ -1,6 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Incremental Search"
-            android:textAlignment="center"
+            android:gravity="center"
             android:drawableRight="@drawable/ic_next"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -75,11 +73,11 @@
             android:orientation="horizontal">
 
             <Button
+                android:theme="@style/colorButtonPrimary"
                 android:id="@+id/runIncremental"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/colorPrimary"
                 android:text="CALCULATE"
                 android:textColor="@android:color/white" />
 
@@ -91,11 +89,11 @@
                 android:text="help" />
 
             <Button
+                android:theme="@style/colorButtonPrimary"
                 android:id="@+id/runChart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/colorPrimary"
                 android:text="CHART"
                 android:textColor="@android:color/white" />
         </LinearLayout>

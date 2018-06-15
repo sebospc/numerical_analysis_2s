@@ -2,26 +2,18 @@ package com.example.sacrew.numericov4.fragments.interpolationFragments;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewtonDifferences;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 
-
-import org.matheclipse.core.basic.Config;
 import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.eval.TeXUtilities;
@@ -123,12 +115,26 @@ public class newtonInterpolator extends baseInterpolationMethods {
 
                 TeXUtilities texUtil = new TeXUtilities(engine, false);
                 StringWriter stw = new StringWriter();
-                texUtil.toTeX(engine.evaluate(F.Simplify(util.evaluate(auxToLAtexFunc.toString()))), stw);
+                IExpr optional = util.evaluate(auxToLAtexFunc.toString());
+                IExpr fg= optional;
+                texUtil.toTeX(fg, stw);
+                fg = util.evaluate(F.ExpandAll(optional));
+                System.out.println("ddffggtt "+fg.toString());
+                stw = new StringWriter();
+                texUtil.toTeX(fg, stw);
+                if(Build.VERSION.SDK_INT > 19){
+                    fg = util.evaluate(F.FullSimplify(optional));
+                    stw = new StringWriter();
+                    texUtil.toTeX(fg, stw);
+                }
+
+                System.out.println(fg.toString());
+
                 //add new expression type latex
                 function = stw.toString();
 
                 //update graph
-                updateGraph(engine.evaluate(F.Simplify(util.evaluate(uglyFunction.toString()))).toString(), getContext(), (int) Math.ceil(((xn[xn.length - 1] - xn[0]) * 10) + 20));
+                updateGraph(fg.toString(), getContext(), (int) Math.ceil(((xn[xn.length - 1] - xn[0]) * 10) + 20));
                 //variable to open equations
                 calc = true;
             }

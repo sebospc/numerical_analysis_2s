@@ -1,7 +1,7 @@
 package com.example.sacrew.numericov4.fragments.interpolationFragments;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.sacrew.numericov4.R;
 

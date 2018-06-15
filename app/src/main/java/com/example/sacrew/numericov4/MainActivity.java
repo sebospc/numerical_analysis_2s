@@ -1,12 +1,13 @@
 package com.example.sacrew.numericov4;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,8 +17,8 @@ import android.widget.ListView;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.homeFragment;
 import com.example.sacrew.numericov4.fragments.interpolation;
-import com.example.sacrew.numericov4.fragments.systemEquations;
 import com.example.sacrew.numericov4.fragments.oneVariable;
+import com.example.sacrew.numericov4.fragments.systemEquations;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         interpolationFragment = new interpolation();
 
 
-        fragmentManager = getFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.mainLayout, homeFragment);
         transaction.commit();
@@ -99,8 +100,10 @@ public class MainActivity extends AppCompatActivity {
             animatorSet.removeAllListeners();
             animatorSet.end();
             animatorSet.cancel();
-
-            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
+            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
+               if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+            //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -117,8 +120,10 @@ public class MainActivity extends AppCompatActivity {
             animatorSet.removeAllListeners();
             animatorSet.end();
             animatorSet.cancel();
-
-            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
+            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
+                if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+            //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -136,8 +141,10 @@ public class MainActivity extends AppCompatActivity {
             animatorSet.removeAllListeners();
             animatorSet.end();
             animatorSet.cancel();
-            
-            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
+            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
+                if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+            //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -150,7 +157,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void openSystemEquations(){
         if(idFragment != 3){
-            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
+            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
+               if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+            //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -161,7 +171,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openInterpolation(){
         if(idFragment != 4){
-            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
+            //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
+            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
+               if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
             drawerLayout.closeDrawer(menuLateral);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();

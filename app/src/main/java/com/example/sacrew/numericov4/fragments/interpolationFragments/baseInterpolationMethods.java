@@ -1,6 +1,6 @@
 package com.example.sacrew.numericov4.fragments.interpolationFragments;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Parcelable;
@@ -18,7 +18,6 @@ import java.util.List;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 import static com.example.sacrew.numericov4.fragments.interpolation.interpolationGraph;
-
 import static com.example.sacrew.numericov4.fragments.interpolation.vectors;
 
 /**

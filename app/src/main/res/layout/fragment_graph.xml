@@ -44,11 +44,12 @@
     </LinearLayout>
 
     <Button
+        android:theme="@style/colorButtonPrimary"
         android:id="@+id/buttonHide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:backgroundTint="@color/colorPrimary" />
+         />
 
 
     <RelativeLayout
