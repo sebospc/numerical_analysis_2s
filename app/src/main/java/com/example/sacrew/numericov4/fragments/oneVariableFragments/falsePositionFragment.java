@@ -91,8 +91,11 @@ public class falsePositionFragment extends baseOneVariableFragments {
         xs = view.findViewById(R.id.xs);
         errorToggle = view.findViewById(R.id.errorToggle);
 
-        textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+        registerEditText(textFunction,getContext(),getActivity());
+        registerEditText(xi,getContext(),getActivity());
+        registerEditText(xs,getContext(),getActivity());
+        registerEditText(iter,getContext(),getActivity());
+        registerEditText(textError,getContext(),getActivity());
         return view;
     }
 

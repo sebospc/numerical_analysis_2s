@@ -25,6 +25,7 @@ import com.example.sacrew.numericov4.fragments.oneVariableFragments.multipleRoot
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.newtonFragment;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.secantFragment;
 import com.example.sacrew.numericov4.pagerAdapter;
+import com.example.sacrew.numericov4.utils.KeyboardUtils;
 import com.example.sacrew.numericov4.utils.graphUtils;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.jjoe64.graphview.GraphView;
@@ -42,7 +43,9 @@ public class oneVariable extends Fragment {
     private boolean isup ;
     private RelativeLayout  hiderB;
     public static GraphView graphOneVariable;
+    public static KeyboardUtils keyboardUtils;
     private com.example.sacrew.numericov4.utils.graphUtils graphUtils = new graphUtils();
+
     public oneVariable() {
         // Required empty public constructor
     }
@@ -55,7 +58,9 @@ public class oneVariable extends Fragment {
                              Bundle savedInstanceState) {
         //clear toasts
         SuperActivityToast.cancelAllSuperToasts();
+
         View view = inflater.inflate(R.layout.fragment_one_variable, container, false);
+        keyboardUtils = new KeyboardUtils(view,R.id.keyboardView,getContext());
         isup = false;
         ImageButton hider = view.findViewById(R.id.buttonHide);
         hider.setOnClickListener(new View.OnClickListener() {

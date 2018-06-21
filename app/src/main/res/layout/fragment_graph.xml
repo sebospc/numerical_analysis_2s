@@ -8,101 +8,169 @@
     tools:context="com.example.sacrew.numericov4.fragments.graphFragment">
 
     <LinearLayout
-
-        android:id="@+id/hiderA"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight=".5"
-
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/graph"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fadingEdge="none"
-                android:scrollbars="none" />
-
-            <ImageButton
-                android:id="@+id/homeGraphButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginTop="14dp"
-                android:background="@null"
-                android:src="@drawable/ic_gps_fixed_black_24dp" />
-
-        </RelativeLayout>
-    </LinearLayout>
-
-    <Button
-        android:theme="@style/colorButtonPrimary"
-        android:id="@+id/buttonHide"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-         />
-
-
-    <RelativeLayout
-        android:id="@+id/hiderB"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight=".5"
-        android:background="#FFF"
-        android:animateLayoutChanges="true"
-        >
-
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:id="@+id/scrollView"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fillViewport="true">
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.example.sacrew.numericv2.MainActivity">
+                android:orientation="vertical">
 
+                <LinearLayout
 
-                <!--   dinamico  -->
-
-
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/parent_linear_layout"
+                    android:id="@+id/hiderA"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:animateLayoutChanges="true"
+                    android:layout_weight=".5"
+
                     android:orientation="vertical">
-                    x
 
-
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
+                        android:layout_height="match_parent">
 
-                    <at.markushi.ui.CircleButton
-                        android:id="@+id/add_field_button"
+                        <com.jjoe64.graphview.GraphView
+                            android:id="@+id/graph"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fadingEdge="none"
+                            android:scrollbars="none" />
 
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_add_circle_outline_black_24dp"
-                        android:textColor="#FFF"
-                        app:cb_color="#FFF"
-                        app:cb_pressedRingWidth="15dp" />
+                        <ImageButton
+                            android:id="@+id/homeGraphButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginEnd="14dp"
+                            android:layout_marginRight="14dp"
+                            android:layout_marginTop="14dp"
+                            android:background="@null"
+                            android:src="@drawable/ic_gps_fixed_black_24dp" />
+
+                    </RelativeLayout>
                 </LinearLayout>
-            </RelativeLayout>
+
+                <Button
+                    android:id="@+id/buttonHide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:theme="@style/colorButtonPrimary" />
+
+
+                <RelativeLayout
+                    android:id="@+id/hiderB"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:background="#FFF">
+
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+
+                            <RelativeLayout
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                xmlns:tools="http://schemas.android.com/tools"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                tools:context="com.example.sacrew.numericv2.MainActivity">
+
+                                <LinearLayout
+                                    android:id="@+id/parent_linear_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="5dp"
+                                    android:animateLayoutChanges="true"
+                                    android:orientation="vertical">
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical" />
+
+                                    <at.markushi.ui.CircleButton
+                                        android:id="@+id/add_field_button"
+
+                                        android:layout_width="80dp"
+                                        android:layout_height="80dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_add_circle_outline_black_24dp"
+                                        android:textColor="#FFF"
+                                        app:cb_color="#FFF"
+                                        app:cb_pressedRingWidth="15dp" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                    </ScrollView>
+            </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
         </ScrollView>
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorPrimaryDark">
+        <LinearLayout
+            android:id="@+id/tabKeyboard"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:tabSelectedTextColor="@color/whiteLight"
+                app:tabIndicatorHeight="0dp"
+                app:tabMode="fixed">
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="123"
+                    />
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="f(x)" />
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="My functions" />
+            </android.support.design.widget.TabLayout>
+        </LinearLayout>
+        <android.inputmethodservice.KeyboardView
+
+            android:id="@+id/keyboardView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorPrimaryDark"
+            android:keyBackground="@drawable/selector"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

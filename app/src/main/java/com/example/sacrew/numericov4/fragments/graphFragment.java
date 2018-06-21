@@ -3,6 +3,12 @@ package com.example.sacrew.numericov4.fragments;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.KeyboardView;
+import android.os.IBinder;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -12,19 +18,29 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
+
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.utils.KeyboardUtils;
 import com.example.sacrew.numericov4.utils.graphUtils;
 import com.github.johnpersano.supertoasts.library.Style;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
@@ -60,8 +76,8 @@ public class graphFragment extends Fragment {
     @SuppressLint("UseSparseArrays")
     private Map<Integer, Integer> viewToColor = new HashMap<>();
     private View view;
-
     private graphUtils graphUtils = new graphUtils();
+    public KeyboardUtils keyboardUtils;
     static public List <String> allFunctions = new LinkedList<>();
 
 
@@ -80,19 +96,22 @@ public class graphFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_graph,container,false);
         isup = true;
-
         parentLinearLayout = (LinearLayout) view.findViewById(R.id.parent_linear_layout);
 
         hiderA = view.findViewById(R.id.hiderA);
         hiderB = view.findViewById(R.id.hiderB);
         graph = view.findViewById(R.id.graph);
         viewToFunction = new HashMap<>();
-        //poop
+
         CircleButton addFieldButton = view.findViewById(R.id.add_field_button);
+
+        keyboardUtils = new KeyboardUtils(view,R.id.keyboardView,getContext());
         onAddField(null);
         CircleButton deleteFieldButton = view.findViewById(R.id.delete_button);
         CircleButton graphButton = view.findViewById(R.id.graph_button);
         Button hider = view.findViewById(R.id.buttonHide);
+
+
         addFieldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,6 +137,8 @@ public class graphFragment extends Fragment {
                 hide(view);
             }
         });
+
+
         ImageButton homeGraph = view.findViewById(R.id.homeGraphButton);
         final List<LineGraphSeries<DataPoint>> listSeries = graphUtils.graphPharallel(200, "x", 0);
         homeGraph.setOnClickListener(new View.OnClickListener() {
@@ -145,25 +166,56 @@ public class graphFragment extends Fragment {
             graph.addSeries(inSerie);
         for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(200, "x", 0))
             graph.addSeries(inSerie);
+
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        for(int i = 0; i <= 8000; i++)System.out.println(":I");
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        LinearLayout linear = view.findViewById(R.id.linear);
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("height " + linear.getWidth());
+                System.out.println("mesured " + linear.getMeasuredHeight());
+                ViewGroup.LayoutParams params = linear.getLayoutParams();
+                params.height = linear.getMeasuredHeight() - 1;
+                linear.setLayoutParams(params);
+            }
+        });
+
         return view;
 
 
     }
 
 
+
     public void onAddField(View v) {
+
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.field, null);
 
         // Add the new field before the add field button.
 
-
-
         parentLinearLayout.addView(rowView, 0);
         AutoCompleteTextView edittext_var = ((View) rowView.getParent()).findViewById(R.id.function_edit_text);
+        keyboardUtils.registerEdittext(edittext_var,getContext(),getActivity());
+        //registerEditText(edittext_var);
         edittext_var.setAdapter(new ArrayAdapter<String>
                 (getActivity(), android.R.layout.select_dialog_item, allFunctions));
     }
+
+
     public void hide(View v){
         if(isup) { // down
             TranslateAnimation animate = new TranslateAnimation(
@@ -333,4 +385,8 @@ public class graphFragment extends Fragment {
                 .setColor(Color.rgb(244,67,54))
                 .setAnimations(Style.ANIMATIONS_POP).show();
     }
+    public boolean keyboardIsUp(){
+        return keyboardUtils.isUp;
+    }
+
 }

@@ -29,5 +29,5 @@
         <item name="colorButtonNormal">@color/colorPrimary</item>
     </style>
     <style name="Theme">#dd</style>
-
+    <color name="whiteLight">#ffffff</color>
 </resources>

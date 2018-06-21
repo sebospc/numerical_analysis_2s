@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -30,13 +31,14 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.example.sacrew.numericov4.fragments.oneVariable.graphOneVariable;
+import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
 
 /**
  * Created by sacrew on 27/05/18.
  */
 
 public abstract class baseOneVariableFragments extends Fragment {
-    AutoCompleteTextView textFunction;
+    EditText textFunction;
     EditText iter, textError;
     Expression function;
     graphUtils graphUtils = new graphUtils();
@@ -62,12 +64,6 @@ public abstract class baseOneVariableFragments extends Fragment {
         String originalFunc = textFunction.getText().toString();
         this.function = new Expression(functionRevision(originalFunc));
         error = checkSyntax(originalFunc, textFunction);
-        if (!graphFragment.allFunctions.contains(originalFunc) && error) {
-            graphFragment.allFunctions.add(originalFunc);
-            textFunction.setAdapter(new ArrayAdapter<String>
-                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-        }
-
 
         try {
             errorValue = new Expression(textError.getText().toString()).eval().doubleValue();
@@ -170,5 +166,8 @@ public abstract class baseOneVariableFragments extends Fragment {
                 .setFrame(Style.FRAME_LOLLIPOP)
                 .setColor(Color.rgb(244,67,54))
                 .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+    public void registerEditText(EditText edit, Context context, Activity activity){
+        keyboardUtils.registerEdittext(edit,context,activity);
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="100%p" android:horizontalGap="1.5dp"
+    android:verticalGap="2.5dp" android:keyHeight="7%p"
+    android:layout_weight="123"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <Row>
+        <Key android:codes="967" android:keyLabel="@string/xValue"  />
+        <Key android:codes="960" android:keyLabel="@string/pi"  />
+        <Key android:codes="8495" android:keyLabel="@string/euler" android:horizontalGap="6.25%p"  />
+
+        <Key android:codes="7" android:keyLabel="7" />
+        <Key android:codes="8" android:keyLabel="8"   />
+        <Key android:codes="9" android:keyLabel="9" />
+        <Key android:codes="215" android:keyLabel="@string/multiplier" />
+        <Key android:codes="247" android:keyLabel="@string/div" />
+
+    </Row>
+    <Row>
+        <Key android:codes="178" android:keyLabel="@string/xSquareTwo" />
+        <Key android:codes="120" android:keyLabel="@string/xSquareAny" />
+        <Key android:codes="8730" android:keyLabel="@string/xSquareRoot" android:horizontalGap="6.25%p"  />
+        <Key android:codes="4" android:keyLabel="4" />
+        <Key android:codes="5" android:keyLabel="5" />
+        <Key android:codes="6" android:keyLabel="6" />
+        <Key android:codes="727" android:keyLabel="@string/plus" />
+        <Key android:codes="726" android:keyLabel="@string/minus"/>
+
+    </Row>
+    <Row>
+        <Key android:codes="40" android:keyLabel="@string/leftParent"  />
+        <Key android:codes="41" android:keyLabel="@string/rightParent"  />
+        <Key android:codes="9116" android:keyLabel="@string/absolute" android:horizontalGap="6.25%p" />
+        <Key android:codes="1" android:keyLabel="1" />
+        <Key android:codes="2" android:keyLabel="2" />
+        <Key android:codes="3" android:keyLabel="3"  />
+        <Key android:codes="706" android:keyLabel="@string/left"  />
+        <Key android:codes="707" android:keyLabel="@string/right" />
+    </Row>
+    <Row>
+        <Key android:codes="-1" android:keyLabel="cos" android:keyWidth="@dimen/widthOfKey" />
+        <Key android:codes="-2" android:keyLabel="sin" android:keyWidth="@dimen/widthOfKey" />
+        <Key android:codes="-3" android:keyLabel="tan" android:keyWidth="@dimen/widthOfKey" android:horizontalGap="6.25%p" />
+        <Key android:codes="0" android:keyLabel="0" android:keyWidth="@dimen/widthOfKey" />
+        <Key android:codes="803" android:keyLabel="@string/dot" android:keyWidth="@dimen/widthOfKey" />
+        <Key android:codes="9003" android:keyLabel="@string/removeToLeft" android:keyWidth="100%p" />
+    </Row>
+</Keyboard>
