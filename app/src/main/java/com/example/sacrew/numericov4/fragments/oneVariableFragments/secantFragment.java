@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -37,7 +38,7 @@ public class secantFragment extends baseOneVariableFragments {
 
     private View view;
     private ListView listView;
-    private TextView xi, xs;
+    private EditText xi, xs;
 
     private ToggleButton errorToggle;
 
@@ -87,8 +88,11 @@ public class secantFragment extends baseOneVariableFragments {
         xs = view.findViewById(R.id.xs);
         errorToggle = view.findViewById(R.id.errorToggle);
 
-        textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+        registerEditText(textFunction,getContext(),getActivity());
+        registerEditText(iter,getContext(),getActivity());
+        registerEditText(textError,getContext(),getActivity());
+        registerEditText(xi,getContext(),getActivity());
+        registerEditText(xs,getContext(),getActivity());
         return view;
     }
 

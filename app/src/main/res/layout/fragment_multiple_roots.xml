@@ -40,7 +40,7 @@
                 android:layout_weight=".9"
                 android:orientation="horizontal">
 
-                <AutoCompleteTextView
+                <EditText
                     android:id="@+id/function"
                     android:layout_width="164dp"
                     android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                 android:orientation="horizontal">
 
 
-                <AutoCompleteTextView
+                <EditText
                     android:id="@+id/functionG"
                     android:layout_width="170dp"
 
@@ -89,7 +89,7 @@
                     android:layout_weight="1"
                     android:hint="f'(x)" />
 
-                <AutoCompleteTextView
+                <EditText
                     android:id="@+id/functionGprim"
                     android:layout_width="130dp"
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,8 +44,8 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
     }
 
     private View view;
-    private TextView xValue;
-    private TextView delta;
+    private EditText xValue;
+    private EditText delta;
     private ListView listView;
 
     @Override
@@ -87,9 +88,10 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             }
         });
 
-
-        textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+        registerEditText(textFunction,getContext(),getActivity());
+        registerEditText(xValue,getContext(),getActivity());
+        registerEditText(delta,getContext(),getActivity());
+        registerEditText(iter,getContext(),getActivity());
         return view;
     }
 
@@ -109,12 +111,6 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             String originalFunc = textFunction.getText().toString();
             error = checkSyntax(originalFunc,textFunction);
             this.function = new Expression(functionRevision(originalFunc));
-            if(!graphFragment.allFunctions.contains(originalFunc) && error) {
-                graphFragment.allFunctions.add(originalFunc);
-                textFunction.setAdapter(new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-            }
-
         try {
             ite = Integer.parseInt(iter.getText().toString());
         }catch (Exception e){

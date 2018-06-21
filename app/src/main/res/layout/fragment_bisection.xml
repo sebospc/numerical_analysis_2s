@@ -40,7 +40,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <AutoCompleteTextView
+                <EditText
                     android:id="@+id/function"
                     android:layout_width="164dp"
                     android:layout_height="wrap_content"

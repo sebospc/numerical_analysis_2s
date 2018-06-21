@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -40,8 +41,8 @@ public class newtonFragment extends baseOneVariableFragments {
     private Expression functionG;
     private View view;
     private ListView listView;
-    private TextView xvalue;
-    private AutoCompleteTextView textFunctionG;
+    private EditText xvalue;
+    private EditText textFunctionG;
     private ToggleButton errorToggle;
 
     public newtonFragment() {
@@ -91,10 +92,12 @@ public class newtonFragment extends baseOneVariableFragments {
         textFunctionG = view.findViewById(R.id.functionG);
         errorToggle = view.findViewById(R.id.errorToggle);
 
-        textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-        textFunctionG.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+
+        registerEditText(textFunction,getContext(),getActivity());
+        registerEditText(textFunctionG,getContext(),getActivity());
+        registerEditText(iter,getContext(),getActivity());
+        registerEditText(textError,getContext(),getActivity());
+        registerEditText(xvalue,getContext(),getActivity());
         return view;
     }
 
@@ -114,7 +117,6 @@ public class newtonFragment extends baseOneVariableFragments {
 
         this.functionG = new Expression(functionRevision(originalFuncG));
         error = checkSyntax(originalFuncG, textFunctionG) && error;
-        updatefunctions(originalFuncG);
 
         try {
             xValue = Double.parseDouble(xvalue.getText().toString());
@@ -233,16 +235,6 @@ public class newtonFragment extends baseOneVariableFragments {
             listView.setAdapter(adapter);
         } catch (Exception e) {
             styleWrongMessage("Unexpected error posibly NaN");
-        }
-    }
-
-    public void updatefunctions(String function) {
-        if (!graphFragment.allFunctions.contains(function)) {
-            graphFragment.allFunctions.add(function);
-            textFunction.setAdapter(new ArrayAdapter<String>
-                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-            textFunctionG.setAdapter(new ArrayAdapter<String>
-                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
         }
     }
 

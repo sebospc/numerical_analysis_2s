@@ -13,16 +13,33 @@
     <string name="scroll_to_row_position">Scroll to 5. row position</string>
     <string name="show_hide_the_column">Showing / Hiding 1. column</string>
     <string name="table_pagination_details">Page %s, showing items %s - %s.</string>
-    <string-array name="moods">
-        <item></item>
-        <item>Happy</item>
-        <item>Sad</item>
-    </string-array>
-    <string-array name="gender">
-        <item></item>
-        <item>Male</item>
-        <item>Female</item>
-    </string-array>
+    <string name="multiplier">&#215;</string>
+    <string name="div">&#247;</string>
+    <string name="minus">&#45;</string>
+    <string name="plus">&#43;</string>
+    <string name="left">&#706;</string>
+    <string name="right">&#707;</string>
+    <string name="dot">&#803;</string>
+    <string name="removeToLeft">&#9003;</string>
+    <string name="xValue">&#120;</string>
+    <string name="pi">&#960;</string>
+    <string name="euler">&#101;</string>
+    <string name="xSquareTwo">&#9634;&#178;</string>
+    <string name="xSquareAny">&#120;&#8317;  &#8318;</string>
+    <string name="xSquareRoot">&#8730;</string>
+    <string name="leftParent">&#40;</string>
+    <string name="rightParent">&#41;</string>
+    <string name="absolute">&#9116;&#9634;&#9119;</string>
+    <string name="cosInverse">cos&#8315;&#185;</string>
+    <string name="sinInverse">sin&#8315;&#185;</string>
+    <string name="tanInverse">tan&#8315;&#185;</string>
+    <string name="secInverse">sec&#8315;&#185;</string>
+    <string name="cotInverse">cot&#8315;&#185;</string>
+    <string name="normalLog">log&#8321;&#8320;</string>
+    <string name="log">log&#8333; &#8334;</string>
+    <string name="tenSquared">10&#8317; &#8318;</string>
+
+
     <string-array name="items_per_page">
         <item>10</item>
         <item>20</item>

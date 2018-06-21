@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,8 +42,8 @@ public class multipleRootsFragment extends baseOneVariableFragments {
 
     private Expression functionG, functionGprim;
     private View view;
-    private TextView xvalue;
-    private AutoCompleteTextView textFunctionG, textFunctionGPrim;
+    private EditText xvalue;
+    private EditText textFunctionG, textFunctionGPrim;
     private ToggleButton errorToggle;
     private ListView listView;
 
@@ -94,12 +95,13 @@ public class multipleRootsFragment extends baseOneVariableFragments {
         textFunctionGPrim = view.findViewById(R.id.functionGprim);
         errorToggle = view.findViewById(R.id.errorToggle);
 
-        textFunction.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-        textFunctionG.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-        textFunctionGPrim.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
+        registerEditText(textFunction,getContext(),getActivity());
+        registerEditText(textFunctionG,getContext(),getActivity());
+        registerEditText(textFunctionGPrim,getContext(),getActivity());
+        registerEditText(iter,getContext(),getActivity());
+        registerEditText(textError,getContext(),getActivity());
+        registerEditText(xvalue,getContext(),getActivity());
+
         return view;
     }
 
@@ -121,10 +123,8 @@ public class multipleRootsFragment extends baseOneVariableFragments {
         error = checkSyntax(originalFuncG, textFunctionG) && checkSyntax(originalFuncGPrim, textFunctionGPrim);
 
         this.functionG = new Expression(functionRevision(originalFuncG));
-        updatefunctions(originalFuncG, error);
 
         this.functionGprim = new Expression(functionRevision(originalFuncGPrim));
-        updatefunctions(originalFuncGPrim, error);
         try {
             xValue = Double.parseDouble(xvalue.getText().toString());
         } catch (Exception e) {
@@ -254,17 +254,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
         }
     }
 
-    public void updatefunctions(String function, boolean error) {
-        if (!graphFragment.allFunctions.contains(function) && error) {
-            graphFragment.allFunctions.add(function);
-            textFunction.setAdapter(new ArrayAdapter<String>
-                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-            textFunctionG.setAdapter(new ArrayAdapter<String>
-                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-            textFunctionGPrim.setAdapter(new ArrayAdapter<String>
-                    (getActivity(), android.R.layout.select_dialog_item, graphFragment.allFunctions));
-        }
-    }
+
 
 }
 

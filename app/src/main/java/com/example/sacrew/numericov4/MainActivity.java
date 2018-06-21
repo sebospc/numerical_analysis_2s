@@ -1,5 +1,6 @@
 package com.example.sacrew.numericov4;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     };
     public void openHome(){
         if(idFragment != 0) {
-            /**
+            /*
              * remove animations of system equations
              */
             animatorSet.removeAllListeners();
@@ -117,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
             /**
              * remove animations of system equations
              */
+            View view = this.getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
             animatorSet.removeAllListeners();
             animatorSet.end();
             animatorSet.cancel();
@@ -135,6 +143,11 @@ public class MainActivity extends AppCompatActivity {
     public void openOneVariable(){
 
         if(idFragment != 2) {
+            View view = this.getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
             /**
              * remove animations of system equations
              */
@@ -193,10 +206,21 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-
-    
-
+    @Override public void onBackPressed() {
+     if(graphFragment.keyboardUtils != null){
+         if(graphFragment.keyboardUtils.isUp){
+             graphFragment.keyboardUtils.closeInternalKeyboard();
+             return;
+         }
+     }
+     if(oneVariable.keyboardUtils != null){
+         if(oneVariable.keyboardUtils.isUp){
+            oneVariable.keyboardUtils.closeInternalKeyboard();
+            return;
+         }
+     }
+        super.onBackPressed();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onGraphIt(View view) {
