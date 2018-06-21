@@ -176,8 +176,8 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(normalTransformation(y1)));
                         listValues.add(iterFirst);
                         List<String> listValuesFirst = new LinkedList<>();
-                        listValuesFirst.add(String.valueOf(x0));
-                        listValuesFirst.add(String.valueOf(y0));
+                        listValuesFirst.add(String.valueOf(x1));
+                        listValuesFirst.add(String.valueOf(y1));
                         completeList.add(listValuesFirst);
                         calc= true;
                         while (((y1 * y0) > 0) && (cont < ite)) {
@@ -188,9 +188,10 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
                             IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(normalTransformation(y1)));
                             listValues.add(iterNext);
+
                             List<String> listValuesNext = new LinkedList<>();
-                            listValuesNext.add(String.valueOf(x0));
-                            listValuesNext.add(String.valueOf(y0));
+                            listValuesNext.add(String.valueOf(x1));
+                            listValuesNext.add(String.valueOf(y1));
                             completeList.add(listValuesNext);
                         }
                         listValues.add(new IncrementalSearch("","",""));

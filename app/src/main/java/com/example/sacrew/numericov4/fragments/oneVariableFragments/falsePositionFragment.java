@@ -3,6 +3,7 @@ package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -148,8 +149,8 @@ public class falsePositionFragment extends baseOneVariableFragments {
         listValuesTitles = new LinkedList<>();
         listValuesTitles.add("Xi");
         listValuesTitles.add("Xs");
-        listValuesTitles.add("Xn");
-        listValuesTitles.add("f(Xn)");
+        listValuesTitles.add("Xm");
+        listValuesTitles.add("f(Xm)");
         listValuesTitles.add("Error");
         completeList = new LinkedList<>();
         if (tol >= 0) {
@@ -163,15 +164,15 @@ public class falsePositionFragment extends baseOneVariableFragments {
                             double xm = xi - (yi * (xi - xs)) / (yi - ys);
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
-                            FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
+                            FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf("0E0"));
                             listValues.add(iteZero);
                             List<String> listValuesIteZero = new LinkedList<>();
                             listValuesIteZero.add(String.valueOf(xi));
                             listValuesIteZero.add(String.valueOf(xs));
                             listValuesIteZero.add(String.valueOf(xm));
                             listValuesIteZero.add(String.valueOf(ym));
-                            listValuesIteZero.add(String.valueOf(cientificTransformation(error)));
-                            int cont = 1;
+                            listValuesIteZero.add(String.valueOf(""));
+                            int cont = 0;
                             double xaux = xm;
                             completeList.add(listValuesIteZero);
                             calc= true;
@@ -187,11 +188,14 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                 xaux = xm;
                                 xm = xi - ((yi * (xi - xs)) / (yi - ys));
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
-
-                                if (errorRel)
+                                graphPoint(xm, ym,  Color.parseColor("#FA4659"));
+                                
+                                if (errorRel) {
                                     error = Math.abs(xm - xaux) / xm;
-                                else
+                                } else {
                                     error = Math.abs(xm - xaux);
+                                }
+                                cont++;
                                 FalsePosition iteNext = new FalsePosition(String.valueOf(cont), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
                                 listValues.add(iteNext);
                                 listValuesIteNext.add(String.valueOf(xi));
@@ -200,7 +204,6 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                 listValuesIteNext.add(String.valueOf(ym));
                                 listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                                 completeList.add(listValuesIteNext);
-                                cont++;
                             }
                             listValues.add(new FalsePosition("","","","","",""));
                             int color = poolColors.remove(0);

@@ -165,15 +165,15 @@ public class bisectionFragment extends baseOneVariableFragments {
                             double xm = (xi + xs) / 2;
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
-                            Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
+                            Bisection iteZero = new Bisection(String.valueOf(0), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf("0E0"));
                             listValues.add(iteZero);
                             List<String> listValuesIteZero = new LinkedList<>();
                             listValuesIteZero.add(String.valueOf(xi));
                             listValuesIteZero.add(String.valueOf(xs));
                             listValuesIteZero.add(String.valueOf(xm));
                             listValuesIteZero.add(String.valueOf(ym));
-                            listValuesIteZero.add(String.valueOf(cientificTransformation(error)));
-                            int cont = 1;
+                            listValuesIteZero.add(String.valueOf(""));
+                            int cont = 0;
                             double xaux = xm;
                             completeList.add(listValuesIteZero);
                             calc= true;
@@ -189,12 +189,14 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 xaux = xm;
                                 xm = (xi + xs) / 2;
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
+
                                 graphPoint(xm, ym,  Color.parseColor("#FA4659"));
                                 if (errorRel) {
                                     error = Math.abs(xm - xaux) / xm;
                                 } else {
                                     error = Math.abs(xm - xaux);
                                 }
+                                cont++;
                                 Bisection iteNext = new Bisection(String.valueOf(cont), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
                                 listValues.add(iteNext);
                                 listValuesIteNext.add(String.valueOf(xi));
@@ -203,7 +205,6 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 listValuesIteNext.add(String.valueOf(ym));
                                 listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                                 completeList.add(listValuesIteNext);
-                                cont++;
                             }
                             listValues.add(new Bisection("","","","","",""));
                             int color = poolColors.remove(0);

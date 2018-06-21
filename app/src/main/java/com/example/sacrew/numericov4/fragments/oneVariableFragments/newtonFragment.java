@@ -156,18 +156,18 @@ public class newtonFragment extends baseOneVariableFragments {
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
-                        Newton iteZero = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p)), String.valueOf(cientificTransformation(error)));
+                        Newton iteZero = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p)), String.valueOf("0E0"));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(y0));
                         listValuesIteZero.add(String.valueOf(y0p));
-                        listValuesIteZero.add(String.valueOf(cientificTransformation(error)));
+                        listValuesIteZero.add(String.valueOf(""));
                         double xa = x0;
                         completeList.add(listValuesIteZero);
                         calc= true;
                         Expression newtonFunction;
-                        while ((y0 != 0) && (error > tol) && (cont < ite)) {
+                        while ((y0 != 0) && (error > tol) && (cont <= ite)) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             double xn = Double.NaN;
                             try{
@@ -191,7 +191,7 @@ public class newtonFragment extends baseOneVariableFragments {
                             cont++;
                             Newton iteNext = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
-                            listValuesIteNext.add(String.valueOf(x0));
+                            listValuesIteNext.add(String.valueOf(xa));
                             listValuesIteNext.add(String.valueOf(y0));
                             listValuesIteNext.add(String.valueOf(y0p));
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
