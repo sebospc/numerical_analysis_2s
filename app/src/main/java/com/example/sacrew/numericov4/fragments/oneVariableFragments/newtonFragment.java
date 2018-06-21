@@ -156,7 +156,7 @@ public class newtonFragment extends baseOneVariableFragments {
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
-                        Newton iteZero = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p)), String.valueOf("0E0"));
+                        Newton iteZero = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
@@ -167,7 +167,7 @@ public class newtonFragment extends baseOneVariableFragments {
                         completeList.add(listValuesIteZero);
                         calc= true;
                         Expression newtonFunction;
-                        while ((y0 != 0) && (error > tol) && (cont <= ite)) {
+                        while ((y0 != 0) && (error > tol) && (cont < ite)) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             double xn = Double.NaN;
                             try{
@@ -181,8 +181,6 @@ public class newtonFragment extends baseOneVariableFragments {
                             }catch (Exception e){
                                 styleWrongMessage("Unexpected error posibly NaN ");
                             }
-
-
                             if (errorRel)
                                 error = Math.abs(xn - xa) / xn;
                             else

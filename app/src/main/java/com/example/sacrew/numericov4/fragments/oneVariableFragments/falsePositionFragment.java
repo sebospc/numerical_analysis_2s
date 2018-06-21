@@ -164,7 +164,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
                             double xm = xi - (yi * (xi - xs)) / (yi - ys);
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
-                            FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf("0E0"));
+                            FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteZero);
                             List<String> listValuesIteZero = new LinkedList<>();
                             listValuesIteZero.add(String.valueOf(xi));

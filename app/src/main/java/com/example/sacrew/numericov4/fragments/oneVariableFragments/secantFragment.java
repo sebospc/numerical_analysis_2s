@@ -149,17 +149,19 @@ public class secantFragment extends baseOneVariableFragments {
                     if (fx0 != 0) {
                         Double fx1 = (this.function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
                         Double error = tol + 1;
-                        int cont = 0;
                         Double aux0 = x0;
                         Double aux1 = x1;
                         Double den = fx1 - fx0;
-                        Secant iteZero = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(fx0)), String.valueOf(cientificTransformation(error)));
+                        Secant iteZero = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(fx0)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
+                        Secant iteFirst = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x1)), String.valueOf(normalTransformation(fx1)), String.valueOf(cientificTransformation(error)));
+                        listValues.add(iteFirst);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(fx0));
-                        listValuesIteZero.add(String.valueOf(cientificTransformation(error)));
+                        listValuesIteZero.add(String.valueOf(""));
                         completeList.add(listValuesIteZero);
+                        int cont = 0;
                         calc = true;
                         while (fx1 != 0 && den != 0 && error > tol && cont < ite) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
@@ -183,7 +185,7 @@ public class secantFragment extends baseOneVariableFragments {
                             cont = cont + 1;
                             Secant iteNext = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(aux0)), String.valueOf(normalTransformation(fx0)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
-                            listValuesIteNext.add(String.valueOf(x0));
+                            listValuesIteNext.add(String.valueOf(aux0));
                             listValuesIteNext.add(String.valueOf(fx0));
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                             completeList.add(listValuesIteNext);
