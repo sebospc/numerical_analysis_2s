@@ -10,17 +10,13 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewton;
-import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Newton;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.NewtonListAdapter;
 import com.udojava.evalex.Expression;
@@ -38,7 +34,7 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
  */
 public class newtonFragment extends baseOneVariableFragments {
 
-    private Expression functionG;
+    private Expression functionDeriv1;
     private View view;
     private ListView listView;
     private EditText xvalue;
@@ -115,7 +111,7 @@ public class newtonFragment extends baseOneVariableFragments {
 
         String originalFuncG = textFunctionG.getText().toString();
 
-        this.functionG = new Expression(functionRevision(originalFuncG));
+        this.functionDeriv1 = new Expression(functionRevision(originalFuncG));
         error = checkSyntax(originalFuncG, textFunctionG) && error;
 
         try {
@@ -141,6 +137,7 @@ public class newtonFragment extends baseOneVariableFragments {
 
 
             function.setPrecision(100);
+            functionDeriv1.setPrecision(100);
             ArrayList<Newton> listValues = new ArrayList<>();
             Newton titles = new Newton("n", "Xn", "f(Xn)", "f'(Xn)", "Error");
             listValues.add(titles);
@@ -154,7 +151,7 @@ public class newtonFragment extends baseOneVariableFragments {
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    double y0p = (this.functionG.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    double y0p = (this.functionDeriv1.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
@@ -173,11 +170,12 @@ public class newtonFragment extends baseOneVariableFragments {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             double xn = Double.NaN;
                             try{
-                                newtonFunction = new Expression("x-"+y0/y0p);
+                                newtonFunction = new Expression("x"+"-"+(y0/y0p));
+                                newtonFunction.setPrecision(100);
                                 xn = (newtonFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                                 y0 = Double.NaN;
                                 y0p = Double.NaN;
-                                y0p = (this.functionG.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
+                                y0p = (this.functionDeriv1.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
                                 y0 = (this.function.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
 
                             }catch (Exception e){
@@ -187,11 +185,12 @@ public class newtonFragment extends baseOneVariableFragments {
                                 error = Math.abs(xn - xa) / xn;
                             else
                                 error = Math.abs(xn - xa);
+
                             xa = xn;
                             cont++;
                             Newton iteNext = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
-                            listValuesIteNext.add(String.valueOf(xa));
+                            listValuesIteNext.add(String.valueOf(xa));//correccion xa-> xn
                             listValuesIteNext.add(String.valueOf(y0));
                             listValuesIteNext.add(String.valueOf(y0p));
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));

@@ -137,6 +137,7 @@ public class fixedPointFragment extends baseOneVariableFragments {
         String message = "";
         try {
             function.setPrecision(100);
+            functionG.setPrecision(100);
             ArrayList<FixedPoint> listValues = new ArrayList<>();
             FixedPoint titles = new FixedPoint("n", "Xn", "f(Xn)", "Error");
             listValues.add(titles);
@@ -167,7 +168,7 @@ public class fixedPointFragment extends baseOneVariableFragments {
                             try {
                                 y0 = Double.NaN;
                                 xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                                y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
+                                y0 = (this.function.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();//correccion xa xn
                             } catch (Exception e) {
                                 styleWrongMessage("Unexpected error NaN");
                             }
