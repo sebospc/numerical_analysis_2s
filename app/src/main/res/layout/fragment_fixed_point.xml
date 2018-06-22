@@ -35,43 +35,9 @@
             android:orientation="vertical">
 
 
-            <LinearLayout
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight=".9"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/function"
-                    android:layout_width="164dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Function" />
-
-                <EditText
-                    android:id="@+id/iterations"
-                    android:layout_width="55dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Iters" />
-
-                <EditText
-                    android:id="@+id/error"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="error" />
-
-                <ToggleButton
-                    android:id="@+id/errorToggle"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/check"
-                    android:textOff=""
-                    android:textOn="" />
-
-            </LinearLayout>
-
+                android:layout_height="50dp" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -79,7 +45,7 @@
                 android:orientation="horizontal">
 
 
-                <AutoCompleteTextView
+                <EditText
                     android:id="@+id/functionG"
                     android:layout_width="170dp"
 
@@ -88,7 +54,9 @@
                     android:layout_toLeftOf="@+id/to"
                     android:layout_toStartOf="@+id/to"
                     android:layout_weight="1"
-                    android:hint="Function G" />
+                    android:hint="Function G"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"/>
 
                 <EditText
                     android:id="@+id/xValue"
@@ -99,7 +67,8 @@
                     android:layout_toRightOf="@+id/functionG"
                     android:ems="10"
                     android:hint="x value"
-                    android:inputType="textPersonName" />
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"/>
             </RelativeLayout>
 
         </LinearLayout>

@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 
 import com.example.sacrew.numericov4.R;
 
+import java.util.Objects;
+
 
 public class KeyboardUtils {
     private View view;
@@ -132,9 +134,11 @@ public class KeyboardUtils {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus){
+                    Objects.requireNonNull(((TabLayout) tabLayoutKeyboard.getChildAt(0)).getTabAt(0)).select();
                     showKeyBoard();
                     closeKeyboard(context,((EditText)v).getWindowToken());
                     actualEditText = (EditText)v;
+
                 } else {
                     closeInternalKeyboard();
                     actualEditText = null;
@@ -144,6 +148,7 @@ public class KeyboardUtils {
         aux.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Objects.requireNonNull(((TabLayout) tabLayoutKeyboard.getChildAt(0)).getTabAt(0)).select();
                 showKeyBoard();
                 closeKeyboard(context,((EditText)v).getWindowToken());
             }
@@ -216,8 +221,8 @@ public class KeyboardUtils {
                 case 4: actualEditText.getText().insert(actualEditText.getSelectionStart(),"4");  break;
                 case plus: actualEditText.getText().insert(actualEditText.getSelectionStart(),"+");  break;
                 case minus: actualEditText.getText().insert(actualEditText.getSelectionStart(),"-");  break;
-                case leftParent: checkLeftParent(actualEditText,"");break;
-                case rightParent: checkRightParent(actualEditText);break;
+                case leftParent: actualEditText.getText().insert(actualEditText.getSelectionStart(),"(");  break;
+                case rightParent: actualEditText.getText().insert(actualEditText.getSelectionStart(),")");  break;
                 case 3: actualEditText.getText().insert(actualEditText.getSelectionStart(),"3");  break;
                 case 2: actualEditText.getText().insert(actualEditText.getSelectionStart(),"2");  break;
                 case 1: actualEditText.getText().insert(actualEditText.getSelectionStart(),"1");  break;
@@ -278,38 +283,7 @@ public class KeyboardUtils {
             edit.setSelection(edit.getSelectionEnd()+1);
         }
     }
-    private void checkRightParent(EditText edit){
 
-
-        String g = edit.getText().toString();
-        int lastParent = 0;
-        if(edit.getSelectionStart()>0){
-
-            int i = edit.getSelectionEnd()-1;
-            int contPar = 0;
-            if(i == -1) i = 0;
-            for(;i>= 0;i--){
-                if(g.charAt(i) == ')'){
-                    contPar++;
-                }
-                if(g.charAt(i) == '('){
-                    contPar--;
-                    if(contPar < 0){
-                        i++;
-                        break;
-                    }
-                }
-                if(contPar == 0){
-                    lastParent = i+1;
-                }
-            }
-        }
-        lastParent--;
-        if(lastParent == -1) lastParent = edit.getSelectionStart()-1;
-        System.out.println(lastParent);
-        edit.getText().insert(lastParent,"(");
-        edit.getText().insert(edit.getSelectionStart(), ")");
-    }
     private void checkLeftParent(EditText edit,String character){
         String g = edit.getText().toString();
 

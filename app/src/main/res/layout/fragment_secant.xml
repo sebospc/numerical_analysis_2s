@@ -35,42 +35,9 @@
             android:orientation="vertical">
 
 
-            <LinearLayout
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight=".9"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/function"
-                    android:layout_width="164dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Function" />
-
-                <EditText
-                    android:id="@+id/iterations"
-                    android:layout_width="55dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Iters" />
-
-                <EditText
-                    android:id="@+id/error"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="error" />
-
-                <ToggleButton
-                    android:id="@+id/errorToggle"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/check"
-                    android:textOff=""
-                    android:textOn="" />
-
-            </LinearLayout>
+                android:layout_height="50dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -87,7 +54,9 @@
                     android:layout_toLeftOf="@+id/to"
                     android:layout_toStartOf="@+id/to"
                     android:layout_weight="1"
-                    android:hint="X0" />
+                    android:hint="X0"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/to"
@@ -111,7 +80,9 @@
                     android:layout_marginEnd="36dp"
                     android:layout_marginRight="36dp"
                     android:layout_weight="1"
-                    android:hint="X1" />
+                    android:hint="X1"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"/>
             </RelativeLayout>
 
         </LinearLayout>

@@ -43,7 +43,6 @@ public class fixedPointFragment extends baseOneVariableFragments {
     private ListView listView;
     private EditText xvalue;
     private EditText textFunctionG;
-    private ToggleButton errorToggle;
 
     public fixedPointFragment() {
 
@@ -85,12 +84,8 @@ public class fixedPointFragment extends baseOneVariableFragments {
             }
         });
 
-        textFunction = view.findViewById(R.id.function);
-        iter = view.findViewById(R.id.iterations);
-        textError = view.findViewById(R.id.error);
         xvalue = view.findViewById(R.id.xValue);
         textFunctionG = view.findViewById(R.id.functionG);
-        errorToggle = view.findViewById(R.id.errorToggle);
 
         registerEditText(textFunction,getContext(),getActivity());
         registerEditText(textFunctionG,getContext(),getActivity());

@@ -68,17 +68,66 @@
                     android:id="@+id/hiderB"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight=".01"
-                    android:animateLayoutChanges="true">
+                    android:layout_weight=".01">
+
 
                     <android.support.v4.view.ViewPager
                         android:id="@+id/viewPager"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true">
+                        android:layout_alignParentStart="true"/>
+                    <Space
+                        android:id="@+id/spaceOnVariable"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+                    <LinearLayout
+                        android:id="@+id/basicSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/spaceOnVariable"
+                        android:duplicateParentState="true">
+                        <EditText
+                            android:id="@+id/function"
+                            android:layout_width="164dp"
+                            android:layout_height="wrap_content"
+                            android:hint="Function"
+                            android:duplicateParentState="true"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"/>
 
-                    </android.support.v4.view.ViewPager>
+                        <EditText
+                            android:id="@+id/iterations"
+                            android:layout_width="55dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Iters"
+                            android:duplicateParentState="true"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"/>
+
+                        <EditText
+                            android:id="@+id/error"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="error"
+                            android:duplicateParentState="true"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"/>
+
+                        <ToggleButton
+                            android:id="@+id/errorToggle"
+                            android:layout_width="32dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/check"
+                            android:textOff=""
+                            android:textOn=""
+                            android:duplicateParentState="true"/>
+
+                    </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.fragments.MainActivityTable;
 import com.example.sacrew.numericov4.fragments.graphFragment;
@@ -38,8 +39,9 @@ import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
  */
 
 public abstract class baseOneVariableFragments extends Fragment {
-    EditText textFunction;
-    EditText iter, textError;
+    public EditText textFunction;
+    public EditText iter, textError;
+    public ToggleButton errorToggle;
     Expression function;
     graphUtils graphUtils = new graphUtils();
     static List<PointsGraphSeries<DataPoint>> points;

@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.support.v4.app.Fragment;
 import android.os.Build;
@@ -11,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ToggleButton;
 
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.oneVariableFragments.baseOneVariableFragments;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.falsePositionFragment;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.fixedPointFragment;
@@ -43,6 +47,7 @@ public class oneVariable extends Fragment {
     private boolean isup ;
     private RelativeLayout  hiderB;
     public static GraphView graphOneVariable;
+    @SuppressLint("StaticFieldLeak")
     public static KeyboardUtils keyboardUtils;
     private com.example.sacrew.numericov4.utils.graphUtils graphUtils = new graphUtils();
 
@@ -96,24 +101,41 @@ public class oneVariable extends Fragment {
             }
         });
         List<Fragment> fragments = new LinkedList<>();
+        LinearLayout basicSection = view.findViewById(R.id.basicSection);
+
         fragments.add(new incrementalSearchFragment());
-        fragments.add(new bisectionFragment());
-        fragments.add(new falsePositionFragment());
-        fragments.add(new fixedPointFragment());
-        fragments.add(new newtonFragment());
-        fragments.add(new secantFragment());
-        fragments.add(new multipleRootsFragment());
+        fragments.add(initFragment(new bisectionFragment(),basicSection));
+        fragments.add(initFragment(new falsePositionFragment(),basicSection));
+        fragments.add(initFragment(new fixedPointFragment(),basicSection));
+        fragments.add(initFragment(new newtonFragment(),basicSection));
+        fragments.add(initFragment(new secantFragment(),basicSection));
+        fragments.add(initFragment(new multipleRootsFragment(),basicSection));
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
+
+        int position = slideView.getCurrentItem();
+        if(position == 0){
+            basicSection.setEnabled(false);
+            basicSection.setVisibility(View.GONE);
+        }else{
+            basicSection.setEnabled(true);
+            basicSection.setVisibility(View.VISIBLE);
+        }
+
         slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //clear toasts
-
             }
 
             @Override
             public void onPageSelected(int position) {
+                if(position == 0){
+                    basicSection.setEnabled(false);
+                    basicSection.setVisibility(View.GONE);
+                }else{
+                    basicSection.setEnabled(true);
+                    basicSection.setVisibility(View.VISIBLE);
+                }
 
             }
 
@@ -176,6 +198,18 @@ public class oneVariable extends Fragment {
         }
 
 
+    }
+
+    public Fragment initFragment(baseOneVariableFragments frag, LinearLayout basicSection){
+        EditText function = (EditText) basicSection.getChildAt(0);
+        EditText iterations = (EditText) basicSection.getChildAt(1);
+        EditText error = (EditText) basicSection.getChildAt(2);
+        ToggleButton errorToggle = (ToggleButton) basicSection.getChildAt(3);
+        frag.textFunction = function;
+        frag.iter = iterations;
+        frag.textError = error;
+        frag.errorToggle = errorToggle;
+        return frag;
     }
 
 

@@ -21,7 +21,6 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -37,26 +36,34 @@
                 android:id="@+id/function"
                 android:layout_width="191dp"
                 android:layout_height="wrap_content"
-                android:hint="Function" />
+                android:hint="Function"
+                android:scrollHorizontally="true"
+                android:singleLine="true"/>
 
             <EditText
                 android:id="@+id/x_value"
                 android:layout_width="33dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="x" />
+                android:hint="x"
+                android:scrollHorizontally="true"
+                android:singleLine="true"/>
 
             <EditText
                 android:id="@+id/delta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Delta" />
+                android:hint="Delta"
+                android:scrollHorizontally="true"
+                android:singleLine="true"/>
 
             <EditText
                 android:id="@+id/iterations"
                 android:layout_width="54dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
                 android:hint="Iters" />
 
         </LinearLayout>

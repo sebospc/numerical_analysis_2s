@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -46,8 +47,9 @@ public class bisectionFragment extends baseOneVariableFragments {
     public TextView textViewXm, textViewMessage;
     private EditText xi, xs;
 
-    private ToggleButton errorToggle;
+
     private ListView listView;
+    public LinearLayout basicSection;
 
 
     @Override
@@ -86,14 +88,10 @@ public class bisectionFragment extends baseOneVariableFragments {
                 executeHelp();
             }
         });
-        textFunction = view.findViewById(R.id.function);
         textViewMessage = view.findViewById(R.id.textViewMessage);
         textViewXm = view.findViewById(R.id.textViewXm);
-        iter = view.findViewById(R.id.iterations);
-        textError = view.findViewById(R.id.error);
         xi = view.findViewById(R.id.xi);
         xs = view.findViewById(R.id.xs);
-        errorToggle = view.findViewById(R.id.errorToggle);
 
         registerEditText(textFunction,getContext(),getActivity());
         registerEditText(xi,getContext(),getActivity());

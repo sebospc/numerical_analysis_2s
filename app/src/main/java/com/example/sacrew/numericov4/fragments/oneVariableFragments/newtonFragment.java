@@ -81,12 +81,10 @@ public class newtonFragment extends baseOneVariableFragments {
                 executeHelp();
             }
         });
-        textFunction = view.findViewById(R.id.function);
-        iter = view.findViewById(R.id.iterations);
-        textError = view.findViewById(R.id.error);
+
         xvalue = view.findViewById(R.id.xValue);
         textFunctionG = view.findViewById(R.id.functionG);
-        errorToggle = view.findViewById(R.id.errorToggle);
+
 
 
         registerEditText(textFunction,getContext(),getActivity());

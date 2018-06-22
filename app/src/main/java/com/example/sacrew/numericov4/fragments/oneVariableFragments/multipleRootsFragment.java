@@ -87,13 +87,9 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                 executeHelp();
             }
         });
-        textFunction = view.findViewById(R.id.function);
-        iter = view.findViewById(R.id.iterations);
-        textError = view.findViewById(R.id.error);
         xvalue = view.findViewById(R.id.xValue);
         textFunctionG = view.findViewById(R.id.functionG);
         textFunctionGPrim = view.findViewById(R.id.functionGprim);
-        errorToggle = view.findViewById(R.id.errorToggle);
 
         registerEditText(textFunction,getContext(),getActivity());
         registerEditText(textFunctionG,getContext(),getActivity());

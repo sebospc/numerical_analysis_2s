@@ -47,7 +47,6 @@ public class falsePositionFragment extends baseOneVariableFragments {
     private View view;
     private ListView listView;
     private EditText xi, xs;
-    private ToggleButton errorToggle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,12 +83,9 @@ public class falsePositionFragment extends baseOneVariableFragments {
             }
         });
 
-        textFunction = view.findViewById(R.id.function);
-        iter = view.findViewById(R.id.iterations);
-        textError = view.findViewById(R.id.error);
+
         xi = view.findViewById(R.id.xi);
         xs = view.findViewById(R.id.xs);
-        errorToggle = view.findViewById(R.id.errorToggle);
 
         registerEditText(textFunction,getContext(),getActivity());
         registerEditText(xi,getContext(),getActivity());

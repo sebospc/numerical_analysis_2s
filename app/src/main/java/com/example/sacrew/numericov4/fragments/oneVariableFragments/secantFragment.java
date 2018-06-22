@@ -81,12 +81,9 @@ public class secantFragment extends baseOneVariableFragments {
                 executeHelp();
             }
         });
-        textFunction = view.findViewById(R.id.function);
-        iter = view.findViewById(R.id.iterations);
-        textError = view.findViewById(R.id.error);
+
         xi = view.findViewById(R.id.xi);
         xs = view.findViewById(R.id.xs);
-        errorToggle = view.findViewById(R.id.errorToggle);
 
         registerEditText(textFunction,getContext(),getActivity());
         registerEditText(iter,getContext(),getActivity());
