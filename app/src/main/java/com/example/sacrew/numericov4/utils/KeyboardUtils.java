@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.example.sacrew.numericov4.R;
 
@@ -30,6 +31,8 @@ public class KeyboardUtils {
     private Keyboard key123,keyFunctions;
     private EditText actualEditText;
     private LinearLayout tabLayoutKeyboard;
+    private ScrollView scrollViewMyFunctions;
+    private LinearLayout myFunctions;
     public boolean isUp = false;
     private final short xLetter = 967;
     private final short pi = 960;
@@ -74,8 +77,13 @@ public class KeyboardUtils {
     public KeyboardUtils(View view, int keyboardViewId, Context context){
         this.view = view;
         this.keyboardView = view.findViewById(keyboardViewId);
+
         key123 = new Keyboard(context,R.layout.keyboard_123);
         keyFunctions = new Keyboard(context,R.layout.default_functions_keyboard);
+        scrollViewMyFunctions = view.findViewById(R.id.scrollKeyboard);
+        myFunctions =(LinearLayout) scrollViewMyFunctions.getChildAt(0);
+        closeMyFunctionsSection();
+
         tabLayoutKeyboard = view.findViewById(R.id.tabKeyboard);
         tabLayoutKeyboard.setVisibility(View.GONE);
         tabLayoutKeyboard.setEnabled(false);
@@ -95,8 +103,9 @@ public class KeyboardUtils {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         switch (tab.getPosition()){
-                            case 0: keyboardView.setKeyboard(key123); break;
-                            case 1: keyboardView.setKeyboard(keyFunctions); break;
+                            case 0: closeMyFunctionsSection();showKeyBoard();keyboardView.setKeyboard(key123); break;
+                            case 1: closeMyFunctionsSection();showKeyBoard();keyboardView.setKeyboard(keyFunctions); break;
+                            case 2: showMyFunctionsSection();break;
                             default: break;
                         }
                     }
@@ -183,7 +192,18 @@ public class KeyboardUtils {
         keyboardView.setEnabled(false);
         tabLayoutKeyboard.setVisibility(View.GONE);
         tabLayoutKeyboard.setEnabled(false);
+        closeMyFunctionsSection();
         isUp= false;
+    }
+    private void showMyFunctionsSection(){
+        keyboardView.setVisibility(View.GONE);
+        keyboardView.setEnabled(false);
+        scrollViewMyFunctions.setEnabled(true);
+        scrollViewMyFunctions.setVisibility(View.VISIBLE);
+    }
+    private void closeMyFunctionsSection(){
+        scrollViewMyFunctions.setEnabled(false);
+        scrollViewMyFunctions.setVisibility(View.GONE);
     }
     private void closeKeyboard(Context context, IBinder windowToken) {
         InputMethodManager mgr = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -315,7 +335,7 @@ public class KeyboardUtils {
             edit.setSelection(edit.getSelectionStart()-1);
         }
     }
-    public void deleteLast(EditText edit,int coef){
+    private void deleteLast(EditText edit, int coef){
         if(edit.getSelectionStart()  >0) {
             StringBuilder text = new StringBuilder(edit.getText().toString());
             int aux = edit.getSelectionStart() - coef;

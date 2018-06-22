@@ -47,7 +47,7 @@
 
                 <EditText
                     android:id="@+id/functionG"
-                    android:layout_width="170dp"
+                    android:layout_width="150dp"
 
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -60,7 +60,7 @@
 
                 <EditText
                     android:id="@+id/functionGprim"
-                    android:layout_width="130dp"
+                    android:layout_width="120dp"
 
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"

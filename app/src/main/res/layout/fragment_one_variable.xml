@@ -109,7 +109,7 @@
 
                         <EditText
                             android:id="@+id/error"
-                            android:layout_width="wrap_content"
+                            android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="error"
@@ -181,6 +181,17 @@
                 android:focusableInTouchMode="true"
                 android:keyBackground="@drawable/selector"
                 android:visibility="gone" />
+            <ScrollView
+                android:id="@+id/scrollKeyboard"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

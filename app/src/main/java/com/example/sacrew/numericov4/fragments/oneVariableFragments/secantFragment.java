@@ -84,11 +84,11 @@ public class secantFragment extends baseOneVariableFragments {
         xi = view.findViewById(R.id.xi);
         xs = view.findViewById(R.id.xs);
 
-        registerEditText(textFunction,getContext(),getActivity());
-        registerEditText(iter,getContext(),getActivity());
-        registerEditText(textError,getContext(),getActivity());
-        registerEditText(xi,getContext(),getActivity());
-        registerEditText(xs,getContext(),getActivity());
+        registerEditText(textFunction, getContext(), getActivity());
+        registerEditText(iter, getContext(), getActivity());
+        registerEditText(textError, getContext(), getActivity());
+        registerEditText(xi, getContext(), getActivity());
+        registerEditText(xs, getContext(), getActivity());
         return view;
     }
 
@@ -145,13 +145,21 @@ public class secantFragment extends baseOneVariableFragments {
             completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
-                    double fx0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    double fx0 = Double.NaN;
+                    try {
+                        fx0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    } catch (Exception e) {
+                        styleWrongMessage("Unexpected error posibly nan");
+                    }
                     if (fx0 != 0) {
-                        Double fx1 = (this.function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                        Double error = tol + 1;
-                        Double aux0 = x0;
-                        Double aux1 = x1;
-                        Double den = fx1 - fx0;
+                        double fx1 = Double.NaN;
+                        try {
+                            fx1 = (this.function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
+                        } catch (Exception e) {
+                            styleWrongMessage("Unexpected error posibly nan");
+                        }
+                        double error = tol + 1;
+                        double den = fx1 - fx0;
                         Secant iteZero = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(fx0)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
                         Secant iteFist = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(fx1)), String.valueOf(cientificTransformation(error)));
@@ -161,32 +169,32 @@ public class secantFragment extends baseOneVariableFragments {
                         listValuesIteZero.add(String.valueOf(cientificTransformation(fx0)));
                         listValuesIteZero.add(String.valueOf(""));
                         completeList.add(listValuesIteZero);
-                        int cont = 1;
+                        int cont = 0;
                         calc = true;
-                        while (fx1 != 0 && den != 0 && error > tol && cont < ite) {
+                        while (fx1 != 0 && error > tol && den != 0 && cont < ite) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
-                            Double aux2 = aux1 - (((this.function.with("x", BigDecimal.valueOf(aux1))
-                                    .eval().doubleValue())) * (aux1 - aux0) / den);
+                            Double aux2 = x1 - fx1 * ((x1 - x0) / den);//(((this.function.with("x", BigDecimal.valueOf(aux1))
+                            //.eval().doubleValue())) * (aux1 - aux0) / den);
                             if (errorRel)
-                                error = Math.abs(aux2 - aux1) / aux2;
+                                error = Math.abs(aux2 - x1) / aux2;
                             else
-                                error = Math.abs(aux2 - aux1);
-                            aux0 = aux1;
+                                error = Math.abs(aux2 - x1);
+                            x0 = x1;
                             fx0 = fx1;
-                            aux1 = aux2;
+                            x1 = aux2;
                             try {
                                 fx1 = Double.NaN;
-                                fx1 = (this.function.with("x", BigDecimal.valueOf(aux1)).eval()).doubleValue();
+                                fx1 = (this.function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
                             } catch (Exception e) {
                                 styleWrongMessage("Unexpected error posibly nan");
                             }
 
                             den = fx1 - fx0;
 
-                            Secant iteNext = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(aux0)), String.valueOf(cientificTransformation(fx0)), String.valueOf(cientificTransformation(error)));
+                            Secant iteNext = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(fx0)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
 
-                            listValuesIteNext.add(String.valueOf(aux0));
+                            listValuesIteNext.add(String.valueOf(x0));
                             listValuesIteNext.add(String.valueOf(cientificTransformation(fx0)));
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                             completeList.add(listValuesIteNext);
@@ -196,17 +204,17 @@ public class secantFragment extends baseOneVariableFragments {
 
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphSerie(function.getExpression(), 0, aux1, color);
+                        graphSerie(function.getExpression(), 0, x1, color);
                         if (fx1 == 0) {
                             color = poolColors.remove(0);
                             poolColors.add(color);
-                            graphPoint(aux1, fx1, color);
-                            styleCorrectMessage(normalTransformation(aux1) + " is a root");
+                            graphPoint(x1, fx1, color);
+                            styleCorrectMessage(normalTransformation(x1) + " is a root");
                         } else if (error <= tol) {
                             color = poolColors.remove(0);
                             poolColors.add(color);
-                            graphPoint(aux1, fx1, color);
-                            styleCorrectMessage(normalTransformation(aux1) + " is an aproximate root");
+                            graphPoint(x1, fx1, color);
+                            styleCorrectMessage(normalTransformation(x1) + " is an aproximate root");
                         } else {
                             styleWrongMessage("The method failed in iteration " + cont);
                         }

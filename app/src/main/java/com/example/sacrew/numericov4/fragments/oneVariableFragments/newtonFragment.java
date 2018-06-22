@@ -167,13 +167,13 @@ public class newtonFragment extends baseOneVariableFragments {
                         completeList.add(listValuesIteZero);
                         calc= true;
                         Expression newtonFunction;
-                        while ((y0 != 0) && (error > tol) && (cont < ite)) {
+                        while ((y0 != 0) && (error > tol) && y0p != 0 && (cont < ite)) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
-                            double xn = Double.NaN;
+                            double xn;
+                            newtonFunction = new Expression("x"+"-"+(y0/y0p));
+                            newtonFunction.setPrecision(100);
+                            xn = (newtonFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                             try{
-                                newtonFunction = new Expression("x"+"-"+(y0/y0p));
-                                newtonFunction.setPrecision(100);
-                                xn = (newtonFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
                                 y0 = Double.NaN;
                                 y0p = Double.NaN;
                                 y0p = (this.functionDeriv1.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();

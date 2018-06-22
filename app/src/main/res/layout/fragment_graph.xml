@@ -75,19 +75,18 @@
                     android:layout_weight=".5"
                     android:background="#FFF">
 
-            <LinearLayout
-                android:id="@+id/linear"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                    <ScrollView
+                    <LinearLayout
+                        android:id="@+id/linear"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
 
-
-                            <RelativeLayout
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                            <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                                 xmlns:tools="http://schemas.android.com/tools"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -120,57 +119,74 @@
                                 </LinearLayout>
                             </RelativeLayout>
 
-                    </ScrollView>
-            </LinearLayout>
+                        </ScrollView>
+                    </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/colorPrimaryDark">
-        <LinearLayout
-            android:id="@+id/tabKeyboard"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal">
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:tabSelectedTextColor="@color/whiteLight"
-                app:tabIndicatorHeight="0dp"
-                app:tabMode="fixed">
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="123"
-                    />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="f(x)" />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="My functions" />
-            </android.support.design.widget.TabLayout>
-        </LinearLayout>
-        <android.inputmethodservice.KeyboardView
-
-            android:id="@+id/keyboardView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:background="@color/colorPrimaryDark"
-            android:keyBackground="@drawable/selector"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:visibility="gone" />
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/tabKeyboard"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/whiteLight">
+
+                    <android.support.design.widget.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="123" />
+
+                    <android.support.design.widget.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="f(x)" />
+
+                    <android.support.design.widget.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="My functions" />
+                </android.support.design.widget.TabLayout>
+            </LinearLayout>
+
+
+            <android.inputmethodservice.KeyboardView
+
+                android:id="@+id/keyboardView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/colorPrimaryDark"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:isScrollContainer="true"
+                android:keyBackground="@drawable/selector"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideOverlay"
+                android:visibility="gone" />
+
+            <ScrollView
+                android:id="@+id/scrollKeyboard"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+            </ScrollView>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
