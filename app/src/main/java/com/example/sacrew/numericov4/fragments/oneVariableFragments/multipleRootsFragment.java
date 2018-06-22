@@ -10,18 +10,13 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpMultipleRoots;
-import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRoots;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.MultipleRootsListAdapter;
 import com.udojava.evalex.Expression;
@@ -40,11 +35,10 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 public class multipleRootsFragment extends baseOneVariableFragments {
 
 
-    private Expression functionG, functionGprim;
+    private Expression functionDeriv1, functionDeriv2;
     private View view;
     private EditText xvalue;
-    private EditText textFunctionG, textFunctionGPrim;
-    private ToggleButton errorToggle;
+    private EditText textFunctionDeriv1, textFunctionGDeriv2;
     private ListView listView;
 
     public multipleRootsFragment() {
@@ -88,12 +82,12 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             }
         });
         xvalue = view.findViewById(R.id.xValue);
-        textFunctionG = view.findViewById(R.id.functionG);
-        textFunctionGPrim = view.findViewById(R.id.functionGprim);
+        textFunctionDeriv1 = view.findViewById(R.id.functionG);
+        textFunctionGDeriv2 = view.findViewById(R.id.functionGprim);
 
         registerEditText(textFunction,getContext(),getActivity());
-        registerEditText(textFunctionG,getContext(),getActivity());
-        registerEditText(textFunctionGPrim,getContext(),getActivity());
+        registerEditText(textFunctionDeriv1,getContext(),getActivity());
+        registerEditText(textFunctionGDeriv2,getContext(),getActivity());
         registerEditText(iter,getContext(),getActivity());
         registerEditText(textError,getContext(),getActivity());
         registerEditText(xvalue,getContext(),getActivity());
@@ -114,13 +108,13 @@ public class multipleRootsFragment extends baseOneVariableFragments {
         Double xValue = 0.0;
 
 
-        String originalFuncG = textFunctionG.getText().toString(); // primera derivada
-        String originalFuncGPrim = textFunctionGPrim.getText().toString(); // segunda derivada
-        error = checkSyntax(originalFuncG, textFunctionG) && checkSyntax(originalFuncGPrim, textFunctionGPrim);
+        String originalFuncG = textFunctionDeriv1.getText().toString(); // primera derivada
+        String originalFuncGPrim = textFunctionGDeriv2.getText().toString(); // segunda derivada
+        error = checkSyntax(originalFuncG, textFunctionDeriv1) && checkSyntax(originalFuncGPrim, textFunctionGDeriv2);
 
-        this.functionG = new Expression(functionRevision(originalFuncG));
+        this.functionDeriv1 = new Expression(functionRevision(originalFuncG));
 
-        this.functionGprim = new Expression(functionRevision(originalFuncGPrim));
+        this.functionDeriv2 = new Expression(functionRevision(originalFuncGPrim));
         try {
             xValue = Double.parseDouble(xvalue.getText().toString());
         } catch (Exception e) {
@@ -142,8 +136,8 @@ public class multipleRootsFragment extends baseOneVariableFragments {
     private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel) {
         try {
             function.setPrecision(100);
-            functionG.setPrecision(100);
-            functionGprim.setPrecision(100);
+            functionDeriv1.setPrecision(100);
+            functionDeriv2.setPrecision(100);
             ArrayList<MultipleRoots> listValues = new ArrayList<>();
             MultipleRoots titles = new MultipleRoots("n", "Xn", "f(Xn)", "f'(Xn)", "f''(Xn)", "Error");
             listValues.add(titles);
@@ -157,8 +151,8 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             if (tol >= 0) {
                 if (ite > 0) {
                     double y0 = (this.function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    double y0p1 = (this.functionG.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    double y0p2 = (this.functionGprim.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    double y0p1 = (this.functionDeriv1.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
+                    double y0p2 = (this.functionDeriv2.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
@@ -190,8 +184,8 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                                 styleWrongMessage("Unexpected error posibly NaN");
                             }
                             y0 = (this.function.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
-                            y0p1 = (this.functionG.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
-                            y0p2 = (this.functionGprim.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
+                            y0p1 = (this.functionDeriv1.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
+                            y0p2 = (this.functionDeriv2.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
 
                             if (errorRel)
                                 error = Math.abs(xn - xa) / xn;

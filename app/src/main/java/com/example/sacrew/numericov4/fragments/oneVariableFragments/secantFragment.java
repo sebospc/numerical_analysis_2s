@@ -40,7 +40,6 @@ public class secantFragment extends baseOneVariableFragments {
     private ListView listView;
     private EditText xi, xs;
 
-    private ToggleButton errorToggle;
 
     public secantFragment() {
         // Required empty public constructor

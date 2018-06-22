@@ -39,7 +39,6 @@ public class newtonFragment extends baseOneVariableFragments {
     private ListView listView;
     private EditText xvalue;
     private EditText textFunctionG;
-    private ToggleButton errorToggle;
 
     public newtonFragment() {
         // Required empty public constructor
