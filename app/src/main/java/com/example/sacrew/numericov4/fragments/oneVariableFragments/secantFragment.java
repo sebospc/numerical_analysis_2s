@@ -134,6 +134,7 @@ public class secantFragment extends baseOneVariableFragments {
         try {
 
             function.setPrecision(100);
+            // Titles tables
             ArrayList<Secant> listValues = new ArrayList<>();
             Secant titles = new Secant("n", "Xn", "f(Xn)", "Error");
             listValues.add(titles);
@@ -141,7 +142,6 @@ public class secantFragment extends baseOneVariableFragments {
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
             listValuesTitles.add("Error");
-            //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
@@ -160,10 +160,10 @@ public class secantFragment extends baseOneVariableFragments {
                         }
                         double error = tol + 1;
                         double den = fx1 - fx0;
+                        // Small table
                         Secant iteZero = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(fx0)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
-                        Secant iteFist = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(fx1)), String.valueOf(cientificTransformation(error)));
-                        listValues.add(iteFist);
+                        // Big table
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(cientificTransformation(fx0)));
@@ -173,8 +173,7 @@ public class secantFragment extends baseOneVariableFragments {
                         calc = true;
                         while (fx1 != 0 && error > tol && den != 0 && cont < ite) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
-                            Double aux2 = x1 - fx1 * ((x1 - x0) / den);//(((this.function.with("x", BigDecimal.valueOf(aux1))
-                            //.eval().doubleValue())) * (aux1 - aux0) / den);
+                            Double aux2 = x1 - fx1 * ((x1 - x0) / den);
                             if (errorRel)
                                 error = Math.abs(aux2 - x1) / aux2;
                             else
@@ -190,10 +189,10 @@ public class secantFragment extends baseOneVariableFragments {
                             }
 
                             den = fx1 - fx0;
-
+                            // Small table
                             Secant iteNext = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(fx0)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
-
+                            // Big table
                             listValuesIteNext.add(String.valueOf(x0));
                             listValuesIteNext.add(String.valueOf(cientificTransformation(fx0)));
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
