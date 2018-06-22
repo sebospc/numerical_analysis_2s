@@ -156,13 +156,13 @@ public class secantFragment extends baseOneVariableFragments {
                         Double aux0 = x0;
                         Double aux1 = x1;
                         Double den = fx1 - fx0;
-                        Secant iteZero = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(fx0)), String.valueOf(cientificTransformation(error)));
+                        Secant iteZero = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(fx0)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
-                        Secant iteFist = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x1)), String.valueOf(normalTransformation(fx1)), String.valueOf(cientificTransformation(error)));
+                        Secant iteFist = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(fx1)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteFist);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
-                        listValuesIteZero.add(String.valueOf(fx0));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(fx0)));
                         listValuesIteZero.add(String.valueOf(""));
                         completeList.add(listValuesIteZero);
                         int cont = 1;
@@ -187,11 +187,11 @@ public class secantFragment extends baseOneVariableFragments {
 
                             den = fx1 - fx0;
 
-                            Secant iteNext = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(aux0)), String.valueOf(normalTransformation(fx0)), String.valueOf(cientificTransformation(error)));
+                            Secant iteNext = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(aux0)), String.valueOf(cientificTransformation(fx0)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
 
                             listValuesIteNext.add(String.valueOf(aux0));
-                            listValuesIteNext.add(String.valueOf(fx0));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(fx0)));
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                             completeList.add(listValuesIteNext);
                             cont = cont + 1;

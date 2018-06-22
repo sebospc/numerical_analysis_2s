@@ -145,9 +145,9 @@ public class multipleRootsFragment extends baseOneVariableFragments {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel) {
         try {
-
-
             function.setPrecision(100);
+            functionG.setPrecision(100);
+            functionGprim.setPrecision(100);
             ArrayList<MultipleRoots> listValues = new ArrayList<>();
             MultipleRoots titles = new MultipleRoots("n", "Xn", "f(Xn)", "f'(Xn)", "f''(Xn)", "Error");
             listValues.add(titles);
@@ -157,7 +157,6 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             listValuesTitles.add("f'(Xn)");
             listValuesTitles.add("f''(Xn)");
             listValuesTitles.add("Error");
-            //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
@@ -168,14 +167,14 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                         int cont = 0;
                         double error = tol + 1;
 
-                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p1)), String.valueOf(normalTransformation(y0p2)), String.valueOf(cientificTransformation(error)));
+                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(y0)), String.valueOf(cientificTransformation(y0p1)), String.valueOf(cientificTransformation(y0p2)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
 
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
-                        listValuesIteZero.add(String.valueOf(y0));
-                        listValuesIteZero.add(String.valueOf(y0p1));
-                        listValuesIteZero.add(String.valueOf(y0p2));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(y0)));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(y0p1)));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(y0p2)));
                         listValuesIteZero.add(String.valueOf(""));
                         completeList.add(listValuesIteZero);
                         double xa = x0;
@@ -204,12 +203,12 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                                 error = Math.abs(xn - xa);
                             xa = xn;
                             cont++;
-                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p1)), String.valueOf(normalTransformation(y0p2)), String.valueOf(cientificTransformation(error)));
+                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(cientificTransformation(y0)), String.valueOf(cientificTransformation(y0p1)), String.valueOf(cientificTransformation(y0p2)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(xa));
-                            listValuesIteNext.add(String.valueOf(y0));
-                            listValuesIteNext.add(String.valueOf(y0p1));
-                            listValuesIteNext.add(String.valueOf(y0p2));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(y0)));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(y0p1)));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(y0p2)));
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                             completeList.add(listValuesIteNext);
                         }

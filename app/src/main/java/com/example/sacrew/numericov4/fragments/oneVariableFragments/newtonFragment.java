@@ -155,13 +155,17 @@ public class newtonFragment extends baseOneVariableFragments {
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
-                        Newton iteZero = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p)), String.valueOf(cientificTransformation(error)));
+                        Newton iteZero = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(y0)), String.valueOf(cientificTransformation(y0p)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
-                        listValuesIteZero.add(String.valueOf(y0));
+                        System.out.println("x0: " + x0);
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(y0)));
+                        System.out.print("y0: " + y0);
                         listValuesIteZero.add(String.valueOf(y0p));
+                        System.out.println("y0p: " + y0p);
                         listValuesIteZero.add(String.valueOf(""));
+                        System.out.println("error: " + "");
                         double xa = x0;
                         completeList.add(listValuesIteZero);
                         calc= true;
@@ -188,12 +192,16 @@ public class newtonFragment extends baseOneVariableFragments {
 
                             xa = xn;
                             cont++;
-                            Newton iteNext = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p)), String.valueOf(cientificTransformation(error)));
+                            Newton iteNext = new Newton(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(cientificTransformation(y0)), String.valueOf(cientificTransformation(y0p)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(xa));//correccion xa-> xn
-                            listValuesIteNext.add(String.valueOf(y0));
-                            listValuesIteNext.add(String.valueOf(y0p));
+                            System.out.println("x0: " + xa);
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(y0)));
+                            System.out.println("y0: " + y0);
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(y0p)));
+                            System.out.println("y0p: " + y0p);
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
+                            System.out.println("error: " + error);
                             completeList.add(listValuesIteNext);
                         }
                         listValues.add(new Newton("","","","",""));

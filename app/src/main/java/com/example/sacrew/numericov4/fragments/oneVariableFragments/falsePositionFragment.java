@@ -163,24 +163,22 @@ public class falsePositionFragment extends baseOneVariableFragments {
                     double ys = (this.function.with("x", BigDecimal.valueOf(xs)).eval()).doubleValue();
                     if (ys != 0) {
                         if (yi * ys < 0) {
-
                             double xm = xi - (yi * (xi - xs)) / (yi - ys);
                             double ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
                             double error = tol + 1;
-                            FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
+                            FalsePosition iteZero = new FalsePosition(String.valueOf(0), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(cientificTransformation(ym)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteZero);
                             List<String> listValuesIteZero = new LinkedList<>();
                             listValuesIteZero.add(String.valueOf(xi));
                             listValuesIteZero.add(String.valueOf(xs));
                             listValuesIteZero.add(String.valueOf(xm));
-                            listValuesIteZero.add(String.valueOf(ym));
+                            listValuesIteZero.add(String.valueOf(cientificTransformation(ym)));
                             listValuesIteZero.add(String.valueOf(""));
                             int cont = 0;
                             double xaux = xm;
                             completeList.add(listValuesIteZero);
                             calc= true;
                             while ((ym != 0) && (error > tol) && (cont < ite)) {
-                                ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 if (yi * ym < 0) {
                                     xs = xm;
                                     ys = ym;
@@ -199,12 +197,13 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                     error = Math.abs(xm - xaux);
                                 }
                                 cont++;
-                                FalsePosition iteNext = new FalsePosition(String.valueOf(cont), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(normalTransformation(ym)), String.valueOf(cientificTransformation(error)));
+                                FalsePosition iteNext = new FalsePosition(String.valueOf(cont), String.valueOf(normalTransformation(xi)), String.valueOf(normalTransformation(xs)), String.valueOf(normalTransformation(xm)), String.valueOf(cientificTransformation(ym)), String.valueOf(cientificTransformation(error)));
                                 listValues.add(iteNext);
+                                ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 listValuesIteNext.add(String.valueOf(xi));
                                 listValuesIteNext.add(String.valueOf(xs));
                                 listValuesIteNext.add(String.valueOf(xm));
-                                listValuesIteNext.add(String.valueOf(ym));
+                                listValuesIteNext.add(String.valueOf(cientificTransformation(ym)));
                                 listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                                 completeList.add(listValuesIteNext);
                             }
