@@ -147,12 +147,15 @@ public class fixedPointFragment extends baseOneVariableFragments {
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
-                        FixedPoint iteZero = new FixedPoint(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)), String.valueOf(cientificTransformation(error)));
+                        FixedPoint iteZero = new FixedPoint(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(y0)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
-                        listValuesIteZero.add(String.valueOf(y0));
-                        listValuesIteZero.add(String.valueOf(cientificTransformation(error)));
+                        System.out.println("x0: " + x0);
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(y0)));
+                        System.out.println("y0: " + y0);
+                        listValuesIteZero.add(String.valueOf(""));
+                        System.out.println("error: " + "");
                         double xa = x0;
                         completeList.add(listValuesIteZero);
                         calc = true;
@@ -163,7 +166,7 @@ public class fixedPointFragment extends baseOneVariableFragments {
                             try {
                                 y0 = Double.NaN;
                                 xn = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                                y0 = (this.function.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();//correccion xa xn
+                                y0 = (this.function.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();//correccion xa xnzz
                             } catch (Exception e) {
                                 styleWrongMessage("Unexpected error NaN");
                             }
@@ -172,14 +175,19 @@ public class fixedPointFragment extends baseOneVariableFragments {
                                 error = Math.abs(xn - xa) / xn;
                             else
                                 error = Math.abs(xn - xa);
+
                             xa = xn;
                             cont++;
-                            FixedPoint iteNext = new FixedPoint(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(normalTransformation(y0)), String.valueOf(cientificTransformation(error)));
+                            FixedPoint iteNext = new FixedPoint(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(cientificTransformation(y0)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(xa));
-                            listValuesIteNext.add(String.valueOf(y0));
+                            System.out.println(xa);
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(y0)));
+                            System.out.println("y0: " + y0);
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
+                            System.out.println("error: " + error);
                             completeList.add(listValuesIteNext);
+
                         }
                         listValues.add(new FixedPoint("","","",""));
                         int color = poolColors.remove(0);

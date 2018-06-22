@@ -159,21 +159,21 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             if (delta != 0) {
                 if (ite > 0) {
                     double y0 = (function.with("x", BigDecimal.valueOf(x0)).eval()).doubleValue();
-                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0), String.valueOf(normalTransformation(x0)), String.valueOf(normalTransformation(y0)));
+                    IncrementalSearch iteZero = new IncrementalSearch(String.valueOf(0), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(y0)));
                     listValues.add(iteZero);
                     List<String> listValuesIteZero = new LinkedList<>();
                     listValuesIteZero.add(String.valueOf(x0));
-                    listValuesIteZero.add(String.valueOf(y0));
+                    listValuesIteZero.add(String.valueOf(cientificTransformation(y0)));
                     completeList.add(listValuesIteZero);
                     if (y0 != 0) {
                         int cont = 1;
                         double x1 = x0 + delta;
                         double y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(normalTransformation(y1)));
+                        IncrementalSearch iterFirst = new IncrementalSearch(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(y1)));
                         listValues.add(iterFirst);
                         List<String> listValuesFirst = new LinkedList<>();
                         listValuesFirst.add(String.valueOf(x1));
-                        listValuesFirst.add(String.valueOf(y1));
+                        listValuesFirst.add(String.valueOf(cientificTransformation(y1)));
                         completeList.add(listValuesFirst);
                         calc= true;
                         while (((y1 * y0) > 0) && (cont < ite)) {
@@ -182,12 +182,11 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             y0 = y1;
                             x1 = x0 + delta;
                             y1 = (function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(normalTransformation(y1)));
+                            IncrementalSearch iterNext = new IncrementalSearch(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(y1)));
                             listValues.add(iterNext);
-
                             List<String> listValuesNext = new LinkedList<>();
                             listValuesNext.add(String.valueOf(x1));
-                            listValuesNext.add(String.valueOf(y1));
+                            listValuesNext.add(String.valueOf(cientificTransformation(y1)));
                             completeList.add(listValuesNext);
                         }
                         listValues.add(new IncrementalSearch("","",""));

@@ -141,9 +141,9 @@ public class multipleRootsFragment extends baseOneVariableFragments {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void multipleRootsMethod(Double x0, Double tol, int ite, boolean errorRel) {
         try {
-
-
             function.setPrecision(100);
+            functionG.setPrecision(100);
+            functionGprim.setPrecision(100);
             ArrayList<MultipleRoots> listValues = new ArrayList<>();
             MultipleRoots titles = new MultipleRoots("n", "Xn", "f(Xn)", "f'(Xn)", "f''(Xn)", "Error");
             listValues.add(titles);
@@ -153,7 +153,6 @@ public class multipleRootsFragment extends baseOneVariableFragments {
             listValuesTitles.add("f'(Xn)");
             listValuesTitles.add("f''(Xn)");
             listValuesTitles.add("Error");
-            //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
@@ -163,17 +162,18 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                     if (y0 != 0) {
                         int cont = 0;
                         double error = tol + 1;
-                        double xa = x0;
-                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p1)), String.valueOf(normalTransformation(y0p2)), String.valueOf(""));
+
+                        MultipleRoots iteZero = new MultipleRoots(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(y0)), String.valueOf(cientificTransformation(y0p1)), String.valueOf(cientificTransformation(y0p2)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
 
                         List<String> listValuesIteZero = new LinkedList<>();
-                        listValuesIteZero.add(String.valueOf(xa));
-                        listValuesIteZero.add(String.valueOf(y0));
-                        listValuesIteZero.add(String.valueOf(y0p1));
-                        listValuesIteZero.add(String.valueOf(y0p2));
+                        listValuesIteZero.add(String.valueOf(x0));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(y0)));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(y0p1)));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(y0p2)));
                         listValuesIteZero.add(String.valueOf(""));
                         completeList.add(listValuesIteZero);
+                        double xa = x0;
                         calc= true;
                         Expression multipleRootsFunction;
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
@@ -182,11 +182,6 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                                 Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
                                 break;
                             }
-
-                            y0 = (this.function.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                            y0p1 = (this.functionG.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                            y0p2 = (this.functionGprim.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-
                             multipleRootsFunction = new Expression("x-("+y0*y0p1+")/("+(Math.pow(y0p1,2)-(y0*y0p2))+")");
                             double xn = Double.NaN;
                             try{
@@ -194,6 +189,9 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                             }catch (Exception e){
                                 styleWrongMessage("Unexpected error posibly NaN");
                             }
+                            y0 = (this.function.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
+                            y0p1 = (this.functionG.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
+                            y0p2 = (this.functionGprim.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
 
                             if (errorRel)
                                 error = Math.abs(xn - xa) / xn;
@@ -201,12 +199,12 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                                 error = Math.abs(xn - xa);
                             xa = xn;
                             cont++;
-                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(normalTransformation(y0)), String.valueOf(normalTransformation(y0p1)), String.valueOf(normalTransformation(y0p2)), String.valueOf(cientificTransformation(error)));
+                            MultipleRoots iteNext = new MultipleRoots(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(cientificTransformation(y0)), String.valueOf(cientificTransformation(y0p1)), String.valueOf(cientificTransformation(y0p2)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(xa));
-                            listValuesIteNext.add(String.valueOf(y0));
-                            listValuesIteNext.add(String.valueOf(y0p1));
-                            listValuesIteNext.add(String.valueOf(y0p2));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(y0)));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(y0p1)));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(y0p2)));
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                             completeList.add(listValuesIteNext);
                         }
