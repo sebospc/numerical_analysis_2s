@@ -68,7 +68,6 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             }
         });
         listView = view.findViewById(R.id.listView);
-        textFunction = view.findViewById(R.id.function);
         xValue = view.findViewById(R.id.x_value);
         delta = view.findViewById(R.id.delta);
         iter = view.findViewById(R.id.iterations);
@@ -88,7 +87,6 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             }
         });
 
-        registerEditText(textFunction,getContext(),getActivity());
         registerEditText(xValue,getContext(),getActivity());
         registerEditText(delta,getContext(),getActivity());
         registerEditText(iter,getContext(),getActivity());
@@ -224,8 +222,6 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
         } catch (Exception e) {
             styleWrongMessage("Unexpected error posibly nan");
         }
-
-
     }
 }
 

@@ -2,26 +2,31 @@ package com.example.sacrew.numericov4.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.IBinder;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.example.sacrew.numericov4.R;
 
+import java.io.File;
 import java.util.Objects;
 
 
@@ -81,7 +86,7 @@ public class KeyboardUtils {
         key123 = new Keyboard(context,R.layout.keyboard_123);
         keyFunctions = new Keyboard(context,R.layout.default_functions_keyboard);
         scrollViewMyFunctions = view.findViewById(R.id.scrollKeyboard);
-        myFunctions =(LinearLayout) scrollViewMyFunctions.getChildAt(0);
+        myFunctions =scrollViewMyFunctions.findViewById(R.id.myFunctions);
         closeMyFunctionsSection();
 
         tabLayoutKeyboard = view.findViewById(R.id.tabKeyboard);
@@ -345,5 +350,53 @@ public class KeyboardUtils {
             edit.setSelection(aux);
 
         }
+    }
+public void addFunction(String function,Context context,FunctionStorage functionStorage,File temp){
+
+        Button button= new Button(context);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                150);
+        params.gravity = Gravity.CENTER;
+        params.bottomMargin = 20;
+        button.setLayoutParams(params);
+        button.setTransformationMethod(null);
+        button.setText(function.toLowerCase());
+        button.setTextColor(Color.WHITE);
+        button.setBackground(ContextCompat.getDrawable(context,R.drawable.selector));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actualEditText.getText().insert(actualEditText.getSelectionStart(),function.toLowerCase());
+            }
+        });
+
+        Button buttonRemove = new Button(context);
+        LinearLayout.LayoutParams paramsRemove = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsRemove.gravity = Gravity.RIGHT;
+        paramsRemove.leftMargin = 20;
+        paramsRemove.bottomMargin = 20;
+        buttonRemove.setLayoutParams(paramsRemove);
+        buttonRemove.setText("remove");
+        buttonRemove.setTextColor(Color.WHITE);
+        buttonRemove.setBackground(ContextCompat.getDrawable(context,R.drawable.selector_remove));
+
+
+        LinearLayout linear = new LinearLayout(context);
+        LinearLayout.LayoutParams paramsLinear = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                150);
+        linear.setLayoutParams(paramsLinear);
+        linear.setOrientation(LinearLayout.HORIZONTAL);
+        linear.addView(button);
+        linear.addView(buttonRemove);
+        buttonRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                functionStorage.functions.remove(function);
+                myFunctions.removeView(linear);
+                functionStorage.updateStorage(temp);
+            }
+        });
+        myFunctions.addView(linear);
     }
 }

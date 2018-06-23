@@ -29,6 +29,7 @@ import com.example.sacrew.numericov4.fragments.oneVariableFragments.multipleRoot
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.newtonFragment;
 import com.example.sacrew.numericov4.fragments.oneVariableFragments.secantFragment;
 import com.example.sacrew.numericov4.pagerAdapter;
+import com.example.sacrew.numericov4.utils.FunctionStorage;
 import com.example.sacrew.numericov4.utils.KeyboardUtils;
 import com.example.sacrew.numericov4.utils.graphUtils;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
@@ -36,6 +37,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,6 +51,8 @@ public class oneVariable extends Fragment {
     public static GraphView graphOneVariable;
     @SuppressLint("StaticFieldLeak")
     public static KeyboardUtils keyboardUtils;
+    public FunctionStorage functionStorage;
+    public File temp;
     private com.example.sacrew.numericov4.utils.graphUtils graphUtils = new graphUtils();
 
     public oneVariable() {
@@ -102,8 +106,12 @@ public class oneVariable extends Fragment {
         });
         List<Fragment> fragments = new LinkedList<>();
         LinearLayout basicSection = view.findViewById(R.id.basicSection);
-
-        fragments.add(new incrementalSearchFragment());
+        incrementalSearchFragment inc = new incrementalSearchFragment();
+        inc.textFunction = (EditText)basicSection.getChildAt(0);
+        keyboardUtils.registerEdittext(inc.textFunction,getContext(),getActivity());
+        inc.temp = temp;
+        inc.functionStorage = functionStorage;
+        fragments.add(inc);
         fragments.add(initFragment(new bisectionFragment(),basicSection));
         fragments.add(initFragment(new falsePositionFragment(),basicSection));
         fragments.add(initFragment(new fixedPointFragment(),basicSection));
@@ -112,14 +120,14 @@ public class oneVariable extends Fragment {
         fragments.add(initFragment(new multipleRootsFragment(),basicSection));
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
-
+        LinearLayout subBasicSection = view.findViewById(R.id.subBasicSection);
         int position = slideView.getCurrentItem();
         if(position == 0){
-            basicSection.setEnabled(false);
-            basicSection.setVisibility(View.GONE);
+            subBasicSection.setEnabled(false);
+            subBasicSection.setVisibility(View.GONE);
         }else{
-            basicSection.setEnabled(true);
-            basicSection.setVisibility(View.VISIBLE);
+            subBasicSection.setEnabled(true);
+            subBasicSection.setVisibility(View.VISIBLE);
         }
 
         slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -130,11 +138,11 @@ public class oneVariable extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 if(position == 0){
-                    basicSection.setEnabled(false);
-                    basicSection.setVisibility(View.GONE);
+                    subBasicSection.setEnabled(false);
+                    subBasicSection.setVisibility(View.GONE);
                 }else{
-                    basicSection.setEnabled(true);
-                    basicSection.setVisibility(View.VISIBLE);
+                    subBasicSection.setEnabled(true);
+                    subBasicSection.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -157,6 +165,7 @@ public class oneVariable extends Fragment {
         graphOneVariable.getViewport().setScalableY(true);
         for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(50, "x", 0))
             graphOneVariable.addSeries(inSerie);
+        for(String function: functionStorage.functions)keyboardUtils.addFunction(function,getContext(),functionStorage,temp);
         return view;
     }
 
@@ -201,14 +210,19 @@ public class oneVariable extends Fragment {
     }
 
     public Fragment initFragment(baseOneVariableFragments frag, LinearLayout basicSection){
-        EditText function = (EditText) basicSection.getChildAt(0);
-        EditText iterations = (EditText) basicSection.getChildAt(1);
-        EditText error = (EditText) basicSection.getChildAt(2);
-        ToggleButton errorToggle = (ToggleButton) basicSection.getChildAt(3);
+        EditText function = (EditText) basicSection.findViewById(R.id.function);
+        keyboardUtils.registerEdittext(function,getContext(),getActivity());
+        EditText iterations = (EditText) basicSection.findViewById(R.id.iterations);
+        keyboardUtils.registerEdittext(iterations,getContext(),getActivity());
+        EditText error = (EditText) basicSection.findViewById(R.id.error);
+        keyboardUtils.registerEdittext(error,getContext(),getActivity());
+        ToggleButton errorToggle = (ToggleButton) basicSection.findViewById(R.id.errorToggle);
         frag.textFunction = function;
         frag.iter = iterations;
         frag.textError = error;
         frag.errorToggle = errorToggle;
+        frag.functionStorage = functionStorage;
+        frag.temp = temp;
         return frag;
     }
 

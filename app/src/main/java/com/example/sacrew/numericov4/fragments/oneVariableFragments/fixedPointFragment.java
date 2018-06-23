@@ -31,6 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
 
 
 /**
@@ -87,10 +88,8 @@ public class fixedPointFragment extends baseOneVariableFragments {
         xvalue = view.findViewById(R.id.xValue);
         textFunctionG = view.findViewById(R.id.functionG);
 
-        registerEditText(textFunction,getContext(),getActivity());
+
         registerEditText(textFunctionG,getContext(),getActivity());
-        registerEditText(iter,getContext(),getActivity());
-        registerEditText(textError,getContext(),getActivity());
         registerEditText(xvalue,getContext(),getActivity());
         return view;
     }
@@ -107,7 +106,10 @@ public class fixedPointFragment extends baseOneVariableFragments {
         Double xValue = 0.0;
 
         String originalFuncG = textFunctionG.getText().toString();
-        error = checkSyntax(originalFuncG, textFunctionG) && error;
+        boolean errorFuncG = checkSyntax(originalFuncG, textFunctionG);
+        if(errorFuncG)
+            updateMyFunctions(originalFuncG);
+        error = errorFuncG && error;
         this.functionG = new Expression(functionRevision(originalFuncG));
 
         try {

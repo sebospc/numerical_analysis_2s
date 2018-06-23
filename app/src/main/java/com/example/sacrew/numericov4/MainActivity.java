@@ -22,8 +22,20 @@ import com.example.sacrew.numericov4.fragments.homeFragment;
 import com.example.sacrew.numericov4.fragments.interpolation;
 import com.example.sacrew.numericov4.fragments.oneVariable;
 import com.example.sacrew.numericov4.fragments.systemEquations;
+import com.example.sacrew.numericov4.utils.FunctionStorage;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
+import static java.io.File.createTempFile;
 
 public class MainActivity extends AppCompatActivity {
     private ListView menuLateral;
@@ -36,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private int idFragment; //0 is graphFragment // 1 is one variable
     private FragmentManager fragmentManager;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +75,33 @@ public class MainActivity extends AppCompatActivity {
         oneVariableFragment = new oneVariable();
         systemEquationsFragment = new systemEquations();
         interpolationFragment = new interpolation();
+        FunctionStorage functionStorage = new FunctionStorage();
 
+        //functionStorage.functions.add("x*x");
+        try {
+            //File temp = createTempFile("num","eric");
+
+            File temp = new File(this.getCacheDir(), "num");
+            //functionStorage.updateStorage(temp,functionStorage);
+            if(temp.exists() && temp.length() != 0) {
+                FileInputStream bridgeToRead = new FileInputStream(temp);
+                ObjectInputStream objectToRead = new ObjectInputStream(bridgeToRead);
+                FunctionStorage func = ((FunctionStorage) objectToRead.readObject());
+                if(func.functions != null)
+                functionStorage.functions = func.functions ;
+            }
+            functionStorage.functions.isEmpty();
+            graphFragment.temp=temp;
+            graphFragment.functionStorage = functionStorage;
+            graphFragment.functionStorage.functions.isEmpty();
+            oneVariableFragment.temp=temp;
+            oneVariableFragment.functionStorage = functionStorage;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

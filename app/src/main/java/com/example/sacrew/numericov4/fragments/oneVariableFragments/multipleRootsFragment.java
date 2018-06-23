@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
 
 
 /**
@@ -85,11 +86,8 @@ public class multipleRootsFragment extends baseOneVariableFragments {
         textFunctionDeriv1 = view.findViewById(R.id.functionG);
         textFunctionGDeriv2 = view.findViewById(R.id.functionGprim);
 
-        registerEditText(textFunction, getContext(), getActivity());
         registerEditText(textFunctionDeriv1, getContext(), getActivity());
         registerEditText(textFunctionGDeriv2, getContext(), getActivity());
-        registerEditText(iter, getContext(), getActivity());
-        registerEditText(textError, getContext(), getActivity());
         registerEditText(xvalue, getContext(), getActivity());
 
         return view;
@@ -107,13 +105,18 @@ public class multipleRootsFragment extends baseOneVariableFragments {
         Double xValue = 0.0;
 
 
-        String originalFuncG = textFunctionDeriv1.getText().toString(); // primera derivada
-        String originalFuncGPrim = textFunctionGDeriv2.getText().toString(); // segunda derivada
-        error = checkSyntax(originalFuncG, textFunctionDeriv1) && checkSyntax(originalFuncGPrim, textFunctionGDeriv2);
+        String originalFuncDeriv1 = textFunctionDeriv1.getText().toString(); // primera derivada
 
-        this.functionDeriv1 = new Expression(functionRevision(originalFuncG));
+        String originalFuncDeriv2 = textFunctionGDeriv2.getText().toString(); // segunda derivada
+        boolean errDeriv1 = checkSyntax(originalFuncDeriv1, textFunctionDeriv1);
+        if(errDeriv1) updateMyFunctions(originalFuncDeriv1);
+        boolean errDeriv2 = checkSyntax(originalFuncDeriv2, textFunctionGDeriv2);
+        if(errDeriv2) updateMyFunctions(originalFuncDeriv2);
+        error = errDeriv1 && errDeriv2 ;
 
-        this.functionDeriv2 = new Expression(functionRevision(originalFuncGPrim));
+        this.functionDeriv1 = new Expression(functionRevision(originalFuncDeriv1));
+
+        this.functionDeriv2 = new Expression(functionRevision(originalFuncDeriv2));
         try {
             xValue = Double.parseDouble(xvalue.getText().toString());
         } catch (Exception e) {

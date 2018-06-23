@@ -180,12 +180,16 @@
             <ScrollView
                 android:id="@+id/scrollKeyboard"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
-
+                android:layout_height="150dp">
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                 <LinearLayout
+                    android:id = "@+id/myFunctions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical" />
+                </HorizontalScrollView>
             </ScrollView>
         </LinearLayout>
     </LinearLayout>

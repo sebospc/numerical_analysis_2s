@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
 
 
 /**
@@ -85,11 +86,7 @@ public class newtonFragment extends baseOneVariableFragments {
         textFunctionG = view.findViewById(R.id.functionG);
 
 
-
-        registerEditText(textFunction,getContext(),getActivity());
         registerEditText(textFunctionG,getContext(),getActivity());
-        registerEditText(iter,getContext(),getActivity());
-        registerEditText(textError,getContext(),getActivity());
         registerEditText(xvalue,getContext(),getActivity());
         return view;
     }
@@ -106,10 +103,13 @@ public class newtonFragment extends baseOneVariableFragments {
     public void execute(boolean error, double errorValue, int ite) {
         Double xValue = 0.0;
 
-        String originalFuncG = textFunctionG.getText().toString();
+        String originalFunctionDeriv1 = textFunctionG.getText().toString();
 
-        this.functionDeriv1 = new Expression(functionRevision(originalFuncG));
-        error = checkSyntax(originalFuncG, textFunctionG) && error;
+        this.functionDeriv1 = new Expression(functionRevision(originalFunctionDeriv1));
+        boolean errDeriv1 = checkSyntax(originalFunctionDeriv1, textFunctionG);
+        if(errDeriv1)
+            updateMyFunctions(originalFunctionDeriv1);
+        error = errDeriv1 && error;
 
         try {
             xValue = Double.parseDouble(xvalue.getText().toString());

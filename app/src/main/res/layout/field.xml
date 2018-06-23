@@ -11,12 +11,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/function_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:hint="Enter any function"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:textColor="@android:color/black" />
 
         <SeekBar

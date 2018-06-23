@@ -84,9 +84,7 @@ public class secantFragment extends baseOneVariableFragments {
         xi = view.findViewById(R.id.xi);
         xs = view.findViewById(R.id.xs);
 
-        registerEditText(textFunction, getContext(), getActivity());
-        registerEditText(iter, getContext(), getActivity());
-        registerEditText(textError, getContext(), getActivity());
+
         registerEditText(xi, getContext(), getActivity());
         registerEditText(xs, getContext(), getActivity());
         return view;

@@ -32,13 +32,9 @@
 
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/function"
-                android:layout_width="191dp"
+            <Space
                 android:layout_height="wrap_content"
-                android:hint="Function"
-                android:scrollHorizontally="true"
-                android:singleLine="true"/>
+                android:layout_width="191dp" />
 
             <EditText
                 android:id="@+id/x_value"
@@ -80,13 +76,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:theme="@style/colorButtonPrimary"
                 android:id="@+id/runIncremental"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="CALCULATE"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:theme="@style/colorButtonPrimary" />
 
             <Button
                 android:id="@+id/runHelp"
@@ -102,6 +98,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="CHART"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 

@@ -30,7 +30,6 @@ import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -40,6 +39,7 @@ import android.widget.SeekBar;
 
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.utils.FunctionStorage;
 import com.example.sacrew.numericov4.utils.KeyboardUtils;
 import com.example.sacrew.numericov4.utils.graphUtils;
 import com.github.johnpersano.supertoasts.library.Style;
@@ -49,6 +49,11 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.udojava.evalex.Expression;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -78,7 +83,8 @@ public class graphFragment extends Fragment {
     private View view;
     private graphUtils graphUtils = new graphUtils();
     public KeyboardUtils keyboardUtils;
-    static public List <String> allFunctions = new LinkedList<>();
+    public File temp;
+    public FunctionStorage functionStorage;
 
 
     public graphFragment() {
@@ -192,7 +198,8 @@ public class graphFragment extends Fragment {
                 linear.setLayoutParams(params);
             }
         });
-
+        if(!functionStorage.functions.isEmpty())
+        for(String function: functionStorage.functions)keyboardUtils.addFunction(function,getContext(),functionStorage,temp);
         return view;
 
 
@@ -208,11 +215,10 @@ public class graphFragment extends Fragment {
         // Add the new field before the add field button.
 
         parentLinearLayout.addView(rowView, 0);
-        AutoCompleteTextView edittext_var = ((View) rowView.getParent()).findViewById(R.id.function_edit_text);
+        EditText edittext_var = ((View) rowView.getParent()).findViewById(R.id.function_edit_text);
         keyboardUtils.registerEdittext(edittext_var,getContext(),getActivity());
         //registerEditText(edittext_var);
-        edittext_var.setAdapter(new ArrayAdapter<String>
-                (getActivity(), android.R.layout.select_dialog_item, allFunctions));
+
     }
 
 
@@ -289,20 +295,24 @@ public class graphFragment extends Fragment {
     public void graphIt(View v){
         boolean error = true;
         try {
-            AutoCompleteTextView edittext_var;
+            EditText edittext_var;
             edittext_var = ((View) v.getParent()).findViewById(R.id.function_edit_text);
             SeekBar seek = ((SeekBar)((View) v.getParent()).findViewById(R.id.seek));
             int iter = seek.getProgress();
             String function = graphUtils.functionRevision(String.valueOf(edittext_var.getText()));
-            String functionAux = function;
             if(function.length() !=0)
                 function = function.toLowerCase();
 
-            error = checkSyntax(function);
-            if(!error) {
+
+            if(!checkSyntax(function)) {
                 styleWrongMessage("Invalid function");
-                //Toast.makeText(getActivity(), "Invalid function", Toast.LENGTH_SHORT).show();
                 return;
+            }
+
+            if(!functionStorage.functions.contains(function)) {
+                functionStorage.functions.add(function);
+                keyboardUtils.addFunction(function, getContext(), functionStorage,temp);
+                functionStorage.updateStorage(temp);
             }
             int code = ((View) v.getParent()).findViewById(R.id.function_edit_text).hashCode();
             // define color
@@ -316,12 +326,6 @@ public class graphFragment extends Fragment {
             /*
              * autocomplete allFunctions
              */
-            if (!allFunctions.contains(functionAux)) {
-                allFunctions.add(functionAux);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.select_dialog_item, allFunctions);
-                edittext_var.setAdapter(adapter);
-            }
             /**
              * important
              */
@@ -385,8 +389,6 @@ public class graphFragment extends Fragment {
                 .setColor(Color.rgb(244,67,54))
                 .setAnimations(Style.ANIMATIONS_POP).show();
     }
-    public boolean keyboardIsUp(){
-        return keyboardUtils.isUp;
-    }
+
 
 }

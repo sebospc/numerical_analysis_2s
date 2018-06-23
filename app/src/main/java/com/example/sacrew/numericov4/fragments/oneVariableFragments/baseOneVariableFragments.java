@@ -18,6 +18,7 @@ import android.widget.ToggleButton;
 import com.example.sacrew.numericov4.fragments.MainActivityTable;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
+import com.example.sacrew.numericov4.utils.FunctionStorage;
 import com.example.sacrew.numericov4.utils.graphUtils;
 import com.github.johnpersano.supertoasts.library.Style;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
@@ -26,6 +27,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.udojava.evalex.Expression;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,6 +44,8 @@ public abstract class baseOneVariableFragments extends Fragment {
     public EditText textFunction;
     public EditText iter, textError;
     public ToggleButton errorToggle;
+    public FunctionStorage functionStorage;
+    public File temp;
     Expression function;
     graphUtils graphUtils = new graphUtils();
     static List<PointsGraphSeries<DataPoint>> points;
@@ -66,7 +70,10 @@ public abstract class baseOneVariableFragments extends Fragment {
         String originalFunc = textFunction.getText().toString();
         this.function = new Expression(functionRevision(originalFunc));
         error = checkSyntax(originalFunc, textFunction);
+        if(error){
+             updateMyFunctions(originalFunc);
 
+        }
         try {
             errorValue = new Expression(textError.getText().toString()).eval().doubleValue();
         } catch (Exception e) {
@@ -177,5 +184,12 @@ public abstract class baseOneVariableFragments extends Fragment {
     }
     public void registerEditText(EditText edit, Context context, Activity activity){
         keyboardUtils.registerEdittext(edit,context,activity);
+    }
+    public void updateMyFunctions(String function){
+        if(!functionStorage.functions.contains(function)) {
+            functionStorage.functions.add(function);
+            keyboardUtils.addFunction(function, getContext(), functionStorage,temp);
+            functionStorage.updateStorage(temp);
+        }
     }
 }

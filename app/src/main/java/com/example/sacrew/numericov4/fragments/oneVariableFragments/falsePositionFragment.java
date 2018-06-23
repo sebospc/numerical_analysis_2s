@@ -87,11 +87,9 @@ public class falsePositionFragment extends baseOneVariableFragments {
         xi = view.findViewById(R.id.xi);
         xs = view.findViewById(R.id.xs);
 
-        registerEditText(textFunction,getContext(),getActivity());
+
         registerEditText(xi,getContext(),getActivity());
         registerEditText(xs,getContext(),getActivity());
-        registerEditText(iter,getContext(),getActivity());
-        registerEditText(textError,getContext(),getActivity());
         return view;
     }
 
