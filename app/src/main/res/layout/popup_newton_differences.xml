@@ -12,7 +12,7 @@
         android:layout_height="403dp"
         android:drawableBottom="@drawable/newton_differences"
         android:gravity="center_horizontal"
-        android:text="This method consists in that given n + 1 points (Xi, f (Xi)), we seek to obtain a polynomial P of degree N at most that passes through each one of them. The polynomial is of the form: Pn (x) = b0 + b1 (x-x0) + b2 (x-x0) (x-x1) + ... + bn (x-x0) ... (x-xn -1). The diagonal of the generated chart are the values of bn that is the result of their divided differences."
+        android:text="This method consists in that given n + 1 points (Xi, f (Xi)), we look a polynomial P of degree N at most that passes through each one of them. The polynomial is of the form: Pn (x) = b0 + b1 (x-x0) + b2 (x-x0) (x-x1) + ... + bn (x-x0) ... (x-xn -1). The diagonal of the generated chart are the values of bn that is the result of their divided differences."
         android:textColor="@android:color/white"
         android:textSize="19sp"
         tools:layout_editor_absoluteX="26dp"
