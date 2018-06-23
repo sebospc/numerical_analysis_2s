@@ -62,7 +62,6 @@ public class TableViewModel {
     private List<RowHeader> getSimpleRowHeaderList() {
         List<RowHeader> list = new LinkedList<>();
         contador = getCont(counter);
-        System.out.println("Value counter = " +contador);
         if(contador == 1){
             for (int i = 0;i<2; i++) {
                 RowHeader header = new RowHeader(String.valueOf(i),  ""+contador);
