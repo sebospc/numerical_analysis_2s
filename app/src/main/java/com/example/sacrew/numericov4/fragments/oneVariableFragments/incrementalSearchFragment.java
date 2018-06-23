@@ -108,7 +108,9 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
         int ite = 0;
             String originalFunc = textFunction.getText().toString();
             error = checkSyntax(originalFunc,textFunction);
+            if(error) updateMyFunctions(originalFunc);
             this.function = new Expression(functionRevision(originalFunc));
+
         try {
             ite = Integer.parseInt(iter.getText().toString());
         }catch (Exception e){

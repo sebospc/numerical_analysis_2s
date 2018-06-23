@@ -21,7 +21,6 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpSeidel;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.example.sacrew.numericov4.fragments.systemEquations.count;
 import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesText;
 
 /**
@@ -29,11 +28,11 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesTex
  */
 public class gaussSeidel extends baseIterativeMethods {
 
-    private EditText error,iters,relaxation;
-    private ToggleButton errorToggle;
+    public EditText error,iters,relaxation;
+    public ToggleButton errorToggle;
     private boolean errorDivision = false;
     @SuppressLint("StaticFieldLeak")
-    public static LinearLayout initialValuesSeidel;
+    public LinearLayout initialValuesSeidel;
     public gaussSeidel() {
         // Required empty public constructor
     }
@@ -45,12 +44,7 @@ public class gaussSeidel extends baseIterativeMethods {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gauss_seidel, container, false);
-        error = view.findViewById(R.id.error);
-        iters = view.findViewById(R.id.iterations);
-        relaxation = view.findViewById(R.id.relaxation);
         Button run = view.findViewById(R.id.run);
-        errorToggle = view.findViewById(R.id.errorToggle);
-        initialValuesSeidel = view.findViewById(R.id.initialValues);
         Button runHelp = view.findViewById(R.id.runHelp);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -67,9 +61,6 @@ public class gaussSeidel extends baseIterativeMethods {
                     executeChart(getContext());
             }
         });
-        for(int i = 0; i < count; i++) {
-            initialValuesSeidel.addView(defaultEditText("0",false));
-        }
         Button pivoter = view.findViewById(R.id.pivoting);
         pivoter.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)

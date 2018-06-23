@@ -18,11 +18,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.cholesky;
@@ -40,8 +42,6 @@ import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.gaussSeidel.initialValuesSeidel;
-import static com.example.sacrew.numericov4.fragments.systemEquationsFragment.jacobi.initialValues;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +54,7 @@ public class systemEquations extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public  static SeekBar times;
     public static List<Animator> animations;
-    public static int count;
+    private int count;
     public static AnimatorSet animatorSet = new AnimatorSet();
     @SuppressLint("StaticFieldLeak")
     public static ImageButton backMAtrix;
@@ -62,7 +62,8 @@ public class systemEquations extends Fragment {
     public static LinearLayout xIndex;
     public static double [][]matrixBackpack;
     public static Boolean pivoted = false;
-
+    private LinearLayout initialValues;
+    private LinearLayout defaultInfo;
     int matrixA [][];
     int bValues[],xValues[];
     public systemEquations() {
@@ -82,6 +83,9 @@ public class systemEquations extends Fragment {
         View view = inflater.inflate(R.layout.fragment_system_equations,container,false);
 
 
+
+        defaultInfo = view.findViewById(R.id.defaultInfo);
+        initialValues = view.findViewById(R.id.initialValues);
         ImageButton add = view.findViewById(R.id.addRow);
         ImageButton remove = view.findViewById(R.id.deleteRow);
         xIndex = view.findViewById(R.id.arrayXindex);
@@ -115,6 +119,7 @@ public class systemEquations extends Fragment {
         matrixAText = view.findViewById(R.id.matrixA);
         bValuesText = view.findViewById(R.id.arrayB);
         xValuesText = view.findViewById(R.id.arrayResult);
+
         times = view.findViewById(R.id.seekBar2);
         matrixA = new int[0][0];
         bValues = new int[0];
@@ -166,10 +171,57 @@ public class systemEquations extends Fragment {
         fragments.add(new doolittle());
         fragments.add(new cholesky());
         fragments.add(new inverseDeterminant());
-        fragments.add(new jacobi());
-        fragments.add(new gaussSeidel());
+        EditText relaxation = view.findViewById(R.id.relaxation);
+        EditText iters = view.findViewById(R.id.iterations);
+        EditText error = view.findViewById(R.id.error);
+        ToggleButton toggleError = view.findViewById(R.id.errorToggle);
+        jacobi jacob = new jacobi();
+        jacob.relaxation = relaxation;
+        jacob.iters =iters;
+        jacob.error = error;
+        jacob.errorToggle =toggleError;
+        jacob.initialValues = initialValues;
+
+        fragments.add(jacob);
+        gaussSeidel seidel = new gaussSeidel();
+        seidel.relaxation = relaxation;
+        seidel.iters = iters;
+        seidel.error = error;
+        seidel.errorToggle = toggleError;
+        seidel.initialValuesSeidel = initialValues;
+        fragments.add(seidel);
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(),fragments);
         slideView.setAdapter(pager);
+        int position = slideView.getCurrentItem();
+        if(position < 7){
+            defaultInfo.setEnabled(false);
+            defaultInfo.setVisibility(View.GONE);
+        }else{
+            defaultInfo.setEnabled(true);
+            defaultInfo.setVisibility(View.VISIBLE);
+        }
+        slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position < 7){
+                    defaultInfo.setEnabled(false);
+                    defaultInfo.setVisibility(View.GONE);
+                }else{
+                    defaultInfo.setEnabled(true);
+                    defaultInfo.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         times.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -211,10 +263,8 @@ public class systemEquations extends Fragment {
         }
         matrixAText.addView(row);
         bValuesText.addView(defaultEditText("0"));
-        if(initialValues != null)
-            initialValues.addView(defaultEditText("0"));
-        if(initialValuesSeidel != null)
-            initialValuesSeidel.addView(defaultEditText("0"));
+
+        initialValues.addView(defaultEditText("0"));
         count = count + 1;
 
     }
@@ -229,10 +279,7 @@ public class systemEquations extends Fragment {
             }
             matrixAText.removeView(matrixAText.getChildAt(n-1));
             bValuesText.removeView(bValuesText.getChildAt(n-1));
-            if(initialValues != null)
-                initialValues.removeView(initialValues.getChildAt(n-1));
-            if(initialValuesSeidel != null)
-                initialValuesSeidel.removeView(initialValuesSeidel.getChildAt(n-1));
+            initialValues.removeView(initialValues.getChildAt(n-1));
             count = count - 1;
         }
 
@@ -252,10 +299,12 @@ public class systemEquations extends Fragment {
                     row.addView(defaultEditText("1"));
                 else
                     row.addView(defaultEditText("0"));
+
             }
             matrixAText.addView(row, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
 
             bValuesText.addView(defaultEditText("0"));
+            initialValues.addView(defaultEditText("0"));
         }
     }
 

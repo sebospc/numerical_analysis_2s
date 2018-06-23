@@ -21,17 +21,17 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpJacobi;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.example.sacrew.numericov4.fragments.systemEquations.count;
+
 import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesText;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class jacobi extends baseIterativeMethods {
-    private EditText error, iters, relaxation;
-    private ToggleButton errorToggle;
+    public EditText error, iters, relaxation;
+    public ToggleButton errorToggle;
     @SuppressLint("StaticFieldLeak")
-    public static LinearLayout initialValues;
+    public  LinearLayout initialValues;
     private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
     private boolean errorDivision = false;
 
@@ -47,15 +47,8 @@ public class jacobi extends baseIterativeMethods {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_jacobi, container, false);
-        error = view.findViewById(R.id.error);
-        iters = view.findViewById(R.id.iterations);
-        relaxation = view.findViewById(R.id.relaxation);
         Button run = view.findViewById(R.id.run);
-        errorToggle = view.findViewById(R.id.errorToggle);
-        initialValues = view.findViewById(R.id.initialValues);
-        for (int i = 0; i < count; i++) {
-            initialValues.addView(defaultEditText("0", false));
-        }
+
         Button pivoter = view.findViewById(R.id.pivoting);
         Button runChart = view.findViewById(R.id.runChart);
         Button runHelp = view.findViewById(R.id.runHelp);
