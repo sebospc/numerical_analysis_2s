@@ -99,15 +99,10 @@ public abstract class baseOneVariableFragments extends Fragment {
 
     public String normalTransformation(double val) {
         Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#.00");
+        DecimalFormat num = new DecimalFormat("0.00");
         return num.format(val);
     }
 
-    public String basicTransformation(double val) {
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#.##");
-        return num.format(val);
-    }
 
     public void execute(boolean error, double errorValue, int ite) {
 

@@ -19,6 +19,7 @@ import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewton;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Newton;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.NewtonListAdapter;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
@@ -159,7 +160,7 @@ public class newtonFragment extends baseOneVariableFragments {
                         System.out.println("x0: " + x0);
                         listValuesIteZero.add(String.valueOf(cientificTransformation(y0)));
                         System.out.print("y0: " + y0);
-                        listValuesIteZero.add(String.valueOf(y0p));
+                        listValuesIteZero.add(String.valueOf(cientificTransformation(y0p)));
                         System.out.println("y0p: " + y0p);
                         listValuesIteZero.add(String.valueOf(""));
                         System.out.println("error: " + "");

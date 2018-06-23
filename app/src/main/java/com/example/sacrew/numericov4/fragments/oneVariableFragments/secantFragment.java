@@ -22,6 +22,7 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpSecant;
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.SecantListAdapter;
+import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -132,6 +133,7 @@ public class secantFragment extends baseOneVariableFragments {
         try {
 
             function.setPrecision(100);
+            // Titles tables
             ArrayList<Secant> listValues = new ArrayList<>();
             Secant titles = new Secant("n", "Xn", "f(Xn)", "Error");
             listValues.add(titles);
@@ -139,7 +141,6 @@ public class secantFragment extends baseOneVariableFragments {
             listValuesTitles.add("Xn");
             listValuesTitles.add("f(Xn)");
             listValuesTitles.add("Error");
-            //TableViewModel.getTitles(listValuesTitles);
             completeList = new LinkedList<>();
             if (tol >= 0) {
                 if (ite > 0) {
@@ -158,45 +159,56 @@ public class secantFragment extends baseOneVariableFragments {
                         }
                         double error = tol + 1;
                         double den = fx1 - fx0;
+                        // Small table
                         Secant iteZero = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(fx0)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteZero);
-                        Secant iteFist = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(fx1)), String.valueOf(cientificTransformation(error)));
-                        listValues.add(iteFist);
+                        Secant iteFirst = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(fx1)), String.valueOf(cientificTransformation(error)));
+                        listValues.add(iteFirst);
+                        // Big table
+                        TableViewModel.getCont(1);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(cientificTransformation(fx0)));
                         listValuesIteZero.add(String.valueOf(""));
                         completeList.add(listValuesIteZero);
+                        List<String> listValuesIteFirst = new LinkedList<>();
+                        listValuesIteFirst.add(String.valueOf(x1));
+                        listValuesIteFirst.add(String.valueOf(cientificTransformation(fx1)));
+                        listValuesIteFirst.add(String.valueOf(""));
+                        completeList.add(listValuesIteFirst);
                         int cont = 0;
                         calc = true;
                         while (fx1 != 0 && error > tol && den != 0 && cont < ite) {
-                            ArrayList<String> listValuesIteNext = new ArrayList<String>();
-                            Double aux2 = x1 - fx1 * ((x1 - x0) / den);//(((this.function.with("x", BigDecimal.valueOf(aux1))
-                            //.eval().doubleValue())) * (aux1 - aux0) / den);
-                            if (errorRel)
-                                error = Math.abs(aux2 - x1) / aux2;
-                            else
-                                error = Math.abs(aux2 - x1);
-                            x0 = x1;
-                            fx0 = fx1;
-                            x1 = aux2;
-                            try {
-                                fx1 = Double.NaN;
-                                fx1 = (this.function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                            } catch (Exception e) {
-                                styleWrongMessage("Unexpected error posibly nan");
-                            }
 
-                            den = fx1 - fx0;
+                                ArrayList<String> listValuesIteNext = new ArrayList<String>();
+                                Double aux2 = x1 - fx1 * ((x1 - x0) / den);
+                                if (errorRel)
+                                    error = Math.abs(aux2 - x1) / aux2;
+                                else
+                                    error = Math.abs(aux2 - x1);
+                                x0 = x1;
+                                fx0 = fx1;
+                                x1 = aux2;
+                                try {
+                                    fx1 = Double.NaN;
+                                    fx1 = (this.function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
+                                } catch (Exception e) {
+                                    styleWrongMessage("Unexpected error posibly nan");
+                                }
 
-                            Secant iteNext = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(x0)), String.valueOf(cientificTransformation(fx0)), String.valueOf(cientificTransformation(error)));
-                            listValues.add(iteNext);
+                                den = fx1 - fx0;
+                                // Small table
+                                cont++;
+                                Secant iteNext = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(fx1)), String.valueOf(cientificTransformation(error)));
+                                listValues.add(iteNext);
 
-                            listValuesIteNext.add(String.valueOf(x0));
-                            listValuesIteNext.add(String.valueOf(cientificTransformation(fx0)));
-                            listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
-                            completeList.add(listValuesIteNext);
-                            cont = cont + 1;
+                                // Big table
+                                listValuesIteNext.add(String.valueOf(x1));
+                                listValuesIteNext.add(String.valueOf(cientificTransformation(fx1)));
+                                listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
+                                completeList.add(listValuesIteNext);
+
+
                         }
                         listValues.add(new Secant("", "", "", ""));
 

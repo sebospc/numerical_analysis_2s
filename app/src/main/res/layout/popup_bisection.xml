@@ -6,33 +6,28 @@
     android:background="@color/helpColor"
     tools:background="@color/helpColor">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="359dp"
+            android:drawableBottom="@drawable/bisection"
+            android:gravity="center_horizontal"
+            android:text="This method assumes that there is a root in a given interval. That is, there is a continuous function that presents a change of sign. In this interval, the midpoint is determined and reduced to satisfy the tolerance, find a root or exceed the maximum number of iterations."
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="3dp"
+            tools:textColor="@android:color/white" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="463dp"
-                android:drawableBottom="@drawable/bisection"
-                android:gravity="center_horizontal"
-                android:text="This method seeks an approximation to the root of a function by entering data such as the  starting point and the end point that define the interval, the tolerance that indicates the number of correct decimals and significant figures that the delivered result will have.  To do this, a tour is made with N iterations entered by the user where the midpoint of the  interval is found, increasing its error with the idea that it is close to zero and that the absolute or relative error requested by the user resolves the Equation correctly."
-                android:textColor="@android:color/white"
-                android:textSize="19sp"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="3dp"
-                tools:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/textView35"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
