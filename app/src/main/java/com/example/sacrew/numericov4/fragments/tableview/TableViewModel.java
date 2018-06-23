@@ -36,10 +36,16 @@ public class TableViewModel {
     private Context mContext;
     private static List<String> listaTitulos= new LinkedList<>();
     private static List<List<String>> listaCeldas = new LinkedList<>();
+    private static int counter;
+    private static int contador;
 
     public TableViewModel(Context context) {
         mContext = context;
 
+    }
+
+    public static int getCont(int cont){
+        return cont;
     }
 
     public static List<String> getTitles(List<String> lista){
@@ -55,10 +61,24 @@ public class TableViewModel {
 
     private List<RowHeader> getSimpleRowHeaderList() {
         List<RowHeader> list = new LinkedList<>();
-        for (int i = 0;i<listaCeldas.size(); i++) {
-            RowHeader header = new RowHeader(String.valueOf(i),  ""+i);
-            list.add(header);
+        contador = getCont(counter);
+        System.out.println("Value counter = " +contador);
+        if(contador == 1){
+            for (int i = 0;i<2; i++) {
+                RowHeader header = new RowHeader(String.valueOf(i),  ""+contador);
+                list.add(header);
+            }
+            for (int i = 2;i<listaCeldas.size(); i++) {
+                RowHeader header = new RowHeader(String.valueOf(i),  ""+(i-1));
+                list.add(header);
+            }
+        }else{
+            for (int i = 0;i<listaCeldas.size(); i++) {
+                RowHeader header = new RowHeader(String.valueOf(i),  ""+i);
+                list.add(header);
+            }
         }
+
         return list;
     }
 
