@@ -9,10 +9,10 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="350dp"
-        android:layout_height="347dp"
+        android:layout_height="295dp"
         android:drawableBottom="@drawable/incremental_search"
         android:gravity="center_horizontal"
-        android:text="This method supposes a continuous function that presents a change of sign and looks for an approximation  to the root of a function by means of the repetition of a number of times that the user enters, an initial  point and a delta, defined as the change between the initial point and the next point."
+        android:text="This method assumes a continuous function. This looks for an interval where there is a sign change in that function. Start with an initial value and a delta to find intervals until the change of sign is satisfied."
         android:textColor="@android:color/white"
         android:textSize="19sp"
         tools:layout_editor_absoluteX="17dp"
