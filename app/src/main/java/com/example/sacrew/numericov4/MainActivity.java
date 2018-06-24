@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,7 +9,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionMenuView;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,6 +25,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.homeFragment;
@@ -47,13 +57,29 @@ public class MainActivity extends AppCompatActivity {
     private interpolation interpolationFragment;
     private int idFragment; //0 is graphFragment // 1 is one variable
     private FragmentManager fragmentManager;
-
+    private String extraInformation;
+    private final String homeInformation = "If you want to report some bug, you can do it in <a href=\"https://github.com/sebospc/numericoV4\">github official project</a> ," +
+            " in the play store" +
+            " or send us a mail!";
+    private final String graphInformation = "In this section you will be able to graph any function, " +
+            "but take care with no continuous functions. " +
+            "<br><br>The library of this graph is   "+
+            "<a href=\"http://www.android-graphview.org/\">GraphView</a>\n" +
+            "        by Jonas Grehring"+
+            "<br><br>You will see your (correct) functions in \"MY FUNCTIONS\" keyboard options."+
+            "<br><br>"+homeInformation;
+    private final String oneVariableInfo = "stiven ponga un overview aca :v"+
+            "<br><br>"+homeInformation;
+    private final String systemEquationInfo = "stiven ponga un overview aca :v"+
+            "<br><br>"+homeInformation;
+    private final String interpolationInfo = "stiven ponga un overview aca :v"+
+            "<br><br>"+homeInformation;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        extraInformation = homeInformation;
         //define poop
 
         // draweLayout
@@ -61,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         aBar.setHomeButtonEnabled(true);
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+
         drawerLayout = findViewById(R.id.root);
         final String[] opciones ={"Home","Graph","One Variable","System Equations","Interpolation"};
         ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
@@ -113,10 +140,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 1, 0, "History").setIcon(R.drawable.ic_info_black_24dp)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        return true;//super.onCreateOptionsMenu(menu);
+    }
+
     AdapterView.OnItemClickListener adap = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            String selected = (String) menuLateral.getAdapter().getItem(i);
             switch (i) {
                 case 0: openHome();
                     break;
@@ -136,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
     };
     public void openHome(){
         if(idFragment != 0) {
+            extraInformation = homeInformation;
             /*
              * remove animations of system equations
              */
@@ -156,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openGraph(){
         if(idFragment != 1) {
+
+            extraInformation = graphInformation;
             /**
              * remove animations of system equations
              */
@@ -182,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
     public void openOneVariable(){
 
         if(idFragment != 2) {
+            extraInformation = oneVariableInfo;
             View view = this.getCurrentFocus();
             if (view != null) {
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -209,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openSystemEquations(){
         if(idFragment != 3){
+            extraInformation = systemEquationInfo;
             for (Fragment fragment:getSupportFragmentManager().getFragments()) {
                if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
@@ -223,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openInterpolation(){
         if(idFragment != 4){
+            extraInformation = interpolationInfo;
             //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             for (Fragment fragment:getSupportFragmentManager().getFragments()) {
                if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
@@ -237,11 +277,25 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(drawerLayout.isDrawerOpen(menuLateral)){
-            drawerLayout.closeDrawer(menuLateral);
-        }else{
-            drawerLayout.openDrawer(menuLateral);
+        System.out.println("entro item selected");
+        switch (item.getItemId()){
+            case 1: AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                Spanned myMessage = Html.fromHtml(extraInformation);
+                TextView textView = new TextView(this);
+                textView.setText(myMessage);
+                textView.setMovementMethod(LinkMovementMethod.getInstance());
+                alertDialog.setView(textView);
+                alertDialog.show();
+                break;
+            default:
+                    if(drawerLayout.isDrawerOpen(menuLateral)){
+                        drawerLayout.closeDrawer(menuLateral);
+                    }else{
+                        drawerLayout.openDrawer(menuLateral);
+                    }break;
+
         }
+
         return true;
     }
 

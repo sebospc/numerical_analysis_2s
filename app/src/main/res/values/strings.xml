@@ -38,7 +38,40 @@
     <string name="normalLog">log&#8321;&#8320;</string>
     <string name="log">log&#8333; &#8334;</string>
     <string name="tenSquared">10&#8317; &#8318;</string>
+    https://github.com/uklimaschewski/EvalEx
 
+    <string name="superToastLibrary">
+       <a href="https://github.com/JohnPersano/SuperToasts">SuperToasts</a>
+        by John Persano
+    </string>
+    <string name="evalExLibrary">
+       <a href="https://github.com/uklimaschewski/EvalEx">EvalEx</a>
+        by Udo Klimaschewski
+    </string>
+    <string name="graphLibrary">
+       <a href="http://www.android-graphview.org/">GraphView</a>
+        by Jonas Grehring
+    </string>
+    <string name="tableViewLibrary">
+       <a href="https://github.com/evrencoskun/TableView">TableView</a>
+        by Evren Coşkun
+    </string>
+    <string name="mathComplexLibrary">
+       <a href="http://commons.apache.org/proper/commons-math/javadocs/api-3.6/org/apache/commons/math3/complex/Complex.html">MathComplex</a>
+        by Apache
+    </string>
+    <string name="MathViewLibrary">
+       <a href="https://github.com/kexanie/MathView/">MathView</a>
+        by Hour Glass
+    </string>
+    <string name="symjaLibrary">
+       <a href="https://github.com/axkr/symja_android_library">Symja</a>
+        by axel kramer
+    </string>
+
+    <string name="githubOficial">
+       <a href="https://github.com/sebospc/numericoV4">github official project</a>
+    </string>
 
     <string-array name="items_per_page">
         <item>10</item>

@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="sospin26@eafit.edu.co"
+            android:text="sebastianospina51@gmail.com"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             tools:layout_editor_absoluteX="26dp"
@@ -118,11 +118,23 @@
             android:layout_height="15dp" />
 
         <TextView
-            android:id="@+id/textView34"
+            android:id="@+id/superToastLib"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="SuperToasts by John Persano"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:text="@string/superToastLibrary"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/evalexLib"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/evalExLibrary"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             tools:layout_editor_absoluteX="26dp"
@@ -130,11 +142,11 @@
             tools:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/graphLib"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="EvalEx by Udo Klimaschewski"
+            android:text="@string/graphLibrary"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             tools:layout_editor_absoluteX="26dp"
@@ -142,11 +154,11 @@
             tools:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/textView24"
+            android:id="@+id/tableViewLib"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="GraphView by Jonas Grehring"
+            android:text="@string/tableViewLibrary"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             tools:layout_editor_absoluteX="26dp"
@@ -154,11 +166,11 @@
             tools:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/textView26"
+            android:id="@+id/mathComplexLib"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="TableView by Evren Coşkun"
+            android:text="@string/mathComplexLibrary"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             tools:layout_editor_absoluteX="26dp"
@@ -166,40 +178,28 @@
             tools:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/textView28"
+            android:id="@+id/mathViewLib"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="MathComplex by Apache"
+            android:text="@string/MathViewLibrary"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
             tools:textColor="@android:color/white" />
-
         <TextView
-            android:id="@+id/textView33"
+            android:id="@+id/symjaLib"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="MathView by Hour Glass"
+            android:text="@string/symjaLibrary"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
-
-        <TextView
-            android:id="@+id/textView40"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Symja by Axel Kramer"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            tools:textColor="@android:color/white"
+             />
 
         <TextView
             android:id="@+id/textView14"
