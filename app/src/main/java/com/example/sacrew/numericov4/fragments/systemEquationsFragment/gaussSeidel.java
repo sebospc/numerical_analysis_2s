@@ -121,6 +121,7 @@ public class gaussSeidel extends baseIterativeMethods {
             relax = Double.parseDouble(relaxation.getText().toString());
         }catch (Exception e){
             relaxation.setError("Invalid relaxation");
+            works = false;
         }
         if(works)
             gaussSeidelMethod(iterations,tolerance,relax,initial,expandedMatrix);
@@ -149,7 +150,7 @@ public class gaussSeidel extends baseIterativeMethods {
             double [] x1 ;
             x1 = calcNewSeidel(x0,expandedMAtrix,relax);
             try {
-                if (errorToggle.isChecked())
+                if (!errorToggle.isChecked())
                     dispersion = rule(minus(x1, x0));
                 else
                     dispersion = rule(minus(x1, x0)) / rule(x1);
@@ -161,7 +162,7 @@ public class gaussSeidel extends baseIterativeMethods {
             totalInformation.add(aux);
             x0 = x1;
             contador = contador + 1;
-            if(errorDivision){
+        if(errorDivision){
                 styleWrongMessage("Error division by zero");
                 return;
             }
@@ -170,7 +171,7 @@ public class gaussSeidel extends baseIterativeMethods {
         if(dispersion < tolerance){
             for(double val: x0)
                 xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
-            styleCorrectMessage("The method converges");
+            styleCorrectMessage("The method converge");
         }else{
             for(double val: x0)
                 xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));

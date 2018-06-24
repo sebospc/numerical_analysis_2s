@@ -70,6 +70,8 @@ public class gaussSimple extends baseSystemEquations {
                 animatorSet.end();
                 animatorSet.cancel();
                 begin();
+                animatorSet.playSequentially(animations);
+                animatorSet.start();
             }
 
         });
@@ -220,11 +222,8 @@ public class gaussSimple extends baseSystemEquations {
             }
         }
 
-        animatorSet.playSequentially(animations);
 
-        animatorSet.addListener(new AnimatorListenerAdapter() {
-        });
-        animatorSet.start();
+
         substitution(expandedMatrix);
     }
 

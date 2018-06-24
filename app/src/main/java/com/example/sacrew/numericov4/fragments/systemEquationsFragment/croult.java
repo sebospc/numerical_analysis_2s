@@ -68,8 +68,9 @@ public class croult extends baseFactorizationMethods{
                 animatorSet.removeAllListeners();
                 animatorSet.end();
                 animatorSet.cancel();
-
                 begin();
+                animatorSet.playSequentially(animations);
+                animatorSet.start();
             }
 
         });
@@ -528,8 +529,7 @@ public class croult extends baseFactorizationMethods{
             animations.add(animatronco);
         }
         substitution(matrixU);
-        animatorSet.playSequentially(animations);
-        animatorSet.start();
+
     }
 
 

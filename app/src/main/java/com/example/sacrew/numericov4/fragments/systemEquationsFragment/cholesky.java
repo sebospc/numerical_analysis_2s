@@ -83,8 +83,9 @@ public class cholesky extends baseFactorizationMethods{
                 animatorSet.removeAllListeners();
                 animatorSet.end();
                 animatorSet.cancel();
-
                 begin();
+                animatorSet.playSequentially(animations);
+                animatorSet.start();
             }
 
         });
@@ -571,8 +572,7 @@ public class cholesky extends baseFactorizationMethods{
             animations.add(animatronco);
         }
         substitution(matrixUCholesky);
-        animatorSet.playSequentially(animations);
-        animatorSet.start();
+
 
     }
 

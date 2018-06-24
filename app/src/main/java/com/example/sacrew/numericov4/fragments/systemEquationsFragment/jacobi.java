@@ -125,6 +125,7 @@ public class jacobi extends baseIterativeMethods {
             relax = Double.parseDouble(relaxation.getText().toString());
         } catch (Exception e) {
             relaxation.setError("Invalid relaxation");
+            works = false;
         }
         if (works)
             jacobiMethod(iterations, tolerance, relax, initial, expandedMatrix);
@@ -134,7 +135,7 @@ public class jacobi extends baseIterativeMethods {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void jacobiMethod(int iters, double tolerance, double relax, double[] initials, double[][] expandedMAtrix) {
-        int contador = 0;
+        int cont = 0;
         double dispersion = tolerance + 1;
         double[] x0 = initials;
         totalInformation = new LinkedList<>();
@@ -148,13 +149,13 @@ public class jacobi extends baseIterativeMethods {
         aux.add(String.valueOf(dispersion));
         totalInformation.add(aux);
         calc = true;
-        while (dispersion > tolerance && contador < iters) {
+        while (dispersion > tolerance && cont < iters) {
 
             aux = new LinkedList<>();
             double[] x1;
             x1 = calcNewJacobi(x0, expandedMAtrix, relax);
             try {
-                if (errorToggle.isChecked())
+                if (!errorToggle.isChecked())
                     dispersion = rule(minus(x1, x0));
                 else {
                     dispersion = rule(minus(x1, x0)) / rule(x1);
@@ -167,7 +168,7 @@ public class jacobi extends baseIterativeMethods {
             aux.add(String.valueOf(dispersion));
             totalInformation.add(aux);
             x0 = x1;
-            contador = contador + 1;
+            cont = cont + 1;
             if(errorDivision){
                 styleWrongMessage("Error division by 0");
                 return;
@@ -177,11 +178,11 @@ public class jacobi extends baseIterativeMethods {
         if(dispersion < tolerance){
             for(double val: x0)
                 xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
-            styleCorrectMessage("The method converges");
+            styleCorrectMessage("The method converge");
         }else{
             for(double val: x0)
                 xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
-            styleWrongMessage("The method failed with "+iters+" iterations!");
+            styleWrongMessage("The method failed in "+cont+" iterations!");
         }
     }
 

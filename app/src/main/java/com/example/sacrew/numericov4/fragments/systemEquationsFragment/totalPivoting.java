@@ -63,8 +63,9 @@ public class totalPivoting extends baseSystemEquations {
                 animatorSet.removeAllListeners();
                 animatorSet.end();
                 animatorSet.cancel();
-
                 begin();
+                animatorSet.playSequentially(animations);
+                animatorSet.start();
             }
 
         });
@@ -215,8 +216,7 @@ public class totalPivoting extends baseSystemEquations {
             }
         }
 
-        animatorSet.playSequentially(animations);
-        animatorSet.start();
+
         substitution(expandedMatrix, marks);
 
     }

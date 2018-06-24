@@ -213,7 +213,8 @@ public class inverseDeterminant extends baseFactorizationMethods {
 
     public String formating(Complex c){
 
-
+        if(c == null)
+            return "null";
         if(c.getReal() == -0.0){
             c = new Complex(0.0,c.getImaginary());
         }

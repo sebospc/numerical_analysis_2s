@@ -68,8 +68,9 @@ public class partialPivoting extends baseSystemEquations {
                 animatorSet.removeAllListeners();
                 animatorSet.end();
                 animatorSet.cancel();
-
                 begin();
+                animatorSet.playSequentially(animations);
+                animatorSet.start();
             }
 
         });
@@ -245,11 +246,7 @@ public class partialPivoting extends baseSystemEquations {
 
             }
         }
-
-        animatorSet.playSequentially(animations);
-        animatorSet.start();
         substitution(expandedMatrix);
-
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     public double[][] partialPivot(int k, final double [][] expandedMatrix){
