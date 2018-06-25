@@ -5,29 +5,26 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpSecant;
-import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Secant;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.SecantListAdapter;
-import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
@@ -48,7 +45,7 @@ public class secantFragment extends baseOneVariableFragments {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         try {
             view = inflater.inflate(R.layout.fragment_secant, container, false);
@@ -92,8 +89,8 @@ public class secantFragment extends baseOneVariableFragments {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp() {
-        Intent i = new Intent(getContext().getApplicationContext(), popUpSecant.class);
+    private void executeHelp() {
+        Intent i = new Intent(Objects.requireNonNull(getContext()).getApplicationContext(), popUpSecant.class);
         startActivity(i);
     }
 
@@ -165,7 +162,6 @@ public class secantFragment extends baseOneVariableFragments {
                         Secant iteFirst = new Secant(String.valueOf(0), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(fx1)), String.valueOf(cientificTransformation(error)));
                         listValues.add(iteFirst);
                         // Big table
-                        TableViewModel.getCont(1);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
                         listValuesIteZero.add(String.valueOf(cientificTransformation(fx0)));
@@ -180,33 +176,33 @@ public class secantFragment extends baseOneVariableFragments {
                         calc = true;
                         while (fx1 != 0 && error > tol && den != 0 && cont < ite) {
 
-                                ArrayList<String> listValuesIteNext = new ArrayList<String>();
-                                Double aux2 = x1 - fx1 * ((x1 - x0) / den);
-                                if (errorRel)
-                                    error = Math.abs(aux2 - x1) / aux2;
-                                else
-                                    error = Math.abs(aux2 - x1);
-                                x0 = x1;
-                                fx0 = fx1;
-                                x1 = aux2;
-                                try {
-                                    fx1 = Double.NaN;
-                                    fx1 = (this.function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
-                                } catch (Exception e) {
-                                    styleWrongMessage("Unexpected error posibly nan");
-                                }
+                            ArrayList<String> listValuesIteNext = new ArrayList<String>();
+                            Double aux2 = x1 - fx1 * ((x1 - x0) / den);
+                            if (errorRel)
+                                error = Math.abs(aux2 - x1) / aux2;
+                            else
+                                error = Math.abs(aux2 - x1);
+                            x0 = x1;
+                            fx0 = fx1;
+                            x1 = aux2;
+                            try {
+                                fx1 = Double.NaN;
+                                fx1 = (this.function.with("x", BigDecimal.valueOf(x1)).eval()).doubleValue();
+                            } catch (Exception e) {
+                                styleWrongMessage("Unexpected error posibly nan");
+                            }
 
-                                den = fx1 - fx0;
-                                // Small table
-                                cont++;
-                                Secant iteNext = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(fx1)), String.valueOf(cientificTransformation(error)));
-                                listValues.add(iteNext);
+                            den = fx1 - fx0;
+                            // Small table
+                            cont++;
+                            Secant iteNext = new Secant(String.valueOf(cont), String.valueOf(normalTransformation(x1)), String.valueOf(cientificTransformation(fx1)), String.valueOf(cientificTransformation(error)));
+                            listValues.add(iteNext);
 
-                                // Big table
-                                listValuesIteNext.add(String.valueOf(x1));
-                                listValuesIteNext.add(String.valueOf(cientificTransformation(fx1)));
-                                listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
-                                completeList.add(listValuesIteNext);
+                            // Big table
+                            listValuesIteNext.add(String.valueOf(x1));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(fx1)));
+                            listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
+                            completeList.add(listValuesIteNext);
 
 
                         }
@@ -214,7 +210,7 @@ public class secantFragment extends baseOneVariableFragments {
 
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphSerie(function.getExpression(), 0, x1, color);
+                        graphSerie(function.getExpression(), x1, color);
                         if (fx1 == 0) {
                             color = poolColors.remove(0);
                             poolColors.add(color);

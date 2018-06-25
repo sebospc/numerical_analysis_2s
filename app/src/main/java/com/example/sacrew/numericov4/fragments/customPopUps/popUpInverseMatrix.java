@@ -18,7 +18,7 @@ public class popUpInverseMatrix extends Activity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) (width*0.97), (int) (height*0.34));
+        getWindow().setLayout((int) (width * 0.97), (int) (height * 0.34));
 
     }
 

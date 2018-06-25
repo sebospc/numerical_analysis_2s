@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.sacrew.numericov4.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by User on 3/14/2017.
@@ -22,24 +23,13 @@ import java.util.ArrayList;
 
 public class SecantListAdapter extends ArrayAdapter<Secant> {
 
-    private static final String TAG = "SecantListAdapter";
-
-    private Context mContext;
-    private int mResource;
+    private final Context mContext;
+    private final int mResource;
     private int lastPosition = -1;
 
     /**
-     * Holds variables in a View
-     */
-    private static class ViewHolder {
-        TextView textViewN;
-        TextView textViewXn;
-        TextView textViewFXn;
-        TextView textViewError;
-    }
-
-    /**
      * Default constructor for the PersonListAdapter
+     *
      * @param context
      * @param resource
      * @param objects
@@ -52,15 +42,15 @@ public class SecantListAdapter extends ArrayAdapter<Secant> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         //get the persons information
-        String n = getItem(position).getN();
-        String xn = getItem(position).getXn();
-        String fXn = getItem(position).getFXn();
-        String error = getItem(position).getError();
+        String n = Objects.requireNonNull(getItem(position)).getN();
+        String xn = Objects.requireNonNull(getItem(position)).getXn();
+        String fXn = Objects.requireNonNull(getItem(position)).getFXn();
+        String error = Objects.requireNonNull(getItem(position)).getError();
 
         //Create the person object with the information
-        Secant secant = new Secant(n,xn,fXn, error);
+        Secant secant = new Secant(n, xn, fXn, error);
 
         //create the view result for showing the animation
         final View result;
@@ -69,10 +59,10 @@ public class SecantListAdapter extends ArrayAdapter<Secant> {
         ViewHolder holder;
 
 
-        if(convertView == null){
+        if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(mResource, parent, false);
-            holder= new ViewHolder();
+            holder = new ViewHolder();
             holder.textViewN = convertView.findViewById(R.id.textViewN);
             holder.textViewXn = convertView.findViewById(R.id.textViewXn);
             holder.textViewFXn = convertView.findViewById(R.id.textViewFXn);
@@ -81,8 +71,7 @@ public class SecantListAdapter extends ArrayAdapter<Secant> {
             result = convertView;
 
             convertView.setTag(holder);
-        }
-        else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
             result = convertView;
         }
@@ -98,16 +87,16 @@ public class SecantListAdapter extends ArrayAdapter<Secant> {
         holder.textViewFXn.setText(secant.getFXn());
         holder.textViewError.setText(secant.getError());
 
-        if (holder.textViewN.getText() == "n" ) {
+        if (holder.textViewN.getText() == "n") {
             holder.textViewN.setTextColor(Color.WHITE);
             holder.textViewXn.setTextColor(Color.WHITE);
             holder.textViewFXn.setTextColor(Color.WHITE);
             holder.textViewError.setTextColor(Color.WHITE);
-            holder.textViewN.setBackgroundColor(Color.rgb(63,81,181));
-            holder.textViewXn.setBackgroundColor(Color.rgb(63,81,181));
-            holder.textViewFXn.setBackgroundColor(Color.rgb(63,81,181));
-            holder.textViewError.setBackgroundColor(Color.rgb(63,81,181));
-        }else{
+            holder.textViewN.setBackgroundColor(Color.rgb(63, 81, 181));
+            holder.textViewXn.setBackgroundColor(Color.rgb(63, 81, 181));
+            holder.textViewFXn.setBackgroundColor(Color.rgb(63, 81, 181));
+            holder.textViewError.setBackgroundColor(Color.rgb(63, 81, 181));
+        } else {
             holder.textViewN.setTextColor(Color.BLACK);
             holder.textViewXn.setTextColor(Color.BLACK);
             holder.textViewFXn.setTextColor(Color.BLACK);
@@ -120,5 +109,15 @@ public class SecantListAdapter extends ArrayAdapter<Secant> {
 
 
         return convertView;
+    }
+
+    /**
+     * Holds variables in a View
+     */
+    private static class ViewHolder {
+        TextView textViewN;
+        TextView textViewXn;
+        TextView textViewFXn;
+        TextView textViewError;
     }
 }

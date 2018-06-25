@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.sacrew.numericov4.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by User on 3/14/2017.
@@ -22,26 +23,13 @@ import java.util.ArrayList;
 
 public class FalsePositionListAdapter extends ArrayAdapter<FalsePosition> {
 
-    private static final String TAG = "BisectionListAdapter";
-
-    private Context mContext;
-    private int mResource;
+    private final Context mContext;
+    private final int mResource;
     private int lastPosition = -1;
 
     /**
-     * Holds variables in a View
-     */
-    private static class ViewHolder {
-        TextView textViewN;
-        TextView textViewXi;
-        TextView textViewXs;
-        TextView textViewXm;
-        TextView textViewFXm;
-        TextView textViewError;
-    }
-
-    /**
      * Default constructor for the PersonListAdapter
+     *
      * @param context
      * @param resource
      * @param objects
@@ -54,17 +42,17 @@ public class FalsePositionListAdapter extends ArrayAdapter<FalsePosition> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         //get the persons information
-        String n = getItem(position).getN();
-        String xi = getItem(position).getXi();
-        String xs = getItem(position).getXs();
-        String xm = getItem(position).getXm();
-        String fXm = getItem(position).getFXm();
-        String error = getItem(position).getError();
+        String n = Objects.requireNonNull(getItem(position)).getN();
+        String xi = Objects.requireNonNull(getItem(position)).getXi();
+        String xs = Objects.requireNonNull(getItem(position)).getXs();
+        String xm = Objects.requireNonNull(getItem(position)).getXm();
+        String fXm = Objects.requireNonNull(getItem(position)).getFXm();
+        String error = Objects.requireNonNull(getItem(position)).getError();
 
         //Create the person object with the information
-        FalsePosition falsePosition = new FalsePosition(n,xi,xs,xm,fXm, error);
+        FalsePosition falsePosition = new FalsePosition(n, xi, xs, xm, fXm, error);
 
         //create the view result for showing the animation
         final View result;
@@ -73,10 +61,10 @@ public class FalsePositionListAdapter extends ArrayAdapter<FalsePosition> {
         ViewHolder holder;
 
 
-        if(convertView == null){
+        if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(mResource, parent, false);
-            holder= new ViewHolder();
+            holder = new ViewHolder();
             holder.textViewN = convertView.findViewById(R.id.textViewN);
             holder.textViewXi = convertView.findViewById(R.id.textViewXi);
             holder.textViewXs = convertView.findViewById(R.id.textViewXs);
@@ -87,8 +75,7 @@ public class FalsePositionListAdapter extends ArrayAdapter<FalsePosition> {
             result = convertView;
 
             convertView.setTag(holder);
-        }
-        else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
             result = convertView;
         }
@@ -106,20 +93,20 @@ public class FalsePositionListAdapter extends ArrayAdapter<FalsePosition> {
         holder.textViewFXm.setText(falsePosition.getFXm());
         holder.textViewError.setText(falsePosition.getError());
 
-        if (holder.textViewN.getText() == "n" ) {
+        if (holder.textViewN.getText() == "n") {
             holder.textViewN.setTextColor(Color.WHITE);
             holder.textViewXi.setTextColor(Color.WHITE);
             holder.textViewXs.setTextColor(Color.WHITE);
             holder.textViewXm.setTextColor(Color.WHITE);
             holder.textViewFXm.setTextColor(Color.WHITE);
             holder.textViewError.setTextColor(Color.WHITE);
-            holder.textViewN.setBackgroundColor(Color.rgb(63,81,181));
-            holder.textViewXi.setBackgroundColor(Color.rgb(63,81,181));
-            holder.textViewXs.setBackgroundColor(Color.rgb(63,81,181));
-            holder.textViewXm.setBackgroundColor(Color.rgb(63,81,181));
-            holder.textViewFXm.setBackgroundColor(Color.rgb(63,81,181));
-            holder.textViewError.setBackgroundColor(Color.rgb(63,81,181));
-        }else{
+            holder.textViewN.setBackgroundColor(Color.rgb(63, 81, 181));
+            holder.textViewXi.setBackgroundColor(Color.rgb(63, 81, 181));
+            holder.textViewXs.setBackgroundColor(Color.rgb(63, 81, 181));
+            holder.textViewXm.setBackgroundColor(Color.rgb(63, 81, 181));
+            holder.textViewFXm.setBackgroundColor(Color.rgb(63, 81, 181));
+            holder.textViewError.setBackgroundColor(Color.rgb(63, 81, 181));
+        } else {
             holder.textViewN.setTextColor(Color.BLACK);
             holder.textViewXi.setTextColor(Color.BLACK);
             holder.textViewXs.setTextColor(Color.BLACK);
@@ -136,5 +123,17 @@ public class FalsePositionListAdapter extends ArrayAdapter<FalsePosition> {
 
 
         return convertView;
+    }
+
+    /**
+     * Holds variables in a View
+     */
+    private static class ViewHolder {
+        TextView textViewN;
+        TextView textViewXi;
+        TextView textViewXs;
+        TextView textViewXm;
+        TextView textViewFXm;
+        TextView textViewError;
     }
 }

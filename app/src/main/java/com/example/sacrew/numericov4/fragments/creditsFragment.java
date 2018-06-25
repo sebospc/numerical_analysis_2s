@@ -4,11 +4,7 @@ package com.example.sacrew.numericov4.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sacrew.numericov4.R;
@@ -23,13 +19,13 @@ public class creditsFragment extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(fragment_credits);
-        ((TextView)findViewById(R.id.superToastLib)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView)findViewById(R.id.evalexLib)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView)findViewById(R.id.graphLib)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView)findViewById(R.id.tableViewLib)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView)findViewById(R.id.mathComplexLib)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView)findViewById(R.id.mathViewLib)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView)findViewById(R.id.symjaLib)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) findViewById(R.id.superToastLib)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) findViewById(R.id.evalexLib)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) findViewById(R.id.graphLib)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) findViewById(R.id.tableViewLib)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) findViewById(R.id.mathComplexLib)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) findViewById(R.id.mathViewLib)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) findViewById(R.id.symjaLib)).setMovementMethod(LinkMovementMethod.getInstance());
     }
 
 

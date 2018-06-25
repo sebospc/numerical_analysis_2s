@@ -2,12 +2,13 @@ package com.example.sacrew.numericov4.fragments;
 
 
 import android.annotation.SuppressLint;
-import android.support.v4.app.Fragment;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.InputType;
@@ -25,11 +26,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.interpolationFragments.cubicSpline;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.lagrange;
+import com.example.sacrew.numericov4.fragments.interpolationFragments.linearSpline;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.newtonInterpolator;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.quadraticSpline;
-import com.example.sacrew.numericov4.fragments.interpolationFragments.cubicSpline;
-import com.example.sacrew.numericov4.fragments.interpolationFragments.linearSpline;
 import com.example.sacrew.numericov4.pagerAdapter;
 import com.example.sacrew.numericov4.utils.graphUtils;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
@@ -37,6 +38,8 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
+
+import org.matheclipse.core.eval.ExprEvaluator;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -51,10 +54,10 @@ public class interpolation extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     public static TableLayout vectors;
-    private int count = 3;
-    private graphUtils graphUtils = new graphUtils();
     public static GraphView interpolationGraph;
-    private HashMap<EditText, Pair<PointsGraphSeries<DataPoint>,Integer>> viewToPoint = new HashMap<>();
+    private final graphUtils graphUtils = new graphUtils();
+    private final HashMap<EditText, Pair<PointsGraphSeries<DataPoint>, Integer>> viewToPoint = new HashMap<>();
+    private int count = 3;
 
     public interpolation() {
         // Required empty public constructor
@@ -63,7 +66,7 @@ public class interpolation extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //clear toasts
         SuperActivityToast.cancelAllSuperToasts();
@@ -152,7 +155,7 @@ public class interpolation extends Fragment {
         interpolationGraph.getViewport().setScrollableY(true); // enables vertical scrolling
         interpolationGraph.getViewport().setScalable(true);// esto genera errores se podria solucionar pero
         interpolationGraph.getViewport().setScalableY(true);// es complejo, es para el zoom
-
+        new ExprEvaluator();
         return view;
     }
 
@@ -164,9 +167,9 @@ public class interpolation extends Fragment {
             int auxColor = poolColors.remove(0);
             poolColors.add(auxColor);
             Integer checkInteger = Integer.parseInt(text.getText().toString());
-            EditText key = defaultEditText(String.valueOf(checkInteger + 1),auxColor);
+            EditText key = defaultEditText(String.valueOf(checkInteger + 1), auxColor);
             ((TableRow) vectors.getChildAt(0)).addView(key);
-            ((TableRow) vectors.getChildAt(1)).addView(defaultEditText("0",auxColor));
+            ((TableRow) vectors.getChildAt(1)).addView(defaultEditText("0", auxColor));
 
             viewToPoint.put(key, new Pair<>(updatePointGraph(checkInteger + 1, 0, auxColor), auxColor));
             count = count + 1;
@@ -174,12 +177,12 @@ public class interpolation extends Fragment {
             try {
                 int auxColor = poolColors.remove(0);
                 poolColors.add(auxColor);
-                double checkDouble = Double.parseDouble( text.getText().toString());
-                EditText key = defaultEditText(String.valueOf(checkDouble+ 1),auxColor);
+                double checkDouble = Double.parseDouble(text.getText().toString());
+                EditText key = defaultEditText(String.valueOf(checkDouble + 1), auxColor);
                 ((TableRow) vectors.getChildAt(0)).addView(key);
-                ((TableRow) vectors.getChildAt(1)).addView(defaultEditText("0",auxColor));
+                ((TableRow) vectors.getChildAt(1)).addView(defaultEditText("0", auxColor));
 
-                viewToPoint.put(key,new Pair<>(updatePointGraph(checkDouble+1,0,auxColor),auxColor));
+                viewToPoint.put(key, new Pair<>(updatePointGraph(checkDouble + 1, 0, auxColor), auxColor));
                 count = count + 1;
             } catch (Exception d) {
                 text.setError("invalid number");
@@ -203,7 +206,7 @@ public class interpolation extends Fragment {
     }
 
 
-    public PointsGraphSeries<DataPoint> updatePointGraph(double x, double y,int color) {
+    private PointsGraphSeries<DataPoint> updatePointGraph(double x, double y, int color) {
 
         PointsGraphSeries<DataPoint> point = graphUtils.graphPoint(x, y, PointsGraphSeries.Shape.POINT, color, false);
         interpolationGraph.addSeries(point);
@@ -211,7 +214,7 @@ public class interpolation extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void initialize(int count) {
+    private void initialize(int count) {
         TableRow aux = new TableRow(getContext());
         aux.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
         TableRow aux2 = new TableRow(getContext());
@@ -219,18 +222,18 @@ public class interpolation extends Fragment {
         for (int i = 0; i < count; i++) {
             int auxColor = poolColors.remove(0);
             poolColors.add(auxColor);
-            EditText key = defaultEditText(String.valueOf(i),auxColor);
+            EditText key = defaultEditText(String.valueOf(i), auxColor);
             aux.addView(key);
-            aux2.addView(defaultEditText("0",auxColor));
+            aux2.addView(defaultEditText("0", auxColor));
 
-            viewToPoint.put(key,new Pair <>(updatePointGraph(i,0,auxColor),auxColor));
+            viewToPoint.put(key, new Pair<>(updatePointGraph(i, 0, auxColor), auxColor));
         }
         vectors.addView(aux, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         vectors.addView(aux2, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public EditText defaultEditText(String value,int color) {
+    private EditText defaultEditText(String value, int color) {
         EditText text = new EditText(getContext());
         text.setLayoutParams(new TableRow.LayoutParams(100, 110));
         text.setEms(2);
@@ -243,35 +246,35 @@ public class interpolation extends Fragment {
         text.setGravity(Gravity.CENTER_HORIZONTAL);
         text.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
-            text.addTextChangedListener(new TextChangedListener<EditText>(text) {
-                @Override
-                public void onTextChanged(EditText target, Editable s) {
-                    try {
-                        double x = 0;
-                        double y = 0;
-                        EditText key = target;
-                        int aux = ((TableRow) vectors.getChildAt(0)).indexOfChild(key);
-                        if (aux != -1) {
-                            interpolationGraph.removeSeries(viewToPoint.get(key).first);
-                            x = Double.parseDouble(target.getText().toString());
-                            y = Double.parseDouble(((EditText) ((TableRow) vectors.getChildAt(1)).getChildAt(aux)).getText().toString());
-                        } else {
-                            key = ((EditText) ((TableRow) vectors.getChildAt(0)).getChildAt(((TableRow) vectors.getChildAt(1)).indexOfChild(target)));
-                            interpolationGraph.removeSeries(viewToPoint.get(key).first);
-                            x = Double.parseDouble(key.getText().toString());
-                            y = Double.parseDouble(target.getText().toString());
-                        }
-
-
-                        if(viewToPoint.containsKey(key)){
-                            int auxColor = viewToPoint.get(key).second;
-                            viewToPoint.put(key, new Pair<>(updatePointGraph(x, y, auxColor), auxColor));
-                        }
-                    } catch (Exception ignored) {
-
+        text.addTextChangedListener(new TextChangedListener<EditText>(text) {
+            @Override
+            public void onTextChanged(EditText target, Editable s) {
+                try {
+                    double x;
+                    double y;
+                    EditText key = target;
+                    int aux = ((TableRow) vectors.getChildAt(0)).indexOfChild(key);
+                    if (aux != -1) {
+                        interpolationGraph.removeSeries(viewToPoint.get(key).first);
+                        x = Double.parseDouble(target.getText().toString());
+                        y = Double.parseDouble(((EditText) ((TableRow) vectors.getChildAt(1)).getChildAt(aux)).getText().toString());
+                    } else {
+                        key = ((EditText) ((TableRow) vectors.getChildAt(0)).getChildAt(((TableRow) vectors.getChildAt(1)).indexOfChild(target)));
+                        interpolationGraph.removeSeries(viewToPoint.get(key).first);
+                        x = Double.parseDouble(key.getText().toString());
+                        y = Double.parseDouble(target.getText().toString());
                     }
+
+
+                    if (viewToPoint.containsKey(key)) {
+                        int auxColor = viewToPoint.get(key).second;
+                        viewToPoint.put(key, new Pair<>(updatePointGraph(x, y, auxColor), auxColor));
+                    }
+                } catch (Exception ignored) {
+
                 }
-            });
+            }
+        });
 
         text.setKeyListener(DigitsKeyListener.getInstance("0123456789.-E"));
         text.setText(value);
@@ -279,7 +282,7 @@ public class interpolation extends Fragment {
     }
 
     private abstract class TextChangedListener<T> implements TextWatcher {
-        private T target;
+        private final T target;
 
         TextChangedListener(T target) {
             this.target = target;
@@ -298,7 +301,7 @@ public class interpolation extends Fragment {
             this.onTextChanged(target, s);
         }
 
-        public abstract void onTextChanged(T target, Editable s);
+        protected abstract void onTextChanged(T target, Editable s);
     }
 
 }

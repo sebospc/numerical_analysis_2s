@@ -3,13 +3,6 @@ package com.example.sacrew.numericov4.fragments;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.KeyboardView;
-import android.os.IBinder;
-import android.support.design.widget.TabItem;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -17,26 +10,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.utils.FunctionStorage;
@@ -50,21 +37,14 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.udojava.evalex.Expression;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import at.markushi.ui.CircleButton;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
-
-
-
 
 
 /**
@@ -72,37 +52,45 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
  */
 public class graphFragment extends Fragment {
 
-    private GraphView graph ;
+    @SuppressLint("UseSparseArrays")
+    private final Map<Integer, Integer> viewToColor = new HashMap<>();
+    private final graphUtils graphUtils = new graphUtils();
+    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
+            new SuperActivityToast.OnButtonClickListener() {
+
+                @Override
+                public void onClick(View view, Parcelable token) {
+                    SuperActivityToast.cancelAllSuperToasts();
+                }
+            };
+    public KeyboardUtils keyboardUtils;
+    public File temp;
+    public FunctionStorage functionStorage;
+    private GraphView graph;
     private LinearLayout parentLinearLayout;
     private RelativeLayout hiderB;
     private LinearLayout hiderA;
     private boolean isup = true;
     private Map<Integer, List<LineGraphSeries<DataPoint>>> viewToFunction;
-    @SuppressLint("UseSparseArrays")
-    private Map<Integer, Integer> viewToColor = new HashMap<>();
     private View view;
-    private graphUtils graphUtils = new graphUtils();
-    public KeyboardUtils keyboardUtils;
-    public File temp;
-    public FunctionStorage functionStorage;
 
 
     public graphFragment() {
         // Required empty public constructor
     }
 
-
+    @SuppressLint("UseSparseArrays")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //clear toasts
         SuperActivityToast.cancelAllSuperToasts();
 
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_graph,container,false);
+        view = inflater.inflate(R.layout.fragment_graph, container, false);
         isup = true;
-        parentLinearLayout = (LinearLayout) view.findViewById(R.id.parent_linear_layout);
+        parentLinearLayout = view.findViewById(R.id.parent_linear_layout);
 
         hiderA = view.findViewById(R.id.hiderA);
         hiderB = view.findViewById(R.id.hiderB);
@@ -111,8 +99,8 @@ public class graphFragment extends Fragment {
 
         CircleButton addFieldButton = view.findViewById(R.id.add_field_button);
 
-        keyboardUtils = new KeyboardUtils(view,R.id.keyboardView,getContext());
-        onAddField(null);
+        keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
+        onAddField();
         CircleButton deleteFieldButton = view.findViewById(R.id.delete_button);
         CircleButton graphButton = view.findViewById(R.id.graph_button);
         Button hider = view.findViewById(R.id.buttonHide);
@@ -121,7 +109,7 @@ public class graphFragment extends Fragment {
         addFieldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onAddField(view);
+                onAddField();
             }
         });
         deleteFieldButton.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +128,7 @@ public class graphFragment extends Fragment {
         hider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hide(view);
+                hide();
             }
         });
 
@@ -180,7 +168,7 @@ public class graphFragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        for(int i = 0; i <= 8000; i++)System.out.println(":I");
+                        for (int i = 0; i <= 8000; i++) System.out.println(":I");
                         return true;
                     }
                 }
@@ -198,32 +186,30 @@ public class graphFragment extends Fragment {
                 linear.setLayoutParams(params);
             }
         });
-        if(!functionStorage.functions.isEmpty())
-        for(String function: functionStorage.functions)keyboardUtils.addFunction(function,getContext(),functionStorage,temp);
+        if (!functionStorage.functions.isEmpty())
+            for (String function : functionStorage.functions)
+                keyboardUtils.addFunction(function, getContext(), functionStorage, temp);
         return view;
 
 
     }
 
+    private void onAddField() {
 
-
-    public void onAddField(View v) {
-
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.field, null);
+        LayoutInflater inflater = (LayoutInflater) Objects.requireNonNull(getActivity()).getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView = Objects.requireNonNull(inflater).inflate(R.layout.field, null);
 
         // Add the new field before the add field button.
 
         parentLinearLayout.addView(rowView, 0);
         EditText edittext_var = ((View) rowView.getParent()).findViewById(R.id.function_edit_text);
-        keyboardUtils.registerEdittext(edittext_var,getContext(),getActivity());
+        keyboardUtils.registerEdittext(edittext_var, getContext(), getActivity());
         //registerEditText(edittext_var);
 
     }
 
-
-    public void hide(View v){
-        if(isup) { // down
+    private void hide() {
+        if (isup) { // down
             TranslateAnimation animate = new TranslateAnimation(
                     0,                 // fromXDelta
                     0,                 // toXDelta
@@ -233,7 +219,7 @@ public class graphFragment extends Fragment {
             animate.setFillAfter(true);
             hiderB.startAnimation(animate);
 
-            getActivity().runOnUiThread(new Runnable() {
+            Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     new Handler().postDelayed(new Runnable() {
@@ -252,7 +238,7 @@ public class graphFragment extends Fragment {
                 }
             });
             isup = false;
-        }else{ //up
+        } else { //up
             hiderA = view.findViewById(R.id.hiderA);
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -282,36 +268,36 @@ public class graphFragment extends Fragment {
             for (LineGraphSeries<DataPoint> inSerie : viewToFunction.get(code)) {
                 graph.removeSeries(inSerie);
             }
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
 
         }
         viewToFunction.remove(code);
         viewToColor.remove(code);
         parentLinearLayout.removeView((View) v.getParent());
     }
+
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("CutPasteId")
-    public void graphIt(View v){
-        boolean error = true;
+    public void graphIt(View v) {
         try {
             EditText edittext_var;
             edittext_var = ((View) v.getParent()).findViewById(R.id.function_edit_text);
-            SeekBar seek = ((SeekBar)((View) v.getParent()).findViewById(R.id.seek));
+            SeekBar seek = ((View) v.getParent()).findViewById(R.id.seek);
             int iter = seek.getProgress();
             String function = graphUtils.functionRevision(String.valueOf(edittext_var.getText()));
-            if(function.length() !=0)
+            if (function.length() != 0)
                 function = function.toLowerCase();
 
 
-            if(!checkSyntax(function)) {
+            if (!checkSyntax(function)) {
                 styleWrongMessage("Invalid function");
                 return;
             }
 
-            if(!functionStorage.functions.contains(function)) {
+            if (!functionStorage.functions.contains(function)) {
                 functionStorage.functions.add(function);
-                keyboardUtils.addFunction(function, getContext(), functionStorage,temp);
+                keyboardUtils.addFunction(function, getContext(), functionStorage, temp);
                 functionStorage.updateStorage(temp);
             }
             int code = ((View) v.getParent()).findViewById(R.id.function_edit_text).hashCode();
@@ -321,13 +307,10 @@ public class graphFragment extends Fragment {
                 poolColors.add(color);
                 viewToColor.put(code, color);
             }
-            if(Build.VERSION.SDK_INT > 21)
+            if (Build.VERSION.SDK_INT > 21)
                 seek.setProgressTintList(ColorStateList.valueOf(viewToColor.get(code)));
             /*
              * autocomplete allFunctions
-             */
-            /**
-             * important
              */
             List<LineGraphSeries<DataPoint>> listSeries = graphUtils
                     .graphPharallel(iter, function, viewToColor.get(code));
@@ -353,40 +336,34 @@ public class graphFragment extends Fragment {
             for (LineGraphSeries<DataPoint> inSerie : viewToFunction.get(code))
                 graph.addSeries(inSerie);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             styleWrongMessage(e.toString());
         }
 
     }
-    public boolean checkSyntax(String function){
+
+    private boolean checkSyntax(String function) {
         try {
             new Expression(graphUtils.functionRevision(function)).with("x", "0").eval();
-        }catch (NumberFormatException e){
-            return true;
-        }catch (Expression.ExpressionException e) {
+
+        } catch (Expression.ExpressionException e) {
             return false;
+        } catch (Exception e) {
+            return true;
         }
         return true;
     }
-    private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
-            new SuperActivityToast.OnButtonClickListener() {
 
-                @Override
-                public void onClick(View view, Parcelable token) {
-                    SuperActivityToast.cancelAllSuperToasts();
-                }
-            };
-
-    public void styleWrongMessage(String message){
+    private void styleWrongMessage(String message) {
         SuperActivityToast.cancelAllSuperToasts();
-        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+        SuperActivityToast.create(Objects.requireNonNull(getActivity()), new Style(), Style.TYPE_BUTTON)
                 .setIndeterminate(true)
                 .setButtonText("UNDO")
                 .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
                 .setProgressBarColor(Color.WHITE)
                 .setText(message)
                 .setFrame(Style.FRAME_LOLLIPOP)
-                .setColor(Color.rgb(244,67,54))
+                .setColor(Color.rgb(244, 67, 54))
                 .setAnimations(Style.ANIMATIONS_POP).show();
     }
 

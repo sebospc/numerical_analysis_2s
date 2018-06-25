@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpJacobi;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesText;
 
@@ -28,11 +29,11 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesTex
  * A simple {@link Fragment} subclass.
  */
 public class jacobi extends baseIterativeMethods {
+    private final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
     public EditText error, iters, relaxation;
     public ToggleButton errorToggle;
     @SuppressLint("StaticFieldLeak")
-    public  LinearLayout initialValues;
-    private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
+    public LinearLayout initialValues;
     private boolean errorDivision = false;
 
     public jacobi() {
@@ -42,7 +43,7 @@ public class jacobi extends baseIterativeMethods {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
@@ -84,8 +85,8 @@ public class jacobi extends baseIterativeMethods {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp() {
-        Intent i = new Intent(getContext().getApplicationContext(), popUpJacobi.class);
+    private void executeHelp() {
+        Intent i = new Intent(Objects.requireNonNull(getContext()).getApplicationContext(), popUpJacobi.class);
         startActivity(i);
     }
 
@@ -134,7 +135,7 @@ public class jacobi extends baseIterativeMethods {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void jacobiMethod(int iters, double tolerance, double relax, double[] initials, double[][] expandedMAtrix) {
+    private void jacobiMethod(int iters, double tolerance, double relax, double[] initials, double[][] expandedMAtrix) {
         int cont = 0;
         double dispersion = tolerance + 1;
         double[] x0 = initials;
@@ -169,24 +170,24 @@ public class jacobi extends baseIterativeMethods {
             totalInformation.add(aux);
             x0 = x1;
             cont = cont + 1;
-            if(errorDivision){
+            if (errorDivision) {
                 styleWrongMessage("Error division by 0");
                 return;
             }
         }
         calc = true;
-        if(dispersion < tolerance){
-            for(double val: x0)
-                xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
-            styleCorrectMessage("The method converge");
-        }else{
-            for(double val: x0)
-                xValuesText.addView(defaultTextView((val+"      ").substring(0,6)));
-            styleWrongMessage("The method failed in "+cont+" iterations!");
+        if (dispersion < tolerance) {
+            for (double val : x0)
+                xValuesText.addView(defaultTextView((val + "      ").substring(0, 6)));
+            styleCorrectMessage();
+        } else {
+            for (double val : x0)
+                xValuesText.addView(defaultTextView((val + "      ").substring(0, 6)));
+            styleWrongMessage("The method failed in " + cont + " iterations!");
         }
     }
 
-    public double[] calcNewJacobi(double[] x0, double[][] expandedMatrix, double relax) {
+    private double[] calcNewJacobi(double[] x0, double[][] expandedMatrix, double relax) {
         double[] x = new double[x0.length];
         int n = expandedMatrix.length;
         int maxThreads = NUMBER_OF_CORES;
@@ -205,7 +206,7 @@ public class jacobi extends baseIterativeMethods {
             } else {
                 try {
                     cores[i].join();
-                    if(values[i].error)styleWrongMessage("Error division by 0");
+                    if (values[i].error) styleWrongMessage("Error division by 0");
                     x[i] = values[i].value;
                     values[i] = new jacobiThread(expandedMatrix, x0, relax, i);
                     cores[i] = new Thread(values[i]);
@@ -221,7 +222,7 @@ public class jacobi extends baseIterativeMethods {
             if (cores[j] != null) {
                 try {
                     cores[j].join();
-                    if(values[j].error) errorDivision = true;
+                    if (values[j].error) errorDivision = true;
                     x[j] = values[j].value;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -233,12 +234,12 @@ public class jacobi extends baseIterativeMethods {
     }
 
     private class jacobiThread implements Runnable {
-        private double[][] expandedMatrix;
-        double[] x0;
-        double relax;
+        final double[] x0;
+        final double relax;
+        final int i;
+        private final double[][] expandedMatrix;
         double value = Double.NaN;
         boolean error = false;
-        int i;
 
         jacobiThread(double[][] expandedMatrix, double[] x0, double relax, int i) {
             this.expandedMatrix = expandedMatrix;
@@ -250,11 +251,11 @@ public class jacobi extends baseIterativeMethods {
         @Override
         public void run() {
             int n = expandedMatrix.length;
-            double suma = 0;
+            double sum = 0;
             for (int j = 0; j < n; j++) {
                 if (i != j) {
                     try {
-                        suma += expandedMatrix[i][j] * x0[j];
+                        sum += expandedMatrix[i][j] * x0[j];
                     } catch (ArithmeticException ignored) {
 
                     }
@@ -266,7 +267,7 @@ public class jacobi extends baseIterativeMethods {
                 error = true;
                 return;
             }
-            value = (relax * ((expandedMatrix[i][n] - suma) / denominator)) + (1 - relax) * x0[i];
+            value = (relax * ((expandedMatrix[i][n] - sum) / denominator)) + (1 - relax) * x0[i];
 
         }
     }

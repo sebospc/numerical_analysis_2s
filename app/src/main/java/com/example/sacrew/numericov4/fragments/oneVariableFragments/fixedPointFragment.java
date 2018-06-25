@@ -5,22 +5,18 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFixedPoint;
-import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPoint;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FixedPointListAdapter;
 import com.udojava.evalex.Expression;
@@ -29,9 +25,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
-import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
 
 
 /**
@@ -51,7 +47,7 @@ public class fixedPointFragment extends baseOneVariableFragments {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         try {
             view = inflater.inflate(R.layout.fragment_fixed_point, container, false);
@@ -89,14 +85,14 @@ public class fixedPointFragment extends baseOneVariableFragments {
         textFunctionG = view.findViewById(R.id.functionG);
 
 
-        registerEditText(textFunctionG,getContext(),getActivity());
-        registerEditText(xvalue,getContext(),getActivity());
+        registerEditText(textFunctionG, getContext(), getActivity());
+        registerEditText(xvalue, getContext(), getActivity());
         return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp() {
-        Intent i = new Intent(getContext().getApplicationContext(), popUpFixedPoint.class);
+    private void executeHelp() {
+        Intent i = new Intent(Objects.requireNonNull(getContext()).getApplicationContext(), popUpFixedPoint.class);
         startActivity(i);
     }
 
@@ -107,7 +103,7 @@ public class fixedPointFragment extends baseOneVariableFragments {
 
         String originalFuncG = textFunctionG.getText().toString();
         boolean errorFuncG = checkSyntax(originalFuncG, textFunctionG);
-        if(errorFuncG)
+        if (errorFuncG)
             updateMyFunctions(originalFuncG);
         error = errorFuncG && error;
         this.functionG = new Expression(functionRevision(originalFuncG));
@@ -131,7 +127,7 @@ public class fixedPointFragment extends baseOneVariableFragments {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fixedPointMethod(Double x0, Double tol, int ite, boolean errorRel) {
-        String message = "";
+        String message;
         try {
             function.setPrecision(100);
             functionG.setPrecision(100);
@@ -162,7 +158,7 @@ public class fixedPointFragment extends baseOneVariableFragments {
                         completeList.add(listValuesIteZero);
                         calc = true;
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
-                            System.out.println(" conta "+cont);
+                            System.out.println(" conta " + cont);
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             double xn = Double.NaN;
                             try {
@@ -191,34 +187,34 @@ public class fixedPointFragment extends baseOneVariableFragments {
                             completeList.add(listValuesIteNext);
 
                         }
-                        listValues.add(new FixedPoint("","","",""));
+                        listValues.add(new FixedPoint("", "", "", ""));
                         int color = poolColors.remove(0);
                         poolColors.add(color);
 
-                        graphSerie(function.getExpression(),0, xa*2,color);
-                            if (y0 == 0) {
-                                //graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
-                                //graphSerie(xa - 0.2, xa+0.2, functionG.getExpression(), graph, Color.RED);
-                                color = poolColors.remove(0);
-                                poolColors.add(color);
-                                graphPoint(xa,y0,color);
-                                //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
-                                //Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
-                                message = normalTransformation(xa) + " is a root";
-                                styleCorrectMessage(message);
-                            } else if (error <= tol) {
-                                color = poolColors.remove(0);
-                                poolColors.add(color);
-                                graphPoint(xa,y0,color);
-                                message = normalTransformation(xa) + " is an aproximate root";
-                                styleCorrectMessage(message);
-                                //Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
-                            } else {
-                                message = "Failed the interval!";
-                                styleWrongMessage(message);
-                                //Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
-                            }
-                        graphSerie(function.getExpression(), 0, xa , color);
+                        graphSerie(function.getExpression(), xa * 2, color);
+                        if (y0 == 0) {
+                            //graphSerie(xa - 0.2, xa+0.2, function.getExpression(), graph, Color.BLUE);
+                            //graphSerie(xa - 0.2, xa+0.2, functionG.getExpression(), graph, Color.RED);
+                            color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphPoint(xa, y0, color);
+                            //graphPoint(xa, y0, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
+                            //Toast.makeText(getContext(), convertirNormal(xa) + " is a root", Toast.LENGTH_SHORT).show();
+                            message = normalTransformation(xa) + " is a root";
+                            styleCorrectMessage(message);
+                        } else if (error <= tol) {
+                            color = poolColors.remove(0);
+                            poolColors.add(color);
+                            graphPoint(xa, y0, color);
+                            message = normalTransformation(xa) + " is an aproximate root";
+                            styleCorrectMessage(message);
+                            //Toast.makeText(getContext(), convertirNormal(xa) + " is an aproximate root", Toast.LENGTH_SHORT).show();
+                        } else {
+                            message = "Failed the interval!";
+                            styleWrongMessage(message);
+                            //Toast.makeText(getContext(), "Failed the interval!", Toast.LENGTH_SHORT).show();
+                        }
+                        graphSerie(function.getExpression(), xa, color);
                         if (y0 == 0) {
                             color = poolColors.remove(0);
                             poolColors.add(color);

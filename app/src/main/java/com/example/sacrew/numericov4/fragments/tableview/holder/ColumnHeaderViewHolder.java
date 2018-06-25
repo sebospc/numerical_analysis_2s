@@ -39,20 +39,18 @@ public class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
 
     private static final String LOG_TAG = ColumnHeaderViewHolder.class.getSimpleName();
 
-    public final LinearLayout column_header_container;
-    public final TextView column_header_textview;
-    public final ImageButton column_header_sortButton;
-    public final ITableView tableView;
+    private final LinearLayout column_header_container;
+    private final TextView column_header_textview;
+    private final ImageButton column_header_sortButton;
 
-    public final Drawable arrow_up, arrow_down;
+    private final Drawable arrow_up, arrow_down;
 
     public ColumnHeaderViewHolder(View itemView, ITableView tableView) {
         super(itemView);
-        this.tableView = tableView;
-        column_header_textview = (TextView) itemView.findViewById(R.id.column_header_textView);
-        column_header_container = (LinearLayout) itemView.findViewById(R.id
+        column_header_textview = itemView.findViewById(R.id.column_header_textView);
+        column_header_container = itemView.findViewById(R.id
                 .column_header_container);
-        column_header_sortButton = (ImageButton) itemView.findViewById(R.id
+        column_header_sortButton = itemView.findViewById(R.id
                 .column_header_sortButton);
 
         // initialize drawables
@@ -60,6 +58,24 @@ public class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
         arrow_down = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_down);
 
         // Set click listener to the sort button
+        View.OnClickListener mSortButtonClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (getSortState()) {
+                    case ASCENDING:
+                        tableView.sortColumn(getAdapterPosition(), SortState.DESCENDING);
+                        break;
+                    case DESCENDING:
+                        tableView.sortColumn(getAdapterPosition(), SortState.ASCENDING);
+                        break;
+                    default:
+                        // Default one
+                        tableView.sortColumn(getAdapterPosition(), SortState.DESCENDING);
+                        break;
+                }
+
+            }
+        };
         column_header_sortButton.setOnClickListener(mSortButtonClickListener);
     }
 
@@ -77,21 +93,6 @@ public class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
         column_header_container.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
         column_header_textview.requestLayout();
     }
-
-    private View.OnClickListener mSortButtonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if (getSortState() == SortState.ASCENDING) {
-                tableView.sortColumn(getAdapterPosition(), SortState.DESCENDING);
-            } else if (getSortState() == SortState.DESCENDING) {
-                tableView.sortColumn(getAdapterPosition(), SortState.ASCENDING);
-            } else {
-                // Default one
-                tableView.sortColumn(getAdapterPosition(), SortState.DESCENDING);
-            }
-
-        }
-    };
 
     @Override
     public void onSortingStatusChanged(SortState sortState) {
@@ -117,15 +118,19 @@ public class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
     }
 
     private void controlSortState(SortState sortState) {
-        if (sortState == SortState.ASCENDING) {
-            column_header_sortButton.setVisibility(View.VISIBLE);
-            column_header_sortButton.setImageDrawable(arrow_down);
+        switch (sortState) {
+            case ASCENDING:
+                column_header_sortButton.setVisibility(View.VISIBLE);
+                column_header_sortButton.setImageDrawable(arrow_down);
 
-        } else if (sortState == SortState.DESCENDING) {
-            column_header_sortButton.setVisibility(View.VISIBLE);
-            column_header_sortButton.setImageDrawable(arrow_up);
-        } else {
-            column_header_sortButton.setVisibility(View.INVISIBLE);
+                break;
+            case DESCENDING:
+                column_header_sortButton.setVisibility(View.VISIBLE);
+                column_header_sortButton.setImageDrawable(arrow_up);
+                break;
+            default:
+                column_header_sortButton.setVisibility(View.INVISIBLE);
+                break;
         }
     }
 }

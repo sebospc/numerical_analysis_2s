@@ -6,7 +6,6 @@ import android.support.annotation.RequiresApi;
 import android.util.Pair;
 import android.widget.Toast;
 
-import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -15,7 +14,6 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
 import com.udojava.evalex.Expression;
 
-import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.parser.client.eval.DoubleEvaluator;
 import org.matheclipse.parser.client.eval.DoubleVariable;
 import org.matheclipse.parser.client.eval.IDoubleValue;
@@ -25,37 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class graphUtils {
-    private int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
-
-    public void graphSerie(double start, double end, String funcitonExpr, GraphView graph, int color) {
-        Expression function = new Expression(funcitonExpr);
-        LineGraphSeries<DataPoint> serie = new LineGraphSeries<>();
-        double x = start;
-        function.setPrecision(20);
-        double yi = (function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
-        try {
-            (function.with("x", BigDecimal.valueOf(end + 0.5)).eval()).doubleValue();
-            end = end + 0.5;
-        } catch (Exception ignored) {
-
-        }
-        if (x > end) {
-            Double aux = x;
-            x = end;
-            end = aux;
-        }
-        while (x <= end) {
-            serie.appendData(new DataPoint(x, yi), true, (int) Math.ceil(Math.abs(end - start) / 0.1));
-            x = x + 0.1;
-            try {
-                yi = (function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
-            } catch (Exception ignored) {
-
-            }
-        }
-        serie.setColor(color);
-        graph.addSeries(serie);
-    }
+    private final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
 
     public PointsGraphSeries<DataPoint> graphPoint(double x, double y, PointsGraphSeries.Shape figure, int color, boolean listener) {
         PointsGraphSeries<DataPoint> point = new PointsGraphSeries<>(new DataPoint[]{
@@ -107,52 +75,51 @@ public class graphUtils {
         }
         return listSeries;
     }
+
     //(function,(color,(init,end))
-    public List<LineGraphSeries<DataPoint>> graphPharallelByFunctions(List<Pair<String,Pair<Integer,Pair<Double,Double>>>> functions){
+    public List<LineGraphSeries<DataPoint>> graphPharallelByFunctions(List<Pair<String, Pair<Integer, Pair<Double, Double>>>> functions) {
 
         int maxThreads = NUMBER_OF_CORES;
-        if(functions.size() < NUMBER_OF_CORES)
+        if (functions.size() < NUMBER_OF_CORES)
             maxThreads = functions.size();
 
 
-
-        Thread [] cores = new Thread [maxThreads];
-        bestThreadGraph [] values = new bestThreadGraph[maxThreads];
+        Thread[] cores = new Thread[maxThreads];
+        bestThreadGraph[] values = new bestThreadGraph[maxThreads];
         int i = 0;
 
         List<LineGraphSeries<DataPoint>> listSeries = new LinkedList<>();
-        for(Pair<String,Pair<Integer,Pair<Double,Double>>> func :functions){
-            if(i == maxThreads)
+        for (Pair<String, Pair<Integer, Pair<Double, Double>>> func : functions) {
+            if (i == maxThreads)
                 i = 0;
 
 
-
-            if(cores[i] == null){
+            if (cores[i] == null) {
                 double init = func.second.second.first;
                 double end = func.second.second.second;
 
-                values[i] = new bestThreadGraph(init,end,func.first,func.second.first,(int)(Math.ceil(Math.abs(end-init)/0.1)));
-                cores[i] =new Thread(values[i]);
+                values[i] = new bestThreadGraph(init, end, func.first, func.second.first, (int) (Math.ceil(Math.abs(end - init) / 0.1)));
+                cores[i] = new Thread(values[i]);
                 cores[i].start();
 
-            }else{
+            } else {
                 try {
                     cores[i].join();
                     listSeries.add(values[i].getSeries());
                     double init = func.second.second.first;
                     double end = func.second.second.second;
                     //do another serie
-                    values[i] = new bestThreadGraph(init,end,func.first,func.second.first,(int)(Math.ceil(Math.abs(end-init)/0.1)));
-                    cores[i] =new Thread(values[i]);
+                    values[i] = new bestThreadGraph(init, end, func.first, func.second.first, (int) (Math.ceil(Math.abs(end - init) / 0.1)));
+                    cores[i] = new Thread(values[i]);
                     cores[i].start();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            i+=1;
+            i += 1;
         }
-        for(int j = 0; j < maxThreads; j++){
-            if(cores[j] != null){
+        for (int j = 0; j < maxThreads; j++) {
+            if (cores[j] != null) {
                 try {
                     cores[j].join();
                     listSeries.add(values[j].getSeries());
@@ -164,22 +131,23 @@ public class graphUtils {
         }
         return listSeries;
     }
+
     public List<LineGraphSeries<DataPoint>> graphPharallel(int iters, String funcitonExpr, int color) {
         int realIters = iters * 2;
         int perCore = (int) Math.ceil(realIters / NUMBER_OF_CORES) * 2;
-        double each = (realIters * 0.1 *-1) ;
+        double each = (realIters * 0.1 * -1);
         double end = (each + (perCore * 0.1));
-        double lastEnd = each*-1;
+        double lastEnd = each * -1;
         Thread[] cores = new Thread[NUMBER_OF_CORES];
 
         threadGraph[] values = new threadGraph[NUMBER_OF_CORES];
         for (int i = 0; i < cores.length; i++) {
-            values[i] = new threadGraph(each-1, end, funcitonExpr, color, perCore);
+            values[i] = new threadGraph(each - 1, end, funcitonExpr, color, perCore);
             cores[i] = new Thread(values[i]);
             cores[i].start();
-            each = (each + (perCore* 0.1));
-            end = (end + (perCore* 0.1));
-            if(i == cores.length - 1) { //error de redondeo
+            each = (each + (perCore * 0.1));
+            end = (end + (perCore * 0.1));
+            if (i == cores.length - 1) { //error de redondeo
                 System.out.println("entro");
                 end = lastEnd;
             }
@@ -190,7 +158,7 @@ public class graphUtils {
                 cores[i].join();
                 listSeries.add(values[i].getSeries());
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
 
@@ -199,13 +167,13 @@ public class graphUtils {
     }
 
     private class bestThreadGraph implements Runnable {
-        private double x;
+        private final double x;
+        private final String function;
+        private final int color;
+        private final int perCore;
+        private final DoubleEvaluator engine = new DoubleEvaluator();
         private double end;
-        private String function;
-        private int color;
-        private int perCore;
-        private DoubleEvaluator engine = new DoubleEvaluator();
-        private LineGraphSeries<DataPoint> series ;
+        private LineGraphSeries<DataPoint> series;
 
         bestThreadGraph(double x, double end, String function, int color, int perCore) {
             this.x = x;
@@ -222,14 +190,13 @@ public class graphUtils {
             series = new LineGraphSeries<>();
             double y;
             double x = this.x;
-            ExprEvaluator aux = new ExprEvaluator();
+
             IDoubleValue vd = new DoubleVariable(3.0);
-            if( x > this.end){
+            if (x > this.end) {
                 y = x;
                 x = this.end;
                 this.end = y;
             }
-            y = -1;
             try {
                 engine.defineVariable("x", vd);
                 engine.evaluate(function);
@@ -242,7 +209,7 @@ public class graphUtils {
                     this.series.appendData(new DataPoint(x, y), true, perCore * 2);
 
 
-                    x = Math.round((x + 0.1)* 1000.0) / 1000.0;
+                    x = Math.round((x + 0.1) * 1000.0) / 1000.0;
                 }
             } catch (Exception ignored) {
 
@@ -251,18 +218,18 @@ public class graphUtils {
             //graphFragment.listSeries.add(series);
         }
 
-        public LineGraphSeries<DataPoint> getSeries() {
+        LineGraphSeries<DataPoint> getSeries() {
             return series;
         }
     }
 
     private class threadGraph implements Runnable {
-        private double x;
+        private final double x;
+        private final Expression function;
+        private final int color;
+        private final int perCore;
+        private final LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         private double end;
-        private Expression function;
-        private int color;
-        private int perCore;
-        private LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
 
         threadGraph(double x, double end, String function, int color, int perCore) {
             this.x = x;
@@ -280,8 +247,11 @@ public class graphUtils {
             this.function.setPrecision(5);
             double y;
             double x = this.x;
-            if( x > this.end){y = x; x = this.end; this.end = y;}
-            y = -1;
+            if (x > this.end) {
+                y = x;
+                x = this.end;
+                this.end = y;
+            }
             while (x <= this.end) {
                 try {
                     y = (this.function.with("x", BigDecimal.valueOf(x)).eval()).doubleValue();
@@ -290,14 +260,14 @@ public class graphUtils {
                 } catch (Exception ignored) {
 
                 }
-                x = Math.round((x + 0.1)* 1000.0) / 1000.0;
+                x = Math.round((x + 0.1) * 1000.0) / 1000.0;
                 //x = (x + 0.1);
             }
             series.setColor(color);
             //graphFragment.listSeries.add(series);
         }
 
-        public LineGraphSeries<DataPoint> getSeries() {
+        LineGraphSeries<DataPoint> getSeries() {
             return series;
         }
     }

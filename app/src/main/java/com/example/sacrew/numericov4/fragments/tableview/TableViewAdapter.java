@@ -49,12 +49,10 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
 
     private static final String LOG_TAG = TableViewAdapter.class.getSimpleName();
 
-    private TableViewModel mTableViewModel;
     private final LayoutInflater mInflater;
 
-    public TableViewAdapter(Context context, TableViewModel tableViewModel) {
+    public TableViewAdapter(Context context) {
         super(context);
-        this.mTableViewModel = tableViewModel;
         this.mInflater = LayoutInflater.from(mContext);
     }
 
@@ -65,7 +63,6 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
      *
      * @param viewType : This value comes from "getCellItemViewType" method to support different
      *                 type of viewHolder as a Cell item.
-     *
      * @see #getCellItemViewType(int);
      */
     @Override
@@ -79,7 +76,7 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
                 // Get image cell layout which has ImageView on the base instead of TextView.
                 //layout = mInflater.inflate(R.layout.table_view_image_cell_layout, parent, false);
 
-               // return new MoodCellViewHolder(layout);
+                // return new MoodCellViewHolder(layout);
             case GENDER_CELL_TYPE:
                 // Get image cell layout which has ImageView instead of TextView.
                 //layout = mInflater.inflate(R.layout.table_view_image_cell_layout, parent, false);
@@ -106,7 +103,6 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
      *                       example, the model class is "Cell".
      * @param columnPosition : This is the X (Column) position of the cell item.
      * @param rowPosition    : This is the Y (Row) position of the cell item.
-     *
      * @see #onCreateCellViewHolder(ViewGroup, int) ;
      */
 
@@ -120,13 +116,13 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
                 //MoodCellViewHolder moodViewHolder = (MoodCellViewHolder) holder;
 
                 //moodViewHolder.cell_image.setImageDrawable(mTableViewModel.getDrawable((int) cell
-                      //  .getData(), false));
+                //  .getData(), false));
                 //break;
             case GENDER_CELL_TYPE:
                 //GenderCellViewHolder genderViewHolder = (GenderCellViewHolder) holder;
 
-               // genderViewHolder.cell_image.setImageDrawable(mTableViewModel.getDrawable((int)
-                    //    cell.getData(), true));
+                // genderViewHolder.cell_image.setImageDrawable(mTableViewModel.getDrawable((int)
+                //    cell.getData(), true));
                 //break;
             default:
                 // Get the holder to update cell item text
@@ -143,7 +139,6 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
      *
      * @param viewType : This value comes from "getColumnHeaderItemViewType" method to support
      *                 different type of viewHolder as a Column Header item.
-     *
      * @see #getColumnHeaderItemViewType(int);
      */
     @Override
@@ -169,7 +164,6 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
      * @param columnHeaderItemModel : This is the column header view model located on this X
      *                              position. In this example, the model class is "ColumnHeader".
      * @param columnPosition        : This is the X (Column) position of the column header item.
-     *
      * @see #onCreateColumnHeaderViewHolder(ViewGroup, int) ;
      */
     @Override
@@ -189,7 +183,6 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
      *
      * @param viewType : This value comes from "getRowHeaderItemViewType" method to support
      *                 different type of viewHolder as a row Header item.
-     *
      * @see #getRowHeaderItemViewType(int);
      */
     @Override
@@ -213,7 +206,6 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
      * @param rowHeaderItemModel : This is the row header view model located on this Y position. In
      *                           this example, the model class is "RowHeader".
      * @param rowPosition        : This is the Y (row) position of the row header item.
-     *
      * @see #onCreateRowHeaderViewHolder(ViewGroup, int) ;
      */
     @Override
@@ -276,9 +268,9 @@ public class TableViewAdapter extends AbstractTableAdapter<ColumnHeader, RowHead
         // type of CellViewHolder on "onCreateCellViewHolder"
         switch (column) {
             //case TableViewModel.MOOD_COLUMN_INDEX:
-                //return MOOD_CELL_TYPE;
+            //return MOOD_CELL_TYPE;
             //case TableViewModel.GENDER_COLUMN_INDEX:
-                //return GENDER_CELL_TYPE;
+            //return GENDER_CELL_TYPE;
             default:
                 // Default view type
                 return 0;

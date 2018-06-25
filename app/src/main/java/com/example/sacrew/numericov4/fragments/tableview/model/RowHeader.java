@@ -23,10 +23,6 @@ package com.example.sacrew.numericov4.fragments.tableview.model;
 
 public class RowHeader extends Cell {
 
-    public RowHeader(String id) {
-        super(id);
-    }
-
     public RowHeader(String id, String data) {
         super(id, data);
     }

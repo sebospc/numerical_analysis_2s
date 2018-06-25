@@ -20,24 +20,27 @@ public abstract class baseIterativeMethods extends baseSystemEquations {
     List<List<String>> totalInformation = new LinkedList<>();
     List<String> lisTitles = new LinkedList<>();
     boolean calc = false;
-    public double[] minus(double[] x, double[] y){
+
+    double[] minus(double[] x, double[] y) {
         double[] aux = new double[x.length];
-        for(int i = 0; i < x.length; i++){
-            aux[i] = x[i]-y[i];
+        for (int i = 0; i < x.length; i++) {
+            aux[i] = x[i] - y[i];
         }
         return aux;
     }
-    public double rule(double[] values){
-        double [] aux = new double[values.length];
-        for(int i = 0; i < values.length; i++)
-            aux[i]= Math.abs(values[i]);
+
+    double rule(double[] values) {
+        double[] aux = new double[values.length];
+        for (int i = 0; i < values.length; i++)
+            aux[i] = Math.abs(values[i]);
         Arrays.sort(aux);
-        System.out.println(aux[values.length-1]);
-        return aux[values.length-1];
+        System.out.println(aux[values.length - 1]);
+        return aux[values.length - 1];
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeChart(Context context) {
-        if(calc) {
+    void executeChart(Context context) {
+        if (calc) {
             Intent i = new Intent(context, MainActivityTable.class);
             startActivity(i);
             TableViewModel.getTitles(lisTitles);

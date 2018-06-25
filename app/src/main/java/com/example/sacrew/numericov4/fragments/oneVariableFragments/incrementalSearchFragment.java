@@ -1,24 +1,22 @@
 package com.example.sacrew.numericov4.fragments.oneVariableFragments;
 
 
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpIncrementalSearch;
-import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearch;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.IncrementalSearchListAdapter;
 import com.udojava.evalex.Expression;
@@ -27,8 +25,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-
+import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
@@ -39,17 +36,16 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 public class incrementalSearchFragment extends baseOneVariableFragments {
 
 
-    public incrementalSearchFragment() {
-        // Required empty public constructor
-    }
-
     private View view;
     private EditText xValue;
     private EditText delta;
     private ListView listView;
+    public incrementalSearchFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         try {
@@ -87,42 +83,41 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
             }
         });
 
-        registerEditText(xValue,getContext(),getActivity());
-        registerEditText(delta,getContext(),getActivity());
-        registerEditText(iter,getContext(),getActivity());
+        registerEditText(xValue, getContext(), getActivity());
+        registerEditText(delta, getContext(), getActivity());
+        registerEditText(iter, getContext(), getActivity());
         return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp() {
-        Intent i = new Intent(getContext().getApplicationContext(), popUpIncrementalSearch.class);
+    private void executeHelp() {
+        Intent i = new Intent(Objects.requireNonNull(getContext()).getApplicationContext(), popUpIncrementalSearch.class);
         startActivity(i);
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void bootStrap(){
-        boolean error = true;
+    void bootStrap() {
+        boolean error;
         int ite = 0;
-            String originalFunc = textFunction.getText().toString();
-            error = checkSyntax(originalFunc,textFunction);
-            if(error) updateMyFunctions(originalFunc);
-            this.function = new Expression(functionRevision(originalFunc));
+        String originalFunc = textFunction.getText().toString();
+        error = checkSyntax(originalFunc, textFunction);
+        if (error) updateMyFunctions(originalFunc);
+        this.function = new Expression(functionRevision(originalFunc));
 
         try {
             ite = Integer.parseInt(iter.getText().toString());
-        }catch (Exception e){
+        } catch (Exception e) {
             iter.setError("Wrong iterations");
             error = false;
         }
 
-        execute(error,ite);
+        execute(error, ite);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute(boolean error, int ite) {
+    private void execute(boolean error, int ite) {
 
         Double x = 0.0;
         Double deltaPrim = 0.0;
@@ -146,7 +141,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void incrementalSearchMethod(Double x0, Double delta, int ite) {
+    private void incrementalSearchMethod(Double x0, Double delta, int ite) {
         function.setPrecision(100);
         try {
             ArrayList<IncrementalSearch> listValues = new ArrayList<>();
@@ -175,7 +170,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                         listValuesFirst.add(String.valueOf(x1));
                         listValuesFirst.add(String.valueOf(cientificTransformation(y1)));
                         completeList.add(listValuesFirst);
-                        calc= true;
+                        calc = true;
                         while (((y1 * y0) > 0) && (cont < ite)) {
                             cont++;
                             x0 = x1;
@@ -189,25 +184,25 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
                             listValuesNext.add(String.valueOf(cientificTransformation(y1)));
                             completeList.add(listValuesNext);
                         }
-                        listValues.add(new IncrementalSearch("","",""));
+                        listValues.add(new IncrementalSearch("", "", ""));
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphSerie(function.getExpression(),0,x0,color);
+                        graphSerie(function.getExpression(), x0, color);
                         if (y1 == 0) {
                             color = poolColors.remove(0);
                             poolColors.add(color);
-                            graphPoint(x1,y1,color);
+                            graphPoint(x1, y1, color);
                             styleCorrectMessage(normalTransformation(x1) + " is a root");
                         } else if (y1 * y0 < 0) {
                             styleCorrectMessage("[" + normalTransformation(x0) + ", " + normalTransformation(x1) + "] is an interval with root");
-                        }else{
+                        } else {
                             styleWrongMessage("Root dont found");
                         }
 
                     } else {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphPoint(x0,y0,color);
+                        graphPoint(x0, y0, color);
                         styleCorrectMessage(normalTransformation(x0) + " is a root");
                     }
 

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment.croult"
+    tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment.Croult"
     android:orientation="vertical">
 
     <TextView
@@ -63,7 +63,7 @@
                 android:text="L"
                 android:textSize="20dp" />
             <TextView
-                android:id="@+id/suma"
+                android:id="@+id/sum"
                 android:layout_width="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_height="match_parent"

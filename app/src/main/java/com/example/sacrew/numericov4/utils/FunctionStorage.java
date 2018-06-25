@@ -12,7 +12,7 @@ import java.util.List;
 public class FunctionStorage implements Serializable {
     public List<String> functions = new LinkedList<>();
 
-    public void updateStorage(File temp){
+    public void updateStorage(File temp) {
         FileOutputStream bridge = null;
         try {
             bridge = new FileOutputStream(temp);

@@ -6,20 +6,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpFalsePosition;
-import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePosition;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.FalsePositionListAdapter;
 import com.udojava.evalex.Expression;
@@ -28,6 +26,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
@@ -38,18 +37,15 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 public class falsePositionFragment extends baseOneVariableFragments {
 
 
+    private View view;
+    private ListView listView;
+    private EditText xi, xs;
     public falsePositionFragment() {
         // Required empty public constructor
     }
 
-
-
-    private View view;
-    private ListView listView;
-    private EditText xi, xs;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         try {
             view = inflater.inflate(R.layout.fragment_false_position, container, false);
@@ -88,14 +84,14 @@ public class falsePositionFragment extends baseOneVariableFragments {
         xs = view.findViewById(R.id.xs);
 
 
-        registerEditText(xi,getContext(),getActivity());
-        registerEditText(xs,getContext(),getActivity());
+        registerEditText(xi, getContext(), getActivity());
+        registerEditText(xs, getContext(), getActivity());
         return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp() {
-        Intent i = new Intent(getContext().getApplicationContext(), popUpFalsePosition.class);
+    private void executeHelp() {
+        Intent i = new Intent(Objects.requireNonNull(getContext()).getApplicationContext(), popUpFalsePosition.class);
         startActivity(i);
     }
 
@@ -137,7 +133,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void falsePosition(double xi, double xs, double tol, int ite, boolean errorRel) {
+    private void falsePosition(double xi, double xs, double tol, int ite, boolean errorRel) {
         double initial = xs;
         function.setPrecision(100);
         ArrayList<FalsePosition> listValues = new ArrayList<>();
@@ -171,7 +167,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
                             int cont = 0;
                             double xaux = xm;
                             completeList.add(listValuesIteZero);
-                            calc= true;
+                            calc = true;
                             while ((ym != 0) && (error > tol) && (cont < ite)) {
                                 if (yi * ym < 0) {
                                     xs = xm;
@@ -183,8 +179,8 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                 xaux = xm;
                                 xm = xi - ((yi * (xi - xs)) / (yi - ys));
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
-                                graphPoint(xm, ym,  Color.parseColor("#FA4659"));
-                                
+                                graphPoint(xm, ym, Color.parseColor("#FA4659"));
+
                                 if (errorRel) {
                                     error = Math.abs(xm - xaux) / xm;
                                 } else {
@@ -201,24 +197,24 @@ public class falsePositionFragment extends baseOneVariableFragments {
                                 listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                                 completeList.add(listValuesIteNext);
                             }
-                            listValues.add(new FalsePosition("","","","","",""));
+                            listValues.add(new FalsePosition("", "", "", "", "", ""));
                             int color = poolColors.remove(0);
                             poolColors.add(color);
-                            graphSerie(function.getExpression(),0, initial,color);
+                            graphSerie(function.getExpression(), initial, color);
                             if (ym == 0) {
                                 color = poolColors.remove(0);
                                 poolColors.add(color);
-                                graphPoint(xm,ym,color);
+                                graphPoint(xm, ym, color);
 
                                 styleCorrectMessage(normalTransformation(xm) + " is an aproximate root");
                             } else if (error < tol) {
                                 color = poolColors.remove(0);
                                 poolColors.add(color);
-                                graphPoint(xm,ym,color);
+                                graphPoint(xm, ym, color);
                                 styleCorrectMessage(normalTransformation(xaux) + " is an aproximate root");
 
                             } else {
-                                styleWrongMessage("The method failed with "+ite+" iterations!");
+                                styleWrongMessage("The method failed with " + ite + " iterations!");
                             }
                         } else {
                             styleWrongMessage("Bad interval");
@@ -227,14 +223,14 @@ public class falsePositionFragment extends baseOneVariableFragments {
                         styleCorrectMessage(normalTransformation(xs) + " is an aproximate root");
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphPoint(xs,ys,color);
+                        graphPoint(xs, ys, color);
                         //graphPoint(xs, ys, PointsGraphSeries.Shape.POINT, graph, getActivity(), Color.parseColor("#0E9577"), true);
                     }
                 } else {
                     styleCorrectMessage(normalTransformation(xi) + " is an aproximate root");
                     int color = poolColors.remove(0);
                     poolColors.add(color);
-                    graphPoint(xi,yi,color);
+                    graphPoint(xi, yi, color);
                 }
             } else {
                 iter.setError("Wrong iterates");

@@ -5,30 +5,33 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.sacrew.numericov4.R;
 
+import java.util.Objects;
+
 import katex.hourglass.in.mathlib.MathView;
 
 
 public class mathExpressions extends AppCompatActivity {
     private static MathView mathView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math_expressions);
         mathView = findViewById(R.id.math_view);
         Bundle b = getIntent().getExtras();
-        String value = ""; // or other values
-        if(b != null) {
+        String value; // or other values
+        if (b != null) {
             value = b.getString("key");
-            setFunction(value);
+            setFunction(Objects.requireNonNull(value));
         }
     }
 
-    public void setFunction(String function){
+    private void setFunction(String function) {
         mathView.getSettings().setUseWideViewPort(true);
         mathView.getSettings().setLoadWithOverviewMode(true);
-        if(function.length() < 30)
+        if (function.length() < 30)
             mathView.setTextSize(100);
-        else if(function.length() < 80)
+        else if (function.length() < 80)
             mathView.setTextSize(80);
         else mathView.setTextSize(60);
         mathView.setDisplayText(function);

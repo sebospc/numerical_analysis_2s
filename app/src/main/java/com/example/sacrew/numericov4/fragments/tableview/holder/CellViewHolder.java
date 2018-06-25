@@ -32,18 +32,16 @@ import com.example.sacrew.numericov4.fragments.tableview.model.Cell;
 
 public class CellViewHolder extends AbstractViewHolder {
 
-    public final TextView cell_textview;
-    public final LinearLayout cell_container;
-    private Cell cell;
+    private final TextView cell_textview;
+    private final LinearLayout cell_container;
 
     public CellViewHolder(View itemView) {
         super(itemView);
-        cell_textview = (TextView) itemView.findViewById(R.id.cell_data);
-        cell_container = (LinearLayout) itemView.findViewById(R.id.cell_container);
+        cell_textview = itemView.findViewById(R.id.cell_data);
+        cell_container = itemView.findViewById(R.id.cell_container);
     }
 
     public void setCell(Cell cell) {
-        this.cell = cell;
         cell_textview.setText(String.valueOf(cell.getData()));
 
         // If your TableView should have auto resize for cells & columns.
