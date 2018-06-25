@@ -17,8 +17,6 @@
 
 package com.example.sacrew.numericov4.fragments.tableview;
 
-import android.content.Context;
-
 import com.example.sacrew.numericov4.fragments.tableview.model.Cell;
 import com.example.sacrew.numericov4.fragments.tableview.model.ColumnHeader;
 import com.example.sacrew.numericov4.fragments.tableview.model.RowHeader;
@@ -33,49 +31,28 @@ import java.util.List;
 
 public class TableViewModel {
 
-    private Context mContext;
-    private static List<String> listaTitulos= new LinkedList<>();
+    private static List<String> listaTitulos = new LinkedList<>();
     private static List<List<String>> listaCeldas = new LinkedList<>();
-    private static int counter;
-    private static int contador;
 
-    public TableViewModel(Context context) {
-        mContext = context;
+    public TableViewModel() {
 
     }
 
-    public static int getCont(int cont){
-        return cont;
-    }
-
-    public static List<String> getTitles(List<String> lista){
+    public static List<String> getTitles(List<String> lista) {
         listaTitulos = lista;
         return lista;
     }
 
-    public static void getCeldas(List<List<String>> lista){
+    public static void getCeldas(List<List<String>> lista) {
         listaCeldas = lista;
     }
 
 
-
     private List<RowHeader> getSimpleRowHeaderList() {
         List<RowHeader> list = new LinkedList<>();
-        contador = getCont(counter);
-        if(contador == 1){
-            for (int i = 0;i<2; i++) {
-                RowHeader header = new RowHeader(String.valueOf(i),  ""+contador);
-                list.add(header);
-            }
-            for (int i = 2;i<listaCeldas.size(); i++) {
-                RowHeader header = new RowHeader(String.valueOf(i),  ""+(i-1));
-                list.add(header);
-            }
-        }else{
-            for (int i = 0;i<listaCeldas.size(); i++) {
-                RowHeader header = new RowHeader(String.valueOf(i),  ""+i);
-                list.add(header);
-            }
+        for (int i = 0; i < listaCeldas.size(); i++) {
+            RowHeader header = new RowHeader(String.valueOf(i), "" + i);
+            list.add(header);
         }
 
         return list;
@@ -97,12 +74,12 @@ public class TableViewModel {
     private List<List<Cell>> getSimpleCellList() {
         List<List<Cell>> list = new LinkedList<>();
 
-        for(int i = 0; i < listaCeldas.size(); i++){
+        for (int i = 0; i < listaCeldas.size(); i++) {
             LinkedList cellList = new LinkedList();
             List<String> aux = listaCeldas.get(i);
-            for(int j = 0; j< aux.size() ; j++){
+            for (int j = 0; j < aux.size(); j++) {
                 Object text = aux.get(j);
-                Cell cell = new Cell(j+"-"+i,text);
+                Cell cell = new Cell(j + "-" + i, text);
                 cellList.add(cell);
             }
             list.add(cellList);
@@ -110,7 +87,7 @@ public class TableViewModel {
         return list;
     }
 
-    public  List<List<Cell>> getCellList() {
+    public List<List<Cell>> getCellList() {
         return getSimpleCellList();
     }
 

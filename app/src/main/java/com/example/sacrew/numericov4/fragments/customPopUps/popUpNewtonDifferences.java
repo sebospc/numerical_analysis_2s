@@ -18,7 +18,7 @@ public class popUpNewtonDifferences extends Activity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) (width*0.97), (int) (height*0.72));
+        getWindow().setLayout((int) (width * 0.97), (int) (height * 0.72));
 
     }
 

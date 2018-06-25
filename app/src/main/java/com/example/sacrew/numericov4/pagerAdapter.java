@@ -12,10 +12,11 @@ import java.util.List;
  */
 
 public class pagerAdapter extends FragmentPagerAdapter {
-    List<Fragment> fragments;
+    private final List<Fragment> fragments;
+
     public pagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
-        this.fragments =  fragments;
+        this.fragments = fragments;
     }
 
     @Override

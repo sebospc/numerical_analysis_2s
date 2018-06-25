@@ -17,10 +17,6 @@
 
 package com.example.sacrew.numericov4.fragments.tableview.holder;
 
-/**
- * Created by evrencoskun on 23/10/2017.
- */
-
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,6 +28,6 @@ public class RowHeaderViewHolder extends AbstractViewHolder {
 
     public RowHeaderViewHolder(View itemView) {
         super(itemView);
-        row_header_textview = (TextView) itemView.findViewById(R.id.row_header_textview);
+        row_header_textview = itemView.findViewById(R.id.row_header_textview);
     }
 }

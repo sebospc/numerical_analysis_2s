@@ -5,47 +5,32 @@ package com.example.sacrew.numericov4.fragments.listViewCustomAdapter;
  */
 
 public class Secant {
-    private String n;
-    private String xn;
-    private String fXn;
-    private String error;
+    private final String n;
+    private final String xn;
+    private final String fXn;
+    private final String error;
 
-    public Secant(String n, String xn, String fXn,String error) {
+    public Secant(String n, String xn, String fXn, String error) {
         this.n = n;
-        this.xn=xn;
-        this.fXn=fXn;
-        this.error=error;
+        this.xn = xn;
+        this.fXn = fXn;
+        this.error = error;
     }
 
     public String getN() {
         return n;
     }
 
-    public void setN(String n) {
-        this.n = n;
-    }
-
     public String getXn() {
         return xn;
-    }
-
-    public void setXn(String xn) {
-        this.xn = xn;
     }
 
     public String getFXn() {
         return fXn;
     }
 
-    public void setFXn(String fXn) {
-        this.fXn = fXn;
-    }
-
     public String getError() {
         return error;
     }
 
-    public void setError(String error) {
-        this.error = error;
-    }
 }

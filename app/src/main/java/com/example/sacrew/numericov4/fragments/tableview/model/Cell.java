@@ -26,13 +26,9 @@ import com.evrencoskun.tableview.sort.ISortableModel;
 
 public class Cell implements ISortableModel, IFilterableModel {
 
-    private String mId;
-    private Object mData;
-    private String mFilterKeyword;
-
-    public Cell(String id) {
-        this.mId = id;
-    }
+    private final String mId;
+    private final Object mData;
+    private final String mFilterKeyword;
 
     public Cell(String id, Object data) {
         this.mId = id;
@@ -61,16 +57,6 @@ public class Cell implements ISortableModel, IFilterableModel {
 
     public Object getData() {
         return mData;
-    }
-
-    public void setData(String data) { mData = data; }
-
-    public String getFilterKeyword() {
-        return mFilterKeyword;
-    }
-
-    public void setFilterKeyword(String filterKeyword) {
-        this.mFilterKeyword = filterKeyword;
     }
 
     @Override

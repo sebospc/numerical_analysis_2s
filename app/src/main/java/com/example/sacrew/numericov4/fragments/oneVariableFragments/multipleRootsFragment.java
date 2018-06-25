@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpMultipleRoots;
@@ -25,9 +25,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
-import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
 
 
 /**
@@ -48,7 +48,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this
         try {
@@ -94,8 +94,8 @@ public class multipleRootsFragment extends baseOneVariableFragments {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp() {
-        Intent i = new Intent(getContext().getApplicationContext(), popUpMultipleRoots.class);
+    private void executeHelp() {
+        Intent i = new Intent(Objects.requireNonNull(getContext()).getApplicationContext(), popUpMultipleRoots.class);
         startActivity(i);
     }
 
@@ -109,10 +109,10 @@ public class multipleRootsFragment extends baseOneVariableFragments {
 
         String originalFuncDeriv2 = textFunctionGDeriv2.getText().toString(); // segunda derivada
         boolean errDeriv1 = checkSyntax(originalFuncDeriv1, textFunctionDeriv1);
-        if(errDeriv1) updateMyFunctions(originalFuncDeriv1);
+        if (errDeriv1) updateMyFunctions(originalFuncDeriv1);
         boolean errDeriv2 = checkSyntax(originalFuncDeriv2, textFunctionGDeriv2);
-        if(errDeriv2) updateMyFunctions(originalFuncDeriv2);
-        error = errDeriv1 && errDeriv2 ;
+        if (errDeriv2) updateMyFunctions(originalFuncDeriv2);
+        error = errDeriv1 && errDeriv2;
 
         this.functionDeriv1 = new Expression(functionRevision(originalFuncDeriv1));
 
@@ -180,7 +180,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
 
                     calc = true;
                     Expression multipleRootsFunction;
-                    while ((y0 != 0) && (error > tol)&& den != 0 && (cont < ite)) {
+                    while ((y0 != 0) && (error > tol) && den != 0 && (cont < ite)) {
                         ArrayList<String> listValuesIteNext = new ArrayList<String>();
 
                         multipleRootsFunction = new Expression("x-(" + y0 * y0p1 + ")/(" + den + ")");
@@ -214,7 +214,7 @@ public class multipleRootsFragment extends baseOneVariableFragments {
                     listValues.add(new MultipleRoots("", "", "", "", "", ""));
                     int color = poolColors.remove(0);
                     poolColors.add(color);
-                    graphSerie(function.getExpression(), 0, x0, color);
+                    graphSerie(function.getExpression(), x0, color);
                     if (y0 == 0) {
                         color = poolColors.remove(0);
                         poolColors.add(color);

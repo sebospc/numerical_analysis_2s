@@ -6,22 +6,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpBisection;
-import com.example.sacrew.numericov4.fragments.graphFragment;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Bisection;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.BisectionListAdapter;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
@@ -30,6 +26,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 
@@ -40,20 +37,16 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 public class bisectionFragment extends baseOneVariableFragments {
 
 
+    private EditText xi, xs;
+    private ListView listView;
+
+
     public bisectionFragment() {
         // Required empty public constructor
     }
 
-    public TextView textViewXm, textViewMessage;
-    private EditText xi, xs;
-
-
-    private ListView listView;
-    public LinearLayout basicSection;
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = null;
         try {
@@ -61,7 +54,7 @@ public class bisectionFragment extends baseOneVariableFragments {
         } catch (InflateException e) {
             // ignorable
         }
-        Button runBisection = view.findViewById(R.id.runBisection);
+        Button runBisection = Objects.requireNonNull(view).findViewById(R.id.runBisection);
         runBisection.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -88,22 +81,19 @@ public class bisectionFragment extends baseOneVariableFragments {
                 executeHelp();
             }
         });
-        textViewMessage = view.findViewById(R.id.textViewMessage);
-        textViewXm = view.findViewById(R.id.textViewXm);
         xi = view.findViewById(R.id.xi);
         xs = view.findViewById(R.id.xs);
 
-        registerEditText(xi,getContext(),getActivity());
-        registerEditText(xs,getContext(),getActivity());
+        registerEditText(xi, getContext(), getActivity());
+        registerEditText(xs, getContext(), getActivity());
         return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp() {
-        Intent i = new Intent(getContext().getApplicationContext(), popUpBisection.class);
+    private void executeHelp() {
+        Intent i = new Intent(Objects.requireNonNull(getContext()).getApplicationContext(), popUpBisection.class);
         startActivity(i);
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -137,7 +127,7 @@ public class bisectionFragment extends baseOneVariableFragments {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void bisectionMethod(double xi, double xs, double tol, int ite, boolean errorRel) {
+    private void bisectionMethod(double xi, double xs, double tol, int ite, boolean errorRel) {
         double initial = xs;
         function.setPrecision(100);
         ArrayList<Bisection> listValues = new ArrayList<>();
@@ -172,12 +162,11 @@ public class bisectionFragment extends baseOneVariableFragments {
                             int cont = 0;
                             double xaux = xm;
                             completeList.add(listValuesIteZero);
-                            calc= true;
+                            calc = true;
                             while ((ym != 0) && (error > tol) && (cont < ite)) {
                                 ArrayList<String> listValuesIteNext = new ArrayList<String>();
                                 if (yi * ym < 0) {
                                     xs = xm;
-                                    ys = ym;
                                 } else {
                                     xi = xm;
                                     yi = ym;
@@ -186,7 +175,7 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 xm = (xi + xs) / 2;
                                 ym = (this.function.with("x", BigDecimal.valueOf(xm)).eval()).doubleValue();
 
-                                graphPoint(xm, ym,  Color.parseColor("#FA4659"));
+                                graphPoint(xm, ym, Color.parseColor("#FA4659"));
                                 if (errorRel) {
                                     error = Math.abs(xm - xaux) / xm;
                                 } else {
@@ -202,18 +191,18 @@ public class bisectionFragment extends baseOneVariableFragments {
                                 listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
                                 completeList.add(listValuesIteNext);
                             }
-                            listValues.add(new Bisection("","","","","",""));
+                            listValues.add(new Bisection("", "", "", "", "", ""));
                             int color = poolColors.remove(0);
                             poolColors.add(color);
-                            graphSerie(function.getExpression(),0, initial,color);
+                            graphSerie(function.getExpression(), initial, color);
                             if (ym == 0) {
-                                graphPoint(xm,ym,Color.GREEN);
+                                graphPoint(xm, ym, Color.GREEN);
                                 styleCorrectMessage(normalTransformation(xm) + " is an aproximate root");
                             } else if (error < tol) {
-                                graphPoint(xm,ym,Color.GREEN);
+                                graphPoint(xm, ym, Color.GREEN);
                                 styleCorrectMessage(normalTransformation(xaux) + " is an aproximate root");
                             } else {
-                                styleWrongMessage("The method failed with "+ite+" iterations!");
+                                styleWrongMessage("The method failed with " + ite + " iterations!");
                             }
 
                         } else {
@@ -222,10 +211,10 @@ public class bisectionFragment extends baseOneVariableFragments {
                         }
                     } else {
                         styleCorrectMessage(normalTransformation(xs) + " is an aproximate root");
-                        graphPoint(xs, ys,Color.GREEN);
+                        graphPoint(xs, ys, Color.GREEN);
                     }
                 } else {
-                    graphPoint(xi,yi,Color.GREEN);
+                    graphPoint(xi, yi, Color.GREEN);
                     styleWrongMessage("The method does not converge");
                 }
             } else {

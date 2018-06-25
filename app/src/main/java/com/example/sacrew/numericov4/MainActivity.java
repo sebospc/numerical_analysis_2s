@@ -1,26 +1,21 @@
 package com.example.sacrew.numericov4;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ActionMenuView;
 import android.text.Html;
-import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,18 +31,16 @@ import com.example.sacrew.numericov4.utils.FunctionStorage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.nio.file.Files;
+import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
-import static java.io.File.createTempFile;
 
 public class MainActivity extends AppCompatActivity {
+    private final String homeInformation = "If you want to report some bug, you can do it in <a href=\"https://github.com/sebospc/numericoV4\">github official project</a> ," +
+            " in the play store" +
+            " or send us a mail!";
     private ListView menuLateral;
     private DrawerLayout drawerLayout;
     private graphFragment graphFragment;
@@ -58,22 +51,32 @@ public class MainActivity extends AppCompatActivity {
     private int idFragment; //0 is graphFragment // 1 is one variable
     private FragmentManager fragmentManager;
     private String extraInformation;
-    private final String homeInformation = "If you want to report some bug, you can do it in <a href=\"https://github.com/sebospc/numericoV4\">github official project</a> ," +
-            " in the play store" +
-            " or send us a mail!";
-    private final String graphInformation = "In this section you will be able to graph any function, " +
-            "but take care with no continuous functions. " +
-            "<br><br>The library of this graph is   "+
-            "<a href=\"http://www.android-graphview.org/\">GraphView</a>\n" +
-            "        by Jonas Grehring"+
-            "<br><br>You will see your (correct) functions in \"MY FUNCTIONS\" keyboard options."+
-            "<br><br>"+homeInformation;
-    private final String oneVariableInfo = "stiven ponga un overview aca :v"+
-            "<br><br>"+homeInformation;
-    private final String systemEquationInfo = "stiven ponga un overview aca :v"+
-            "<br><br>"+homeInformation;
-    private final String interpolationInfo = "stiven ponga un overview aca :v"+
-            "<br><br>"+homeInformation;
+    private final AdapterView.OnItemClickListener adap = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            switch (i) {
+                case 0:
+                    openHome();
+                    break;
+                case 1:
+                    openGraph();
+                    break;
+                case 2:
+                    openOneVariable();
+                    break;
+                case 3:
+                    openSystemEquations();
+                    break;
+                case 4:
+                    openInterpolation();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+    };
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,15 +86,15 @@ public class MainActivity extends AppCompatActivity {
         //define poop
 
         // draweLayout
-        android.support.v7.app.ActionBar aBar  = getSupportActionBar();
-        aBar.setHomeButtonEnabled(true);
+        android.support.v7.app.ActionBar aBar = getSupportActionBar();
+        Objects.requireNonNull(aBar).setHomeButtonEnabled(true);
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
         drawerLayout = findViewById(R.id.root);
-        final String[] opciones ={"Home","Graph","One Variable","System Equations","Interpolation"};
+        final String[] opciones = {"Home", "Graph", "One Variable", "System Equations", "Interpolation"};
         ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1,opciones);
+                android.R.layout.simple_list_item_1, opciones);
         menuLateral = findViewById(R.id.menuLateral);
         menuLateral.setAdapter(adp);
         menuLateral.setOnItemClickListener(adap);
@@ -110,18 +113,18 @@ public class MainActivity extends AppCompatActivity {
 
             File temp = new File(this.getCacheDir(), "num");
             //functionStorage.updateStorage(temp,functionStorage);
-            if(temp.exists() && temp.length() != 0) {
+            if (temp.exists() && temp.length() != 0) {
                 FileInputStream bridgeToRead = new FileInputStream(temp);
                 ObjectInputStream objectToRead = new ObjectInputStream(bridgeToRead);
                 FunctionStorage func = ((FunctionStorage) objectToRead.readObject());
-                if(func.functions != null)
-                functionStorage.functions = func.functions ;
+                if (func.functions != null)
+                    functionStorage.functions = func.functions;
             }
             functionStorage.functions.isEmpty();
-            graphFragment.temp=temp;
+            graphFragment.temp = temp;
             graphFragment.functionStorage = functionStorage;
             graphFragment.functionStorage.functions.isEmpty();
-            oneVariableFragment.temp=temp;
+            oneVariableFragment.temp = temp;
             oneVariableFragment.functionStorage = functionStorage;
 
         } catch (IOException e) {
@@ -137,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         idFragment = 0;
 
 
-
     }
 
     @Override
@@ -148,28 +150,8 @@ public class MainActivity extends AppCompatActivity {
         return true;//super.onCreateOptionsMenu(menu);
     }
 
-    AdapterView.OnItemClickListener adap = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            switch (i) {
-                case 0: openHome();
-                    break;
-                case 1: openGraph();
-                    break;
-                case 2: openOneVariable();
-                    break;
-                case 3: openSystemEquations();
-                    break;
-                case 4: openInterpolation();
-                    break;
-                default:
-                    break;
-            }
-
-        }
-    };
-    public void openHome(){
-        if(idFragment != 0) {
+    private void openHome() {
+        if (idFragment != 0) {
             extraInformation = homeInformation;
             /*
              * remove animations of system equations
@@ -177,8 +159,9 @@ public class MainActivity extends AppCompatActivity {
             animatorSet.removeAllListeners();
             animatorSet.end();
             animatorSet.cancel();
-            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
-               if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment != null)
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
             //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
@@ -189,23 +172,28 @@ public class MainActivity extends AppCompatActivity {
             idFragment = 0;
         }
     }
-    public void openGraph(){
-        if(idFragment != 1) {
 
-            extraInformation = graphInformation;
-            /**
-             * remove animations of system equations
-             */
+    private void openGraph() {
+        if (idFragment != 1) {
+
+            extraInformation = "In this section you will be able to graph any function, " +
+                    "but take care with no continuous functions. " +
+                    "<br><br>The library of this graph is   " +
+                    "<a href=\"http://www.android-graphview.org/\">GraphView</a>\n" +
+                    "        by Jonas Grehring" +
+                    "<br><br>You will see your (correct) functions in \"MY FUNCTIONS\" keyboard options." +
+                    "<br><br>" + homeInformation;
             View view = this.getCurrentFocus();
             if (view != null) {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
             animatorSet.removeAllListeners();
             animatorSet.end();
             animatorSet.cancel();
-            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
-                if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment != null)
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
             //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
@@ -216,23 +204,23 @@ public class MainActivity extends AppCompatActivity {
             idFragment = 1;
         }
     }
-    public void openOneVariable(){
 
-        if(idFragment != 2) {
-            extraInformation = oneVariableInfo;
+    private void openOneVariable() {
+
+        if (idFragment != 2) {
+            extraInformation = "stiven ponga un overview aca :v" +
+                    "<br><br>" + homeInformation;
             View view = this.getCurrentFocus();
             if (view != null) {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
-            /**
-             * remove animations of system equations
-             */
             animatorSet.removeAllListeners();
             animatorSet.end();
             animatorSet.cancel();
-            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
-                if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment != null)
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
             //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
@@ -245,11 +233,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void openSystemEquations(){
-        if(idFragment != 3){
-            extraInformation = systemEquationInfo;
-            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
-               if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+    private void openSystemEquations() {
+        if (idFragment != 3) {
+            extraInformation = "stiven ponga un overview aca :v" +
+                    "<br><br>" + homeInformation;
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment != null)
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
             //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             drawerLayout.closeDrawer(menuLateral);
@@ -260,12 +250,15 @@ public class MainActivity extends AppCompatActivity {
             idFragment = 3;
         }
     }
-    public void openInterpolation(){
-        if(idFragment != 4){
-            extraInformation = interpolationInfo;
+
+    private void openInterpolation() {
+        if (idFragment != 4) {
+            extraInformation = "stiven ponga un overview aca :v" +
+                    "<br><br>" + homeInformation;
             //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
-            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
-               if(fragment != null )getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment != null)
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
             drawerLayout.closeDrawer(menuLateral);
 
@@ -275,11 +268,13 @@ public class MainActivity extends AppCompatActivity {
             idFragment = 4;
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         System.out.println("entro item selected");
-        switch (item.getItemId()){
-            case 1: AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        switch (item.getItemId()) {
+            case 1:
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                 Spanned myMessage = Html.fromHtml(extraInformation);
                 TextView textView = new TextView(this);
                 textView.setText(myMessage);
@@ -288,30 +283,32 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.show();
                 break;
             default:
-                    if(drawerLayout.isDrawerOpen(menuLateral)){
-                        drawerLayout.closeDrawer(menuLateral);
-                    }else{
-                        drawerLayout.openDrawer(menuLateral);
-                    }break;
+                if (drawerLayout.isDrawerOpen(menuLateral)) {
+                    drawerLayout.closeDrawer(menuLateral);
+                } else {
+                    drawerLayout.openDrawer(menuLateral);
+                }
+                break;
 
         }
 
         return true;
     }
 
-    @Override public void onBackPressed() {
-     if(graphFragment.keyboardUtils != null){
-         if(graphFragment.keyboardUtils.isUp){
-             graphFragment.keyboardUtils.closeInternalKeyboard();
-             return;
-         }
-     }
-     if(oneVariable.keyboardUtils != null){
-         if(oneVariable.keyboardUtils.isUp){
-            oneVariable.keyboardUtils.closeInternalKeyboard();
-            return;
-         }
-     }
+    @Override
+    public void onBackPressed() {
+        if (graphFragment.keyboardUtils != null) {
+            if (graphFragment.keyboardUtils.isUp) {
+                graphFragment.keyboardUtils.closeInternalKeyboard();
+                return;
+            }
+        }
+        if (oneVariable.keyboardUtils != null) {
+            if (oneVariable.keyboardUtils.isUp) {
+                oneVariable.keyboardUtils.closeInternalKeyboard();
+                return;
+            }
+        }
         super.onBackPressed();
     }
 
@@ -319,7 +316,8 @@ public class MainActivity extends AppCompatActivity {
     public void onGraphIt(View view) {
         graphFragment.graphIt(view);
     }
-    public void onDelete(View view){
+
+    public void onDelete(View view) {
         graphFragment.onDelete(view);
     }
 }

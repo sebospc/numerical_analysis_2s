@@ -63,7 +63,7 @@
                 android:text="L"
                 android:textSize="20dp" />
             <TextView
-                android:id="@+id/suma"
+                android:id="@+id/sum"
                 android:layout_width="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_height="match_parent"

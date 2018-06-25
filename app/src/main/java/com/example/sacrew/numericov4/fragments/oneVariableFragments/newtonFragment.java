@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -13,22 +14,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewton;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.Newton;
 import com.example.sacrew.numericov4.fragments.listViewCustomAdapter.NewtonListAdapter;
-import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
-import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
 
 
 /**
@@ -48,7 +47,7 @@ public class newtonFragment extends baseOneVariableFragments {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         try {
@@ -87,15 +86,15 @@ public class newtonFragment extends baseOneVariableFragments {
         textFunctionG = view.findViewById(R.id.functionG);
 
 
-        registerEditText(textFunctionG,getContext(),getActivity());
-        registerEditText(xvalue,getContext(),getActivity());
+        registerEditText(textFunctionG, getContext(), getActivity());
+        registerEditText(xvalue, getContext(), getActivity());
         return view;
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp() {
-        Intent i = new Intent(getContext().getApplicationContext(), popUpNewton.class);
+    private void executeHelp() {
+        Intent i = new Intent(Objects.requireNonNull(getContext()).getApplicationContext(), popUpNewton.class);
         startActivity(i);
     }
 
@@ -108,7 +107,7 @@ public class newtonFragment extends baseOneVariableFragments {
 
         this.functionDeriv1 = new Expression(functionRevision(originalFunctionDeriv1));
         boolean errDeriv1 = checkSyntax(originalFunctionDeriv1, textFunctionG);
-        if(errDeriv1)
+        if (errDeriv1)
             updateMyFunctions(originalFunctionDeriv1);
         error = errDeriv1 && error;
 
@@ -166,21 +165,21 @@ public class newtonFragment extends baseOneVariableFragments {
                         System.out.println("error: " + "");
                         double xa = x0;
                         completeList.add(listValuesIteZero);
-                        calc= true;
+                        calc = true;
                         Expression newtonFunction;
                         while ((y0 != 0) && (error > tol) && y0p != 0 && (cont < ite)) {
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             double xn;
-                            newtonFunction = new Expression("x"+"-"+(y0/y0p));
+                            newtonFunction = new Expression("x" + "-" + (y0 / y0p));
                             newtonFunction.setPrecision(100);
                             xn = (newtonFunction.with("x", BigDecimal.valueOf(xa)).eval()).doubleValue();
-                            try{
+                            try {
                                 y0 = Double.NaN;
                                 y0p = Double.NaN;
                                 y0p = (this.functionDeriv1.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
                                 y0 = (this.function.with("x", BigDecimal.valueOf(xn)).eval()).doubleValue();
 
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 styleWrongMessage("Unexpected error posibly NaN ");
                             }
                             if (errorRel)
@@ -202,30 +201,30 @@ public class newtonFragment extends baseOneVariableFragments {
                             System.out.println("error: " + error);
                             completeList.add(listValuesIteNext);
                         }
-                        listValues.add(new Newton("","","","",""));
+                        listValues.add(new Newton("", "", "", "", ""));
 
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphSerie(function.getExpression(),0,xa,color);
+                        graphSerie(function.getExpression(), xa, color);
                         if (y0 == 0) {
                             color = poolColors.remove(0);
                             poolColors.add(color);
-                            graphPoint(xa,y0,color);
+                            graphPoint(xa, y0, color);
 
                             styleCorrectMessage(normalTransformation(xa) + " is a root");
                         } else if (error <= tol) {
                             color = poolColors.remove(0);
                             poolColors.add(color);
-                            graphPoint(xa,y0,color);
+                            graphPoint(xa, y0, color);
 
                             styleCorrectMessage(normalTransformation(xa) + " is an aproximate root");
                         } else {
-                            styleWrongMessage("The method failed with "+ite+" iterations!");
+                            styleWrongMessage("The method failed with " + ite + " iterations!");
                         }
                     } else {
                         int color = poolColors.remove(0);
                         poolColors.add(color);
-                        graphPoint(x0,y0,color);
+                        graphPoint(x0, y0, color);
                         styleCorrectMessage(normalTransformation(x0) + " is an aproximate root");
                     }
                 } else {

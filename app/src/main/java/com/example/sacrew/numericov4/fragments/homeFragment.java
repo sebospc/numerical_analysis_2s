@@ -1,22 +1,17 @@
 package com.example.sacrew.numericov4.fragments;
 
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.text.Html;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.example.sacrew.numericov4.R;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
@@ -28,16 +23,16 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class homeFragment extends Fragment {
+    public final static List<Integer> poolColors = new LinkedList<>();
     private View view;
 
-    public static List<Integer> poolColors = new LinkedList<>();
     public homeFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //clear toasts
         SuperActivityToast.cancelAllSuperToasts();
@@ -69,7 +64,7 @@ public class homeFragment extends Fragment {
                 poolColors.add(Color.parseColor("#4A772F"));
                 poolColors.add(Color.parseColor("#F54D42"));
                 poolColors.add(Color.parseColor("#682666"));
-                for(float i = 0; i < 360; i += 360 / 200) {
+                for (float i = 0; i < 360; i += 360 / 200) {
                     float[] hsv = new float[3];
 
                     hsv[0] = i;
@@ -83,7 +78,7 @@ public class homeFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute(){
+    private void execute() {
         //Start your activity here
         Intent i = new Intent(view.getContext(), creditsFragment.class);
         startActivity(i);

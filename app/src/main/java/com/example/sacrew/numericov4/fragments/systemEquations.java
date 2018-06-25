@@ -4,12 +4,13 @@ package com.example.sacrew.numericov4.fragments;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
-import android.support.v4.app.Fragment;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.method.DigitsKeyListener;
 import android.util.TypedValue;
@@ -18,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -27,8 +27,8 @@ import android.widget.TableRow;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.Croult;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.cholesky;
-import com.example.sacrew.numericov4.fragments.systemEquationsFragment.croult;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.doolittle;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.gaussSeidel;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.gaussSimple;
@@ -50,38 +50,35 @@ public class systemEquations extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public static TableLayout matrixAText;
     @SuppressLint("StaticFieldLeak")
-    public static LinearLayout bValuesText,xValuesText;
+    public static LinearLayout bValuesText, xValuesText;
     @SuppressLint("StaticFieldLeak")
-    public  static SeekBar times;
+    public static SeekBar times;
     public static List<Animator> animations;
-    private int count;
     public static AnimatorSet animatorSet = new AnimatorSet();
     @SuppressLint("StaticFieldLeak")
     public static ImageButton backMAtrix;
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout xIndex;
-    public static double [][]matrixBackpack;
+    public static double[][] matrixBackpack;
     public static Boolean pivoted = false;
+    private int count;
     private LinearLayout initialValues;
     private LinearLayout defaultInfo;
-    int matrixA [][];
-    int bValues[],xValues[];
+
     public systemEquations() {
         // Required empty public constructor
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         count = 4;
         //clear toasts
         SuperActivityToast.cancelAllSuperToasts();
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_system_equations,container,false);
-
+        View view = inflater.inflate(R.layout.fragment_system_equations, container, false);
 
 
         defaultInfo = view.findViewById(R.id.defaultInfo);
@@ -94,22 +91,22 @@ public class systemEquations extends Fragment {
         backMAtrix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(animatorSet != null) {
+                if (animatorSet != null) {
                     animatorSet.removeAllListeners();
                     animatorSet.end();
                     animatorSet.cancel();
                 }
                 matrixAText.removeAllViews();
                 bValuesText.removeAllViews();
-                for(int i = 0; i < matrixBackpack.length; i++){
+                for (int i = 0; i < matrixBackpack.length; i++) {
                     TableRow row = new TableRow(getContext());
-                    for(int j = 0; j < matrixBackpack.length;j++){
-                        row.addView(defaultEditText(matrixBackpack[i][j]+""));
+                    for (int j = 0; j < matrixBackpack.length; j++) {
+                        row.addView(defaultEditText(matrixBackpack[i][j] + ""));
                     }
                     matrixAText.addView(row);
-                    bValuesText.addView(defaultEditText(matrixBackpack[i][matrixBackpack.length]+""));
+                    bValuesText.addView(defaultEditText(matrixBackpack[i][matrixBackpack.length] + ""));
                 }
-                
+
                 backMAtrix.setVisibility(View.GONE);
                 xIndex.setVisibility(View.GONE);
                 pivoted = false;
@@ -121,14 +118,11 @@ public class systemEquations extends Fragment {
         xValuesText = view.findViewById(R.id.arrayResult);
 
         times = view.findViewById(R.id.seekBar2);
-        matrixA = new int[0][0];
-        bValues = new int[0];
-        xValues = new int[0];
         add.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                if(!pivoted)
+                if (!pivoted)
                     addRow();
             }
         });
@@ -136,12 +130,12 @@ public class systemEquations extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                if(!pivoted)
+                if (!pivoted)
                     removeRow();
             }
         });
 
-        paintMatrix(4);
+        paintMatrix();
 
         ViewPager slideView = view.findViewById(R.id.pager);
         ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
@@ -156,6 +150,7 @@ public class systemEquations extends Fragment {
                 animatorSet.end();
                 animatorSet.cancel();
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
 
@@ -167,7 +162,7 @@ public class systemEquations extends Fragment {
         fragments.add(new gaussSimple());
         fragments.add(new partialPivoting());
         fragments.add(new totalPivoting());
-        fragments.add(new croult());
+        fragments.add(new Croult());
         fragments.add(new doolittle());
         fragments.add(new cholesky());
         fragments.add(new inverseDeterminant());
@@ -177,9 +172,9 @@ public class systemEquations extends Fragment {
         ToggleButton toggleError = view.findViewById(R.id.errorToggle);
         jacobi jacob = new jacobi();
         jacob.relaxation = relaxation;
-        jacob.iters =iters;
+        jacob.iters = iters;
         jacob.error = error;
-        jacob.errorToggle =toggleError;
+        jacob.errorToggle = toggleError;
         jacob.initialValues = initialValues;
 
         fragments.add(jacob);
@@ -190,13 +185,13 @@ public class systemEquations extends Fragment {
         seidel.errorToggle = toggleError;
         seidel.initialValuesSeidel = initialValues;
         fragments.add(seidel);
-        pagerAdapter pager = new pagerAdapter(getChildFragmentManager(),fragments);
+        pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
         int position = slideView.getCurrentItem();
-        if(position < 7){
+        if (position < 7) {
             defaultInfo.setEnabled(false);
             defaultInfo.setVisibility(View.GONE);
-        }else{
+        } else {
             defaultInfo.setEnabled(true);
             defaultInfo.setVisibility(View.VISIBLE);
         }
@@ -208,10 +203,10 @@ public class systemEquations extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                if(position < 7){
+                if (position < 7) {
                     defaultInfo.setEnabled(false);
                     defaultInfo.setVisibility(View.GONE);
-                }else{
+                } else {
                     defaultInfo.setEnabled(true);
                     defaultInfo.setVisibility(View.VISIBLE);
                 }
@@ -222,14 +217,16 @@ public class systemEquations extends Fragment {
 
             }
         });
+
+
         times.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(animatorSet.isRunning()){
+                if (animatorSet.isRunning()) {
                     animatorSet.cancel();
                     animatorSet = new AnimatorSet();
                     animatorSet.playSequentially(animations);
-                    animatorSet.setDuration(times.getProgress()*500);
+                    animatorSet.setDuration(times.getProgress() * 500);
                     animatorSet.start();
                 }
 
@@ -250,16 +247,16 @@ public class systemEquations extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addRow(){
+    private void addRow() {
         int n = matrixAText.getChildCount();
         TableRow row = new TableRow(getContext());
-        for(int i = 0; i<= n; i++){
-            if(i == n)
+        for (int i = 0; i <= n; i++) {
+            if (i == n)
                 row.addView(defaultEditText("1"));
-            if(i!=n)
+            if (i != n)
                 row.addView(defaultEditText("0"));
-            if(i!=n)
-                ((TableRow )matrixAText.getChildAt(i)).addView(defaultEditText("0"));
+            if (i != n)
+                ((TableRow) matrixAText.getChildAt(i)).addView(defaultEditText("0"));
         }
         matrixAText.addView(row);
         bValuesText.addView(defaultEditText("0"));
@@ -270,16 +267,16 @@ public class systemEquations extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void removeRow(){
+    private void removeRow() {
         int n = matrixAText.getChildCount();
-        if(n > 2) {
-            for (int i = 0; i < n-1; i++) {
-                EditText text = (EditText) ((TableRow) matrixAText.getChildAt(i)).getChildAt(n-1);
+        if (n > 2) {
+            for (int i = 0; i < n - 1; i++) {
+                EditText text = (EditText) ((TableRow) matrixAText.getChildAt(i)).getChildAt(n - 1);
                 ((TableRow) matrixAText.getChildAt(i)).removeView(text);
             }
-            matrixAText.removeView(matrixAText.getChildAt(n-1));
-            bValuesText.removeView(bValuesText.getChildAt(n-1));
-            initialValues.removeView(initialValues.getChildAt(n-1));
+            matrixAText.removeView(matrixAText.getChildAt(n - 1));
+            bValuesText.removeView(bValuesText.getChildAt(n - 1));
+            initialValues.removeView(initialValues.getChildAt(n - 1));
             count = count - 1;
         }
 
@@ -287,15 +284,15 @@ public class systemEquations extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void paintMatrix(int n){
+    private void paintMatrix() {
 
-        for(int i = 1; i<=n; i++){
+        for (int i = 1; i <= 4; i++) {
             TableRow row = new TableRow(getContext());
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
-            for(int j = 1; j<=n; j++) {
+            for (int j = 1; j <= 4; j++) {
 
-                if(i == j)
+                if (i == j)
                     row.addView(defaultEditText("1"));
                 else
                     row.addView(defaultEditText("0"));
@@ -309,7 +306,7 @@ public class systemEquations extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public EditText defaultEditText(String value){
+    private EditText defaultEditText(String value) {
         EditText text = new EditText(getContext());
         text.setLayoutParams(new TableRow.LayoutParams(100, 110));
         text.setEms(2);
@@ -318,7 +315,7 @@ public class systemEquations extends Fragment {
         text.setTextColor(Color.WHITE);
         text.setTypeface(null, Typeface.BOLD);
         text.setBackgroundColor(Color.parseColor("#FF303F9F"));
-        text.setTextSize(TypedValue.COMPLEX_UNIT_DIP,10);
+        text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
         text.setKeyListener(DigitsKeyListener.getInstance("0123456789.-E"));
 
