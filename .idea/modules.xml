@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/libraries.iml" filepath="$PROJECT_DIR$/libraries/libraries.iml" />
-      <module fileurl="file://$PROJECT_DIR$/numericoV4.iml" filepath="$PROJECT_DIR$/numericoV4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/numerical_analysis_2s.iml" filepath="$PROJECT_DIR$/numerical_analysis_2s.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/tess-two/tess-two.iml" filepath="$PROJECT_DIR$/libraries/tess-two/tess-two.iml" />
     </modules>
   </component>

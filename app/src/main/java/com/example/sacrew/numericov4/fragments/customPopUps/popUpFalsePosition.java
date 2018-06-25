@@ -10,7 +10,7 @@ public class popUpFalsePosition extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.popup_false);
+        setContentView(R.layout.popup_false_position);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -18,7 +18,7 @@ public class popUpFalsePosition extends Activity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) (width*0.97), (int) (height*0.55));
+        getWindow().setLayout((int) (width*0.97), (int) (height*0.70));
 
     }
 

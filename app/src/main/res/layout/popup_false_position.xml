@@ -16,26 +16,20 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/textView4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="579dp"
-                android:drawableTop="@drawable/newton_1"
-                android:drawableBottom="@drawable/newton_2"
+                android:layout_height="534dp"
+                android:drawableBottom="@drawable/false_position"
                 android:gravity="center_horizontal"
-                android:text="This method is a variant of the fixed point method. The succession of values xn is obtained by the following iterative equation: \n\n As the graph shows, the method approaches the root through tangents. \n\n Note: The method does not always converge and under appropriate conditions, presents quadratic convergence."
+                android:text="This method assumes that exits a root in a given interval. That is, in the interval the function is continuous and presents a change of sign. \n\n With this interval, the secant line joining the points of the function corresponding to the extremes of the interval is calculated. With the help of the secant line equation, we determine the cut point of the line on the x axis, which divides the given interval by 2. So on, until satisfy a tolerance, find a root or exceed the maximum number of iterations. \n\n Note: This method always converges."
                 android:textColor="@android:color/white"
                 android:textSize="19sp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="12dp"
+                tools:layout_editor_absoluteX="20dp"
+                tools:layout_editor_absoluteY="16dp"
                 tools:textColor="@android:color/white" />
 
             <TextView
-                android:id="@+id/textView32"
+                android:id="@+id/textView23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

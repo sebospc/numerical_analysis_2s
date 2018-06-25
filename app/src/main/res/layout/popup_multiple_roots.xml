@@ -16,26 +16,20 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView19"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
-                android:layout_height="579dp"
-                android:drawableTop="@drawable/newton_1"
-                android:drawableBottom="@drawable/newton_2"
+                android:layout_height="371dp"
+                android:drawableBottom="@drawable/multiple_roots"
                 android:gravity="center_horizontal"
-                android:text="This method is a variant of the fixed point method. The succession of values xn is obtained by the following iterative equation: \n\n As the graph shows, the method approaches the root through tangents. \n\n Note: The method does not always converge and under appropriate conditions, presents quadratic convergence."
+                android:text="This method is a variant of the fixed point method. It is applied when the desired root has multiplicity m greater than 1. \n\n As the graph shows, the method approaches the root through minimums, maximums or inflection points. \n\n Note: The method behaves quadratically in the presence of multiple roots."
                 android:textColor="@android:color/white"
                 android:textSize="19sp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="12dp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="16dp"
                 tools:textColor="@android:color/white" />
 
             <TextView
-                android:id="@+id/textView32"
+                android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

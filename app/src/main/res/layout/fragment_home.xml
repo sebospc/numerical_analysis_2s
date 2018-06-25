@@ -42,9 +42,9 @@
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
-                    android:layout_height="149dp"
+                    android:layout_height="124dp"
                     android:gravity="center_horizontal"
-                    android:text="This project contains lots of numerical methods about one-variable equations, systems of equations and interpolation. Some of them were implemented with parallel computing. You will be able to found roots in different functions, solve matrixes and find interpolating polynomials."
+                    android:text="This application contains different numerical methods to solve problems about one-variable equations, systems of equations and interpolation. Some of them were implemented in parallel computing."
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:layout_editor_absoluteX="26dp"
@@ -56,13 +56,13 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:theme="@style/colorButtonPrimary"
                         android:id="@+id/btnCredits"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="CREDITS"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:theme="@style/colorButtonPrimary" />
                 </LinearLayout>
 
             </LinearLayout>

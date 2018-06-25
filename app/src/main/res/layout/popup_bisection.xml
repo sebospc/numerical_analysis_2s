@@ -6,28 +6,35 @@
     android:background="@color/helpColor"
     tools:background="@color/helpColor">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView6"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="359dp"
-            android:drawableBottom="@drawable/bisection"
-            android:gravity="center_horizontal"
-            android:text="This method assumes that there is a root in a given interval. That is, there is a continuous function that presents a change of sign. In this interval, the midpoint is determined and reduced to satisfy the tolerance, find a root or exceed the maximum number of iterations."
-            android:textColor="@android:color/white"
-            android:textSize="19sp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="3dp"
-            tools:textColor="@android:color/white" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
 
-        <TextView
-            android:id="@+id/textView35"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="455dp"
+                android:drawableBottom="@drawable/bisection"
+                android:gravity="center_horizontal"
+                android:text="This method assumes that exits a root in a given interval. That is, in the interval the function is continuous and presents a change of sign. \n\n With this interval, the method calculates the midpoint, evaluates it in the function by reducing the interval until it guarantees the existence of the point (change of sign). So on, until satisfy a tolerance, find a root or exceed the maximum number of iterations. \n\n Note: This method always converges."
+                android:textColor="@android:color/white"
+                android:textSize="19sp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="3dp"
+                tools:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

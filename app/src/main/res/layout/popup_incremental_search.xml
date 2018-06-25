@@ -9,10 +9,10 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="350dp"
-        android:layout_height="295dp"
+        android:layout_height="297dp"
         android:drawableBottom="@drawable/incremental_search"
         android:gravity="center_horizontal"
-        android:text="This method assumes a continuous function. This looks for an interval where there is a sign change in that function. Start with an initial value and a delta to find intervals until the change of sign is satisfied."
+        android:text="This method assumes a continuous function. The method searches an interval where a root exists. The found interval must comply that exists a change of sign evaluating the function in the extremes of this interval."
         android:textColor="@android:color/white"
         android:textSize="19sp"
         tools:layout_editor_absoluteX="17dp"

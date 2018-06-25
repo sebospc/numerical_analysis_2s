@@ -10,7 +10,7 @@ public class popUpIncrementalSearch extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.popup_incremental);
+        setContentView(R.layout.popup_incremental_search);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
