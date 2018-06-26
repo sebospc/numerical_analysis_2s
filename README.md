@@ -50,8 +50,9 @@ The application has been tested in Android Studio Emulator.
 
 ## Developers
 
-#### `Stiven Ramírez Arango - su correo`
 #### `Sebastián Ospina Cabarcas - sebastianospina51@gmail.com`
+#### `Stiven Ramírez Arango - stivenramireza@gmail.com`
+
 
 ## Special Gratefulness
 #### `Francisco Jose Correa Zabala  - fcorrea@eafit.edu.co`
