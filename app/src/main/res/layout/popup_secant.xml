@@ -23,13 +23,36 @@
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
-                android:layout_height="567dp"
+                android:layout_height="99dp"
+                android:gravity="center_horizontal"
+                android:text="This method is a variant of the fixed point method or the Newton method. It uses 2 initial values. The succession of values xn is obtained by the following iterative equation: "
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="16dp"
+                tools:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
                 android:drawableTop="@drawable/secant_1"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="16dp"
+                tools:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="match_parent"
+                android:layout_height="278dp"
                 android:drawableBottom="@drawable/secant_2"
                 android:gravity="center_horizontal"
-                android:text="This method is a variant of the fixed point method or the Newton method. It uses 2 initial values. The succession of values xn is obtained by the following iterative equation: \n\n As the graph shows, the method approaches the root through secants. \n\n Note: The method does not always converge and under appropriate conditions, presents superlinear convergence."
+                android:text="As the graph shows, the method approaches the root through secants. \n\n Note: The method does not always converge and under appropriate conditions, presents superlinear convergence."
                 android:textColor="@android:color/white"
-                android:textSize="19sp"
+                android:textSize="17sp"
                 tools:layout_editor_absoluteX="26dp"
                 tools:layout_editor_absoluteY="16dp"
                 tools:textColor="@android:color/white" />

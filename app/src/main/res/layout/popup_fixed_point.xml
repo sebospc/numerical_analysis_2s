@@ -18,12 +18,12 @@
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
-                android:layout_height="589dp"
+                android:layout_height="513dp"
                 android:drawableBottom="@drawable/fixed_point"
                 android:gravity="center_horizontal"
                 android:text="This method transforms the equation f(x) = 0 to solve the equation x = g(x). The function g(x) is obtained from algebraic processes or inverse functions. \n\n The method generates a succession of values of x by means of the equation xn + 1 = g (xn), by means of an iterative equation. The method generates a succession of values of x by means of the equation xn + 1 = g (xn). The generated succession is expected to converge to the solution. \n\n Note: This method does not always converge."
                 android:textColor="@android:color/white"
-                android:textSize="19sp"
+                android:textSize="17sp"
                 tools:layout_editor_absoluteX="26dp"
                 tools:layout_editor_absoluteY="16dp"
                 tools:textColor="@android:color/white" />

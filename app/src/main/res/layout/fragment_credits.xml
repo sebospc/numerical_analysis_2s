@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="sramir70@eafit.edu.co"
+            android:text="stivenramireza@gmail.com"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             tools:layout_editor_absoluteX="26dp"
