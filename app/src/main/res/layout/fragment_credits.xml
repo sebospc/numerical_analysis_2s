@@ -229,7 +229,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Francisco Correa Zabala"
+            android:text="Francisco Jose Correa Zabala"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             android:textStyle="bold"
