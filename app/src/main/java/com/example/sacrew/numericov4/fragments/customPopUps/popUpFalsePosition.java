@@ -18,11 +18,7 @@ public class popUpFalsePosition extends Activity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-<<<<<<< HEAD
         getWindow().setLayout((int) (width*0.97), (int) (height*0.70));
-=======
-        getWindow().setLayout((int) (width * 0.97), (int) (height * 0.55));
->>>>>>> 11ec4ef89cc96e708a9911721d76a11164714eb1
 
     }
 
