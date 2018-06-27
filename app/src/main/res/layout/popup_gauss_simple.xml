@@ -6,28 +6,33 @@
     android:background="@color/helpColor"
     tools:background="@color/helpColor">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView47"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="312dp"
-            android:drawableTop="@drawable/gauss_simple"
-            android:gravity="center_horizontal"
-            android:text="This method applies Gaussian elimination by placing zeros under the pivot through the use of fundamental operations of addition, subtraction and multiplication, but does not include exchange of rows or columns."
-            android:textColor="@android:color/white"
-            android:textSize="19sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="28dp"
-            tools:textColor="@android:color/white" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="376dp"
+                android:drawableBottom="@drawable/gauss_simple"
+                android:gravity="center_horizontal"
+                android:text="Apply the method of gaussian elimination to linear system of equations (expressed as a big matrix Ab) means reduce the matrix Ab, through the application of elemental operations of row without exchange of rows, until obtain a triangular super matrix. \n\n Later, the method realizes a despeje in the obtained system and find the value of each variable."
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="28dp"
+                tools:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
