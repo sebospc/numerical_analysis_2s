@@ -16,13 +16,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableRow;
+import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpTotalPivoting;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.showStagesModel.showStages;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -41,7 +44,7 @@ public class totalPivoting extends baseSystemEquations {
     public totalPivoting() {
         // Required empty public constructor
     }
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +59,28 @@ public class totalPivoting extends baseSystemEquations {
             @Override
             public void onClick(View view) {
                 executeHelp();
+            }
+        });
+        ToggleButton pauseOrResume = view.findViewById(R.id.pause);
+        pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(animatorSet != null) {
+                    if (isChecked) {
+                        animatorSet.pause();
+                    } else {
+                        animatorSet.resume();
+                    }
+                }
+            }
+        });
+        Button stages = view.findViewById(R.id.stages);
+        stages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), showStages.class);
+                startActivity(i);
+
             }
         });
         run.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +111,8 @@ public class totalPivoting extends baseSystemEquations {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void elimination(double[][] expandedMatrix) {
+        contentStages = new LinearLayout(getContext());
+        contentStages.setOrientation(LinearLayout.VERTICAL);
         int[] marks = new int[expandedMatrix.length];
         for (int i = 0; i < marks.length; i++)
             marks[i] = i;
@@ -217,6 +244,7 @@ public class totalPivoting extends baseSystemEquations {
                 }
 
             }
+            addStage(expandedMatrix,auxk,getContext());
         }
 
 

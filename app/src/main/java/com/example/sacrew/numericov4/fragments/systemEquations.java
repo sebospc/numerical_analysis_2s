@@ -35,6 +35,7 @@ import com.example.sacrew.numericov4.fragments.systemEquationsFragment.gaussSimp
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.inverseDeterminant;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.jacobi;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.partialPivoting;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.showStagesModel.showStages;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.totalPivoting;
 import com.example.sacrew.numericov4.pagerAdapter;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;

@@ -5,15 +5,31 @@
     tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment.doolittle"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:gravity="center"
-        android:drawableRight="@drawable/ic_next"
-        android:drawableLeft="@drawable/ic_previous"
-        android:text="Doolittle"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ToggleButton
+            android:theme="@style/colorButtonPrimary"
+            android:id="@+id/pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff="pause"
+            android:textOn="resume"
+            android:textColor="@android:color/white" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:gravity="center"
+            android:text=" Doolittle "
+            android:textSize="24sp"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/stages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="stages" />
+    </LinearLayout>
 
 
     <LinearLayout

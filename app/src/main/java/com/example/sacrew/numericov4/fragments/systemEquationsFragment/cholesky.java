@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -15,13 +16,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpCholesky;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.showStagesModel.showStages;
 
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.complex.ComplexFormat;
@@ -49,7 +54,7 @@ public class cholesky extends baseFactorizationMethods {
         // Required empty public constructor
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,6 +78,29 @@ public class cholesky extends baseFactorizationMethods {
             @Override
             public void onClick(View view) {
                 executeHelp();
+            }
+        });
+        ToggleButton pauseOrResume = view.findViewById(R.id.pause);
+        pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(animatorSet != null) {
+                    if (isChecked) {
+                        animatorSet.pause();
+                    } else {
+                        animatorSet.resume();
+                    }
+                }
+            }
+        });
+        Button stages = view.findViewById(R.id.stages);
+        stages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), showStages.class);
+                showStages.stageContent = contentStages;
+                startActivity(i);
+
             }
         });
         run.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +157,7 @@ public class cholesky extends baseFactorizationMethods {
         for (int i = 0; i < matrixLCholesky.length; i++) {
             TableRow rowU = new TableRow(getContext());
             TableRow rowL = new TableRow(getContext());
-            for (int j = 0; j <= matrixLCholesky.length; j++) {
+            for (int j = 0; j < matrixLCholesky.length; j++) {
                 matrixLCholesky[i][j] = new Complex(0, 0);
                 matrixUCholesky[i][j] = new Complex(0, 0);
                 rowU.addView(defaultTextView(formating(matrixUCholesky[i][j])));
@@ -143,6 +171,7 @@ public class cholesky extends baseFactorizationMethods {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void choleskyMethod(double[][] expandedMatrix) {
+        contentStages = new LinearLayout(getContext());
         animatorSet = new AnimatorSet();
         animations = new LinkedList<>();
         for (int k = 0; k < expandedMatrix.length; k++) {
@@ -494,86 +523,10 @@ public class cholesky extends baseFactorizationMethods {
                 animations.add(animatronix2);
             }
             matrixLCholesky[k][matrixLCholesky.length] = new Complex(expandedMatrix[k][expandedMatrix.length]);
-
-            ValueAnimator animatronco = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                    defaultColor).setDuration(times.getProgress() * 500);
-            animatronco.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animator) {
-                    try {
-                        String aux = ((EditText) bValuesText.getChildAt(auxk)).getText().toString();
-                        ((EditText) ((TableRow) matrixLText.getChildAt(auxk)).getChildAt(matrixLText.getChildCount())).setText(aux);
-                    } catch (Exception e) {
-                        matrixLText.removeAllViews();
-                    }
-                }
-            });
-            animatronco.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    if (!animations.isEmpty()) animations.remove(0);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
-                }
-            });
-            animations.add(animatronco);
         }
-
-        Complex[] x = progresiveSubstitution(matrixLCholesky);
-        for (int i = 0; i < x.length; i++) {
-            final int auxi = i;
-            final String val = formating(x[i]);
-            ValueAnimator animatronco = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                    defaultColor).setDuration(times.getProgress() * 500);
-            animatronco.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animator) {
-                    try {
-                        ((EditText) ((TableRow) matrixUText.getChildAt(auxi)).getChildAt(matrixUText.getChildCount())).setText((val + "     ").substring(0, 5));
-                    } catch (Exception e) {
-                        matrixUText.removeAllViews();
-                    }
-                }
-            });
-            animatronco.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    if (!animations.isEmpty()) animations.remove(0);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
-                }
-            });
-            animations.add(animatronco);
-        }
+        progresiveSubstitution(matrixLCholesky);
+        addFactorizationCholesky(matrixLCholesky,matrixUCholesky,getContext());
         substitution(matrixUCholesky);
-
-
     }
 
 
@@ -596,7 +549,6 @@ public class cholesky extends baseFactorizationMethods {
                 return x;
             }
             x[i] = (matrixLCholesky[i][n + 1].subtract(sumatoria)).divide(matrixLCholesky[i][i]);
-            //x[i] = (matrixL[i][n+1]-sumatoria)/matrixL[i][i];
             matrixUCholesky[i][n + 1] = x[i];
         }
 
@@ -635,4 +587,37 @@ public class cholesky extends baseFactorizationMethods {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void addFactorizationCholesky(Complex[][] matrixL,Complex[][] matrixU, Context context) {
+        LinearLayout L = new LinearLayout(context);
+        L.setOrientation(LinearLayout.VERTICAL);
+        TextView tittleL = new TextView(context);
+        tittleL.setText(" L ");
+        L.addView(tittleL);
+        LinearLayout U = new LinearLayout(context);
+        U.setOrientation(LinearLayout.VERTICAL);
+        TextView tittleU = new TextView(context);
+        tittleU.setText(" U ");
+        U.addView(tittleU);
+
+        TableLayout matrixResultL = new TableLayout(context);
+        TableLayout matrixResultU = new TableLayout(context);
+        for(int i = 0; i < matrixL.length; i++){
+            TableRow auxL = new TableRow(context);
+            TableRow auxU = new TableRow(context);
+            for(int j = 0; j <= matrixL.length; j++){
+                auxL.addView(defaultTextView((formating(matrixL[i][j])+"       ").substring(0,6)));
+                auxU.addView(defaultTextView((formating(matrixU[i][j])+"       ").substring(0,6)));
+            }
+            matrixResultL.addView(auxL);
+            matrixResultU.addView(auxU);
+        }
+        L.addView(matrixResultL);
+        U.addView(matrixResultU);
+        contentStages.addView(L);
+        TextView space = new TextView(context);
+        space.setText("    ");
+        contentStages.addView(space);
+        contentStages.addView(U);
+    }
 }

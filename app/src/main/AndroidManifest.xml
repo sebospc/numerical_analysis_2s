@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sacrew.numericov4">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -93,7 +95,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fragments.interpolationFragments.mathExpressions"></activity>
+        <activity android:name=".fragments.interpolationFragments.mathExpressions" />
+        <activity android:name=".fragments.systemEquationsFragment.showStagesModel.showStages"></activity>
     </application>
 
 </manifest>

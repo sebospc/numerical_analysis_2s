@@ -16,13 +16,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableRow;
+import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
+import com.example.sacrew.numericov4.fragments.MainActivityTable;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpGaussSimple;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.showStagesModel.showStages;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -62,7 +66,29 @@ public class gaussSimple extends baseSystemEquations {
                 executeHelp();
             }
         });
+        ToggleButton pauseOrResume = view.findViewById(R.id.pause);
+        pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(animatorSet != null) {
+                    if (isChecked) {
+                        animatorSet.pause();
+                    } else {
+                        animatorSet.resume();
+                    }
+                }
+            }
+        });
+        Button stages = view.findViewById(R.id.stages);
+        stages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), showStages.class);
+                showStages.stageContent = contentStages;
+                startActivity(i);
 
+            }
+        });
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +120,8 @@ public class gaussSimple extends baseSystemEquations {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void elimination(final double[][] expandedMatrix) {
+        contentStages = new LinearLayout(getContext());
+        contentStages.setOrientation(LinearLayout.VERTICAL);
         animatorSet = new AnimatorSet();
         multipliersLayout.removeAllViews();
         animations = new LinkedList<>();
@@ -221,6 +249,7 @@ public class gaussSimple extends baseSystemEquations {
                 }
 
             }
+            addStage(expandedMatrix,auxk,getContext());
         }
 
 

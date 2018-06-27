@@ -19,6 +19,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public abstract class baseSystemEquations extends Fragment {
     final int defaultColor = Color.parseColor("#FF303F9F"); //primary
     //int defaultColor = Color.rgb(3,169,244);
     final int operativeColor = Color.parseColor("#64DD17");
+    LinearLayout contentStages;
     private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
             new SuperActivityToast.OnButtonClickListener() {
 
@@ -340,14 +342,12 @@ public abstract class baseSystemEquations extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private double[] substitution(double[][] expandedMatrix, int basura) {//regression
-        String message;
         xValuesText.removeAllViews();
         int n = expandedMatrix.length - 1;
         double[] values = new double[n + 1];
         if (expandedMatrix[n][n] == 0) {
             //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-            message = "Error division 0";
-            styleWrongMessage(message);
+            styleWrongMessage("Error division 0");
             return values;
         }
         double x = expandedMatrix[n][n + 1] / expandedMatrix[n][n];
@@ -361,8 +361,7 @@ public abstract class baseSystemEquations extends Fragment {
             }
             if (expandedMatrix[auxi][auxi] == 0) {
                 //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
-                message = "Error division 0";
-                styleWrongMessage(message);
+                styleWrongMessage("Error division 0");
                 return values;
             }
             values[auxi] = (expandedMatrix[auxi][n + 1] - sumatoria) / expandedMatrix[auxi][auxi];
@@ -426,16 +425,15 @@ public abstract class baseSystemEquations extends Fragment {
         }
         animatorSet = new AnimatorSet();
         animations = new LinkedList<>();
+        if (!pivoted) {
+            if (expandedMatrix != null) {
+                xIndex.removeAllViews();
+                for (int i = 0; i < expandedMatrix.length; i++) {
+                    xIndex.addView(defaultTextView("X" + (i + 1), Color.parseColor("#429ffd"), 100, 10));
+                }
+                xIndex.setVisibility(View.VISIBLE);
 
-        if (expandedMatrix != null) {
-            xIndex.removeAllViews();
-            for (int i = 0; i < expandedMatrix.length; i++) {
-                xIndex.addView(defaultTextView("X" + (i + 1), Color.parseColor("#429ffd"), 100, 10));
-            }
-            xIndex.setVisibility(View.VISIBLE);
 
-
-            if (!pivoted) {
                 int[] marks = new int[expandedMatrix.length];
                 for (int i = 0; i < marks.length; i++) {
                     marks[i] = i + 1;
@@ -484,5 +482,20 @@ public abstract class baseSystemEquations extends Fragment {
                 .setAnimations(Style.ANIMATIONS_POP).show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void addStage(double[][] matrix, int stage, Context context){
+        TextView tittle = new TextView(context);
+        TableLayout matrixResult = new TableLayout(context);
+        tittle.setText("stage "+stage);
+        for (double[] v : matrix) {
+            TableRow aux = new TableRow(context);
+            for (double val : v) {
+                aux.addView(defaultTextView(String.valueOf(val)));
+            }
+            matrixResult.addView(aux);
+        }
+        contentStages.addView(tittle);
+        contentStages.addView(matrixResult);
+    }
 
 }

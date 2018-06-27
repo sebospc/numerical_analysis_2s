@@ -1,7 +1,13 @@
 package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
+import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.widget.LinearLayout;
+import android.widget.Space;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 /**
  * Created by sacrew on 25/05/18.
@@ -40,4 +46,37 @@ public abstract class baseFactorizationMethods extends baseSystemEquations {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void addFactorization(double[][] matrixL, double[][] matrixU, Context context) {
+        LinearLayout L = new LinearLayout(context);
+        L.setOrientation(LinearLayout.VERTICAL);
+        TextView tittleL = new TextView(context);
+        tittleL.setText(" L ");
+        L.addView(tittleL);
+        LinearLayout U = new LinearLayout(context);
+        U.setOrientation(LinearLayout.VERTICAL);
+        TextView tittleU = new TextView(context);
+        tittleU.setText(" U ");
+        U.addView(tittleU);
+
+        TableLayout matrixResultL = new TableLayout(context);
+        TableLayout matrixResultU = new TableLayout(context);
+        for(int i = 0; i < matrixL.length; i++){
+            TableRow auxL = new TableRow(context);
+            TableRow auxU = new TableRow(context);
+            for(int j = 0; j <= matrixL.length; j++){
+                auxL.addView(defaultTextView((String.valueOf(matrixL[i][j])+"       ").substring(0,6)));
+                auxU.addView(defaultTextView((String.valueOf(matrixU[i][j])+"       ").substring(0,6)));
+            }
+            matrixResultL.addView(auxL);
+            matrixResultU.addView(auxU);
+        }
+        L.addView(matrixResultL);
+        U.addView(matrixResultU);
+        contentStages.addView(L);
+        TextView space = new TextView(context);
+        space.setText("    ");
+        contentStages.addView(space);
+        contentStages.addView(U);
+    }
 }

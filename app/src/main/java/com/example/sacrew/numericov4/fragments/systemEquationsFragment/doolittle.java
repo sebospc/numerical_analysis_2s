@@ -16,13 +16,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpDoolittle;
+import com.example.sacrew.numericov4.fragments.systemEquationsFragment.showStagesModel.showStages;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -45,7 +49,7 @@ public class doolittle extends baseFactorizationMethods {
         // Required empty public constructor
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,6 +66,29 @@ public class doolittle extends baseFactorizationMethods {
             @Override
             public void onClick(View view) {
                 executeHelp();
+            }
+        });
+        ToggleButton pauseOrResume = view.findViewById(R.id.pause);
+        pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(animatorSet != null) {
+                    if (isChecked) {
+                        animatorSet.pause();
+                    } else {
+                        animatorSet.resume();
+                    }
+                }
+            }
+        });
+        Button stages = view.findViewById(R.id.stages);
+        stages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), showStages.class);
+                showStages.stageContent = contentStages;
+                startActivity(i);
+
             }
         });
         run.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +133,7 @@ public class doolittle extends baseFactorizationMethods {
         for (int i = 0; i < matrixL.length; i++) {
             TableRow rowU = new TableRow(getContext());
             TableRow rowL = new TableRow(getContext());
-            for (int j = 0; j <= matrixL.length; j++) {
+            for (int j = 0; j < matrixL.length; j++) {
                 rowU.addView(defaultTextView(matrixU[i][j] + ""));
                 rowL.addView(defaultTextView(matrixL[i][j] + ""));
             }
@@ -118,6 +145,7 @@ public class doolittle extends baseFactorizationMethods {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void doolittleMethod(double[][] expandedMatrix) {
+        contentStages = new LinearLayout(getContext());
         animatorSet = new AnimatorSet();
         animations = new LinkedList<>();
         for (int k = 0; k < expandedMatrix.length; k++) {
@@ -200,7 +228,7 @@ public class doolittle extends baseFactorizationMethods {
                 animations.add(colorAnimator);
             }
             matrixU[k][k] = expandedMatrix[k][k] - sum1;
-            final double temp = matrixL[k][k];
+            final double temp = matrixU[k][k];
             ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
                     defaultColor).setDuration(times.getProgress() * 500);
             colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -454,82 +482,9 @@ public class doolittle extends baseFactorizationMethods {
                 animations.add(animatronix2);
             }
             matrixL[k][matrixL.length] = expandedMatrix[k][expandedMatrix.length];
-            ValueAnimator animatronco = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                    defaultColor).setDuration(times.getProgress() * 500);
-            animatronco.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animator) {
-                    try {
-                        String aux = ((EditText) bValuesText.getChildAt(auxk)).getText().toString();
-                        ((EditText) ((TableRow) matrixLText.getChildAt(auxk)).getChildAt(matrixL.length)).setText(aux);
-                    } catch (Exception e) {
-                        matrixLText.removeAllViews();
-                    }
-                }
-            });
-            animatronco.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    if (!animations.isEmpty()) animations.remove(0);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
-                }
-            });
-            animations.add(animatronco);
         }
-
-        double[] x = progresiveSubstitution(matrixL);
-        for (int i = 0; i < x.length; i++) {
-            final int auxi = i;
-            final double val = x[i];
-            ValueAnimator animatronco = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW,
-                    defaultColor).setDuration(times.getProgress() * 500);
-            animatronco.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animator) {
-                    try {
-                        ((EditText) ((TableRow) matrixUText.getChildAt(auxi)).getChildAt(matrixL.length)).setText((val + "     ").substring(0, 6));
-                    } catch (Exception e) {
-                        matrixLText.removeAllViews();
-                    }
-                }
-            });
-            animatronco.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    if (!animations.isEmpty()) animations.remove(0);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
-                }
-            });
-            animations.add(animatronco);
-        }
+        progresiveSubstitution(matrixL);
+        addFactorization(matrixL,matrixU,getContext());
         substitution(matrixU);
 
     }
