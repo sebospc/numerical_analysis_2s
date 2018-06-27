@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.widget.LinearLayout;
@@ -8,6 +9,8 @@ import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.example.sacrew.numericov4.R;
 
 /**
  * Created by sacrew on 25/05/18.
@@ -65,12 +68,18 @@ public abstract class baseFactorizationMethods extends baseSystemEquations {
             TableRow auxL = new TableRow(context);
             TableRow auxU = new TableRow(context);
             for(int j = 0; j <= matrixL.length; j++){
-                auxL.addView(defaultTextView((String.valueOf(matrixL[i][j])+"       ").substring(0,6)));
-                auxU.addView(defaultTextView((String.valueOf(matrixU[i][j])+"       ").substring(0,6)));
+                if( j != matrixL.length) {
+                    auxL.addView(defaultTextView((String.valueOf(matrixL[i][j]) + "       ").substring(0, 6)));
+                    auxU.addView(defaultTextView((String.valueOf(matrixU[i][j]) + "       ").substring(0, 6)));
+                }else{
+                    auxL.addView(defaultTextView((String.valueOf(matrixL[i][j]) + "       ").substring(0, 6), getResources().getColor(R.color.prettyRed),100,10));
+                    auxU.addView(defaultTextView((String.valueOf(matrixU[i][j]) + "       ").substring(0, 6),getResources().getColor(R.color.header_line_color),100,10));
+                }
             }
             matrixResultL.addView(auxL);
             matrixResultU.addView(auxU);
         }
+
         L.addView(matrixResultL);
         U.addView(matrixResultU);
         contentStages.addView(L);

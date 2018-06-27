@@ -157,11 +157,13 @@ public class cholesky extends baseFactorizationMethods {
         for (int i = 0; i < matrixLCholesky.length; i++) {
             TableRow rowU = new TableRow(getContext());
             TableRow rowL = new TableRow(getContext());
-            for (int j = 0; j < matrixLCholesky.length; j++) {
+            for (int j = 0; j <= matrixLCholesky.length; j++) {
                 matrixLCholesky[i][j] = new Complex(0, 0);
                 matrixUCholesky[i][j] = new Complex(0, 0);
-                rowU.addView(defaultTextView(formating(matrixUCholesky[i][j])));
-                rowL.addView(defaultTextView(formating(matrixLCholesky[i][j])));
+                if(j < matrixLCholesky.length) {
+                    rowU.addView(defaultTextView(formating(matrixUCholesky[i][j])));
+                    rowL.addView(defaultTextView(formating(matrixLCholesky[i][j])));
+                }
             }
             matrixLText.addView(rowL);
             matrixUText.addView(rowU);
@@ -606,8 +608,13 @@ public class cholesky extends baseFactorizationMethods {
             TableRow auxL = new TableRow(context);
             TableRow auxU = new TableRow(context);
             for(int j = 0; j <= matrixL.length; j++){
-                auxL.addView(defaultTextView((formating(matrixL[i][j])+"       ").substring(0,6)));
-                auxU.addView(defaultTextView((formating(matrixU[i][j])+"       ").substring(0,6)));
+                if(j < matrixL.length) {
+                    auxL.addView(defaultTextView((formating(matrixL[i][j]) + "       ").substring(0, 6)));
+                    auxU.addView(defaultTextView((formating(matrixU[i][j]) + "       ").substring(0, 6)));
+                }else{
+                    auxL.addView(defaultTextView((formating(matrixU[i][j]) + "       ").substring(0, 6),getResources().getColor(R.color.prettyRed),100,10));
+                    auxU.addView(defaultTextView((formating(matrixU[i][j]) + "       ").substring(0, 6),getResources().getColor(R.color.header_line_color),100,10));
+                }
             }
             matrixResultL.addView(auxL);
             matrixResultU.addView(auxU);
