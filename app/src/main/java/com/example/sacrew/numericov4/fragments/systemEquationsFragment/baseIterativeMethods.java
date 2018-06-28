@@ -8,9 +8,11 @@ import android.support.annotation.RequiresApi;
 import com.example.sacrew.numericov4.fragments.MainActivityTable;
 import com.example.sacrew.numericov4.fragments.tableview.TableViewModel;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by sacrew on 27/05/18.
@@ -46,5 +48,17 @@ public abstract class baseIterativeMethods extends baseSystemEquations {
             TableViewModel.getTitles(lisTitles);
             TableViewModel.getCeldas(totalInformation);
         }
+    }
+
+    String cientificTransformation(double val) {
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("#.##E0");
+        return num.format(val);
+    }
+
+    String normalTransformation(double val) {
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("0.00");
+        return num.format(val);
     }
 }

@@ -62,12 +62,13 @@
                 android:textSize="30sp" />
 
             <ToggleButton
-                android:id="@+id/pause"
+                android:id="@+id/pause3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:checked="false"
-                android:background="@drawable/check2"
-                android:textColor="@android:color/holo_blue_dark"
+                android:drawable="@drawable/check1"
+                android:drawableTop="@drawable/check1"
+                android:textColor="@android:color/white"
                 android:textOff=""
                 android:textOn=""
                 android:theme="@style/colorButtonPrimary" />
@@ -110,7 +111,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/textView80"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

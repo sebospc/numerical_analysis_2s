@@ -166,7 +166,7 @@ public class jacobi extends baseIterativeMethods {
             }
 
             for (double v : x1) aux.add(String.valueOf(v));
-            aux.add(String.valueOf(dispersion));
+            aux.add(String.valueOf(cientificTransformation(dispersion)));
             totalInformation.add(aux);
             x0 = x1;
             cont = cont + 1;
