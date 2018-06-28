@@ -10,27 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ToggleButton
-            android:theme="@style/colorButtonPrimary"
-            android:id="@+id/pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="pause"
-            android:textOn="resume"
-            android:textColor="@android:color/white" />
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="53dp"
             android:gravity="center"
-            android:text=" Total Pivoting "
+            android:text=" Total Pivoting"
+            android:drawableRight="@drawable/ic_next"
+            android:drawableLeft="@drawable/ic_previous"
             android:textSize="24sp"
             android:textStyle="bold" />
-        <Button
-            android:id="@+id/stages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="stages" />
     </LinearLayout>
 
     <LinearLayout
@@ -53,12 +42,40 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="help" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="30sp" />
+
+            <ToggleButton
+                android:id="@+id/pause"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:checked="false"
+                android:drawableTop="@android:drawable/ic_media_pause"
+                android:supportsRtl="true"
+                android:textColor="@android:color/white"
+                android:textOff=""
+                android:textOn=""
+                android:theme="@style/colorButtonPrimary" />
+
+        </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/relativeLayout3"
             android:layout_width="170dp"
@@ -86,6 +103,7 @@
             </ScrollView>
 
         </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,27 +113,29 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:gravity="center"
-                android:text="Multipliers"
-                android:textSize="25dp" />
-            <ScrollView
-                android:id="@+id/scrollMultipliers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fadingEdgeLength="0dp"
-                android:fillViewport="true"
-                android:overScrollMode="never">
-                <LinearLayout
-                    android:id="@+id/multipiers"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:overScrollMode="never">
-                </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
+                android:textSize="30sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView53"
+                    android:layout_width="34dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/stages"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/ic_input_get" />
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>

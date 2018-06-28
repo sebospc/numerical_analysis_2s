@@ -9,26 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ToggleButton
-            android:theme="@style/colorButtonPrimary"
-            android:id="@+id/pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="pause"
-            android:textOn="resume"
-            android:textColor="@android:color/white" />
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="53dp"
             android:gravity="center"
-            android:text=" Doolittle "
+            android:text="Doolittle"
+            android:drawableLeft="@drawable/ic_previous"
+            android:drawableRight="@drawable/ic_next"
             android:textSize="24sp"
             android:textStyle="bold" />
-        <Button
-            android:id="@+id/stages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="stages" />
     </LinearLayout>
 
 
@@ -62,10 +52,6 @@
             android:text="GET PIVOTED"
             android:textColor="@android:color/white" />
     </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,14 +101,14 @@
 
                     <RelativeLayout
                         android:id="@+id/relativeLayout3"
-                        android:layout_width="170dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
                         android:layout_gravity="center|left|top">
 
 
                         <ScrollView
-                            android:layout_width="match_parent"
+                            android:layout_width="146dp"
                             android:layout_height="match_parent"
                             android:scrollbars="none">
 
@@ -143,9 +129,39 @@
 
                 </LinearLayout>
 
-                <android.support.v4.widget.Space
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ToggleButton
+                        android:id="@+id/pause"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:checked="false"
+                        android:drawableTop="@android:drawable/ic_media_pause"
+                        android:textColor="@android:color/white"
+                        android:textOff=""
+                        android:textOn=""
+                        android:theme="@style/colorButtonPrimary" />
+
+                    <TextView
+                        android:id="@+id/textView47"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="10sp" />
+
+                    <Button
+                        android:id="@+id/stages"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+
+                        android:layout_weight="1"
+                        android:background="@android:drawable/ic_input_get" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -184,7 +200,7 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+
 
 
 </LinearLayout>

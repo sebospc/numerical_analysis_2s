@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:theme="@style/colorButtonPrimary"
-                android:text="CHART"
+                android:text="TABLE"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
