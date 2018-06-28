@@ -40,7 +40,8 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.times;
  */
 public class gaussSimple extends baseSystemEquations {
 
-
+    private ToggleButton pauseOrResume;
+    private Button stages;
     public gaussSimple() {
         // Required empty public constructor
     }
@@ -63,7 +64,7 @@ public class gaussSimple extends baseSystemEquations {
                 executeHelp();
             }
         });
-        ToggleButton pauseOrResume = view.findViewById(R.id.pause);
+        pauseOrResume = view.findViewById(R.id.pause);
         pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -76,7 +77,9 @@ public class gaussSimple extends baseSystemEquations {
                 }
             }
         });
-        Button stages = view.findViewById(R.id.stages);
+        pauseOrResume.setEnabled(false);
+        pauseOrResume.setVisibility(View.INVISIBLE);
+        stages = view.findViewById(R.id.stages);
         stages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +89,8 @@ public class gaussSimple extends baseSystemEquations {
 
             }
         });
+        stages.setEnabled(false);
+        stages.setVisibility(View.INVISIBLE);
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +98,10 @@ public class gaussSimple extends baseSystemEquations {
                 animatorSet.end();
                 animatorSet.cancel();
                 begin();
+                pauseOrResume.setEnabled(true);
+                pauseOrResume.setVisibility(View.VISIBLE);
+                stages.setEnabled(true);
+                stages.setVisibility(View.VISIBLE);
                 animatorSet.playSequentially(animations);
                 animatorSet.start();
             }

@@ -40,7 +40,8 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.times;
  */
 public class partialPivoting extends baseSystemEquations {
 
-
+    private ToggleButton pauseOrResume;
+    private Button stages;
     public partialPivoting() {
         // Required empty public constructor
     }
@@ -61,7 +62,7 @@ public class partialPivoting extends baseSystemEquations {
                 executeHelp();
             }
         });
-        ToggleButton pauseOrResume = view.findViewById(R.id.pause);
+        pauseOrResume = view.findViewById(R.id.pause);
         pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -74,7 +75,8 @@ public class partialPivoting extends baseSystemEquations {
                 }
             }
         });
-        Button stages = view.findViewById(R.id.stages);
+
+        stages = view.findViewById(R.id.stages);
         stages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +86,10 @@ public class partialPivoting extends baseSystemEquations {
 
             }
         });
+        pauseOrResume.setEnabled(false);
+        pauseOrResume.setVisibility(View.INVISIBLE);
+        stages.setEnabled(false);
+        stages.setVisibility(View.INVISIBLE);
         run.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -92,6 +98,10 @@ public class partialPivoting extends baseSystemEquations {
                 animatorSet.end();
                 animatorSet.cancel();
                 begin();
+                pauseOrResume.setEnabled(true);
+                pauseOrResume.setVisibility(View.VISIBLE);
+                stages.setEnabled(true);
+                stages.setVisibility(View.VISIBLE);
                 animatorSet.playSequentially(animations);
                 animatorSet.start();
             }
