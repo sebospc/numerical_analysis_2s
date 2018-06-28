@@ -40,8 +40,6 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.times;
  */
 public class gaussSimple extends baseSystemEquations {
 
-    private LinearLayout multipliersLayout;
-    private ScrollView scrollview;
 
     public gaussSimple() {
         // Required empty public constructor
@@ -57,7 +55,6 @@ public class gaussSimple extends baseSystemEquations {
 
         matrixResult = view.findViewById(R.id.matrixResult);
         Button run = view.findViewById(R.id.run);
-        multipliersLayout = view.findViewById(R.id.multipiers);
         Button runHelp = view.findViewById(R.id.runHelp);
         runHelp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -92,7 +89,6 @@ public class gaussSimple extends baseSystemEquations {
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                multipliersLayout.removeAllViews();
                 animatorSet.removeAllListeners();
                 animatorSet.end();
                 animatorSet.cancel();
@@ -102,10 +98,6 @@ public class gaussSimple extends baseSystemEquations {
             }
 
         });
-
-        scrollview = view.findViewById(R.id.scrollMultipliers);
-        scrollview.fullScroll(ScrollView.FOCUS_DOWN);
-
 
         return view;
     }
@@ -123,36 +115,10 @@ public class gaussSimple extends baseSystemEquations {
         contentStages = new LinearLayout(getContext());
         contentStages.setOrientation(LinearLayout.VERTICAL);
         animatorSet = new AnimatorSet();
-        multipliersLayout.removeAllViews();
         animations = new LinkedList<>();
 
         for (int k = 0; k < expandedMatrix.length - 1; k++) {
             final int auxk = k;
-            ValueAnimator stage = ValueAnimator.ofInt(0, 1);
-            stage.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animator) {
-                    multipliersLayout.addView(defaultTextView("stage " + auxk, defaultColor, LinearLayout.LayoutParams.MATCH_PARENT, 13));
-                    scrollview.fullScroll(ScrollView.FOCUS_DOWN);
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    if (!animations.isEmpty()) animations.remove(0);
-                    scrollview.fullScroll(ScrollView.FOCUS_DOWN);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
-                }
-            });
-            animations.add(stage);
             for (int i = k + 1; i < expandedMatrix.length; i++) {
                 if (expandedMatrix[k][k] == 0) {
                     styleWrongMessage("Error division 0");
@@ -172,29 +138,6 @@ public class gaussSimple extends baseSystemEquations {
                         } catch (Exception e) {
                             matrixResult.removeAllViews();
                         }
-                    }
-                });
-                colorAnimator.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animator) {
-                        multipliersLayout.addView(defaultTextView("multiplier" + (auxi - auxk) + " = " + multiplier, defaultColor, LinearLayout.LayoutParams.MATCH_PARENT, 10));
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        if (!animations.isEmpty()) animations.remove(0);
-                        scrollview.fullScroll(ScrollView.FOCUS_DOWN);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animator) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animator) {
-
                     }
                 });
                 animations.add(colorAnimator);
