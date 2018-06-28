@@ -4,11 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/libraries.iml" filepath="$PROJECT_DIR$/libraries/libraries.iml" />
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/numerical_analysis_2s.iml" filepath="$PROJECT_DIR$/numerical_analysis_2s.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/numericoV4.iml" filepath="$PROJECT_DIR$/numericoV4.iml" />
->>>>>>> a345a70f7158f01ca718841c2ac06a5d8fdd3331
       <module fileurl="file://$PROJECT_DIR$/libraries/tess-two/tess-two.iml" filepath="$PROJECT_DIR$/libraries/tess-two/tess-two.iml" />
     </modules>
   </component>
