@@ -6,17 +6,33 @@
     android:background="@color/helpColor"
     tools:background="@color/helpColor">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="333dp"
-        android:layout_height="216dp"
-        android:drawableBottom="@drawable/pivoteo_parcial"
-        android:gravity="center_horizontal"
-        android:text="This method checks the largest of the first column and exchanges rows until this major is as a pivot and then applies Gaussian elimination. So on until the system of equations is solved."
-        android:textColor="@android:color/white"
-        android:textSize="19sp"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="28dp"
-        tools:textColor="@android:color/white" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="497dp"
+                android:drawableBottom="@drawable/pivoteo_parcial"
+                android:gravity="center_horizontal"
+                android:text="This method is a variant of the simple gaussian elimination. \n\n The objective to apply partial pivoting in the gaussian elimination is reduce the effects of redondeo error in the solution of the system. \n\n For that, in each stage K searches the major coeficient (in absolute value) of the elements of the column K from a[k][k]. It exchanges the rows to localize the major chosen in the row K and applies gaussian elimination. \n\n The process in each stage validate the major number (a major position or equal than K) in the column K. \n\n With that, the multipliers will be small and reduce the effect of the redondeo error."
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="28dp"
+                tools:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView40"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
