@@ -49,7 +49,8 @@ public class cholesky extends baseFactorizationMethods {
     private Complex[][] matrixUCholesky;
     private TextView suma;
     private ComplexFormat formater;
-
+    private ToggleButton pauseOrResume;
+    private Button stages;
     public cholesky() {
         // Required empty public constructor
     }
@@ -80,7 +81,7 @@ public class cholesky extends baseFactorizationMethods {
                 executeHelp();
             }
         });
-        ToggleButton pauseOrResume = view.findViewById(R.id.pause);
+        pauseOrResume = view.findViewById(R.id.pause);
         pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -93,7 +94,7 @@ public class cholesky extends baseFactorizationMethods {
                 }
             }
         });
-        Button stages = view.findViewById(R.id.stages);
+        stages = view.findViewById(R.id.stages);
         stages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,11 +112,19 @@ public class cholesky extends baseFactorizationMethods {
                 animatorSet.end();
                 animatorSet.cancel();
                 begin();
+                pauseOrResume.setEnabled(true);
+                pauseOrResume.setVisibility(View.VISIBLE);
+                stages.setEnabled(true);
+                stages.setVisibility(View.VISIBLE);
                 animatorSet.playSequentially(animations);
                 animatorSet.start();
             }
 
         });
+        pauseOrResume.setEnabled(false);
+        pauseOrResume.setVisibility(View.INVISIBLE);
+        stages.setEnabled(false);
+        stages.setVisibility(View.INVISIBLE);
         pivoter.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override

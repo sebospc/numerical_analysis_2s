@@ -44,7 +44,8 @@ public class doolittle extends baseFactorizationMethods {
     private TableLayout matrixLText;
     private TableLayout matrixUText;
     private TextView sum;
-
+    private ToggleButton pauseOrResume;
+    private Button stages;
     public doolittle() {
         // Required empty public constructor
     }
@@ -68,7 +69,7 @@ public class doolittle extends baseFactorizationMethods {
                 executeHelp();
             }
         });
-        ToggleButton pauseOrResume = view.findViewById(R.id.pause);
+        pauseOrResume = view.findViewById(R.id.pause);
         pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -81,7 +82,7 @@ public class doolittle extends baseFactorizationMethods {
                 }
             }
         });
-        Button stages = view.findViewById(R.id.stages);
+        stages = view.findViewById(R.id.stages);
         stages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +92,10 @@ public class doolittle extends baseFactorizationMethods {
 
             }
         });
+        pauseOrResume.setEnabled(false);
+        pauseOrResume.setVisibility(View.INVISIBLE);
+        stages.setEnabled(false);
+        stages.setVisibility(View.INVISIBLE);
         run.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -99,6 +104,10 @@ public class doolittle extends baseFactorizationMethods {
                 animatorSet.end();
                 animatorSet.cancel();
                 begin();
+                pauseOrResume.setEnabled(true);
+                pauseOrResume.setVisibility(View.VISIBLE);
+                stages.setEnabled(true);
+                stages.setVisibility(View.VISIBLE);
                 animatorSet.playSequentially(animations);
                 animatorSet.start();
             }
