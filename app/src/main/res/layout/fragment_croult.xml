@@ -136,7 +136,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:drawable="@drawable/check1"
+                    android:drawableTop="@drawable/check1"
                     android:textColor="@android:color/white"
                     android:textOff=""
                     android:textOn=""

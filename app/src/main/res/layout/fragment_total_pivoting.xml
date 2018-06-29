@@ -67,7 +67,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:checked="false"
-                android:drawable="@android:drawable/ic_media_pause"
+                android:drawableTop="@drawable/check1"
                 android:supportsRtl="true"
                 android:textColor="@android:color/white"
                 android:textOff=""

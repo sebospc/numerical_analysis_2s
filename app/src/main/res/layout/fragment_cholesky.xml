@@ -134,7 +134,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:drawableTop="@android:drawable/ic_media_pause"
+                    android:drawableTop="@drawable/check1"
                     android:textColor="@android:color/white"
                     android:textOff=""
                     android:textOn=""
