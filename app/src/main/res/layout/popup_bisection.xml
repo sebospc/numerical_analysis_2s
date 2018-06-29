@@ -20,7 +20,7 @@
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
-                android:layout_height="404dp"
+                android:layout_height="532dp"
                 android:drawableBottom="@drawable/bisection"
                 android:gravity="center_horizontal"
                 android:text="This method assumes that exits a root in a given interval. That is, in the interval the function is continuous and presents a change of sign. \n\n With this interval, the method calculates the midpoint, evaluates it in the function by reducing the interval until it guarantees the existence of the point (change of sign). So on, until satisfy a tolerance, find a root or exceed the maximum number of iterations. \n\n Note: This method always converges."

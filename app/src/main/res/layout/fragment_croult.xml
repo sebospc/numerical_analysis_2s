@@ -136,7 +136,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:drawableTop="@android:drawable/ic_media_pause"
+                    android:drawable="@drawable/check1"
                     android:textColor="@android:color/white"
                     android:textOff=""
                     android:textOn=""
@@ -176,6 +176,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
                         android:scrollbars="none">
 

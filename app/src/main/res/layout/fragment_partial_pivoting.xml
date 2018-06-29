@@ -56,7 +56,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/textView90"
                 android:layout_width="140dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -66,10 +66,10 @@
                 android:id="@+id/pause"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:checked="false"
-                android:drawableTop="@android:drawable/ic_media_pause"
-                android:textColor="@android:color/white"
+                android:checked="true"
+                android:drawable="@drawable/check1"
                 android:supportsRtl="true"
+                android:textColor="@android:color/white"
                 android:textOff=""
                 android:textOn=""
                 android:theme="@style/colorButtonPrimary" />

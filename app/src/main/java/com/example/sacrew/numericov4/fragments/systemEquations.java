@@ -261,7 +261,6 @@ public class systemEquations extends Fragment {
         }
         matrixAText.addView(row);
         bValuesText.addView(defaultEditText("0"));
-
         initialValues.addView(defaultEditText("0"));
         count = count + 1;
 

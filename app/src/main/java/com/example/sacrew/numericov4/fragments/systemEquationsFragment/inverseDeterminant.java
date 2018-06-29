@@ -1,6 +1,7 @@
 package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,6 +44,7 @@ public class inverseDeterminant extends baseFactorizationMethods {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inverse_determinant, container, false);
         matrixResult = view.findViewById(R.id.matrixResult);
+
         determinant = view.findViewById(R.id.determinant);
         Button runCroult = view.findViewById(R.id.croultButton);
 
@@ -157,7 +159,7 @@ public class inverseDeterminant extends baseFactorizationMethods {
         for (Complex[] aux : inverse) {
             TableRow row = new TableRow(getContext());
             for (Complex val : aux) {
-                row.addView(defaultTextView((formating(val) + "      ").substring(0, 6)));
+                row.addView(defaultTextView((formating(val) + "      ").substring(0, 4)));
             }
             matrixResult.addView(row);
         }

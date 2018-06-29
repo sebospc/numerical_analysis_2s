@@ -463,7 +463,7 @@ public abstract class baseSystemEquations extends Fragment {
                 .setButtonText("UNDO")
                 .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
                 .setProgressBarColor(Color.WHITE)
-                .setText("The method converge")
+                .setText("The method converges")
                 .setFrame(Style.FRAME_LOLLIPOP)
                 .setColor(Color.rgb(76, 175, 80))
                 .setAnimations(Style.ANIMATIONS_POP).show();
@@ -486,7 +486,8 @@ public abstract class baseSystemEquations extends Fragment {
     public void addStage(double[][] matrix, int stage, Context context){
         TextView tittle = new TextView(context);
         TableLayout matrixResult = new TableLayout(context);
-        tittle.setText("stage "+stage);
+        tittle.setText("Stage "+stage);
+        tittle.setText("");
         for (double[] v : matrix) {
             TableRow aux = new TableRow(context);
             for (double val : v) {
