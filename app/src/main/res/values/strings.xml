@@ -37,8 +37,12 @@
     <string name="cotInverse">cot&#8315;&#185;</string>
     <string name="normalLog">log&#8321;&#8320;</string>
     <string name="log">log&#8333; &#8334;</string>
+    <string name="epsilonRelativ">&#120576;</string>
+    <string name="epsilonAbs">&#69;</string>
     <string name="tenSquared">10&#8317; &#8318;</string>
-    https://github.com/uklimaschewski/EvalEx
+
+
+
 
     <string name="superToastLibrary">
        <a href="https://github.com/JohnPersano/SuperToasts">SuperToasts</a>

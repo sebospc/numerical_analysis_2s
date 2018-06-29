@@ -487,7 +487,6 @@ public abstract class baseSystemEquations extends Fragment {
         TextView tittle = new TextView(context);
         TableLayout matrixResult = new TableLayout(context);
         tittle.setText("Stage "+stage);
-        tittle.setText("");
         for (double[] v : matrix) {
             TableRow aux = new TableRow(context);
             for (double val : v) {
