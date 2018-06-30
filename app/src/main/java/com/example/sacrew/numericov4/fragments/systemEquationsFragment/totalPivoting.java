@@ -78,6 +78,7 @@ public class totalPivoting extends baseSystemEquations {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), showStages.class);
+                showStages.stageContent = contentStages;
                 startActivity(i);
 
             }
