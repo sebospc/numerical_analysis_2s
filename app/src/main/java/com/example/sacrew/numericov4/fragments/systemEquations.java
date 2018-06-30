@@ -60,7 +60,7 @@ public class systemEquations extends Fragment {
     public static ImageButton backMAtrix;
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout xIndex;
-    public static double[][] matrixBackpack;
+    public static String[][] matrixBackpack;
     public static Boolean pivoted = false;
     private int count;
     private LinearLayout initialValues;

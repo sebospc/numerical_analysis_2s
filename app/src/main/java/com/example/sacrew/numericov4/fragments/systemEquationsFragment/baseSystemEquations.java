@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.github.johnpersano.supertoasts.library.Style;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
@@ -50,6 +52,7 @@ public abstract class baseSystemEquations extends Fragment {
     //int defaultColor = Color.rgb(3,169,244);
     final int operativeColor = Color.parseColor("#64DD17");
     LinearLayout contentStages;
+
     private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
             new SuperActivityToast.OnButtonClickListener() {
 
@@ -62,6 +65,9 @@ public abstract class baseSystemEquations extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     void begin() {
+        animatorSet.removeAllListeners();
+        animatorSet.end();
+        animatorSet.cancel();
         double[][] expandedMatrix = getMatrix();
         if (expandedMatrix != null)
             bootStrap(expandedMatrix);
@@ -141,6 +147,7 @@ public abstract class baseSystemEquations extends Fragment {
         text.setKeyListener(DigitsKeyListener.getInstance("0123456789.-E"));
         text.setKeyListener(null);
         text.setText(value);
+
         TextViewCompat.setAutoSizeTextTypeWithDefaults(
                 text, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
         );
@@ -438,7 +445,17 @@ public abstract class baseSystemEquations extends Fragment {
                 for (int i = 0; i < marks.length; i++) {
                     marks[i] = i + 1;
                 }
-                matrixBackpack = getMatrix();
+                matrixBackpack = new String[expandedMatrix.length][expandedMatrix.length+1];
+                int n = matrixAText.getChildCount();
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        EditText aux = ((EditText) ((TableRow) matrixAText.getChildAt(i)).getChildAt(j));
+                        matrixBackpack[i][j] = aux.getText().toString();
+                    }
+                    EditText aux = ((EditText) bValuesText.getChildAt(i));
+                    matrixBackpack[i][n] = aux.getText().toString();
+                }
+
                 backMAtrix.setVisibility(View.VISIBLE);
                 for (int i = 0; i < matrixAText.getChildCount(); i++) {
                     for (int j = 0; j < matrixAText.getChildCount(); j++) {
@@ -483,19 +500,35 @@ public abstract class baseSystemEquations extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addStage(double[][] matrix, int stage, Context context){
+    public void addStage(double[][] matrix, int stage, Context context,List<String> multipliers){
         TextView tittle = new TextView(context);
         TableLayout matrixResult = new TableLayout(context);
-        tittle.setText("Stage "+stage);
+        tittle.setText("Stage "+(stage+1));
         for (double[] v : matrix) {
             TableRow aux = new TableRow(context);
             for (double val : v) {
-                aux.addView(defaultTextView(String.valueOf(val)));
+                aux.addView(defaultTextView((String.valueOf(val)+"         ").substring(0,6)));
             }
             matrixResult.addView(aux);
         }
+        LinearLayout multipliersLayout = new LinearLayout(context);
+        multipliersLayout.setOrientation(LinearLayout.VERTICAL);
+        for(String m : multipliers){
+            TextView aux = new TextView(context);
+            aux.setText(m);
+
+            multipliersLayout.addView(aux);
+        }
+
+        LinearLayout matrixAndMultiplier = new LinearLayout(context);
+        matrixAndMultiplier.addView(matrixResult);
+        TextView space = new TextView(context);
+        space.setText("    ");
+        matrixAndMultiplier.addView(space);
+        matrixAndMultiplier.addView(multipliersLayout);
+
         contentStages.addView(tittle);
-        contentStages.addView(matrixResult);
+        contentStages.addView(matrixAndMultiplier);
     }
 
 }

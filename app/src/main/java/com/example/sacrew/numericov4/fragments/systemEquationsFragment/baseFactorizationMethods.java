@@ -64,6 +64,11 @@ public abstract class baseFactorizationMethods extends baseSystemEquations {
 
         TableLayout matrixResultL = new TableLayout(context);
         TableLayout matrixResultU = new TableLayout(context);
+        LinearLayout auxZ  = new LinearLayout(context);
+        auxZ.setOrientation(LinearLayout.VERTICAL);
+        TextView text = new TextView(context);
+        text.setText("Z1");
+        auxZ.addView(text);
         for(int i = 0; i < matrixL.length; i++){
             TableRow auxL = new TableRow(context);
             TableRow auxU = new TableRow(context);
@@ -72,8 +77,7 @@ public abstract class baseFactorizationMethods extends baseSystemEquations {
                     auxL.addView(defaultTextView((String.valueOf(matrixL[i][j]) + "       ").substring(0, 6)));
                     auxU.addView(defaultTextView((String.valueOf(matrixU[i][j]) + "       ").substring(0, 6)));
                 }else{
-                    auxL.addView(defaultTextView((String.valueOf(matrixL[i][j]) + "       ").substring(0, 6), getResources().getColor(R.color.prettyRed),100,10));
-                    auxU.addView(defaultTextView((String.valueOf(matrixU[i][j]) + "       ").substring(0, 6),getResources().getColor(R.color.header_line_color),100,10));
+                    auxZ.addView(defaultTextView((String.valueOf(matrixU[i][j]) + "       ").substring(0, 6), getResources().getColor(R.color.prettyRed),100,10));
                 }
             }
             matrixResultL.addView(auxL);
@@ -84,8 +88,12 @@ public abstract class baseFactorizationMethods extends baseSystemEquations {
         U.addView(matrixResultU);
         contentStages.addView(L);
         TextView space = new TextView(context);
-        space.setText("    ");
+        space.setText("  ");
         contentStages.addView(space);
+        contentStages.addView(auxZ);
+        TextView space2 = new TextView(context);
+        space2.setText("  ");
+        contentStages.addView(space2);
         contentStages.addView(U);
     }
 }

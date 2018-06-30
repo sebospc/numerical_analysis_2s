@@ -29,6 +29,7 @@ import com.example.sacrew.numericov4.fragments.customPopUps.popUpPartialPivoting
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.showStagesModel.showStages;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
@@ -151,6 +152,7 @@ public class partialPivoting extends baseSystemEquations {
         animations = new LinkedList<>();
 
         for (int k = 0; k < expandedMatrix.length - 1; k++) {
+            List<String> multipliers = new LinkedList<>();
             final int auxk = k;
             expandedMatrix = partialPivot(k, expandedMatrix);
             for (int i = k + 1; i < expandedMatrix.length; i++) {
@@ -161,7 +163,7 @@ public class partialPivoting extends baseSystemEquations {
 
                 final double multiplier = expandedMatrix[i][k] / expandedMatrix[k][k];
                 final int auxi = i;
-
+                multipliers.add("multiplier "+(i-k)+" = "+multiplier);
 
                 ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW, defaultColor).setDuration(times.getProgress() * 500);
                 colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -226,7 +228,7 @@ public class partialPivoting extends baseSystemEquations {
                 }
 
             }
-            addStage(expandedMatrix,auxk,getContext());
+            addStage(expandedMatrix,auxk,getContext(),multipliers);
         }
         substitution(expandedMatrix);
     }
