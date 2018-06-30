@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="COMPLETE TABLE"
+            android:text="RESULTS TABLE"
             android:textColor="@android:color/white"
             android:theme="@style/colorButtonPrimary" />
     </LinearLayout>
