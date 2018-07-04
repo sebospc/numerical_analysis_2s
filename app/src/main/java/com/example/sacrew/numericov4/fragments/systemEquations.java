@@ -86,6 +86,7 @@ public class systemEquations extends Fragment {
         initialValues = view.findViewById(R.id.initialValues);
         ImageButton add = view.findViewById(R.id.addRow);
         ImageButton remove = view.findViewById(R.id.deleteRow);
+        pivoted = false;
         xIndex = view.findViewById(R.id.arrayXindex);
         xIndex.setVisibility(View.GONE);
         backMAtrix = view.findViewById(R.id.backButton);
