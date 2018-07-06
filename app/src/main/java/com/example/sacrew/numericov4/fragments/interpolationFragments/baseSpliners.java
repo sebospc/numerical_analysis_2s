@@ -27,6 +27,7 @@ public abstract class baseSpliners extends baseInterpolationMethods {
 
     void updateGraph() {
         constantSerie = utilsOfGraph.graphPharallelByFunctions(equations);
+
         System.out.println("size functions " + equations.size() + " total serie " + constantSerie.size());
         for (LineGraphSeries<DataPoint> v : constantSerie)
             interpolationGraph.addSeries(v);

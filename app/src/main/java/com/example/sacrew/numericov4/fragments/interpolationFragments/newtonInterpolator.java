@@ -1,25 +1,18 @@
 package com.example.sacrew.numericov4.fragments.interpolationFragments;
+
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.sacrew.numericov4.R;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpNewtonDifferences;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 
-
-import org.matheclipse.core.basic.Config;
 import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.eval.TeXUtilities;
@@ -70,7 +63,8 @@ public class newtonInterpolator extends baseInterpolationMethods {
                     Intent i = new Intent(getContext(), mathExpressions.class);
                     Bundle b = new Bundle();
 
-                    b.putString("key","$${"+function+"\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$"); //Your id
+                    b.putString("key","$${"+latexText+"\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$"); //Your id
+                    b.putString("function",function);
                     i.putExtras(b); //Put your id to your next Intent
                     startActivity(i);
                 }
@@ -119,14 +113,23 @@ public class newtonInterpolator extends baseInterpolationMethods {
                 EvalEngine engine = new EvalEngine(false);
 
 
+
+                //add new expression type latex
+
+
+                //update graph
+
+
+                IExpr simplifiedPFunction = util.evaluate(F.ExpandAll(util.evaluate(uglyFunction.toString())));
+                if (Build.VERSION.SDK_INT > 19) {
+                    simplifiedPFunction = util.evaluate(F.FullSimplify(simplifiedPFunction));
+                }
+                function = simplifiedPFunction.toString();
+                updateGraph(function, getContext(), (int) Math.ceil(((xn[xn.length - 1] - xn[0]) * 10) + 20));
                 TeXUtilities texUtil = new TeXUtilities(engine, false);
                 StringWriter stw = new StringWriter();
                 texUtil.toTeX(engine.evaluate(F.Simplify(util.evaluate(auxToLAtexFunc.toString()))), stw);
-                //add new expression type latex
-                function = stw.toString();
-
-                //update graph
-                updateGraph(engine.evaluate(F.Simplify(util.evaluate(uglyFunction.toString()))).toString(), getContext(), (int) Math.ceil(((xn[xn.length - 1] - xn[0]) * 10) + 20));
+                latexText = stw.toString();
                 //variable to open equations
                 calc = true;
             }

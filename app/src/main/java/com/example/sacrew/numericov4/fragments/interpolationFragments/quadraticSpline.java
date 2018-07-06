@@ -74,8 +74,9 @@ public class quadraticSpline extends baseSpliners {
                     Intent i = new Intent(getContext(), mathExpressions.class);
                     Bundle b = new Bundle();
 
-                    b.putString("key", function); //Your id
+                    b.putString("key", latexText); //Your id
                     i.putExtras(b); //Put your id to your next Intent
+                    mathExpressions.equations = equations;
                     startActivity(i);
                 }
             }
@@ -106,14 +107,14 @@ public class quadraticSpline extends baseSpliners {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean quadraticSplineMethod() {
-        function = "";
+        latexText = "";
         double[][] supermatrix = new double[3 * inequality.length][3 * inequality.length + 1];
 
         int n = supermatrix.length;
         int j = 0;
         int z = 0;
 
-        function += "$${x^2a_{n} + xb_{n} + c_{n}}$$";
+        latexText += "$${x^2a_{n} + xb_{n} + c_{n}}$$";
 
         //normal
         for (int i = 0; i < inequality.length; i++) {
@@ -126,13 +127,13 @@ public class quadraticSpline extends baseSpliners {
             String auxj = String.valueOf(z - j);
             String equation = supermatrix[j][z] + "a_{" + auxj + "}+" + aux.first.first + "b_{" + auxj + "}+c_{" + auxj + "} = " + aux.first.second;
 
-            function += "$${" + equation + " \\qquad with \\enspace (" + aux.first.first + "," + aux.first.second + ")\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+            latexText += "$${" + equation + " \\qquad with \\enspace (" + aux.first.first + "," + aux.first.second + ")\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
             supermatrix[j + 1][z] = Math.pow(aux.second.first, 2);
             supermatrix[j + 1][z + 1] = aux.second.first;
             supermatrix[j + 1][z + 2] = 1;
             supermatrix[j + 1][n] = aux.second.second;
             equation = supermatrix[j + 1][z] + "a_{" + auxj + "}+" + aux.second.first + "b_{" + auxj + "}+c_{" + auxj + "} = " + aux.second.second;
-            function += "$${" + equation + " \\qquad with \\enspace (" + aux.second.first + "," + aux.second.second + ")\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+            latexText += "$${" + equation + " \\qquad with \\enspace (" + aux.second.first + "," + aux.second.second + ")\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
             z += 3;
             j += 2;
         }
@@ -140,7 +141,7 @@ public class quadraticSpline extends baseSpliners {
         int k = j;
         z = 0;
 
-        function += "$${\\text{first derivative}}$$ $${2xa_{n} + b_{n} = 2xa_{n+1} + b_{n+1}}$$";
+        latexText += "$${\\text{first derivative}}$$ $${2xa_{n} + b_{n} = 2xa_{n+1} + b_{n+1}}$$";
         for (int i = 0; i < inequality.length - 1; i++) {
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux2 = inequality[i + 1];
@@ -152,26 +153,28 @@ public class quadraticSpline extends baseSpliners {
 
             String equation = supermatrix[k][z] + "a_{" + i + "}+b_{" + i + "}";
             String equation2 = 2 * aux2.first.first + "a_{" + (i + 1) + "}+b_{" + (i + 1) + "}";
-            function += "$${" + equation + " = " + equation2 + "\\qquad with \\enspace x = " + aux.first.first + " \\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+            latexText += "$${" + equation + " = " + equation2 + "\\qquad with \\enspace x = " + aux.first.first + " \\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
             k += 1;
             z += 3;
             //suponemos que la segunda derivada es 0 entonces a1 = 0
         }
-        function += "$${\\text{second derivative}}$$ $${a_{1} = 0\\qquad \\qquad}$$";
+        latexText += "$${\\text{second derivative}}$$ $${a_{1} = 0\\qquad \\qquad}$$";
         supermatrix[k][0] = 1;
         double[] result = systemUtils.manager(supermatrix);
         if (result == null) {
             styleWrongMessage();
             return false;
         }
-        function += "$${result}$$";
+        latexText += "$${result}$$";
         j = 0;
         equations = new LinkedList<>();
-        function += "$${p(x) = \\begin{cases}";
+        latexText += "$${p(x) = \\begin{cases}";
         StringWriter stw;
         ExprEvaluator util = new ExprEvaluator();
         EvalEngine engine = new EvalEngine(false);
         TeXUtilities texUtil = new TeXUtilities(engine, false);
+        int color = poolColors.remove(0);
+        poolColors.add(color);
         for (int i = 0; i < inequality.length; i++) {
 
             String auxFunc = result[j] + "*(x^2)+" + result[j + 1] + "*x+" + result[j + 2];
@@ -180,8 +183,7 @@ public class quadraticSpline extends baseSpliners {
             if (Build.VERSION.SDK_INT > 19) {
                 funcSimplify = util.evaluate(F.FullSimplify(funcSimplify));
             }
-            int color = poolColors.remove(0);
-            poolColors.add(color);
+
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             System.out.println("iter  " + i + " values " + new Pair<>(funcSimplify, new Pair<>(color, new Pair<>(aux.first.first, aux.second.first))));
             equations.add(new Pair<>(funcSimplify.toString(), new Pair<>(color, new Pair<>(aux.first.first, aux.second.first))));
@@ -192,11 +194,11 @@ public class quadraticSpline extends baseSpliners {
                 outToLatex = util.evaluate(F.FullSimplify(outToLatex));
             }
             texUtil.toTeX(outToLatex, stw);
-            function += stw.toString() + " & " + aux.first.first + " \\leq " + aux.second.first;
-            if (i < inequality.length - 1) function += "\\\\";
+            latexText += stw.toString() + " & " + aux.first.first + " \\lt x \\leq " + aux.second.first;
+            if (i < inequality.length - 1) latexText += "\\\\";
             j += 3;
         }
-        function += "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+        latexText += "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
 
         return true;
     }

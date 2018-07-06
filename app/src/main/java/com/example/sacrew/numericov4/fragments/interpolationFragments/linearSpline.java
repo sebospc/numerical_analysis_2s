@@ -64,7 +64,10 @@ public class linearSpline extends baseSpliners {
                     Intent i = new Intent(getContext(), mathExpressions.class);
                     Bundle b = new Bundle();
 
-                    b.putString("key", "$${p(x) = \\begin{cases}" + function + "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$"); //Your id
+                    b.putString("key", "$${p(x) = \\begin{cases}" + latexText + "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$"); //Your id
+                    mathExpressions.equations = equations;
+
+
                     i.putExtras(b); //Put your id to your next Intent
                     startActivity(i);
                 }
@@ -104,12 +107,14 @@ public class linearSpline extends baseSpliners {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean linealSpline() {
-        function = "";
+        latexText = "";
         equations = new LinkedList<>();
         StringWriter stw;
         ExprEvaluator util = new ExprEvaluator();
         EvalEngine engine = new EvalEngine(false);
         TeXUtilities texUtil = new TeXUtilities(engine, false);
+        int color = poolColors.remove(0);
+        poolColors.add(color);
         for (int i = 0; i < inequality.length; i++) {
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             double check = (aux.second.first - aux.first.first);
@@ -118,8 +123,7 @@ public class linearSpline extends baseSpliners {
                 return false;
             }
             double numerator = (aux.second.second - aux.first.second);
-            int color = poolColors.remove(0);
-            poolColors.add(color);
+
 
             IExpr functionSimplfied = util.evaluate(F.ExpandAll(util.evaluate(aux.second.second + "+(" + numerator + "/" + "(" + check + "))*(x-(" + aux.second.first + "))")));
             if (Build.VERSION.SDK_INT > 19) {
@@ -127,11 +131,12 @@ public class linearSpline extends baseSpliners {
             }
 
             equations.add(new Pair<>(functionSimplfied.toString(), new Pair<>(color, new Pair<>(aux.first.first, aux.second.first))));
+
             stw = new StringWriter();
             texUtil.toTeX(functionSimplfied, stw);
-            function += stw.toString() + " & " + aux.first.first + " \\leq " + aux.second.first;
+            latexText += stw.toString() + " & " + aux.first.first + " \\lt x \\leq " + aux.second.first;
             if (i < inequality.length - 1)
-                function += "\\\\";
+                latexText += "\\\\";
 
         }
         return true;

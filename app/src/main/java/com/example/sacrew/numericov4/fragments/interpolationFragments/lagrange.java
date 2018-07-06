@@ -71,7 +71,8 @@ public class lagrange extends baseInterpolationMethods {
                     Intent i = new Intent(getContext(), mathExpressions.class);
                     Bundle b = new Bundle();
 
-                    b.putString("key", function); //Your id
+                    b.putString("key", latexText); //Your id
+                    b.putString("function",function);
                     i.putExtras(b); //Put your id to your next Intent
                     startActivity(i);
                 }
@@ -90,7 +91,7 @@ public class lagrange extends baseInterpolationMethods {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void execute() {
         //header of mathView
-        function = "$${ L_{k}(x) =  \\prod_{i = 0,i \\neq k}^n \\frac{(x - x_{i})}{(x_{k} - x_{i})} }$$";
+        latexText = "$${ L_{k}(x) =  \\prod_{i = 0,i \\neq k}^n \\frac{(x - x_{i})}{(x_{k} - x_{i})} }$$";
         //check if all values are ok
         boolean errorValues = bootStrap();
 
@@ -114,26 +115,27 @@ public class lagrange extends baseInterpolationMethods {
 
                     stw = new StringWriter();
                     texUtil.toTeX(functionLSimplified, stw);
-                    //creating each L function
+                    //creating each L latexText
                     String aux = " $${L_{" + i + "}(x) = " + stw + "\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
-                    function = function + aux;
+                    latexText = latexText + aux;
 
                     temp = F.Plus(temp, F.Times(util.evaluate("" + fxn[i]), functionLSimplified));
 
                 }
 
                 stw = new StringWriter();
-                //simpliying p function
+                //simpliying p latexText
                 IExpr simplifiedPFunction = util.evaluate(F.ExpandAll(temp));
                 if (Build.VERSION.SDK_INT > 19) {
                     simplifiedPFunction = util.evaluate(F.FullSimplify(simplifiedPFunction));
                 }
 
-                //creating latex p function
+                //creating latex p latexText
+                function = simplifiedPFunction.toString();
                 texUtil.toTeX(simplifiedPFunction, stw);
 
-                function = function + "$${ p(x) =  \\sum_{k = 0}^n L_{k}(x)f(x_{k})}$$";
-                function = function + " $${p(x) = " + stw + "\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+                latexText = latexText + "$${ p(x) =  \\sum_{k = 0}^n L_{k}(x)f(x_{k})}$$";
+                latexText = latexText + " $${p(x) = " + stw + "\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
 
                 updateGraph(simplifiedPFunction.toString(), getContext(), (int) Math.ceil((Math.abs(xn[xn.length - 1] - xn[0]) * 10) + 10));
             }

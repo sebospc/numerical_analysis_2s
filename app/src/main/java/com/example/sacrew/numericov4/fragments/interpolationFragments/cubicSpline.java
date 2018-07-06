@@ -74,8 +74,9 @@ public class cubicSpline extends baseSpliners {
                     Intent i = new Intent(getContext(), mathExpressions.class);
                     Bundle b = new Bundle();
 
-                    b.putString("key", function); //Your id
+                    b.putString("key", latexText); //Your id
                     i.putExtras(b); //Put your id to your next Intent
+                    mathExpressions.equations = equations;
                     startActivity(i);
                 }
             }
@@ -106,14 +107,14 @@ public class cubicSpline extends baseSpliners {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean cubicSplineMethod() {
-        function = "";
+        latexText = "";
         double[][] superMatrix = new double[4 * inequality.length][4 * inequality.length + 1];
         int n = superMatrix.length;
         int j = 0;
         int z = 0;
         int l = 0;
         //normal
-        function += "$${a_{n}x^3 + b_{n}x^2 + c_{n}x + d_{n}}$$";
+        latexText += "$${a_{n}x^3 + b_{n}x^2 + c_{n}x + d_{n}}$$";
         for (int i = 0; i < inequality.length; i++) {
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             int auxj = z - j - l;
@@ -127,7 +128,7 @@ public class cubicSpline extends baseSpliners {
             String equation = superMatrix[j][z] + "a_{" + auxj + "} + " +
                     superMatrix[j][z + 1] + "b_{" + auxj + "}+" + aux.first.first + "c_{" + auxj +
                     "}+ d_{" + auxj + "} = " + aux.first.second;
-            function += "$${" + equation + " \\qquad with \\enspace (" + aux.first.first + "," + aux.first.second + ")\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+            latexText += "$${" + equation + " \\qquad with \\enspace (" + aux.first.first + "," + aux.first.second + ")\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
 
             superMatrix[j + 1][z] = Math.pow(aux.second.first, 3);
             superMatrix[j + 1][z + 1] = Math.pow(aux.second.first, 2);
@@ -136,14 +137,14 @@ public class cubicSpline extends baseSpliners {
             superMatrix[j + 1][n] = aux.second.second;
             equation = superMatrix[j + 1][z] + "a_{" + auxj + "}" + " + " + superMatrix[j + 1][z + 1] + "b_{" + auxj +
                     "} + " + aux.second.first + "c_{" + auxj + "} + d_{" + auxj + "} = " + aux.second.second;
-            function += "$${" + equation + " \\qquad with \\enspace (" + aux.second.first + "," + aux.second.second + ")\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+            latexText += "$${" + equation + " \\qquad with \\enspace (" + aux.second.first + "," + aux.second.second + ")\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
             z += 4;
             j += 2;
             l += 1;
         }
         int k = j;
         z = 0;
-        function += "$${\\text{first derivative}}$$ $${\\qquad 3x^2a_{n} + 2xb_{n} + c_{n} = 3x^2 a_{n+1}+ 2xb_{n+1} + c_{n+1}}$$";
+        latexText += "$${\\text{first derivative}}$$ $${\\qquad 3x^2a_{n} + 2xb_{n} + c_{n} = 3x^2 a_{n+1}+ 2xb_{n+1} + c_{n+1}}$$";
         //primera derivada
 
         for (int i = 0; i < inequality.length - 1; i++) {
@@ -158,13 +159,13 @@ public class cubicSpline extends baseSpliners {
             superMatrix[k][n] = 0;
             String equation = superMatrix[k][z] + "a_{" + i + "}" + " + " + superMatrix[k][z + 1] +
                     "b_{" + (i) + "} + c_{" + (i) + "} =" + superMatrix[k][z] + "a_{" + (i + 1) + "}+" + superMatrix[k][z + 1] + "b_{" + (i + 1) + "} + c_{" + (i + 1) + "}";
-            function += "$${" + equation + " \\qquad with \\enspace x = " + aux.second.first + "\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+            latexText += "$${" + equation + " \\qquad with \\enspace x = " + aux.second.first + "\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
             k += 1;
             z += 4;
         }
         z = 0;
         // segunda derivada
-        function += "$${\\text{second derivative}}$$ $${\\qquad 6xa_{n} + 2b_{n} = 6xa_{n+1} + 2b_{n+1}}$$ ";
+        latexText += "$${\\text{second derivative}}$$ $${\\qquad 6xa_{n} + 2b_{n} = 6xa_{n+1} + 2b_{n+1}}$$ ";
         for (int i = 0; i < inequality.length - 1; i++) {
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
 
@@ -175,23 +176,23 @@ public class cubicSpline extends baseSpliners {
             superMatrix[k][n] = 0;
             String equation = superMatrix[k][z] + "a_{" + i + "} + 2b_{" + i + "}=" +
                     superMatrix[k][z] + "a_{" + (i + 1) + "}+" + "2b_{" + (i + 1) + "}";
-            function += "$${" + equation + " \\qquad with \\enspace x = " + aux.first.first + "\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+            latexText += "$${" + equation + " \\qquad with \\enspace x = " + aux.first.first + "\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
             k += 1;
             z += 4;
 
         }
-        function += "$${\\qquad supposition}$$";
+        latexText += "$${\\qquad supposition}$$";
         Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[0];
         aux = inequality[0];
         String equation = 6 * aux.first.first + "a_{0}+2b_{0} = 0";
-        function += "$${" + equation + " \\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+        latexText += "$${" + equation + " \\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
         superMatrix[k][0] = 6 * aux.first.first;
         superMatrix[k][1] = 2;
         aux = inequality[inequality.length - 1];
         superMatrix[k + 1][4 * (inequality.length - 1)] = 6 * aux.second.first;
         superMatrix[k + 1][4 * (inequality.length - 1) + 1] = 2;
         equation = superMatrix[k + 1][4 * (inequality.length - 1)] + "a_{" + (inequality.length - 1) + "}+2b_{" + (inequality.length - 1) + "} = 0";
-        function += "$${" + equation + " \\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+        latexText += "$${" + equation + " \\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
 
         double[] result = systemUtils.manager(superMatrix);
         if (result == null) {
@@ -199,14 +200,16 @@ public class cubicSpline extends baseSpliners {
             return false;
         }
         j = 0;
-        function += "$${result}$$";
+        latexText += "$${result}$$";
         equations = new LinkedList<>();
-        function += "$${p(x) = \\begin{cases}";
+        latexText += "$${p(x) = \\begin{cases}";
         StringWriter stw;
         ExprEvaluator util = new ExprEvaluator();
         EvalEngine engine = new EvalEngine(false);
         TeXUtilities texUtil = new TeXUtilities(engine, false);
         j = 0;
+        int color = poolColors.remove(0);
+        poolColors.add(color);
         for (int i = 0; i < inequality.length; i++) {
 
             String auxFunc = result[j] + "*(x^3)+" + result[j + 1] + "*x^2+" + result[j + 2] + "*x+" + result[j + 3];
@@ -215,8 +218,7 @@ public class cubicSpline extends baseSpliners {
             if (Build.VERSION.SDK_INT > 19) {
                 funcSimplify = util.evaluate(F.FullSimplify(funcSimplify));
             }
-            int color = poolColors.remove(0);
-            poolColors.add(color);
+
             aux = inequality[i];
             equations.add(new Pair<>(funcSimplify.toString(), new Pair<>(color, new Pair<>(aux.first.first, aux.second.first))));
             stw = new StringWriter();
@@ -225,11 +227,11 @@ public class cubicSpline extends baseSpliners {
                 outToLatex = util.evaluate(F.FullSimplify(outToLatex));
             }
             texUtil.toTeX(outToLatex, stw);
-            function += stw.toString() + " & " + aux.first.first + " \\leq " + aux.second.first;
-            if (i < inequality.length - 1) function += "\\\\";
+            latexText += stw.toString() + " & " + aux.first.first + " \\lt x \\leq " + aux.second.first;
+            if (i < inequality.length - 1) latexText += "\\\\";
             j += 4;
         }
-        function += "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+        latexText += "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
         return true;
     }
 

@@ -4,26 +4,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.interpolationFragments.mathExpressions">
+
     <HorizontalScrollView
+        android:id="@+id/horizontalMath"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:overScrollMode="never">
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:overScrollMode="never">
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <katex.hourglass.in.mathlib.MathView
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
-                android:id="@+id/math_view"
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-        </FrameLayout>
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <katex.hourglass.in.mathlib.MathView
+
+                        android:id="@+id/math_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/evaluating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/math_view"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/evaluateInFunction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="evaluate" />
+
+                        <EditText
+                            android:id="@+id/xValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint=" x value  " />
+
+                        <TextView
+                            android:id="@+id/resultFxn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/evaluating" />
+                </RelativeLayout>
+            </FrameLayout>
         </ScrollView>
     </HorizontalScrollView>
 </RelativeLayout>

@@ -28,6 +28,11 @@ import static com.example.sacrew.numericov4.fragments.interpolation.vectors;
 public abstract class baseInterpolationMethods extends Fragment {
     static List<LineGraphSeries<DataPoint>> constantSerie;
     final graphUtils utilsOfGraph = new graphUtils();
+    double[] xn;
+    double[] fxn;
+    boolean calc = false;
+    String latexText = "";
+    String function;
     private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
             new SuperActivityToast.OnButtonClickListener() {
 
@@ -36,12 +41,8 @@ public abstract class baseInterpolationMethods extends Fragment {
                     SuperActivityToast.cancelAllSuperToasts();
                 }
             };
-    double[] xn;
-    double[] fxn;
-    boolean calc = false;
-    String function = "";
-
     boolean bootStrap() {
+        mathExpressions.equations=null;
         int length = ((TableRow) vectors.getChildAt(0)).getChildCount();
         xn = new double[length];
         fxn = new double[length];
