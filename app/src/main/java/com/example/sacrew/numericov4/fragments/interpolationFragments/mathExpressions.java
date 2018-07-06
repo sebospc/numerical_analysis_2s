@@ -48,7 +48,14 @@ public class mathExpressions extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     String x = xValue.getText().toString();
-                    vd.setValue(Double.parseDouble(x));
+                    double value;
+                    try{
+                        value = Double.parseDouble(x);
+                    }catch (Exception e){
+                        xValue.setError("invalid value");
+                        return;
+                    }
+                    vd.setValue(value);
 
                     showValue.setText("f(" + x + ") = " + engine.evaluate() );
                 }
