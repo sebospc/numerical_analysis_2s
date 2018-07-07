@@ -18,10 +18,14 @@
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="497dp"
+                android:layout_height="412dp"
                 android:drawableBottom="@drawable/pivoteo_parcial"
                 android:gravity="center_horizontal"
-                android:text="This method is a variant of the simple gaussian elimination. \n\n The objective to apply partial pivoting in the gaussian elimination is reduce the effects of the rounding error in the solution of the system. \n\n For that, in each stage K searches the major coefficient (in absolute value) of the elements of the column K from a[k][k]. It exchanges the rows to localize the chosen one in the row K and applies gaussian elimination. \n\n The process in each stage validate the major number (a major position or equal than K) in the column K. \n\n With that, the multipliers will be small and reduce the effect of the rounding error."
+                android:text="This method is a modification of the Simple Gaussian Elimination.
+\n\n
+The partial pivoting aims to reduce the effects of the propagation error in the Gaussian Elimination method. For that, the method searches in each step k the greatest coefficient (in absolute value) between a[i][k] with i such that k  i  n. This element is located in the position a[k][k] by mean of interchange of rows. Then, the method applies the elimination process.
+\n\n
+When the partial pivoting is applied, the multipliers are less or equal than 1; this situation reduces the propagation error."
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
                 tools:layout_editor_absoluteX="26dp"

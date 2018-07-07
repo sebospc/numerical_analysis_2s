@@ -6,29 +6,50 @@
     android:background="@color/helpColor"
     tools:background="@color/helpColor">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView44"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="357dp"
-            android:drawableBottom="@drawable/jacobi2"
-            android:drawableTop="@drawable/jacobi"
-            android:gravity="center_horizontal"
-            android:text="This method is an extension of the fixed point method. The system Ax = b is transformed into the system x = Tx + C. A vector x1 is found from a vector x0. With x1, x2 is calculated and so on until a certain tolerance is met. This presents a relaxed of 1, minus or more."
-            android:textColor="@android:color/white"
-            android:textSize="19sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="28dp"
-            tools:textColor="@android:color/white" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView42"
+                android:layout_width="match_parent"
+                android:layout_height="168dp"
+                android:gravity="center_horizontal"
+                android:text="This method is an extension of the fixed point method for systems of equations. Similar to fixed point method, the system Ax = b is transformed by mean of algebraic properties into the system x = Tx + C. This equation is a recursive equation Xn+1 = TXn + C, such that Xn is the actual vector and the new vector."
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="28dp"
+                tools:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/jacobi" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:gravity="center_horizontal"
+                android:text="The method generates a succession of vectors of x by means of the iterative equation and one initial vector. This succession is expected to converge to the solution of the equation x = Tx + C and consequently of the equation system Ax = b. \n\n Note: This method does not always converge. Additionally, it is possible to get better the convergence by mean of relaxation factor which is a constant between 0 and 2."
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="28dp"
+                tools:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView56"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

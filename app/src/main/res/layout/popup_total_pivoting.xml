@@ -6,17 +6,38 @@
     android:background="@color/helpColor"
     tools:background="@color/helpColor">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="333dp"
-        android:layout_height="295dp"
-        android:drawableBottom="@drawable/pivoteo_total"
-        android:gravity="center_horizontal"
-        android:text="This method exchanges rows and columns of the matrix A looking for the largest element, in absolute value, on the diagonal A [k] [k] and in this way obtain small multipliers with large pivots. Simple Gaussian elimination is applied and the system of equations is solved."
-        android:textColor="@android:color/white"
-        android:textSize="19sp"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="28dp"
-        tools:textColor="@android:color/white" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="405dp"
+                android:drawableBottom="@drawable/pivoteo_total"
+                android:gravity="center_horizontal"
+                android:text="This method is a modification of the Simple Gaussian Elimination.
+\n\n
+The total pivoting aims to reduce the effects of the propagation error in the Gaussian Elimination method. For that, the method searches in each step k the greatest coefficient (in absolute value) between a[i][j] with i such that k i n and j such that k j n. This element is located in the position a[k][k] by mean of interchange of rows and columns. Then, the method applies the elimination process.
+\n\n
+When the partial pivoting is applied, the multipliers are less or equal than 1; this situation reduces the propagation error."
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="28dp"
+                tools:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView54"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

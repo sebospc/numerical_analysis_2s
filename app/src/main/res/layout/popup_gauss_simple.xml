@@ -18,10 +18,10 @@
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="376dp"
+                android:layout_height="348dp"
                 android:drawableBottom="@drawable/gauss_simple"
                 android:gravity="center_horizontal"
-                android:text="Apply the method of gaussian elimination to linear system of equations (expressed as a increased matrix Ab) means reduce the matrix Ab, through the application of elemental operations of row without exchange of rows, until obtain a superior triangular matrix. \n\n Later, the method performs a clearance in the obtained system and find the value of each variable."
+                android:text="The method of Simple Gaussian Elimination solves linear system of equations. It reduces the augmented matrix by mean of elementary operations of row without interchange of rows until it obtains an upper triangular matrix. \n\n Finally, the method solves the system by mean the back substitution applied to last matrix. "
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
                 tools:layout_editor_absoluteX="26dp"

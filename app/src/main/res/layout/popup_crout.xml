@@ -6,30 +6,39 @@
     android:background="@color/helpColor"
     tools:background="@color/helpColor">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView41"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="278dp"
-            android:drawableBottom="@drawable/crout"
-            android:drawableTop="@drawable/lu"
-            android:gravity="center_horizontal"
-            android:text="This method factored a matrix into two matrices L and U, which apply progressive and regressive substitution respectively. In addition, the condition is established that row i and column i of matrix U must be 1."
-            android:textColor="@android:color/white"
-            android:textSize="19sp"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="28dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="367dp"
+                android:drawableBottom="@drawable/crout"
+                android:drawableTop="@drawable/lu"
+                android:gravity="center_horizontal"
+                android:text="Let Ax = b be a system of linear equations. \n\n The Crout Factorization method factorizes the matrix A = LU, such that the matrix L is a lower matrix and the matrix U is an upper matrix with 1 in the main diagonal. \n\n In order to solve the system Ax = b, the method applies forward substitution over the system Lz = b. Next, the method applies back substitution over the system Ux = z."
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="28dp"
+                tools:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView55"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

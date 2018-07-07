@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         aBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
         drawerLayout = findViewById(R.id.root);
-        final String[] opciones = {"Home", "Graph", "One Variable", "System Equations", "Interpolation"};
+        final String[] opciones = {"Home", "Graph", "One Variable Equations", "Systems of Equations", "Interpolation"};
         ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1, opciones);
         menuLateral = findViewById(R.id.menuLateral);
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openHome() {
         if (idFragment != 0) {
-            aBar.setTitle(getResources().getString(R.string.app_name));
+            aBar.setTitle("Numerical Analysis 2S");
             extraInformation = homeInformation;
             /*
              * remove animations of system equations
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openGraph() {
         if (idFragment != 1) {
-            aBar.setTitle("  Graph");
+            aBar.setTitle("Graph");
             extraInformation = "In this section you will be able to graph any function, " +
                     "but take care with no continuous functions. " +
                     "<br><br>You will see your (correct) functions in \"MY FUNCTIONS\" keyboard options." +
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
     private void openOneVariable() {
 
         if (idFragment != 2) {
-            aBar.setTitle("  One Variable");
+            aBar.setTitle("One Variable Equations");
             extraInformation = "In this section you will find different root-finding methods" +
                     "<br><br>" +
                     "<br><br>The used libraries in this section were: " +
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openSystemEquations() {
         if (idFragment != 3) {
-            aBar.setTitle("  System Equations");
+            aBar.setTitle("Systems of Equations");
             extraInformation = "In this section you will be able to solve linear systems equations of n equations with n variables through matrixes with " +
                     "different numerical methods "+"<br><br>"+homeInformation;
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openInterpolation() {
         if (idFragment != 4) {
-            aBar.setTitle("  Interpolation");
+            aBar.setTitle("Interpolation");
             extraInformation = "In this section you will be able to find interpolating polynomials through points joining these " +
                     "polynomials and have a similar behavior of the original functions." +
                     "<br><br>We use" +

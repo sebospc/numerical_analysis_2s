@@ -6,29 +6,49 @@
     android:background="@color/helpColor"
     tools:background="@color/helpColor">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView45"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="390dp"
-            android:drawableBottom="@drawable/seidel2"
-            android:drawableTop="@drawable/jacobi"
-            android:gravity="center_horizontal"
-            android:text="In this method, we start with a vector of initial values to start iterating. The new values of each vector are calculated in order and used immediately for subsequent values. The components of each vector are found and stops when it meets a certain tolerance. This presents a relaxed of 1, minus or more."
-            android:textColor="@android:color/white"
-            android:textSize="19sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="28dp"
-            tools:textColor="@android:color/white" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView42"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:gravity="center_horizontal"
+                android:text="This method is an extension of the fixed point method for systems of equations. Similar to fixed point method, the system Ax = b is transformed by mean of algebraic properties into the system x = Tx + C. This equation is a recursive equation Xn+1 = TXn + C, such that Xn is the actual vector and the new vector."
+                android:textColor="@android:color/white"
+                android:textSize="19sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="28dp"
+                tools:textColor="@android:color/white" />
 
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/jacobi" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:gravity="center_horizontal"
+                android:text="The Gauss method computes serially the components of the new vector. To do this, it uses the most recent components to calculate each component of the new vector. \n\n The method generates a succession of vectors of x by means of the iterative equation and one initial vector. This succession is expected to converge to the solution of the equation x = Tx + C and consequently of the equation system Ax = b. \n\n Note: This method does not always converge. Additionally, it is possible to get better the convergence by mean of relaxation factor which is a constant between 0 and 2."
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="28dp"
+                tools:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView56"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
