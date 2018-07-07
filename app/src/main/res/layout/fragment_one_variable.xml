@@ -25,16 +25,18 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp">
+                    android:layout_height="40dp">
 
-                    <ImageButton
+                    <Button
                         android:id="@+id/buttonHide"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/icon_expand"
-                        android:text="Button" />
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/icon_expand"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/icon_expand" />
 
                 </RelativeLayout>
 
