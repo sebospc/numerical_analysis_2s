@@ -20,10 +20,16 @@
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
-                android:layout_height="532dp"
+                android:layout_height="710dp"
                 android:drawableBottom="@drawable/bisection"
                 android:gravity="center_horizontal"
-                android:text="This method assumes that exits a root in a given interval. That is, in the interval the function is continuous and presents a change of sign. \n\n With this interval, the method calculates the midpoint, evaluates it in the function by reducing the interval until it guarantees the existence of the point (change of sign). So on, until satisfy a tolerance, find a root or exceed the maximum number of iterations. \n\n Note: This method always converges."
+                android:text="This method assumes that the function is continuous and it has a change of sign in the input interval. This require guarantees that there exists almost one root in the input interval.
+\n\n
+The method calculates the midpoint of input interval. This value is evaluated in the function in order to compute a new reduce interval such that it has a change of sign in the values which are resulted of evaluation of the function in its limits. Then, the method calculates a new midpoint of the resultant interval in order to reduce again the interval. The method generates a sequence of midpoints which converge to one solution of equation f(x) = 0.
+\n\n
+So on, the method calculates new iterations until satisfy an expected tolerance, find a root or exceed the maximum number of iterations.
+\n\n
+Note: This method always converges."
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
                 tools:layout_editor_absoluteX="8dp"

@@ -18,10 +18,18 @@
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
-                android:layout_height="451dp"
+                android:layout_height="690dp"
                 android:drawableBottom="@drawable/false_position"
                 android:gravity="center_horizontal"
-                android:text="This method assumes that exits a root in a given interval. That is, in the interval the function is continuous and presents a change of sign. \n\n With this interval, the secant line joining the points of the function corresponding to the extremes of the interval is calculated. With the help of the secant line equation, we determine the cut point of the line on the x axis, which divides the given interval by 2. So on, until satisfy a tolerance, find a root or exceed the maximum number of iterations. \n\n Note: This method always converges."
+                android:text="This method assumes that the function is continuous and it has a change of sign in the input interval. This require guarantees that there exits almost one root in the input interval.
+\n\n
+The method calculates an intermediate point by means of the secant line defined by the points of the function corresponding to the extremes of the interval. This value is evaluated in the function in order to compute a new reduce interval such that it has a change of sign in the values which are resulted of evaluation of the function in its limits.
+\n\n
+Then, the method calculates a new intermediate point of the resultant interval in order to reduce again the interval. The method generates a sequence of intermediate points which converge to one solution of equation f(x) = 0.
+\n\n
+So on, the method calculates new iterations until satisfy an expected tolerance, find a root or exceed the maximum number of iterations.
+\n\n
+Note: This method always converges."
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
                 tools:layout_editor_absoluteX="20dp"
