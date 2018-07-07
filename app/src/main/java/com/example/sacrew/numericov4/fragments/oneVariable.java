@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -71,7 +72,7 @@ public class oneVariable extends Fragment {
         View view = inflater.inflate(R.layout.fragment_one_variable, container, false);
         keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
         isup = false;
-        ImageButton hider = view.findViewById(R.id.buttonHide);
+        Button hider = view.findViewById(R.id.buttonHide);
         hider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

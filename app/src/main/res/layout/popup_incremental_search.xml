@@ -9,10 +9,10 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="350dp"
-        android:layout_height="268dp"
+        android:layout_height="290dp"
         android:drawableBottom="@drawable/incremental_search"
         android:gravity="center_horizontal"
-        android:text="This method assumes a continuous function. The method searches an interval where a root exists. The found interval must comply that exists a change of sign evaluating the function in the extremes of this interval."
+        android:text="This method assumes the continuity of the function f(x) in an interval. The method searches an interval where there exist one root of the equation f(x) = 0. For that, there exist a change of sign in the evaluated function in the extremes of found interval."
         android:textColor="@android:color/white"
         android:textSize="17sp"
         tools:layout_editor_absoluteX="17dp"
