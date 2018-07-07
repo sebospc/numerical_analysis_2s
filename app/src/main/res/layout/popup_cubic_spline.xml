@@ -9,15 +9,15 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="333dp"
-        android:layout_height="181dp"
+        android:layout_height="201dp"
         android:drawableBottom="@drawable/cubico"
         android:gravity="center_horizontal"
-        android:text="This method generates a function defined by segments using polynomials of degree 3 in such a way that the function is continuous, derivable, smooth and passes through all the points."
+        android:text="This method generates a continuous polynomial function defined by parts of degree almost 3. The input points must belong to the polynomial P. And, there exits the first and second derivate in the connections points.  It is necessary to know additional in the extremes points.  "
         android:textColor="@android:color/white"
-        android:textSize="19sp"
+        android:textSize="17sp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="26dp"
         tools:layout_editor_absoluteY="28dp"
-        tools:textColor="@android:color/white"
-        tools:ignore="MissingConstraints" />
+        tools:textColor="@android:color/white" />
 
 </android.support.constraint.ConstraintLayout>

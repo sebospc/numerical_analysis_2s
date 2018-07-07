@@ -6,17 +6,44 @@
     android:background="@color/helpColor"
     tools:background="@color/helpColor">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="333dp"
-        android:layout_height="303dp"
-        android:drawableBottom="@drawable/lagrange"
-        android:gravity="center_horizontal"
-        android:text="This method starts from a set of n + 1 known points. In this way it is guaranteed that the polynomial found passes through all the given points."
-        android:textColor="@android:color/white"
-        android:textSize="19sp"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="28dp"
-        tools:textColor="@android:color/white" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="191dp"
+            android:drawableBottom="@drawable/lagrange"
+            android:gravity="center_horizontal"
+            android:text="The Lagrange method interpolant computes a polynomial P such that it has a degree almost n if the input points are n+1. Moreover, the input points must belong to the polynomial P."
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="28dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView45"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView44"
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:gravity="center_horizontal"
+            android:text="Each Li(X)*f(Xi) is a polynomial such that Li(Xi) = 1 and Li(Xj) = 0 for j != 1."
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="28dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
