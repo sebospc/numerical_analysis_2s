@@ -23,7 +23,6 @@ public class creditsFragment extends Activity {
         ((TextView) findViewById(R.id.evalexLib)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) findViewById(R.id.graphLib)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) findViewById(R.id.tableViewLib)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) findViewById(R.id.mathComplexLib)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) findViewById(R.id.mathViewLib)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) findViewById(R.id.symjaLib)).setMovementMethod(LinkMovementMethod.getInstance());
     }

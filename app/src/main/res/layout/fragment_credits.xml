@@ -166,18 +166,6 @@
             tools:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/mathComplexLib"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/mathComplexLibrary"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
-
-        <TextView
             android:id="@+id/mathViewLib"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

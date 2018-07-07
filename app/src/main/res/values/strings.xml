@@ -3,15 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_complete_table">completeTableActivity</string>
-    <string name="sort_ascending">Sort Ascending</string>
-    <string name="sort_descending">Sort Descending</string>
-    <string name="clear_sorting">Clear</string>
-    <string name="hiding_row_sample">Hiding 3. Row Sample</string>
-    <string name="showing_row_sample">Showing 3. Row Sample</string>
-    <string name="scroll_to_column_position">Scroll to 15. column position</string>
-    <string name="scroll_to_row_position">Scroll to 5. row position</string>
-    <string name="show_hide_the_column">Showing / Hiding 1. column</string>
+    <string name="title_activity_complete_table">complete Table</string>
     <string name="table_pagination_details">Page %s, showing items %s - %s.</string>
     <string name="multiplier">&#215;</string>
     <string name="div">&#247;</string>
@@ -41,9 +33,6 @@
     <string name="epsilonAbs">&#69;</string>
     <string name="tenSquared">10&#8317; &#8318;</string>
 
-
-
-
     <string name="superToastLibrary">
        <a href="https://github.com/JohnPersano/SuperToasts">SuperToasts</a>
         by John Persano
@@ -59,10 +48,6 @@
     <string name="tableViewLibrary">
        <a href="https://github.com/evrencoskun/TableView">TableView</a>
         by Evren Coşkun
-    </string>
-    <string name="mathComplexLibrary">
-       <a href="http://commons.apache.org/proper/commons-math/javadocs/api-3.6/org/apache/commons/math3/complex/Complex.html">MathComplex</a>
-        by Apache
     </string>
     <string name="MathViewLibrary">
        <a href="https://github.com/kexanie/MathView/">MathView</a>

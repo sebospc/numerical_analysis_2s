@@ -40,7 +40,7 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSe
 public class MainActivity extends AppCompatActivity {
     private final String homeInformation = "If you want to report some bug, you can do it in <a href=\"https://github.com/sebospc/numericoV4\">Github Official Project</a> ," +
             " in the Play Store" +
-            " or send us an email.";
+            " or send us an email!";
     private ListView menuLateral;
     private DrawerLayout drawerLayout;
     private graphFragment graphFragment;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private int idFragment; //0 is graphFragment // 1 is one variable
     private FragmentManager fragmentManager;
     private String extraInformation;
+    private android.support.v7.app.ActionBar aBar;
     private final AdapterView.OnItemClickListener adap = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         //define poop
 
         // draweLayout
-        android.support.v7.app.ActionBar aBar = getSupportActionBar();
+        aBar = getSupportActionBar();
         Objects.requireNonNull(aBar).setHomeButtonEnabled(true);
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         menuLateral = findViewById(R.id.menuLateral);
         menuLateral.setAdapter(adp);
         menuLateral.setOnItemClickListener(adap);
+
 
         //graphFragment default
         homeFragment = new homeFragment();
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openHome() {
         if (idFragment != 0) {
+            aBar.setTitle(getResources().getString(R.string.app_name));
             extraInformation = homeInformation;
             /*
              * remove animations of system equations
@@ -175,13 +178,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void openGraph() {
         if (idFragment != 1) {
-
+            aBar.setTitle("  Graph");
             extraInformation = "In this section you will be able to graph any function, " +
                     "but take care with no continuous functions. " +
-                    "<br><br>The library of this graph is   " +
+                    "<br><br>You will see your (correct) functions in \"MY FUNCTIONS\" keyboard options." +
+                    "<br><br>The used library for this graph was   " +
                     "<a href=\"http://www.android-graphview.org/\">GraphView</a>\n" +
                     "        by Jonas Grehring." +
-                    "<br><br>You will see your (correct) functions in \"MY FUNCTIONS\" keyboard options.";
+                    "<br><br>"+homeInformation;
             View view = this.getCurrentFocus();
             if (view != null) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -207,15 +211,15 @@ public class MainActivity extends AppCompatActivity {
     private void openOneVariable() {
 
         if (idFragment != 2) {
-            extraInformation = "In this section you will find different numerical methods about one-variable equations." +
+            aBar.setTitle("  One Variable");
+            extraInformation = "In this section you will find different root-finding methods" +
                     "<br><br>" +
-                     "The main objective of this chapter is find roots in different functions, compare methods about their " +
-                    "convergence, speed and quality of the solution." +
                     "<br><br>The used libraries in this section were: " +
                     "<a href=\"https://github.com/uklimaschewski/EvalEx\">EvalEx</a>\n" +
                     "        by Udo Klimaschewski, " + "<a href=\"https://github.com/evrencoskun/TableView\">TableView</a>\n" +
                     " by Evren Coşkun and " + "<a href=\"https://github.com/JohnPersano/SuperToasts\">SuperToasts</a>\n" +
-                    " by John Persano.";
+                    " by John Persano."+
+                    "<br><br>"+homeInformation;
             View view = this.getCurrentFocus();
             if (view != null) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -241,13 +245,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void openSystemEquations() {
         if (idFragment != 3) {
-            extraInformation = "In this section you will be able to solve linear systems of equations through matrixes with " +
-                    "different numerical methods like gaussian elimination, factorization of matrixes and the transformation " +
-                    "of equations to find a good solution with Jacobi and Gauss-Seidel methods." +
-                    "<br><br>The used libraries in this section were: " +
-                    "<a href=\"https://github.com/kexanie/MathView/\">MathView</a>\n" +
-                    " by Hour Glass and " + "<a href=\"http://commons.apache.org/proper/commons-math/javadocs/api-3.6/org/apache/commons/math3/complex/Complex.html\">MathComplex</a>\n" +
-                    " by Apache.";
+            aBar.setTitle("  System Equations");
+            extraInformation = "In this section you will be able to solve linear systems equations of n equations with n variables through matrixes with " +
+                    "different numerical methods "+"<br><br>"+homeInformation;
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment != null)
                     getSupportFragmentManager().beginTransaction().remove(fragment).commit();
@@ -264,11 +264,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void openInterpolation() {
         if (idFragment != 4) {
+            aBar.setTitle("  Interpolation");
             extraInformation = "In this section you will be able to find interpolating polynomials through points joining these " +
                     "polynomials and have a similar behavior of the original functions." +
-                    "<br><br>The used library in this section was   " +
+                    "<br><br>We use" +
+                    "<a href=\"https://github.com/kexanie/MathView/\">MathView</a>\n" +
+                    " by Hour Glass to show mathematical expression and "+
                     "<a href=\"https://github.com/axkr/symja_android_library\">Symja</a>\n" +
-                    "        by Axel Kramer.";
+                    "        by Axel Kramer."
+                    +"<br><br>"+homeInformation;
             //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment != null)
@@ -285,7 +289,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        System.out.println("entro item selected");
         switch (item.getItemId()) {
             case 1:
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();

@@ -22,16 +22,6 @@ public class pagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int pos) {
         return fragments.get(pos);
-        /*switch(pos){
-            case 0: return  new incrementalSearchFragment();
-            case 1: return new bisectionFragment();
-            case 2: return new falsePositionFragment();
-            case 3: return new fixedPointFragment();
-            case 4: return new newtonFragment();
-            case 5: return new secantFragment();
-            case 6: return new multipleRootsFragment();
-            default: return new incrementalSearchFragment();
-        }*/
     }
 
     @Override
