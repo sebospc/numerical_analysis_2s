@@ -5,11 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 
+import org.matheclipse.core.eval.ExprEvaluator;
+import org.matheclipse.core.expression.F;
 import org.matheclipse.parser.client.eval.DoubleEvaluator;
 import org.matheclipse.parser.client.eval.DoubleVariable;
 import org.matheclipse.parser.client.eval.IDoubleValue;
@@ -20,9 +24,11 @@ import java.util.Objects;
 
 import katex.hourglass.in.mathlib.MathView;
 
+import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
+
 
 public class mathExpressions extends AppCompatActivity {
-    private MathView mathView;
+    private MathView mathView,stages;
     public static List<Pair<String, Pair<Integer, Pair<Double, Double>>>> equations;
 
     @Override
@@ -34,11 +40,33 @@ public class mathExpressions extends AppCompatActivity {
         IDoubleValue vd = new DoubleVariable(3.0);
         DoubleEvaluator engine = new DoubleEvaluator();
         engine.defineVariable("x", vd);
+        ToggleButton buttonStages = findViewById(R.id.buttonStage);
         if (b != null) {
 
-            setText(Objects.requireNonNull(b.getString("key")));
+            setText(Objects.requireNonNull(b.getString("key")),mathView);
             if(b.getString("function") != null)
                 engine.evaluate(b.getString("function"));
+            if(b.getString("stages") != null){
+                stages = findViewById(R.id.stages);
+                setText(Objects.requireNonNull(b.getString("stages")),stages);
+                stages.setVisibility(View.INVISIBLE);
+                stages.setEnabled(false);
+                buttonStages.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            stages.setVisibility(View.VISIBLE);
+                            stages.setEnabled(true);
+                        } else {
+                            stages.setVisibility(View.INVISIBLE);
+                            stages.setEnabled(false);
+                        }
+                    }
+                });
+            }else{
+                buttonStages.setVisibility(View.INVISIBLE);
+                buttonStages.setEnabled(false);
+            }
         }
         EditText xValue = findViewById(R.id.xValue);
         Button evaluateInFunction = findViewById(R.id.evaluateInFunction);
@@ -77,6 +105,7 @@ public class mathExpressions extends AppCompatActivity {
                     for(int i = 0; i < equations.size(); i++){
                         Pair<String, Pair<Integer, Pair<Double, Double>>> aux =  equations.get(i);
                         if(value > aux.second.second.first && value <= aux.second.second.second ){
+
                             engine.evaluate(aux.first);
                             vd.setValue(value);
                             output = "f(" + x + ") = " + engine.evaluate();
@@ -94,17 +123,17 @@ public class mathExpressions extends AppCompatActivity {
 
     }
 
-    private void setText(String expression) {
-        mathView.getSettings().setUseWideViewPort(true);
-        mathView.getSettings().setLoadWithOverviewMode(true);
+    private void setText(String expression,MathView math) {
+        math.getSettings().setUseWideViewPort(true);
+        math.getSettings().setLoadWithOverviewMode(true);
         if (expression.length() < 30)
-            mathView.setTextSize(100);
+            math.setTextSize(100);
         else if (expression.length() < 80)
-            mathView.setTextSize(80);
-        else mathView.setTextSize(60);
-        mathView.setDisplayText(expression);
-        mathView.getSettings().setJavaScriptEnabled(true);
-        mathView.getSettings().setBuiltInZoomControls(true);
-        mathView.getSettings().setDisplayZoomControls(true);
+            math.setTextSize(80);
+        else math.setTextSize(60);
+        math.setDisplayText(expression);
+        math.getSettings().setJavaScriptEnabled(true);
+        math.getSettings().setBuiltInZoomControls(true);
+        math.getSettings().setDisplayZoomControls(true);
     }
 }

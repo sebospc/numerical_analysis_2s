@@ -213,7 +213,6 @@ public class MainActivity extends AppCompatActivity {
         if (idFragment != 2) {
             aBar.setTitle("One Variable Equations");
             extraInformation = "In this section you will find different root-finding methods" +
-                    "<br><br>" +
                     "<br><br>The used libraries in this section were: " +
                     "<a href=\"https://github.com/uklimaschewski/EvalEx\">EvalEx</a>\n" +
                     "        by Udo Klimaschewski, " + "<a href=\"https://github.com/evrencoskun/TableView\">TableView</a>\n" +

@@ -6,237 +6,241 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView48"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="8dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/imageView5"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            app:srcCompat="?android:attr/actionModePasteDrawable" />
+            <TextView
+                android:id="@+id/textView48"
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                app:srcCompat="?android:attr/actionModePasteDrawable" />
 
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Sebastian Ospina Cabarcas"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
 
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="sebastianospina51@gmail.com"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Sebastian Ospina Cabarcas"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="sebastianospina51@gmail.com"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/imageView4"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            app:srcCompat="?android:attr/actionModeFindDrawable"
-            tools:ignore="NewApi" />
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                app:srcCompat="?android:attr/actionModeFindDrawable"
+                tools:ignore="NewApi" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Stiven Ramirez Arango"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="stivenramireza@gmail.com"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Stiven Ramirez Arango"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="stivenramireza@gmail.com"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Libraries"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
 
-        <TextView
-            android:id="@+id/textView51"
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Libraries"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/superToastLib"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:text="@string/superToastLibrary"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/textView51"
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
 
-        <TextView
-            android:id="@+id/evalexLib"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/evalExLibrary"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/superToastLib"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/superToastLibrary"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/graphLib"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/graphLibrary"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/evalexLib"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/evalExLibrary"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/tableViewLib"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/tableViewLibrary"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/graphLib"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/graphLibrary"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/mathViewLib"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/MathViewLibrary"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
-        <TextView
-            android:id="@+id/symjaLib"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/symjaLibrary"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white"
-             />
+            <TextView
+                android:id="@+id/tableViewLib"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/tableViewLibrary"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            <TextView
+                android:id="@+id/mathViewLib"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/MathViewLibrary"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/textView49"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Special Gratefulness"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/symjaLib"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/symjaLibrary"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/textView50"
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Francisco Jose Correa Zabala"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/textView49"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Special Gratefulness"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/textView31"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="fcorrea@eafit.edu.co"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="20dp"
-            tools:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/textView50"
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Francisco Jose Correa Zabala"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
 
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="fcorrea@eafit.edu.co"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="20dp"
+                tools:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

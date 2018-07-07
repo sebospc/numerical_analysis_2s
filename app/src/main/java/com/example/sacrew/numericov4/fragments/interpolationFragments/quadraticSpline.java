@@ -35,7 +35,7 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
  */
 public class quadraticSpline extends baseSpliners {
     private final systemEquationsUtils systemUtils = new systemEquationsUtils();
-
+    private String resultText;
     public quadraticSpline() {
         // Required empty public constructor
     }
@@ -74,7 +74,8 @@ public class quadraticSpline extends baseSpliners {
                     Intent i = new Intent(getContext(), mathExpressions.class);
                     Bundle b = new Bundle();
 
-                    b.putString("key", latexText); //Your id
+                    b.putString("key", resultText); //Your id
+                    b.putString("stages",latexText);
                     i.putExtras(b); //Put your id to your next Intent
                     mathExpressions.equations = equations;
                     startActivity(i);
@@ -165,17 +166,18 @@ public class quadraticSpline extends baseSpliners {
             styleWrongMessage();
             return false;
         }
-        latexText += "$${result}$$";
+        resultText = "";
+        resultText += "$${result}$$";
         j = 0;
         equations = new LinkedList<>();
-        latexText += "$${p(x) = \\begin{cases}";
+        resultText += "$${p(x) = \\begin{cases}";
         StringWriter stw;
         ExprEvaluator util = new ExprEvaluator();
         EvalEngine engine = new EvalEngine(false);
         TeXUtilities texUtil = new TeXUtilities(engine, false);
         int color = poolColors.remove(0);
         poolColors.add(color);
-        for (int i = 0; i < inequality.length; i++) {
+        for (int i = 0; i < inequality.length; i    ++) {
 
             String auxFunc = result[j] + "*(x^2)+" + result[j + 1] + "*x+" + result[j + 2];
             String auxToLatex = roundOff(result[j]) + "*(x^2)+" + roundOff(result[j + 1]) + "*x+" + roundOff(result[j + 2]);
@@ -194,11 +196,11 @@ public class quadraticSpline extends baseSpliners {
                 outToLatex = util.evaluate(F.FullSimplify(outToLatex));
             }
             texUtil.toTeX(outToLatex, stw);
-            latexText += stw.toString() + " & " + aux.first.first + " \\lt x \\leq " + aux.second.first;
-            if (i < inequality.length - 1) latexText += "\\\\";
+            resultText += stw.toString() + " & " + aux.first.first + " \\lt x \\leq " + aux.second.first;
+            if (i < inequality.length - 1) resultText += "\\\\";
             j += 3;
         }
-        latexText += "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+        resultText += "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
 
         return true;
     }

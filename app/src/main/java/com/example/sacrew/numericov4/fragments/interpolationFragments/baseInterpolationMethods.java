@@ -88,11 +88,10 @@ public abstract class baseInterpolationMethods extends Fragment {
     }
 
     double roundOff(double number) {
-        double accuracy = 20;
-        number = number * accuracy;
-        number = Math.ceil(number);
-        number = number / accuracy;
-        return number;
+
+        long factor = (long) Math.pow(10, 2);
+        long tmp = Math.round(number*factor);
+        return (double) tmp / factor;
     }
 
     void styleWrongMessage() {

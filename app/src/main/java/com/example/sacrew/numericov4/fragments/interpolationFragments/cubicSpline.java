@@ -35,7 +35,7 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
  */
 public class cubicSpline extends baseSpliners {
     private final systemEquationsUtils systemUtils = new systemEquationsUtils();
-
+    private String resultText;
     public cubicSpline() {
         // Required empty public constructor
     }
@@ -74,7 +74,8 @@ public class cubicSpline extends baseSpliners {
                     Intent i = new Intent(getContext(), mathExpressions.class);
                     Bundle b = new Bundle();
 
-                    b.putString("key", latexText); //Your id
+                    b.putString("key", resultText); //Your id
+                    b.putString("stages",latexText);
                     i.putExtras(b); //Put your id to your next Intent
                     mathExpressions.equations = equations;
                     startActivity(i);
@@ -199,10 +200,10 @@ public class cubicSpline extends baseSpliners {
             styleWrongMessage();
             return false;
         }
-        j = 0;
-        latexText += "$${result}$$";
+        resultText = "";
+        resultText += "$${result}$$";
         equations = new LinkedList<>();
-        latexText += "$${p(x) = \\begin{cases}";
+        resultText += "$${p(x) = \\begin{cases}";
         StringWriter stw;
         ExprEvaluator util = new ExprEvaluator();
         EvalEngine engine = new EvalEngine(false);
@@ -227,11 +228,11 @@ public class cubicSpline extends baseSpliners {
                 outToLatex = util.evaluate(F.FullSimplify(outToLatex));
             }
             texUtil.toTeX(outToLatex, stw);
-            latexText += stw.toString() + " & " + aux.first.first + " \\lt x \\leq " + aux.second.first;
-            if (i < inequality.length - 1) latexText += "\\\\";
+            resultText += stw.toString() + " & " + aux.first.first + " \\lt x \\leq " + aux.second.first;
+            if (i < inequality.length - 1) resultText += "\\\\";
             j += 4;
         }
-        latexText += "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
+        resultText += "\\end{cases}\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$";
         return true;
     }
 
