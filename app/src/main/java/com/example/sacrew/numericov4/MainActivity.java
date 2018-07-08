@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
             aBar.setTitle("Interpolation");
             extraInformation = "In this section you will be able to find interpolating polynomials through points joining these " +
                     "polynomials and have a similar behavior of the original functions." +
-                    "<br><br>We use" +
+                    "<br><br>We use " +
                     "<a href=\"https://github.com/kexanie/MathView/\">MathView</a>\n" +
                     " by Hour Glass to show mathematical expression and "+
                     "<a href=\"https://github.com/axkr/symja_android_library\">Symja</a>\n" +

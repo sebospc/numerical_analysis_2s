@@ -18,11 +18,11 @@
             <TextView
                 android:id="@+id/textView42"
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
+                android:layout_height="170dp"
                 android:gravity="center_horizontal"
                 android:text="This method is an extension of the fixed point method for systems of equations. Similar to fixed point method, the system Ax = b is transformed by mean of algebraic properties into the system x = Tx + C. This equation is a recursive equation Xn+1 = TXn + C, such that Xn is the actual vector and the new vector."
                 android:textColor="@android:color/white"
-                android:textSize="19sp"
+                android:textSize="17sp"
                 tools:layout_editor_absoluteX="26dp"
                 tools:layout_editor_absoluteY="28dp"
                 tools:textColor="@android:color/white" />
@@ -48,7 +48,8 @@
             <TextView
                 android:id="@+id/textView56"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="5sp" />
         </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

@@ -18,8 +18,10 @@ public class popUpQuadraticSpline extends Activity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) (width * 0.97), (int) (height * 0.38));
+        getWindow().setLayout((int) (width * 0.97), (int) (height * 0.32));
 
     }
 
 }
+
+//                 android:text="This method generates a continuous polynomial function defined by parts of degree almost 1.  The input points must belong to the polynomial P. But, there no exits the first derivate in the connections points. "

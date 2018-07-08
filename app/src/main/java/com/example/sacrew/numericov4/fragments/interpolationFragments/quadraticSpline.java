@@ -142,7 +142,7 @@ public class quadraticSpline extends baseSpliners {
         int k = j;
         z = 0;
 
-        latexText += "$${\\text{first derivative}}$$ $${2xa_{n} + b_{n} = 2xa_{n+1} + b_{n+1}}$$";
+        latexText += "$${\\textbf{First Derivative}}$$ $${2xa_{n} + b_{n} = 2xa_{n+1} + b_{n+1}}$$";
         for (int i = 0; i < inequality.length - 1; i++) {
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux2 = inequality[i + 1];
@@ -159,7 +159,7 @@ public class quadraticSpline extends baseSpliners {
             z += 3;
             //suponemos que la segunda derivada es 0 entonces a1 = 0
         }
-        latexText += "$${\\text{second derivative}}$$ $${a_{1} = 0\\qquad \\qquad}$$";
+        latexText += "$${\\textbf{Second Derivative}}$$ $${a_{1} = 0\\qquad \\qquad}$$";
         supermatrix[k][0] = 1;
         double[] result = systemUtils.manager(supermatrix);
         if (result == null) {
@@ -167,7 +167,7 @@ public class quadraticSpline extends baseSpliners {
             return false;
         }
         resultText = "";
-        resultText += "$${result}$$";
+        resultText += "$$\\textbf{Result}$$";
         j = 0;
         equations = new LinkedList<>();
         resultText += "$${p(x) = \\begin{cases}";

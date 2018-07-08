@@ -62,6 +62,8 @@
        <a href="https://github.com/sebospc/numericoV4">Github Official Project</a>
     </string>
 
+    <string name="test_string">X&lt;sup&gt;n&lt;/sup&gt;</string>
+
     <string-array name="items_per_page">
         <item>10</item>
         <item>20</item>
