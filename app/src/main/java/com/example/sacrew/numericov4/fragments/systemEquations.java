@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.InputType;
 import android.text.method.DigitsKeyListener;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -319,8 +320,7 @@ public class systemEquations extends Fragment {
         text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
         text.setKeyListener(DigitsKeyListener.getInstance("0123456789.-E"));
-
-        //text.setInputType(InputType.TYPE_CLASS_PHONE);
+        text.setInputType(InputType.TYPE_CLASS_PHONE);
         text.setText(value);
         return text;
     }

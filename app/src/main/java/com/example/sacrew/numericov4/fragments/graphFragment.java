@@ -13,7 +13,6 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,9 +99,23 @@ public class graphFragment extends Fragment {
         CircleButton addFieldButton = view.findViewById(R.id.add_field_button);
 
         keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
-        onAddField();
-        CircleButton deleteFieldButton = view.findViewById(R.id.delete_button);
-        CircleButton graphButton = view.findViewById(R.id.graph_button);
+        keyboardUtils.isGraph =true;
+        keyboardUtils.graph = view.findViewById(R.id.graph);
+        LinearLayout linear = view.findViewById(R.id.linear);
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("height " + linear.getWidth());
+                System.out.println("mesured " + linear.getMeasuredHeight());
+                ViewGroup.LayoutParams params = linear.getLayoutParams();
+                params.height = linear.getMeasuredHeight() - 1;
+                linear.setLayoutParams(params);
+                keyboardUtils.heighAuxGraph = graph.getMeasuredHeight();
+                onAddField();
+            }
+        });
+
+
         Button hider = view.findViewById(R.id.buttonHide);
 
 
@@ -112,22 +125,11 @@ public class graphFragment extends Fragment {
                 onAddField();
             }
         });
-        deleteFieldButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onDelete(view);
-            }
-        });
-        graphButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(View view) {
-                graphIt(view);
-            }
-        });
+
         hider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                keyboardUtils.closeInternalKeyboard();
                 hide();
             }
         });
@@ -161,31 +163,7 @@ public class graphFragment extends Fragment {
         for (LineGraphSeries<DataPoint> inSerie : graphUtils.graphPharallel(200, "x", 0))
             graph.addSeries(inSerie);
 
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        for (int i = 0; i <= 8000; i++) System.out.println(":I");
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-        LinearLayout linear = view.findViewById(R.id.linear);
-        view.post(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("height " + linear.getWidth());
-                System.out.println("mesured " + linear.getMeasuredHeight());
-                ViewGroup.LayoutParams params = linear.getLayoutParams();
-                params.height = linear.getMeasuredHeight() - 1;
-                linear.setLayoutParams(params);
-            }
-        });
+
         if (!functionStorage.functions.isEmpty())
             for (String function : functionStorage.functions)
                 keyboardUtils.addFunction(function, getContext(), functionStorage, temp);
@@ -255,7 +233,6 @@ public class graphFragment extends Fragment {
             animate.setDuration(500);
             animate.setFillAfter(true);
             hiderB.startAnimation(animate);
-            //v.setBackgroundResource(R.drawable.ic_arrow_downward_black_24dp);
             isup = true;
         }
 

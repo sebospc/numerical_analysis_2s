@@ -12,8 +12,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <com.example.sacrew.numericov4.utils.CustomScrollView
+
+            android:scrollbarStyle="insideInset"
+            android:id="@+id/scrollViewTotal"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -22,7 +24,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
                 <LinearLayout
 
@@ -40,9 +44,8 @@
                         <com.jjoe64.graphview.GraphView
                             android:id="@+id/graph"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fadingEdge="none"
-                            android:scrollbars="none" />
+                            android:layout_height="match_parent"
+                            />
 
                         <ImageButton
                             android:id="@+id/homeGraphButton"
@@ -83,7 +86,11 @@
 
                         <ScrollView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:overScrollMode="always"
+                            android:scrollbarStyle="insideInset">
 
 
                             <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -123,7 +130,7 @@
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
-        </ScrollView>
+        </com.example.sacrew.numericov4.utils.CustomScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"

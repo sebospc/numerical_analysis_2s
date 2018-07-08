@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ScrollView
+        <com.example.sacrew.numericov4.utils.CustomScrollView
             android:id="@+id/scrollView"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
@@ -136,7 +136,7 @@
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
-        </ScrollView>
+        </com.example.sacrew.numericov4.utils.CustomScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"

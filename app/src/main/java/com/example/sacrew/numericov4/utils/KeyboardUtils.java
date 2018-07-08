@@ -12,14 +12,17 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.example.sacrew.numericov4.R;
+import com.jjoe64.graphview.GraphView;
 
 import java.io.File;
 import java.util.Objects;
@@ -70,7 +73,9 @@ public class KeyboardUtils {
     private final short logTenBase = -19;
     private final short logAnyBase = -20;
     private final short tenPowerAny = -21;
-    public boolean isUp = false;
+    public boolean isUp, isGraph = false;
+    public GraphView graph;
+    public int heighAuxGraph;
     private EditText actualEditText;
 
 
@@ -350,7 +355,7 @@ public class KeyboardUtils {
                 if (hasFocus) {
                     Objects.requireNonNull(((TabLayout) tabLayoutKeyboard.getChildAt(0)).getTabAt(0)).select();
                     showKeyBoard();
-                    closeKeyboard(context, v.getWindowToken());
+                    closeSoftKeyboard(context, v.getWindowToken());
                     actualEditText = (EditText) v;
 
                 } else {
@@ -364,7 +369,7 @@ public class KeyboardUtils {
             public void onClick(View v) {
                 Objects.requireNonNull(((TabLayout) tabLayoutKeyboard.getChildAt(0)).getTabAt(0)).select();
                 showKeyBoard();
-                closeKeyboard(context, v.getWindowToken());
+                closeSoftKeyboard(context, v.getWindowToken());
             }
         });
         //aux.setInputType(InputType.TYPE_NULL);
@@ -384,14 +389,29 @@ public class KeyboardUtils {
     }
 
     private void showKeyBoard() {
+
+        if(isGraph){
+            ViewGroup.LayoutParams paramsGraph = graph.getLayoutParams();
+            paramsGraph.height = heighAuxGraph/2;
+            graph.setLayoutParams(paramsGraph);
+
+        }
         keyboardView.setVisibility(View.VISIBLE);
         keyboardView.setEnabled(true);
         tabLayoutKeyboard.setVisibility(View.VISIBLE);
         tabLayoutKeyboard.setEnabled(true);
         isUp = true;
+
     }
 
     public void closeInternalKeyboard() {
+        if(isGraph){
+            RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.MATCH_PARENT
+            );
+            graph.setLayoutParams(param);
+        }
         keyboardView.setVisibility(View.GONE);
         keyboardView.setEnabled(false);
         tabLayoutKeyboard.setVisibility(View.GONE);
@@ -401,6 +421,7 @@ public class KeyboardUtils {
     }
 
     private void showMyFunctionsSection() {
+
         keyboardView.setVisibility(View.GONE);
         keyboardView.setEnabled(false);
         scrollViewMyFunctions.setEnabled(true);
@@ -408,12 +429,13 @@ public class KeyboardUtils {
     }
 
     private void closeMyFunctionsSection() {
+
         scrollViewMyFunctions.setEnabled(false);
         scrollViewMyFunctions.setVisibility(View.GONE);
     }
 
-    private void closeKeyboard(Context context, IBinder windowToken) {
-        InputMethodManager mgr = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    private void closeSoftKeyboard(Context context, IBinder windowToken) {
+                InputMethodManager mgr = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         Objects.requireNonNull(mgr).hideSoftInputFromWindow(windowToken, 0);
     }
 
