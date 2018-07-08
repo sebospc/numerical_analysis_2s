@@ -145,7 +145,7 @@ public class cubicSpline extends baseSpliners {
         }
         int k = j;
         z = 0;
-        latexText += "$${\\text{first derivative}}$$ $${\\qquad 3x^2a_{n} + 2xb_{n} + c_{n} = 3x^2 a_{n+1}+ 2xb_{n+1} + c_{n+1}}$$";
+        latexText += "$${\\textbf{First Derivative}}$$ $${\\qquad 3x^2a_{n} + 2xb_{n} + c_{n} = 3x^2 a_{n+1}+ 2xb_{n+1} + c_{n+1}}$$";
         //primera derivada
 
         for (int i = 0; i < inequality.length - 1; i++) {
@@ -166,7 +166,7 @@ public class cubicSpline extends baseSpliners {
         }
         z = 0;
         // segunda derivada
-        latexText += "$${\\text{second derivative}}$$ $${\\qquad 6xa_{n} + 2b_{n} = 6xa_{n+1} + 2b_{n+1}}$$ ";
+        latexText += "$${\\textbf{Second Derivative}}$$ $${\\qquad 6xa_{n} + 2b_{n} = 6xa_{n+1} + 2b_{n+1}}$$ ";
         for (int i = 0; i < inequality.length - 1; i++) {
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
 
@@ -182,7 +182,7 @@ public class cubicSpline extends baseSpliners {
             z += 4;
 
         }
-        latexText += "$${\\qquad supposition}$$";
+        latexText += "$$\\textbf{Supposition}$$";
         Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[0];
         aux = inequality[0];
         String equation = 6 * aux.first.first + "a_{0}+2b_{0} = 0";
@@ -201,7 +201,7 @@ public class cubicSpline extends baseSpliners {
             return false;
         }
         resultText = "";
-        resultText += "$${result}$$";
+        resultText += "$$\\textbf{Result}$$";
         equations = new LinkedList<>();
         resultText += "$${p(x) = \\begin{cases}";
         StringWriter stw;

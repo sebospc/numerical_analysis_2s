@@ -6,26 +6,28 @@
     android:background="@color/helpColor"
     tools:background="@color/helpColor">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="366dp"
-            android:gravity="center_horizontal"
-            android:text="The Newton's divided difference method interpolant computes a polynomial P such that it has a degree almost n if the input points are n+1.  Moreover, the input points must belong to the polynomial P. \n\n The Newton's divided difference polynomial has the form: \n\n P(x) = b0 + b1(x−x0) + b2(x−x0)(x−x1) +...+ bn(x−x0)...(x−xn−1) \n\n The method calculates the coefficients bi in the previous interpolation polynomial by mean of divided differences."
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="28dp"
-            tools:textColor="@android:color/white" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView46"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="305dp"
+                android:gravity="center_horizontal"
+                android:text="The Newton's divided difference method interpolant computes a polynomial P such that it has a degree almost n if the input points are n+1.  Moreover, the input points must belong to the polynomial P. \n\n The Newton's divided difference polynomial has the form: \n\n P(x) = b0 + b1(x−x0) + b2(x−x0)(x−x1) +...+ bn(x−x0)...(x−xn−1) \n\n The method calculates the coefficients bi in the previous interpolation polynomial by mean of divided differences."
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="28dp"
+                tools:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>
