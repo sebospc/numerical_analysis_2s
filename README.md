@@ -44,9 +44,6 @@ Evaluate functions with [EvalEx by Udo Klimaschewski](https://github.com/uklimas
 [MathView by HourGlass](https://github.com/lingarajsankaravelu/Katex) to show mathematics expression wih katex style. <br />
 Succes and fail notifications was built with [SuperToasts by John Persano](https://github.com/JohnPersano/SuperToasts). <br />
 [Symja by Axel Kramer](https://github.com/axkr/symja_android_library) to simplify mathematics expression, generate latex/katex syntax and evaluate functions.
-## Test Environment
-
-The application has been tested in Android Studio Emulator.
 
 ## Developers
 
@@ -58,3 +55,4 @@ The application has been tested in Android Studio Emulator.
 #### `Francisco Jose Correa Zabala  - fcorrea@eafit.edu.co`
 
 # Any donation is love
+[![button](https://qph.fs.quoracdn.net/main-qimg-7feb81f45db5bd355683bc19b3c7ee00-c)](https://www.paypal.me/sandscompany)
