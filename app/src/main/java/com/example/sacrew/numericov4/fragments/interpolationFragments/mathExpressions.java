@@ -12,30 +12,25 @@ import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
 
-import org.matheclipse.core.eval.ExprEvaluator;
-import org.matheclipse.core.expression.F;
 import org.matheclipse.parser.client.eval.DoubleEvaluator;
 import org.matheclipse.parser.client.eval.DoubleVariable;
 import org.matheclipse.parser.client.eval.IDoubleValue;
-
 
 import java.util.List;
 import java.util.Objects;
 
 import katex.hourglass.in.mathlib.MathView;
 
-import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
-
 
 public class mathExpressions extends AppCompatActivity {
-    private MathView mathView,stages;
     public static List<Pair<String, Pair<Integer, Pair<Double, Double>>>> equations;
+    private MathView stages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math_expressions);
-        mathView = findViewById(R.id.math_view);
+        MathView mathView = findViewById(R.id.math_view);
         Bundle b = getIntent().getExtras();
         IDoubleValue vd = new DoubleVariable(3.0);
         DoubleEvaluator engine = new DoubleEvaluator();
@@ -43,12 +38,12 @@ public class mathExpressions extends AppCompatActivity {
         ToggleButton buttonStages = findViewById(R.id.buttonStage);
         if (b != null) {
 
-            setText(Objects.requireNonNull(b.getString("key")),mathView);
-            if(b.getString("function") != null)
+            setText(Objects.requireNonNull(b.getString("key")), mathView);
+            if (b.getString("function") != null)
                 engine.evaluate(b.getString("function"));
-            if(b.getString("stages") != null){
+            if (b.getString("stages") != null) {
                 stages = findViewById(R.id.stages);
-                setText(Objects.requireNonNull(b.getString("stages")),stages);
+                setText(Objects.requireNonNull(b.getString("stages")), stages);
                 stages.setVisibility(View.INVISIBLE);
                 stages.setEnabled(false);
                 buttonStages.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -63,7 +58,7 @@ public class mathExpressions extends AppCompatActivity {
                         }
                     }
                 });
-            }else{
+            } else {
                 buttonStages.setVisibility(View.INVISIBLE);
                 buttonStages.setEnabled(false);
             }
@@ -71,47 +66,47 @@ public class mathExpressions extends AppCompatActivity {
         EditText xValue = findViewById(R.id.xValue);
         Button evaluateInFunction = findViewById(R.id.evaluateInFunction);
         TextView showValue = findViewById(R.id.resultFxn);
-        if(equations == null) {
+        if (equations == null) {
             evaluateInFunction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String x = xValue.getText().toString();
                     double value;
-                    try{
+                    try {
                         value = Double.parseDouble(x);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         xValue.setError("invalid value");
                         return;
                     }
                     vd.setValue(value);
 
-                    showValue.setText("f(" + x + ") = " + engine.evaluate() );
+                    showValue.setText("f(" + x + ") = " + engine.evaluate());
                 }
             });
-        }else{
+        } else {
             evaluateInFunction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String x = xValue.getText().toString();
                     double value;
-                    try{
+                    try {
                         value = Double.parseDouble(x);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         xValue.setError("invalid value");
                         return;
                     }
 
                     String output = null;
-                    for(int i = 0; i < equations.size(); i++){
-                        Pair<String, Pair<Integer, Pair<Double, Double>>> aux =  equations.get(i);
-                        if(value > aux.second.second.first && value <= aux.second.second.second ){
+                    for (int i = 0; i < equations.size(); i++) {
+                        Pair<String, Pair<Integer, Pair<Double, Double>>> aux = equations.get(i);
+                        if (value > aux.second.second.first && value <= aux.second.second.second) {
 
                             engine.evaluate(aux.first);
                             vd.setValue(value);
                             output = "f(" + x + ") = " + engine.evaluate();
                         }
                     }
-                    if(output != null)
+                    if (output != null)
                         showValue.setText(output);
                     else
                         xValue.setError("invalid value");
@@ -123,7 +118,7 @@ public class mathExpressions extends AppCompatActivity {
 
     }
 
-    private void setText(String expression,MathView math) {
+    private void setText(String expression, MathView math) {
         math.getSettings().setUseWideViewPort(true);
         math.getSettings().setLoadWithOverviewMode(true);
         if (expression.length() < 30)

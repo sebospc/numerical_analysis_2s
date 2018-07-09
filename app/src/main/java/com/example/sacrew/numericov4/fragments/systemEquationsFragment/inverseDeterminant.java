@@ -1,7 +1,6 @@
 package com.example.sacrew.numericov4.fragments.systemEquationsFragment;
 
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;

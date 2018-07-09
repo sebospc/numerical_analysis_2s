@@ -36,7 +36,6 @@ import com.example.sacrew.numericov4.fragments.systemEquationsFragment.gaussSimp
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.inverseDeterminant;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.jacobi;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.partialPivoting;
-import com.example.sacrew.numericov4.fragments.systemEquationsFragment.showStagesModel.showStages;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.totalPivoting;
 import com.example.sacrew.numericov4.pagerAdapter;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
@@ -101,13 +100,13 @@ public class systemEquations extends Fragment {
                 }
                 matrixAText.removeAllViews();
                 bValuesText.removeAllViews();
-                for (int i = 0; i < matrixBackpack.length; i++) {
+                for (String[] aMatrixBackpack : matrixBackpack) {
                     TableRow row = new TableRow(getContext());
                     for (int j = 0; j < matrixBackpack.length; j++) {
-                        row.addView(defaultEditText(matrixBackpack[i][j] + ""));
+                        row.addView(defaultEditText(aMatrixBackpack[j] + ""));
                     }
                     matrixAText.addView(row);
-                    bValuesText.addView(defaultEditText(matrixBackpack[i][matrixBackpack.length] + ""));
+                    bValuesText.addView(defaultEditText(aMatrixBackpack[matrixBackpack.length] + ""));
                 }
 
                 backMAtrix.setVisibility(View.GONE);

@@ -36,6 +36,7 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 public class quadraticSpline extends baseSpliners {
     private final systemEquationsUtils systemUtils = new systemEquationsUtils();
     private String resultText;
+
     public quadraticSpline() {
         // Required empty public constructor
     }
@@ -75,7 +76,7 @@ public class quadraticSpline extends baseSpliners {
                     Bundle b = new Bundle();
 
                     b.putString("key", resultText); //Your id
-                    b.putString("stages",latexText);
+                    b.putString("stages", latexText);
                     i.putExtras(b); //Put your id to your next Intent
                     mathExpressions.equations = equations;
                     startActivity(i);
@@ -177,7 +178,7 @@ public class quadraticSpline extends baseSpliners {
         TeXUtilities texUtil = new TeXUtilities(engine, false);
         int color = poolColors.remove(0);
         poolColors.add(color);
-        for (int i = 0; i < inequality.length; i    ++) {
+        for (int i = 0; i < inequality.length; i++) {
 
             String auxFunc = result[j] + "*(x^2)+" + result[j + 1] + "*x+" + result[j + 2];
             String auxToLatex = roundOff(result[j]) + "*(x^2)+" + roundOff(result[j + 1]) + "*x+" + roundOff(result[j + 2]);
@@ -187,7 +188,6 @@ public class quadraticSpline extends baseSpliners {
             }
 
             Pair<Pair<Double, Double>, Pair<Double, Double>> aux = inequality[i];
-            System.out.println("iter  " + i + " values " + new Pair<>(funcSimplify, new Pair<>(color, new Pair<>(aux.first.first, aux.second.first))));
             equations.add(new Pair<>(funcSimplify.toString(), new Pair<>(color, new Pair<>(aux.first.first, aux.second.first))));
 
             stw = new StringWriter();

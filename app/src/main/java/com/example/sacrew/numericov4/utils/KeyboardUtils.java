@@ -95,7 +95,6 @@ public class KeyboardUtils {
         KeyboardView.OnKeyboardActionListener keyboardActionListener = new KeyboardView.OnKeyboardActionListener() {
             @Override
             public void onPress(int primaryCode) {
-                System.out.println("xddd");
                 switch (primaryCode) {
                     case removeToLeft:
                         deleteLast(actualEditText);
@@ -390,9 +389,9 @@ public class KeyboardUtils {
 
     private void showKeyBoard() {
 
-        if(isGraph){
+        if (isGraph) {
             ViewGroup.LayoutParams paramsGraph = graph.getLayoutParams();
-            paramsGraph.height = heighAuxGraph/2;
+            paramsGraph.height = heighAuxGraph / 2;
             graph.setLayoutParams(paramsGraph);
 
         }
@@ -405,7 +404,7 @@ public class KeyboardUtils {
     }
 
     public void closeInternalKeyboard() {
-        if(isGraph){
+        if (isGraph) {
             RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,
                     RelativeLayout.LayoutParams.MATCH_PARENT
@@ -435,20 +434,18 @@ public class KeyboardUtils {
     }
 
     private void closeSoftKeyboard(Context context, IBinder windowToken) {
-                InputMethodManager mgr = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager mgr = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         Objects.requireNonNull(mgr).hideSoftInputFromWindow(windowToken, 0);
     }
 
     private void moveCursorLeft(EditText edit) {
         if (edit.getSelectionStart() > 0) {
-            System.out.println(" cursor " + edit.getSelectionStart());
             edit.setSelection(edit.getSelectionStart() - 1);
         }
     }
 
     //
     private void moveCursorRight(EditText edit) {
-        System.out.println("right " + edit.getSelectionEnd());
         if (edit.getSelectionEnd() < edit.getText().toString().length()) {
             edit.setSelection(edit.getSelectionEnd() + 1);
         }
@@ -462,7 +459,6 @@ public class KeyboardUtils {
             int contPar = 0;
             int lastParent = -1;
             for (; i < g.length(); i++) {
-                System.out.println("searching )");
                 if (g.charAt(i) == '(') {
                     contPar++;
                 }

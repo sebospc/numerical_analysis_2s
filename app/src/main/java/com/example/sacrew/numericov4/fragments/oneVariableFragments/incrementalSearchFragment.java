@@ -40,6 +40,7 @@ public class incrementalSearchFragment extends baseOneVariableFragments {
     private EditText xValue;
     private EditText delta;
     private ListView listView;
+
     public incrementalSearchFragment() {
         // Required empty public constructor
     }

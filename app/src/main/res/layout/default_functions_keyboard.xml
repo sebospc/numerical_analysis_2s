@@ -1,41 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="100%p" android:horizontalGap="1.5dp"
-    android:verticalGap="2.5dp" android:keyHeight="5%p"
-    android:layout_weight="123"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_weight="123"
+    android:horizontalGap="1.5dp"
+    android:keyHeight="5%p"
+    android:keyWidth="100%p"
+    android:verticalGap="2.5dp">
+
     <Row>
-        <Key android:codes="-1" android:keyLabel="cos" />
-        <Key android:codes="-2" android:keyLabel="sin" />
-        <Key android:codes="-3" android:keyLabel="tan" />
-        <Key android:codes="-4" android:keyLabel="cot" />
-        <Key android:codes="-5" android:keyLabel="sec" />
-        <Key android:codes="-6" android:keyLabel="csc" />
+
+        <Key
+            android:codes="-1"
+            android:keyLabel="cos" />
+
+        <Key
+            android:codes="-2"
+            android:keyLabel="sin" />
+
+        <Key
+            android:codes="-3"
+            android:keyLabel="tan" />
+
+        <Key
+            android:codes="-4"
+            android:keyLabel="cot" />
+
+        <Key
+            android:codes="-5"
+            android:keyLabel="sec" />
+
+        <Key
+            android:codes="-6"
+            android:keyLabel="csc" />
     </Row>
+
     <Row>
-        <Key android:codes="-12" android:keyLabel="ln" />
-        <Key android:codes="-7" android:keyLabel="@string/cosInverse" />
-        <Key android:codes="-8" android:keyLabel="@string/sinInverse" />
-        <Key android:codes="-9" android:keyLabel="@string/tanInverse" />
-        <Key android:codes="-10" android:keyLabel="@string/cotInverse" />
-        <Key android:codes="-11" android:keyLabel="@string/secInverse" />
+
+        <Key
+            android:codes="-12"
+            android:keyLabel="ln" />
+
+        <Key
+            android:codes="-7"
+            android:keyLabel="@string/cosInverse" />
+
+        <Key
+            android:codes="-8"
+            android:keyLabel="@string/sinInverse" />
+
+        <Key
+            android:codes="-9"
+            android:keyLabel="@string/tanInverse" />
+
+        <Key
+            android:codes="-10"
+            android:keyLabel="@string/cotInverse" />
+
+        <Key
+            android:codes="-11"
+            android:keyLabel="@string/secInverse" />
 
     </Row>
+
     <Row>
-        <Key android:codes="-13" android:keyLabel="cosh" />
-        <Key android:codes="-14" android:keyLabel="sinh" />
-        <Key android:codes="-15" android:keyLabel="tanh"  />
-        <Key android:codes="-16" android:keyLabel="coth" />
-        <Key android:codes="-17" android:keyLabel="sech" />
-        <Key android:codes="-18" android:keyLabel="csch" />
+
+        <Key
+            android:codes="-13"
+            android:keyLabel="cosh" />
+
+        <Key
+            android:codes="-14"
+            android:keyLabel="sinh" />
+
+        <Key
+            android:codes="-15"
+            android:keyLabel="tanh" />
+
+        <Key
+            android:codes="-16"
+            android:keyLabel="coth" />
+
+        <Key
+            android:codes="-17"
+            android:keyLabel="sech" />
+
+        <Key
+            android:codes="-18"
+            android:keyLabel="csch" />
     </Row>
+
     <Row>
-        <Key android:codes="-19" android:keyLabel="@string/normalLog" />
-        <Key android:codes="-20" android:keyLabel="@string/log" />
-        <Key android:codes="-21" android:keyLabel="@string/tenSquared"/>
-        <Key android:codes="706" android:keyLabel="@string/left"  />
-        <Key android:codes="707" android:keyLabel="@string/right" />
-        <Key android:codes="9003" android:keyLabel="@string/removeToLeft" />
+
+        <Key
+            android:codes="-19"
+            android:keyLabel="@string/normalLog" />
+
+        <Key
+            android:codes="-20"
+            android:keyLabel="@string/log" />
+
+        <Key
+            android:codes="-21"
+            android:keyLabel="@string/tenSquared" />
+
+        <Key
+            android:codes="706"
+            android:keyLabel="@string/left" />
+
+        <Key
+            android:codes="707"
+            android:keyLabel="@string/right" />
+
+        <Key
+            android:codes="9003"
+            android:keyLabel="@string/removeToLeft" />
     </Row>
 </Keyboard>

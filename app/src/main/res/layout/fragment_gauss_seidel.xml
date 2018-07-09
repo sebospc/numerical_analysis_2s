@@ -10,9 +10,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="53dp"
+        android:drawableLeft="@drawable/ic_previous"
         android:gravity="center"
         android:text="Gauss Seidel"
-        android:drawableLeft="@drawable/ic_previous"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -22,13 +22,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:theme="@style/colorButtonPrimary"
             android:id="@+id/run"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="CALCULATE"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:theme="@style/colorButtonPrimary" />
 
         <Button
             android:id="@+id/runHelp"
@@ -38,18 +38,19 @@
             android:text="help" />
 
         <Button
-            android:theme="@style/colorButtonPrimary"
             android:id="@+id/pivoting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="NEW DISTRIBUTION"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:theme="@style/colorButtonPrimary" />
     </LinearLayout>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="85dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

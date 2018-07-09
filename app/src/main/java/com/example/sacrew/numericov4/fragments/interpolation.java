@@ -248,7 +248,7 @@ public class interpolation extends Fragment {
 
         text.addTextChangedListener(new TextChangedListener<EditText>(text) {
             @Override
-            public void onTextChanged(EditText target, Editable s) {
+            public void onTextChanged(EditText target) {
                 try {
                     double x;
                     double y;
@@ -298,10 +298,10 @@ public class interpolation extends Fragment {
 
         @Override
         public void afterTextChanged(Editable s) {
-            this.onTextChanged(target, s);
+            this.onTextChanged(target);
         }
 
-        protected abstract void onTextChanged(T target, Editable s);
+        protected abstract void onTextChanged(T target);
     }
 
 }

@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -33,7 +32,6 @@ import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
-import static com.example.sacrew.numericov4.fragments.systemEquations.bValuesText;
 import static com.example.sacrew.numericov4.fragments.systemEquations.matrixAText;
 import static com.example.sacrew.numericov4.fragments.systemEquations.times;
 
@@ -46,9 +44,11 @@ public class Croult extends baseFactorizationMethods {
     private TextView sumTextView;
     private ToggleButton pauseOrResume;
     private Button stages;
+
     public Croult() {
         // Required empty public constructor
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -72,7 +72,7 @@ public class Croult extends baseFactorizationMethods {
         pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(animatorSet != null) {
+                if (animatorSet != null) {
                     if (isChecked) {
                         animatorSet.pause();
                     } else {
@@ -493,7 +493,7 @@ public class Croult extends baseFactorizationMethods {
             matrixL[k][matrixL.length] = expandedMatrix[k][expandedMatrix.length];
         }
         progresiveSubstitution(matrixL);
-        addFactorization(matrixL,matrixU,getContext());
+        addFactorization(matrixL, matrixU, getContext());
         substitution(matrixU);
 
     }

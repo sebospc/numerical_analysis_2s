@@ -14,19 +14,19 @@
 
         <com.example.sacrew.numericov4.utils.CustomScrollView
 
-            android:scrollbarStyle="insideInset"
             android:id="@+id/scrollViewTotal"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:scrollbarStyle="insideInset">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:focusable="true"
-                android:focusableInTouchMode="true">
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
 
                 <LinearLayout
 
@@ -44,8 +44,7 @@
                         <com.jjoe64.graphview.GraphView
                             android:id="@+id/graph"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            />
+                            android:layout_height="match_parent" />
 
                         <ImageButton
                             android:id="@+id/homeGraphButton"
@@ -188,14 +187,16 @@
                 android:id="@+id/scrollKeyboard"
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
+
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                <LinearLayout
-                    android:id = "@+id/myFunctions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+
+                    <LinearLayout
+                        android:id="@+id/myFunctions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
                 </HorizontalScrollView>
             </ScrollView>
         </LinearLayout>

@@ -72,7 +72,7 @@ public class lagrange extends baseInterpolationMethods {
                     Bundle b = new Bundle();
 
                     b.putString("key", latexText); //Your id
-                    b.putString("function",function);
+                    b.putString("function", function);
                     i.putExtras(b); //Put your id to your next Intent
                     startActivity(i);
                 }

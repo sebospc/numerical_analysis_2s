@@ -1,10 +1,10 @@
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_container"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_line"
     android:focusableInTouchMode="true">
+
     <com.evrencoskun.tableview.TableView
         android:id="@+id/tableview"
         android:layout_width="match_parent"

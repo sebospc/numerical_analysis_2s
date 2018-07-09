@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment.partialPivoting"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment.partialPivoting">
 
 
     <LinearLayout
@@ -14,10 +14,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="53dp"
+            android:drawableLeft="@drawable/ic_previous"
+            android:drawableRight="@drawable/ic_next"
             android:gravity="center"
             android:text=" Partial Pivoting"
-            android:drawableRight="@drawable/ic_next"
-            android:drawableLeft="@drawable/ic_previous"
             android:textSize="24sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -28,13 +28,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:theme="@style/colorButtonPrimary"
             android:id="@+id/run"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="CALCULATE"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:theme="@style/colorButtonPrimary" />
 
         <Button
             android:id="@+id/runHelp"

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class newtonInterpolator extends baseInterpolationMethods {
 
-    private List<double []> derivs;
+    private List<double[]> derivs;
     private boolean errorDivision = true;
 
     public newtonInterpolator() {
@@ -59,12 +59,12 @@ public class newtonInterpolator extends baseInterpolationMethods {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                if(calc) {
+                if (calc) {
                     Intent i = new Intent(getContext(), mathExpressions.class);
                     Bundle b = new Bundle();
 
-                    b.putString("key","$${"+latexText+"\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$"); //Your id
-                    b.putString("function",function);
+                    b.putString("key", "$${" + latexText + "\\qquad \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad}$$"); //Your id
+                    b.putString("function", function);
                     i.putExtras(b); //Put your id to your next Intent
                     startActivity(i);
                 }
@@ -79,20 +79,19 @@ public class newtonInterpolator extends baseInterpolationMethods {
         });
 
 
-
         return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void executeHelp() {
+    private void executeHelp() {
         Intent i = new Intent(getContext().getApplicationContext(), popUpNewtonDifferences.class);
         startActivity(i);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void execute() {
+    private void execute() {
         boolean errorValues = bootStrap();
-        if(errorValues) {
+        if (errorValues) {
             derivs = new LinkedList<>();
             newtonInterpolation(fxn, 0, 1, new double[fxn.length - 1]);
             if (errorDivision) {
@@ -111,7 +110,6 @@ public class newtonInterpolator extends baseInterpolationMethods {
 
                 //to latex
                 EvalEngine engine = new EvalEngine(false);
-
 
 
                 //add new expression type latex
@@ -137,15 +135,12 @@ public class newtonInterpolator extends baseInterpolationMethods {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void newtonInterpolation(double[] actualValues, int difference, int i, double[] auxFxn) {
-        System.out.println("actual values "+actualValues.length+" i: "+i);
+    private void newtonInterpolation(double[] actualValues, int difference, int i, double[] auxFxn) {
         if (actualValues.length == 1) {
             derivs.add(actualValues);
         } else if (i == actualValues.length) {
-            System.out.println("STOP auxFxn: "+auxFxn.length);
             derivs.add(actualValues);
-            System.out.println("new length " + (auxFxn.length-1));
-            newtonInterpolation(auxFxn, difference + 1, 1, new double[auxFxn.length-1]);
+            newtonInterpolation(auxFxn, difference + 1, 1, new double[auxFxn.length - 1]);
 
         } else {
             double denominator = (xn[i + difference] - xn[i - 1]);
@@ -154,7 +149,7 @@ public class newtonInterpolator extends baseInterpolationMethods {
                 errorDivision = false;
             }
             double newFxn = (actualValues[i] - actualValues[i - 1]) / denominator;
-            auxFxn[i-1] = newFxn;
+            auxFxn[i - 1] = newFxn;
             newtonInterpolation(actualValues, difference, i + 1, auxFxn);
         }
     }

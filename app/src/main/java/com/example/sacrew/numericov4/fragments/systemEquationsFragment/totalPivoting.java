@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
 
@@ -41,9 +40,11 @@ import static com.example.sacrew.numericov4.fragments.systemEquations.times;
 public class totalPivoting extends baseSystemEquations {
     private ToggleButton pauseOrResume;
     private Button stages;
+
     public totalPivoting() {
         // Required empty public constructor
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -64,7 +65,7 @@ public class totalPivoting extends baseSystemEquations {
         pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(animatorSet != null) {
+                if (animatorSet != null) {
                     if (isChecked) {
                         animatorSet.pause();
                     } else {
@@ -137,7 +138,7 @@ public class totalPivoting extends baseSystemEquations {
 
                 final double multiplier = expandedMatrix[i][k] / expandedMatrix[k][k];
                 final int auxi = i;
-                multipliers.add("multiplier "+(i-k)+" = "+multiplier);
+                multipliers.add("multiplier " + (i - k) + " = " + multiplier);
 
                 ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW, defaultColor).setDuration(times.getProgress() * 500);
                 colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -204,7 +205,7 @@ public class totalPivoting extends baseSystemEquations {
                 }
 
             }
-            addStage(expandedMatrix,auxk,getContext(),multipliers);
+            addStage(expandedMatrix, auxk, getContext(), multipliers);
         }
 
 

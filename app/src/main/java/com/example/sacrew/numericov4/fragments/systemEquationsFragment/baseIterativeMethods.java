@@ -36,7 +36,6 @@ public abstract class baseIterativeMethods extends baseSystemEquations {
         for (int i = 0; i < values.length; i++)
             aux[i] = Math.abs(values[i]);
         Arrays.sort(aux);
-        System.out.println(aux[values.length - 1]);
         return aux[values.length - 1];
     }
 
@@ -56,9 +55,4 @@ public abstract class baseIterativeMethods extends baseSystemEquations {
         return num.format(val);
     }
 
-    String normalTransformation(double val) {
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("0.00");
-        return num.format(val);
-    }
 }

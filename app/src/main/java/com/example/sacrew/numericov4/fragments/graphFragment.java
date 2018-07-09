@@ -99,14 +99,12 @@ public class graphFragment extends Fragment {
         CircleButton addFieldButton = view.findViewById(R.id.add_field_button);
 
         keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
-        keyboardUtils.isGraph =true;
-        keyboardUtils.graph = view.findViewById(R.id.graph);
+        keyboardUtils.isGraph = true;
+        keyboardUtils.graph = graph;
         LinearLayout linear = view.findViewById(R.id.linear);
         view.post(new Runnable() {
             @Override
             public void run() {
-                System.out.println("height " + linear.getWidth());
-                System.out.println("mesured " + linear.getMeasuredHeight());
                 ViewGroup.LayoutParams params = linear.getLayoutParams();
                 params.height = linear.getMeasuredHeight() - 1;
                 linear.setLayoutParams(params);

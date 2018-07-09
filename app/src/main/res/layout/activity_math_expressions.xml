@@ -58,23 +58,26 @@
                             android:text="" />
 
                     </LinearLayout>
+
                     <ToggleButton
                         android:id="@+id/buttonStage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/evaluating"
                         android:textOff="stages"
-                        android:textOn="stages"/>
+                        android:textOn="stages" />
+
                     <Space
                         android:id="@+id/spaceExpression"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_below="@+id/evaluating" />
+
                     <katex.hourglass.in.mathlib.MathView
                         android:id="@+id/stages"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/spaceExpression"/>
+                        android:layout_below="@+id/spaceExpression" />
                 </RelativeLayout>
             </FrameLayout>
         </ScrollView>

@@ -36,6 +36,7 @@ import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
 public class cubicSpline extends baseSpliners {
     private final systemEquationsUtils systemUtils = new systemEquationsUtils();
     private String resultText;
+
     public cubicSpline() {
         // Required empty public constructor
     }
@@ -75,7 +76,7 @@ public class cubicSpline extends baseSpliners {
                     Bundle b = new Bundle();
 
                     b.putString("key", resultText); //Your id
-                    b.putString("stages",latexText);
+                    b.putString("stages", latexText);
                     i.putExtras(b); //Put your id to your next Intent
                     mathExpressions.equations = equations;
                     startActivity(i);

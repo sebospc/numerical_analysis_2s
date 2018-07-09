@@ -20,7 +20,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -51,8 +50,6 @@ public abstract class baseSystemEquations extends Fragment {
     final int defaultColor = Color.parseColor("#FF303F9F"); //primary
     //int defaultColor = Color.rgb(3,169,244);
     final int operativeColor = Color.parseColor("#64DD17");
-    LinearLayout contentStages;
-
     private final SuperActivityToast.OnButtonClickListener onButtonClickListener =
             new SuperActivityToast.OnButtonClickListener() {
 
@@ -61,6 +58,7 @@ public abstract class baseSystemEquations extends Fragment {
                     SuperActivityToast.cancelAllSuperToasts();
                 }
             };
+    LinearLayout contentStages;
     TableLayout matrixResult;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -109,7 +107,7 @@ public abstract class baseSystemEquations extends Fragment {
         for (double[] v : expandedMatrix) {
             TableRow aux = new TableRow(getContext());
             for (double val : v) {
-                aux.addView(defaultTextView((val + "      ").substring(0, 6), defaultColor, 100, 10));
+                aux.addView(defaultTextView((val + "      ").substring(0, 6), defaultColor));
             }
             matrixResult.addView(aux);
         }
@@ -118,13 +116,13 @@ public abstract class baseSystemEquations extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     TextView defaultTextView(String value) {
-        return defaultTextView(value, defaultColor, 100, 10);
+        return defaultTextView(value, defaultColor);
     }
 
     @SuppressLint("WrongConstant")
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.M)
-    TextView defaultTextView(String value, int color, int weight, int size) {
+    TextView defaultTextView(String value, int color) {
         Context context;
         if (isAdded()) {
             context = getContext();
@@ -136,13 +134,13 @@ public abstract class baseSystemEquations extends Fragment {
             animatorSet.cancel();
         }
         TextView text = new EditText(context);
-        text.setLayoutParams(new TableRow.LayoutParams(weight, 110));
+        text.setLayoutParams(new TableRow.LayoutParams(100, 110));
         text.setEms(2);
         text.setMaxLines(1);
         text.setTypeface(null, Typeface.BOLD);
         text.setBackgroundColor(color);
         text.setTextColor(Color.WHITE);
-        text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size);
+        text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
         text.setKeyListener(DigitsKeyListener.getInstance("0123456789.-E"));
         text.setKeyListener(null);
@@ -348,7 +346,7 @@ public abstract class baseSystemEquations extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private double[] substitution(double[][] expandedMatrix, int basura) {//regression
+    private double[] substitution(double[][] expandedMatrix, int usseless) {//regression
         xValuesText.removeAllViews();
         int n = expandedMatrix.length - 1;
         double[] values = new double[n + 1];
@@ -436,7 +434,7 @@ public abstract class baseSystemEquations extends Fragment {
             if (expandedMatrix != null) {
                 xIndex.removeAllViews();
                 for (int i = 0; i < expandedMatrix.length; i++) {
-                    xIndex.addView(defaultTextView("X" + (i + 1), Color.parseColor("#429ffd"), 100, 10));
+                    xIndex.addView(defaultTextView("X" + (i + 1), Color.parseColor("#429ffd")));
                 }
                 xIndex.setVisibility(View.VISIBLE);
 
@@ -445,7 +443,7 @@ public abstract class baseSystemEquations extends Fragment {
                 for (int i = 0; i < marks.length; i++) {
                     marks[i] = i + 1;
                 }
-                matrixBackpack = new String[expandedMatrix.length][expandedMatrix.length+1];
+                matrixBackpack = new String[expandedMatrix.length][expandedMatrix.length + 1];
                 int n = matrixAText.getChildCount();
                 for (int i = 0; i < n; i++) {
                     for (int j = 0; j < n; j++) {
@@ -500,20 +498,20 @@ public abstract class baseSystemEquations extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addStage(double[][] matrix, int stage, Context context,List<String> multipliers){
+    void addStage(double[][] matrix, int stage, Context context, List<String> multipliers) {
         TextView tittle = new TextView(context);
         TableLayout matrixResult = new TableLayout(context);
-        tittle.setText("Stage "+(stage+1));
+        tittle.setText("Stage " + (stage + 1));
         for (double[] v : matrix) {
             TableRow aux = new TableRow(context);
             for (double val : v) {
-                aux.addView(defaultTextView((String.valueOf(val)+"         ").substring(0,6)));
+                aux.addView(defaultTextView((String.valueOf(val) + "         ").substring(0, 6)));
             }
             matrixResult.addView(aux);
         }
         LinearLayout multipliersLayout = new LinearLayout(context);
         multipliersLayout.setOrientation(LinearLayout.VERTICAL);
-        for(String m : multipliers){
+        for (String m : multipliers) {
             TextView aux = new TextView(context);
             aux.setText(m);
 

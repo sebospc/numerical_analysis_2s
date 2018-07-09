@@ -148,7 +148,6 @@ public class graphUtils {
             each = (each + (perCore * 0.1));
             end = (end + (perCore * 0.1));
             if (i == cores.length - 1) { //error de redondeo
-                System.out.println("entro");
                 end = lastEnd;
             }
         }

@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.sacrew.numericov4.fragments.systemEquations">
+
     <RelativeLayout
-        android:layout_weight="0.5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="0.5"
         android:orientation="horizontal">
 
 
@@ -45,15 +46,15 @@
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none"
-                    android:overScrollMode="never">
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
 
                     <HorizontalScrollView
                         android:id="@+id/scrollView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:scrollbars="none"
-                        android:overScrollMode="never">
+                        android:overScrollMode="never"
+                        android:scrollbars="none">
 
                         <TableLayout
                             android:id="@+id/matrixA"
@@ -75,8 +76,8 @@
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none"
-                    android:overScrollMode="never">
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
 
                     <LinearLayout
                         android:id="@+id/arrayB"
@@ -102,8 +103,8 @@
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:overScrollMode="never"
                     android:fadingEdge="none"
+                    android:overScrollMode="never"
                     android:scrollbars="none">
 
                     <LinearLayout
@@ -130,12 +131,12 @@
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_alignTop="@+id/textView10"
                 android:layout_toEndOf="@+id/deleteRow"
                 android:layout_toLeftOf="@+id/relativeLayout11"
                 android:layout_toRightOf="@+id/deleteRow"
                 android:layout_toStartOf="@+id/relativeLayout11"
+                android:gravity="center"
                 android:text="B  " />
 
             <TextView
@@ -154,24 +155,25 @@
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/addRow"
                 android:layout_marginBottom="150dp"
-                android:gravity="center|bottom"
                 android:background="#429ffd"
-                android:src="@drawable/ic_previous"/>
+                android:gravity="center|bottom"
+                android:src="@drawable/ic_previous" />
 
             <RelativeLayout
                 android:id="@+id/xIndex"
                 android:layout_width="30dp"
                 android:layout_height="200dp"
+                android:layout_alignLeft="@+id/deleteRow"
                 android:layout_alignStart="@+id/deleteRow"
                 android:layout_below="@+id/addRow"
-                android:layout_alignLeft="@+id/deleteRow"
 
                 >
+
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none"
-                    android:overScrollMode="never">
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
 
                     <LinearLayout
                         android:id="@+id/arrayXindex"
@@ -184,9 +186,11 @@
 
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -211,100 +215,103 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="5"
-        android:progress="1"
-        />
+        android:progress="1" />
+
     <RelativeLayout
-        android:layout_weight="0.5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:fadingEdgeLength="0dp"
-        android:fillViewport="true"
-        android:overScrollMode="never"/>
-    <Space
-        android:id="@+id/space"
-        android:layout_width="match_parent"
-        android:layout_height="103dp" />
-    <ScrollView
-        android:layout_below="@+id/space"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
 
-        <LinearLayout
-            android:id="@+id/defaultInfo"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:fadingEdgeLength="0dp"
+            android:fillViewport="true"
+            android:overScrollMode="never" />
 
+        <Space
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="103dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/space">
 
             <LinearLayout
+                android:id="@+id/defaultInfo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/relaxation"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Relaxation"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"/>
-
-                <EditText
-                    android:id="@+id/iterations"
-                    android:layout_width="55dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Iters"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"/>
-
-                <EditText
-                    android:id="@+id/error"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="error"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"/>
-
-                <ToggleButton
-                    android:id="@+id/errorToggle"
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/check"
-                    android:checked="true"
-                    android:textOff=""
-                    android:textOn="" />
-
-            </LinearLayout>
-
-            <HorizontalScrollView
-                android:id="@+id/scrollInitialValues"
-                android:layout_width="match_parent"
-                android:layout_height="30dp">
 
                 <LinearLayout
-                    android:id="@+id/initialValues"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <EditText
+                        android:id="@+id/relaxation"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Relaxation"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true" />
+
+                    <EditText
+                        android:id="@+id/iterations"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Iters"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true" />
+
+                    <EditText
+                        android:id="@+id/error"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="error"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true" />
+
+                    <ToggleButton
+                        android:id="@+id/errorToggle"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/check"
+                        android:checked="true"
+                        android:textOff=""
+                        android:textOn="" />
 
                 </LinearLayout>
-            </HorizontalScrollView>
 
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
+                <HorizontalScrollView
+                    android:id="@+id/scrollInitialValues"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <LinearLayout
+                        android:id="@+id/initialValues"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 </LinearLayout>

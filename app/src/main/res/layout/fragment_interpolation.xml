@@ -110,12 +110,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.35">
+
         <com.jjoe64.graphview.GraphView
             android:id="@+id/interpolationGraph"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:cacheColorHint="#ff000000"
-            />
+            android:cacheColorHint="#ff000000" />
 
         <ImageButton
             android:id="@+id/homeGraphButton"
@@ -130,15 +130,16 @@
             android:background="@null"
             android:src="@drawable/ic_gps_fixed_black_24dp" />
     </RelativeLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
-        android:layout_weight="0.7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_weight="0.7"
         android:fadingEdgeLength="0dp"
         android:fillViewport="true"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never" />
 
 </LinearLayout>

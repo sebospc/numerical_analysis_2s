@@ -40,6 +40,7 @@ public class falsePositionFragment extends baseOneVariableFragments {
     private View view;
     private ListView listView;
     private EditText xi, xs;
+
     public falsePositionFragment() {
         // Required empty public constructor
     }

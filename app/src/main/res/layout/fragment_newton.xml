@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:windowSoftInputMode="adjustPan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:windowSoftInputMode="adjustPan"
+    tools:context="com.example.sacrew.numericov4.fragments.oneVariableFragments.bisectionFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,10 +15,10 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Newton"
-            android:drawableRight="@drawable/ic_next"
             android:drawableLeft="@drawable/ic_previous"
+            android:drawableRight="@drawable/ic_next"
             android:gravity="center"
+            android:text="Newton"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
                     android:layout_weight="1"
                     android:hint="f'(x)"
                     android:scrollHorizontally="true"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
 
                 <EditText
                     android:id="@+id/xValue"
@@ -69,7 +69,7 @@
                     android:ems="10"
                     android:hint="x value"
                     android:scrollHorizontally="true"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </RelativeLayout>
 
         </LinearLayout>
@@ -86,13 +86,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:theme="@style/colorButtonPrimary"
                 android:id="@+id/runNewton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="CALCULATE"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:theme="@style/colorButtonPrimary" />
 
             <Button
                 android:id="@+id/runHelp"
@@ -102,13 +102,13 @@
                 android:text="help" />
 
             <Button
-                android:theme="@style/colorButtonPrimary"
                 android:id="@+id/runChart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TABLE"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:theme="@style/colorButtonPrimary" />
         </LinearLayout>
 
         <LinearLayout

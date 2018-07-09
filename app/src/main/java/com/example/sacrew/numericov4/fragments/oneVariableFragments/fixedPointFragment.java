@@ -149,16 +149,12 @@ public class fixedPointFragment extends baseOneVariableFragments {
                         listValues.add(iteZero);
                         List<String> listValuesIteZero = new LinkedList<>();
                         listValuesIteZero.add(String.valueOf(x0));
-                        System.out.println("x0: " + x0);
                         listValuesIteZero.add(String.valueOf(cientificTransformation(y0)));
-                        System.out.println("y0: " + y0);
                         listValuesIteZero.add(String.valueOf(""));
-                        System.out.println("error: " + "");
                         double xa = x0;
                         completeList.add(listValuesIteZero);
                         calc = true;
                         while ((y0 != 0) && (error > tol) && (cont < ite)) {
-                            System.out.println(" conta " + cont);
                             ArrayList<String> listValuesIteNext = new ArrayList<String>();
                             double xn = Double.NaN;
                             try {
@@ -179,11 +175,8 @@ public class fixedPointFragment extends baseOneVariableFragments {
                             FixedPoint iteNext = new FixedPoint(String.valueOf(cont), String.valueOf(normalTransformation(xa)), String.valueOf(cientificTransformation(y0)), String.valueOf(cientificTransformation(error)));
                             listValues.add(iteNext);
                             listValuesIteNext.add(String.valueOf(xa));
-                            System.out.println(xa);
                             listValuesIteNext.add(String.valueOf(cientificTransformation(y0)));
-                            System.out.println("y0: " + y0);
                             listValuesIteNext.add(String.valueOf(cientificTransformation(error)));
-                            System.out.println("error: " + error);
                             completeList.add(listValuesIteNext);
 
                         }

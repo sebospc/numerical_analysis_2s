@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                     "<br><br>The used library for this graph was   " +
                     "<a href=\"http://www.android-graphview.org/\">GraphView</a>\n" +
                     "        by Jonas Grehring." +
-                    "<br><br>"+homeInformation;
+                    "<br><br>" + homeInformation;
             View view = this.getCurrentFocus();
             if (view != null) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -217,8 +217,8 @@ public class MainActivity extends AppCompatActivity {
                     "<a href=\"https://github.com/uklimaschewski/EvalEx\">EvalEx</a>\n" +
                     "        by Udo Klimaschewski, " + "<a href=\"https://github.com/evrencoskun/TableView\">TableView</a>\n" +
                     " by Evren Coşkun and " + "<a href=\"https://github.com/JohnPersano/SuperToasts\">SuperToasts</a>\n" +
-                    " by John Persano."+
-                    "<br><br>"+homeInformation;
+                    " by John Persano." +
+                    "<br><br>" + homeInformation;
             View view = this.getCurrentFocus();
             if (view != null) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         if (idFragment != 3) {
             aBar.setTitle("Systems of Equations");
             extraInformation = "In this section you will be able to solve linear systems equations of n equations with n variables through matrixes with " +
-                    "different numerical methods "+"<br><br>"+homeInformation;
+                    "different numerical methods " + "<br><br>" + homeInformation;
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment != null)
                     getSupportFragmentManager().beginTransaction().remove(fragment).commit();
@@ -268,10 +268,10 @@ public class MainActivity extends AppCompatActivity {
                     "polynomials and have a similar behavior of the original functions." +
                     "<br><br>We use " +
                     "<a href=\"https://github.com/kexanie/MathView/\">MathView</a>\n" +
-                    " by Hour Glass to show mathematical expression and "+
+                    " by Hour Glass to show mathematical expression and " +
                     "<a href=\"https://github.com/axkr/symja_android_library\">Symja</a>\n" +
                     "        by Axel Kramer."
-                    +"<br><br>"+homeInformation;
+                    + "<br><br>" + homeInformation;
             //getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.mainLayout)).commit();
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment != null)

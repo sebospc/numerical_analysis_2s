@@ -19,12 +19,10 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
 
 import com.example.sacrew.numericov4.R;
-import com.example.sacrew.numericov4.fragments.MainActivityTable;
 import com.example.sacrew.numericov4.fragments.customPopUps.popUpGaussSimple;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.showStagesModel.showStages;
 
@@ -43,6 +41,7 @@ public class gaussSimple extends baseSystemEquations {
 
     private ToggleButton pauseOrResume;
     private Button stages;
+
     public gaussSimple() {
         // Required empty public constructor
     }
@@ -69,7 +68,7 @@ public class gaussSimple extends baseSystemEquations {
         pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(animatorSet != null) {
+                if (animatorSet != null) {
                     if (isChecked) {
                         animatorSet.pause();
                     } else {
@@ -137,7 +136,7 @@ public class gaussSimple extends baseSystemEquations {
                 }
                 final double multiplier = expandedMatrix[i][k] / expandedMatrix[k][k];
                 final int auxi = i;
-                multipliers.add("multiplier "+(i-k)+" = "+multiplier);
+                multipliers.add("multiplier " + (i - k) + " = " + multiplier);
                 ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.YELLOW, defaultColor).setDuration(times.getProgress() * 500);
                 colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
@@ -202,7 +201,7 @@ public class gaussSimple extends baseSystemEquations {
                 }
 
             }
-            addStage(expandedMatrix,auxk,getContext(),multipliers);
+            addStage(expandedMatrix, auxk, getContext(), multipliers);
         }
 
 

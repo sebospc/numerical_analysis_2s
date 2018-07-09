@@ -5,11 +5,10 @@
         android:width="1dp"
         android:color="@color/colorPrimary" />
     <!--Configuración del fondo-->
-    <solid
-        android:color="@color/Transparent"/>
+    <solid android:color="@color/Transparent" />
     <padding
+        android:bottom="10dp"
         android:left="10dp"
-        android:top="10dp"
         android:right="10dp"
-        android:bottom="10dp" />
+        android:top="10dp" />
 </shape>

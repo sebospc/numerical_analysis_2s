@@ -1,4 +1,5 @@
 package com.example.sacrew.numericov4.utils;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -17,10 +18,12 @@ public class CustomScrollView extends ScrollView {
     public CustomScrollView(Context context) {
         super(context);
     }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-            return false;
+        return false;
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return false;
@@ -29,6 +32,6 @@ public class CustomScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        this.scrollTo(0,0);
+        this.scrollTo(0, 0);
     }
 }

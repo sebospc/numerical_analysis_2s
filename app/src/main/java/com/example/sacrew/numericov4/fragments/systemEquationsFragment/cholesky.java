@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -36,7 +35,6 @@ import java.util.Objects;
 
 import static com.example.sacrew.numericov4.fragments.systemEquations.animations;
 import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
-import static com.example.sacrew.numericov4.fragments.systemEquations.bValuesText;
 import static com.example.sacrew.numericov4.fragments.systemEquations.matrixAText;
 import static com.example.sacrew.numericov4.fragments.systemEquations.times;
 import static com.example.sacrew.numericov4.fragments.systemEquations.xValuesText;
@@ -51,6 +49,7 @@ public class cholesky extends baseFactorizationMethods {
     private ComplexFormat formater;
     private ToggleButton pauseOrResume;
     private Button stages;
+
     public cholesky() {
         // Required empty public constructor
     }
@@ -63,9 +62,6 @@ public class cholesky extends baseFactorizationMethods {
         View view = inflater.inflate(R.layout.fragment_cholesky, container, false);
 
         formater = new ComplexFormat();
-
-
-        //System.out.println("toString "+ d.format(aux).replaceAll("\\s+","") +" real "+aux.getReal()+" imaginary "+aux.getImaginary());
 
 
         matrixLText = view.findViewById(R.id.matrixL);
@@ -85,7 +81,7 @@ public class cholesky extends baseFactorizationMethods {
         pauseOrResume.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(animatorSet != null) {
+                if (animatorSet != null) {
                     if (isChecked) {
                         animatorSet.pause();
                     } else {
@@ -169,7 +165,7 @@ public class cholesky extends baseFactorizationMethods {
             for (int j = 0; j <= matrixLCholesky.length; j++) {
                 matrixLCholesky[i][j] = new Complex(0, 0);
                 matrixUCholesky[i][j] = new Complex(0, 0);
-                if(j < matrixLCholesky.length) {
+                if (j < matrixLCholesky.length) {
                     rowU.addView(defaultTextView(formating(matrixUCholesky[i][j])));
                     rowL.addView(defaultTextView(formating(matrixLCholesky[i][j])));
                 }
@@ -536,18 +532,18 @@ public class cholesky extends baseFactorizationMethods {
             matrixLCholesky[k][matrixLCholesky.length] = new Complex(expandedMatrix[k][expandedMatrix.length]);
         }
         progresiveSubstitution(matrixLCholesky);
-        addFactorizationCholesky(matrixLCholesky,matrixUCholesky,getContext());
+        addFactorizationCholesky(matrixLCholesky, matrixUCholesky, getContext());
         substitution(matrixUCholesky);
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private Complex[] progresiveSubstitution(Complex[][] matrixLCholesky) {
+    private void progresiveSubstitution(Complex[][] matrixLCholesky) {
         int n = matrixLCholesky.length - 1;
         Complex[] x = new Complex[n + 1];
         if (matrixUCholesky[0][0].getReal() == 0 && matrixUCholesky[0][0].getImaginary() == 0) {
             styleWrongMessage("Error division 0 in progressive substitution");
-            return x;
+            return;
         }
         x[0] = matrixUCholesky[0][n + 1].divide(matrixUCholesky[0][0]);
         for (int i = 0; i < n + 1; i++) {
@@ -557,13 +553,12 @@ public class cholesky extends baseFactorizationMethods {
             }
             if (matrixLCholesky[i][i].getReal() == 0 && matrixLCholesky[i][i].getImaginary() == 0) {
                 styleWrongMessage("Error division 0 in progressive substitution");
-                return x;
+                return;
             }
             x[i] = (matrixLCholesky[i][n + 1].subtract(sumatoria)).divide(matrixLCholesky[i][i]);
             matrixUCholesky[i][n + 1] = x[i];
         }
 
-        return x;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -599,7 +594,7 @@ public class cholesky extends baseFactorizationMethods {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addFactorizationCholesky(Complex[][] matrixL,Complex[][] matrixU, Context context) {
+    private void addFactorizationCholesky(Complex[][] matrixL, Complex[][] matrixU, Context context) {
         LinearLayout L = new LinearLayout(context);
         L.setOrientation(LinearLayout.VERTICAL);
         TextView tittleL = new TextView(context);
@@ -613,16 +608,16 @@ public class cholesky extends baseFactorizationMethods {
 
         TableLayout matrixResultL = new TableLayout(context);
         TableLayout matrixResultU = new TableLayout(context);
-        for(int i = 0; i < matrixL.length; i++){
+        for (int i = 0; i < matrixL.length; i++) {
             TableRow auxL = new TableRow(context);
             TableRow auxU = new TableRow(context);
-            for(int j = 0; j <= matrixL.length; j++){
-                if(j < matrixL.length) {
+            for (int j = 0; j <= matrixL.length; j++) {
+                if (j < matrixL.length) {
                     auxL.addView(defaultTextView((formating(matrixL[i][j]) + "       ").substring(0, 6)));
                     auxU.addView(defaultTextView((formating(matrixU[i][j]) + "       ").substring(0, 6)));
-                }else{
-                    auxL.addView(defaultTextView((formating(matrixU[i][j]) + "       ").substring(0, 6),getResources().getColor(R.color.prettyRed),100,10));
-                    auxU.addView(defaultTextView((formating(matrixU[i][j]) + "       ").substring(0, 6),getResources().getColor(R.color.header_line_color),100,10));
+                } else {
+                    auxL.addView(defaultTextView((formating(matrixU[i][j]) + "       ").substring(0, 6), getResources().getColor(R.color.prettyRed)));
+                    auxU.addView(defaultTextView((formating(matrixU[i][j]) + "       ").substring(0, 6), getResources().getColor(R.color.header_line_color)));
                 }
             }
             matrixResultL.addView(auxL);
