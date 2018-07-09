@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
 
@@ -69,9 +68,16 @@ public class partialPivoting extends baseSystemEquations {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (animatorSet != null) {
                     if (isChecked) {
-                        animatorSet.pause();
+
+                        if (Build.VERSION.SDK_INT < 19)
+                            stopAnimation();
+                        else
+                            animatorSet.pause();
                     } else {
-                        animatorSet.resume();
+                        if (Build.VERSION.SDK_INT < 19)
+                            startAnimation();
+                        else
+                            animatorSet.resume();
                     }
                 }
             }
@@ -109,30 +115,6 @@ public class partialPivoting extends baseSystemEquations {
 
         });
 
-        times.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (animatorSet.isRunning()) {
-                    animatorSet.cancel();
-                    animatorSet = new AnimatorSet();
-                    animatorSet.playSequentially(animations);
-                    animatorSet.setDuration(times.getProgress() * 500);
-                    animatorSet.start();
-                }
-
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
         return view;
     }
 

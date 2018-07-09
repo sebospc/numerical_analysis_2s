@@ -68,6 +68,8 @@
                     android:layout_height="48dp"
                     android:adjustViewBounds="true"
                     android:drawableTop="@drawable/check2"
+                    android:textOff=""
+                    android:textOn=""
                     android:theme="@style/colorButtonPrimary" />
 
 

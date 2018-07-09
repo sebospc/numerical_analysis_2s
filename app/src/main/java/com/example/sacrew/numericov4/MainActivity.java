@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        extraInformation = homeInformation;
+        extraInformation = "If you liked the application you can make a <a href=\"https://www.paypal.me/sandscompany\">donation</a>! <br><br>" + homeInformation;
         //define poop
 
         // draweLayout
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     private void openHome() {
         if (idFragment != 0) {
             aBar.setTitle("Numerical Analysis 2S");
-            extraInformation = homeInformation;
+            extraInformation = "If you liked the application you can make a <a href=\"https://www.paypal.me/sandscompany\">donation</a>! <br><br>" + homeInformation;
             /*
              * remove animations of system equations
              */
@@ -322,6 +322,18 @@ public class MainActivity extends AppCompatActivity {
         if (oneVariable.keyboardUtils != null) {
             if (oneVariable.keyboardUtils.isUp) {
                 oneVariable.keyboardUtils.closeInternalKeyboard();
+                return;
+            }
+        }
+        if (systemEquationsFragment.keyboardUtils != null) {
+            if (systemEquationsFragment.keyboardUtils.isUp) {
+                systemEquationsFragment.keyboardUtils.closeInternalKeyboard();
+                return;
+            }
+        }
+        if (interpolationFragment.keyboardUtils != null) {
+            if (interpolationFragment.keyboardUtils.isUp) {
+                interpolationFragment.keyboardUtils.closeInternalKeyboard();
                 return;
             }
         }

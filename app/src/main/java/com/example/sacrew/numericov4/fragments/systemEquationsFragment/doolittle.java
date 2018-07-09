@@ -74,9 +74,16 @@ public class doolittle extends baseFactorizationMethods {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (animatorSet != null) {
                     if (isChecked) {
-                        animatorSet.pause();
+
+                        if (Build.VERSION.SDK_INT < 19)
+                            stopAnimation();
+                        else
+                            animatorSet.pause();
                     } else {
-                        animatorSet.resume();
+                        if (Build.VERSION.SDK_INT < 19)
+                            startAnimation();
+                        else
+                            animatorSet.resume();
                     }
                 }
             }

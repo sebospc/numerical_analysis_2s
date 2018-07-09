@@ -111,13 +111,6 @@ public class newtonInterpolator extends baseInterpolationMethods {
                 //to latex
                 EvalEngine engine = new EvalEngine(false);
 
-
-                //add new expression type latex
-
-
-                //update graph
-
-
                 IExpr simplifiedPFunction = util.evaluate(F.ExpandAll(util.evaluate(uglyFunction.toString())));
                 if (Build.VERSION.SDK_INT > 19) {
                     simplifiedPFunction = util.evaluate(F.FullSimplify(simplifiedPFunction));
@@ -126,7 +119,7 @@ public class newtonInterpolator extends baseInterpolationMethods {
                 updateGraph(function, getContext(), (int) Math.ceil(((xn[xn.length - 1] - xn[0]) * 10) + 20));
                 TeXUtilities texUtil = new TeXUtilities(engine, false);
                 StringWriter stw = new StringWriter();
-                texUtil.toTeX(engine.evaluate(F.Simplify(util.evaluate(auxToLAtexFunc.toString()))), stw);
+                texUtil.toTeX(simplifiedPFunction, stw);
                 latexText = stw.toString();
                 //variable to open equations
                 calc = true;

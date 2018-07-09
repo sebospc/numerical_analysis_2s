@@ -12,8 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.text.InputType;
-import android.text.method.DigitsKeyListener;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
@@ -38,6 +37,7 @@ import com.example.sacrew.numericov4.fragments.systemEquationsFragment.jacobi;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.partialPivoting;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.totalPivoting;
 import com.example.sacrew.numericov4.pagerAdapter;
+import com.example.sacrew.numericov4.utils.KeyboardUtils;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 
 import java.util.LinkedList;
@@ -62,6 +62,7 @@ public class systemEquations extends Fragment {
     public static LinearLayout xIndex;
     public static String[][] matrixBackpack;
     public static Boolean pivoted = false;
+    public KeyboardUtils keyboardUtils;
     private int count;
     private LinearLayout initialValues;
     private LinearLayout defaultInfo;
@@ -81,7 +82,8 @@ public class systemEquations extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_system_equations, container, false);
 
-
+        //KeyboardUtils keyboardUtils = new KeyboardUtils(view,R.id.keyboardView);
+        keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
         defaultInfo = view.findViewById(R.id.defaultInfo);
         initialValues = view.findViewById(R.id.initialValues);
         ImageButton add = view.findViewById(R.id.addRow);
@@ -136,7 +138,15 @@ public class systemEquations extends Fragment {
                     removeRow();
             }
         });
-
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                Space space = view.findViewById(R.id.spaceSystem);
+                ViewGroup.LayoutParams params = space.getLayoutParams();
+                params.width = times.getMeasuredWidth() - times.getMeasuredWidth() / 6;
+                space.setLayoutParams(params);
+            }
+        });
         paintMatrix();
 
         ViewPager slideView = view.findViewById(R.id.pager);
@@ -224,14 +234,13 @@ public class systemEquations extends Fragment {
         times.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (animatorSet.isRunning()) {
+                if (animatorSet != null) {
                     animatorSet.cancel();
                     animatorSet = new AnimatorSet();
                     animatorSet.playSequentially(animations);
                     animatorSet.setDuration(times.getProgress() * 500);
                     animatorSet.start();
                 }
-
 
             }
 
@@ -318,11 +327,9 @@ public class systemEquations extends Fragment {
         text.setBackgroundColor(Color.parseColor("#FF303F9F"));
         text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
-        text.setKeyListener(DigitsKeyListener.getInstance("0123456789.-E"));
-        text.setInputType(InputType.TYPE_CLASS_PHONE);
         text.setText(value);
+        keyboardUtils.registerEdittext(text, getContext(), getActivity());
         return text;
     }
-
 
 }

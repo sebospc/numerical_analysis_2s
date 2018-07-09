@@ -11,9 +11,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.DigitsKeyListener;
 import android.util.Pair;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -32,6 +30,7 @@ import com.example.sacrew.numericov4.fragments.interpolationFragments.linearSpli
 import com.example.sacrew.numericov4.fragments.interpolationFragments.newtonInterpolator;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.quadraticSpline;
 import com.example.sacrew.numericov4.pagerAdapter;
+import com.example.sacrew.numericov4.utils.KeyboardUtils;
 import com.example.sacrew.numericov4.utils.graphUtils;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.jjoe64.graphview.GraphView;
@@ -57,6 +56,7 @@ public class interpolation extends Fragment {
     public static GraphView interpolationGraph;
     private final graphUtils graphUtils = new graphUtils();
     private final HashMap<EditText, Pair<PointsGraphSeries<DataPoint>, Integer>> viewToPoint = new HashMap<>();
+    public KeyboardUtils keyboardUtils;
     private int count = 3;
 
     public interpolation() {
@@ -73,10 +73,17 @@ public class interpolation extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_interpolation, container, false);
 
-
         vectors = view.findViewById(R.id.vectors);
         ViewPager slideView = view.findViewById(R.id.pager);
         interpolationGraph = view.findViewById(R.id.interpolationGraph);
+        keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
+        keyboardUtils.graph = interpolationGraph;
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                keyboardUtils.heighAuxGraph = interpolationGraph.getMeasuredHeight();
+            }
+        });
         ImageButton add = view.findViewById(R.id.addRow);
         ImageButton homeGraph = view.findViewById(R.id.homeGraphButton);
         final List<LineGraphSeries<DataPoint>> listSeries = graphUtils.graphPharallel(50, "x", 0);
@@ -111,6 +118,7 @@ public class interpolation extends Fragment {
             }
         });
         ImageButton remove = view.findViewById(R.id.deleteRow);
+
         remove.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -244,8 +252,7 @@ public class interpolation extends Fragment {
         text.setBackgroundColor(color);
         text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
         text.setGravity(Gravity.CENTER_HORIZONTAL);
-        text.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
-
+        keyboardUtils.registerEdittext(text, getContext(), getActivity());
         text.addTextChangedListener(new TextChangedListener<EditText>(text) {
             @Override
             public void onTextChanged(EditText target) {
@@ -276,7 +283,6 @@ public class interpolation extends Fragment {
             }
         });
 
-        text.setKeyListener(DigitsKeyListener.getInstance("0123456789.-E"));
         text.setText(value);
         return text;
     }

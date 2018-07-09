@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.github.johnpersano.supertoasts.library.Style;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -60,6 +61,8 @@ public abstract class baseSystemEquations extends Fragment {
             };
     LinearLayout contentStages;
     TableLayout matrixResult;
+    private long playTime;
+    private int startPosition;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     void begin() {
@@ -69,6 +72,32 @@ public abstract class baseSystemEquations extends Fragment {
         double[][] expandedMatrix = getMatrix();
         if (expandedMatrix != null)
             bootStrap(expandedMatrix);
+    }
+
+    void stopAnimation() {
+        if (animatorSet.isRunning()) {
+            ArrayList<Animator> animators = animatorSet.getChildAnimations();
+            for (int i = 0; i < animators.size(); i++) {
+                Animator animator = animators.get(i);
+                if (animator.isStarted()) {
+                    startPosition = i;
+                    playTime = ((ValueAnimator) animator).getCurrentPlayTime();
+                    animatorSet.cancel();
+                    break;
+                }
+            }
+        }
+    }
+
+    void startAnimation() {
+        if (!animatorSet.isRunning()) {
+            List<Animator> anims = animatorSet.getChildAnimations().subList(startPosition, animatorSet.getChildAnimations().size());
+            // Restore the play time of the first animator.
+            ((ValueAnimator) anims.get(0)).setCurrentPlayTime(playTime);
+            animatorSet = new AnimatorSet();
+            animatorSet.playSequentially(anims);
+            animatorSet.start();
+        }
     }
 
     private double[][] getMatrix() {

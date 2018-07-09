@@ -19,7 +19,7 @@
             android:drawableLeft="@drawable/ic_previous"
             android:drawableRight="@drawable/ic_next"
             android:text="Lagrange"
-            android:textAlignment="center"
+            android:gravity="center"
             android:textSize="24sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -36,9 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
             android:text="CALCULATE"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:theme="@style/colorButtonPrimary" />
 
         <Button
             android:id="@+id/runHelp"
@@ -52,9 +52,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
             android:text="polynomial"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:theme="@style/colorButtonPrimary" />
+
     </LinearLayout>
 
 
