@@ -22,15 +22,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
+
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
 
                     <katex.hourglass.in.mathlib.MathView
 
                         android:id="@+id/math_view"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" >
+
+
+
+                    </katex.hourglass.in.mathlib.MathView>
+
 
                     <LinearLayout
                         android:id="@+id/evaluating"
@@ -39,23 +47,52 @@
                         android:layout_below="@+id/math_view"
                         android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/evaluateInFunction"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="evaluate" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:orientation="vertical">
 
-                        <EditText
-                            android:id="@+id/xValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint=" x value  " />
+                            <TextView
+                                android:id="@+id/textView58"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_weight="1"
+                                android:text="Enter the x value to evaluate in the polynomial:"
+                                android:textColor="@android:color/black"
+                                android:textSize="17sp" />
 
-                        <TextView
-                            android:id="@+id/resultFxn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@+id/evaluateInFunction"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="EVALUATE"
+                                    android:textColor="@android:color/white"
+                                    android:theme="@style/colorButtonPrimary" />
+
+                                <EditText
+                                    android:id="@+id/xValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint=" x value  " />
+
+                                <TextView
+                                    android:id="@+id/resultFxn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
                     <ToggleButton
@@ -76,6 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/spaceExpression"/>
                 </RelativeLayout>
+
             </FrameLayout>
         </ScrollView>
     </HorizontalScrollView>
