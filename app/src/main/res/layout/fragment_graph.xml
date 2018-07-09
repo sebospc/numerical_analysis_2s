@@ -62,11 +62,12 @@
                     </RelativeLayout>
                 </LinearLayout>
 
-                <Button
+                <ToggleButton
                     android:id="@+id/buttonHide"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:adjustViewBounds="true"
+                    android:drawableTop="@drawable/check2"
                     android:theme="@style/colorButtonPrimary" />
 
 
