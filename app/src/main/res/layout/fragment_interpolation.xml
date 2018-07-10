@@ -136,17 +136,27 @@
             android:src="@drawable/ic_gps_fixed_black_24dp" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_weight="0.7"
-        android:fadingEdgeLength="0dp"
-        android:fillViewport="true"
-        android:overScrollMode="never" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="0.7"
+            android:fadingEdgeLength="0dp"
+            android:fillViewport="true"
+            android:overScrollMode="never">
+
+
+            <Space
+                android:id="@+id/spaceOnVariable"
+                android:layout_width="match_parent"
+                android:layout_height="37dp" />
+        </android.support.v4.view.ViewPager>
+
+
     </LinearLayout>
+
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

@@ -16,7 +16,6 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_next"
             android:gravity="center"
             android:text="Newton - Divided Differences"
             android:textSize="24sp"

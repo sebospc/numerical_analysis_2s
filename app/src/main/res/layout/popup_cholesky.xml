@@ -23,7 +23,7 @@
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="367dp"
+                android:layout_height="379dp"
                 android:drawableBottom="@drawable/cholesky"
                 android:drawableTop="@drawable/lu"
                 android:gravity="center_horizontal"

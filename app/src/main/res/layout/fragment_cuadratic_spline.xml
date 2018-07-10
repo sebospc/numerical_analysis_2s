@@ -16,8 +16,6 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_previous"
-            android:drawableRight="@drawable/ic_next"
             android:gravity="center"
             android:text="Quadratic Spline"
             android:textSize="24sp"

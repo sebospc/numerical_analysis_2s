@@ -18,6 +18,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
@@ -76,6 +77,8 @@ public class interpolation extends Fragment {
         vectors = view.findViewById(R.id.vectors);
         ViewPager slideView = view.findViewById(R.id.pager);
         interpolationGraph = view.findViewById(R.id.interpolationGraph);
+        Button btnNext = view.findViewById(R.id.btnNext);
+        Button btnPrev = view.findViewById(R.id.btnPrev);
         keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
         keyboardUtils.graph = interpolationGraph;
         view.post(new Runnable() {
@@ -134,6 +137,7 @@ public class interpolation extends Fragment {
         fragments.add(new cubicSpline());
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
+
         slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

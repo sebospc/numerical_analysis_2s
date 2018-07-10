@@ -15,7 +15,6 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_previous"
             android:gravity="center"
             android:text="Multiple Roots"
             android:textSize="24sp"

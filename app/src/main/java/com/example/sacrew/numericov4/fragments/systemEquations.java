@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -66,6 +67,7 @@ public class systemEquations extends Fragment {
     private int count;
     private LinearLayout initialValues;
     private LinearLayout defaultInfo;
+    int position;
 
     public systemEquations() {
         // Required empty public constructor
@@ -88,6 +90,8 @@ public class systemEquations extends Fragment {
         initialValues = view.findViewById(R.id.initialValues);
         ImageButton add = view.findViewById(R.id.addRow);
         ImageButton remove = view.findViewById(R.id.deleteRow);
+        Button btnNext = view.findViewById(R.id.btnNext);
+        Button btnPrev = view.findViewById(R.id.btnPrev);
         pivoted = false;
         xIndex = view.findViewById(R.id.arrayXindex);
         xIndex.setVisibility(View.GONE);
@@ -199,14 +203,40 @@ public class systemEquations extends Fragment {
         fragments.add(seidel);
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
-        int position = slideView.getCurrentItem();
-        if (position < 7) {
+        position = slideView.getCurrentItem();
+        if(position == 0){
             defaultInfo.setEnabled(false);
             defaultInfo.setVisibility(View.GONE);
-        } else {
+            btnNext.setVisibility(View.VISIBLE);
+            btnPrev.setVisibility(View.INVISIBLE);
+        }else if (position < 7 && position != 0) {
+            defaultInfo.setEnabled(false);
+            defaultInfo.setVisibility(View.GONE);
+            btnNext.setVisibility(View.VISIBLE);
+            btnPrev.setVisibility(View.VISIBLE);
+        } else if(position == 8){
             defaultInfo.setEnabled(true);
             defaultInfo.setVisibility(View.VISIBLE);
+            btnNext.setVisibility(View.INVISIBLE);
+            btnPrev.setVisibility(View.VISIBLE);
+        }else{
+            defaultInfo.setEnabled(true);
+            defaultInfo.setVisibility(View.VISIBLE);
+            btnNext.setVisibility(View.VISIBLE);
+            btnPrev.setVisibility(View.VISIBLE);
         }
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slideView.setCurrentItem(position++);
+            }
+        });
+        btnPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slideView.setCurrentItem(position--);
+            }
+        });
         slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -215,12 +245,26 @@ public class systemEquations extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                if (position < 7) {
+                if(position == 0){
                     defaultInfo.setEnabled(false);
                     defaultInfo.setVisibility(View.GONE);
-                } else {
+                    btnNext.setVisibility(View.VISIBLE);
+                    btnPrev.setVisibility(View.INVISIBLE);
+                }else if (position < 7 && position != 0) {
+                    defaultInfo.setEnabled(false);
+                    defaultInfo.setVisibility(View.GONE);
+                    btnNext.setVisibility(View.VISIBLE);
+                    btnPrev.setVisibility(View.VISIBLE);
+                } else if(position == 8){
                     defaultInfo.setEnabled(true);
                     defaultInfo.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.INVISIBLE);
+                    btnPrev.setVisibility(View.VISIBLE);
+                }else{
+                    defaultInfo.setEnabled(true);
+                    defaultInfo.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.VISIBLE);
+                    btnPrev.setVisibility(View.VISIBLE);
                 }
             }
 
