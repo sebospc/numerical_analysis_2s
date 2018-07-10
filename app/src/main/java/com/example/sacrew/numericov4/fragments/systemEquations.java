@@ -71,7 +71,6 @@ public class systemEquations extends Fragment {
     private LinearLayout defaultInfo;
     public FunctionStorage functionStorage;
     public File temp;
-    int position;
 
     public systemEquations() {
         // Required empty public constructor
@@ -216,18 +215,17 @@ public class systemEquations extends Fragment {
         fragments.add(seidel);
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
-        position = slideView.getCurrentItem();
-        if(position == 0){
+        if(slideView.getCurrentItem() == 0){
             defaultInfo.setEnabled(false);
             defaultInfo.setVisibility(View.GONE);
             btnNext.setVisibility(View.VISIBLE);
             btnPrev.setVisibility(View.INVISIBLE);
-        }else if (position < 7 && position != 0) {
+        }else if (slideView.getCurrentItem() < 7 && slideView.getCurrentItem() != 0) {
             defaultInfo.setEnabled(false);
             defaultInfo.setVisibility(View.GONE);
             btnNext.setVisibility(View.VISIBLE);
             btnPrev.setVisibility(View.VISIBLE);
-        } else if(position == 8){
+        } else if(slideView.getCurrentItem() == 8){
             defaultInfo.setEnabled(true);
             defaultInfo.setVisibility(View.VISIBLE);
             btnNext.setVisibility(View.INVISIBLE);
@@ -241,13 +239,13 @@ public class systemEquations extends Fragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                slideView.setCurrentItem(position++);
+                slideView.setCurrentItem(slideView.getCurrentItem()+1);
             }
         });
         btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                slideView.setCurrentItem(position--);
+                slideView.setCurrentItem(slideView.getCurrentItem()-1);
             }
         });
         slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -258,17 +256,17 @@ public class systemEquations extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                if(position == 0){
+                if(slideView.getCurrentItem() == 0){
                     defaultInfo.setEnabled(false);
                     defaultInfo.setVisibility(View.GONE);
                     btnNext.setVisibility(View.VISIBLE);
                     btnPrev.setVisibility(View.INVISIBLE);
-                }else if (position < 7 && position != 0) {
+                }else if (slideView.getCurrentItem() < 7 && slideView.getCurrentItem() != 0) {
                     defaultInfo.setEnabled(false);
                     defaultInfo.setVisibility(View.GONE);
                     btnNext.setVisibility(View.VISIBLE);
                     btnPrev.setVisibility(View.VISIBLE);
-                } else if(position == 8){
+                } else if(slideView.getCurrentItem() == 8){
                     defaultInfo.setEnabled(true);
                     defaultInfo.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.INVISIBLE);

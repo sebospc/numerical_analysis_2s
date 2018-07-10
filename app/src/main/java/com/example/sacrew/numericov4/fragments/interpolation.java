@@ -18,6 +18,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
@@ -79,6 +80,8 @@ public class interpolation extends Fragment {
 
         vectors = view.findViewById(R.id.vectors);
         ViewPager slideView = view.findViewById(R.id.pager);
+        Button btnNext = view.findViewById(R.id.btnNext);
+        Button btnPrev = view.findViewById(R.id.btnPrev);
         interpolationGraph = view.findViewById(R.id.interpolationGraph);
         keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
         keyboardUtils.graph = interpolationGraph;
@@ -138,15 +141,46 @@ public class interpolation extends Fragment {
         fragments.add(new cubicSpline());
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
+        if(slideView.getCurrentItem() == 0){
+            btnNext.setVisibility(View.VISIBLE);
+            btnPrev.setVisibility(View.INVISIBLE);
+        }else if (slideView.getCurrentItem() == 4){
+            btnNext.setVisibility(View.INVISIBLE);
+            btnPrev.setVisibility(View.VISIBLE);
+        }else{
+            btnNext.setVisibility(View.VISIBLE);
+            btnPrev.setVisibility(View.VISIBLE);
+        }
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slideView.setCurrentItem(slideView.getCurrentItem()+1);
+            }
+        });
+        btnPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slideView.setCurrentItem(slideView.getCurrentItem()-1);
+            }
+        });
         slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                SuperActivityToast.cancelAllSuperToasts();
             }
 
             @Override
             public void onPageSelected(int position) {
-                SuperActivityToast.cancelAllSuperToasts();
+                if(slideView.getCurrentItem() == 0){
+                    btnNext.setVisibility(View.VISIBLE);
+                    btnPrev.setVisibility(View.INVISIBLE);
+                }else if (slideView.getCurrentItem() == 4){
+                    btnNext.setVisibility(View.INVISIBLE);
+                    btnPrev.setVisibility(View.VISIBLE);
+                }else{
+                    btnNext.setVisibility(View.VISIBLE);
+                    btnPrev.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

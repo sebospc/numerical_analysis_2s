@@ -63,6 +63,11 @@
     </string>
 
     <string name="test_string">X&lt;sup&gt;n&lt;/sup&gt;</string>
+    <string name="my_functions">My functions</string>
+    <string name="todo">TODO</string>
+    <string name="f_x">f(x)</string>
+    <string name="_123">123</string>
+    <string name="x">x</string>
 
     <string-array name="items_per_page">
         <item>10</item>
