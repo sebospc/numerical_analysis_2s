@@ -55,7 +55,6 @@ public class oneVariable extends Fragment {
     public File temp;
     private boolean isup;
     private RelativeLayout hiderB;
-    int position;
 
     public oneVariable() {
         // Required empty public constructor
@@ -126,13 +125,12 @@ public class oneVariable extends Fragment {
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
         LinearLayout subBasicSection = view.findViewById(R.id.subBasicSection);
-        position = slideView.getCurrentItem();
-        if (position == 0) {
+        if (slideView.getCurrentItem() == 0) {
             subBasicSection.setEnabled(false);
             subBasicSection.setVisibility(View.GONE);
             btnNext.setVisibility(View.VISIBLE);
             btnPrev.setVisibility(View.INVISIBLE);
-        } else if(position == 6){
+        } else if(slideView.getCurrentItem() == 6){
             subBasicSection.setEnabled(true);
             subBasicSection.setVisibility(View.VISIBLE);
             btnNext.setVisibility(View.INVISIBLE);
@@ -146,13 +144,13 @@ public class oneVariable extends Fragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    slideView.setCurrentItem(position++);
+                    slideView.setCurrentItem(slideView.getCurrentItem()+1);
             }
         });
         btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    slideView.setCurrentItem(position--);
+                    slideView.setCurrentItem(slideView.getCurrentItem()-1);
             }
         });
 
