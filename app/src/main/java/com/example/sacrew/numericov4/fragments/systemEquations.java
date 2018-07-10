@@ -42,9 +42,12 @@ import com.example.sacrew.numericov4.utils.FunctionStorage;
 import com.example.sacrew.numericov4.utils.KeyboardUtils;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 
+
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
 
 
 /**
@@ -65,7 +68,6 @@ public class systemEquations extends Fragment {
     public static LinearLayout xIndex;
     public static String[][] matrixBackpack;
     public static Boolean pivoted = false;
-    public KeyboardUtils keyboardUtils;
     private int count;
     private LinearLayout initialValues;
     private LinearLayout defaultInfo;

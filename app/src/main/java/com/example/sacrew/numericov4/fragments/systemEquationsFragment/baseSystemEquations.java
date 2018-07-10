@@ -26,6 +26,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.sacrew.numericov4.fragments.oneVariable;
 import com.github.johnpersano.supertoasts.library.Style;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 
@@ -496,6 +497,7 @@ public abstract class baseSystemEquations extends Fragment {
                         EditText aux = ((EditText) ((TableRow) matrixAText.getChildAt(i)).getChildAt(j));
                         aux.setKeyListener(null);
                         aux.setInputType(InputType.TYPE_NULL);
+                        oneVariable.keyboardUtils.closeInternalKeyboard();
                         aux.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

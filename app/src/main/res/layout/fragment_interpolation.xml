@@ -195,73 +195,74 @@
                     android:background="@drawable/ic_next" />
             </LinearLayout>
         </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/tabKeyboard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:orientation="vertical">
+            android:layout_height="30dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/tabKeyboard"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                app:tabIndicatorHeight="0dp"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/whiteLight">
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tabLayout"
+                <android.support.design.widget.TabItem
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabMode="fixed"
-                    app:tabSelectedTextColor="@color/whiteLight">
+                    android:layout_height="wrap_content"
+                    android:text="@string/_123" />
 
-                    <android.support.design.widget.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/_123" />
-
-                    <android.support.design.widget.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/f_x" />
-
-                    <android.support.design.widget.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/my_functions" />
-                </android.support.design.widget.TabLayout>
-            </LinearLayout>
-
-            <android.inputmethodservice.KeyboardView
-
-                android:id="@+id/keyboardView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@color/colorPrimaryDark"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:keyBackground="@drawable/selector"
-                android:visibility="gone" />
-
-            <ScrollView
-                android:id="@+id/scrollKeyboard"
-                android:layout_width="match_parent"
-                android:layout_height="150dp">
-
-                <HorizontalScrollView
+                <android.support.design.widget.TabItem
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="@string/f_x" />
 
-                    <LinearLayout
-                        android:id="@+id/myFunctions"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-                </HorizontalScrollView>
-            </ScrollView>
-
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_functions" />
+            </android.support.design.widget.TabLayout>
         </LinearLayout>
+
+        <android.inputmethodservice.KeyboardView
+
+            android:id="@+id/keyboardView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/colorPrimaryDark"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:keyBackground="@drawable/selector"
+            android:visibility="gone" />
+
+        <ScrollView
+            android:id="@+id/scrollKeyboard"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/myFunctions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </HorizontalScrollView>
+        </ScrollView>
+
     </LinearLayout>
 
 

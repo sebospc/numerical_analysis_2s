@@ -44,6 +44,7 @@ import java.util.Objects;
 import at.markushi.ui.CircleButton;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
 
 
 /**
@@ -62,7 +63,6 @@ public class graphFragment extends Fragment {
                     SuperActivityToast.cancelAllSuperToasts();
                 }
             };
-    public KeyboardUtils keyboardUtils;
     public File temp;
     public FunctionStorage functionStorage;
     private GraphView graph;

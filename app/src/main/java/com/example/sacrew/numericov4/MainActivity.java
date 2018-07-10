@@ -35,8 +35,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Objects;
 
-import static com.example.sacrew.numericov4.fragments.systemEquations.animatorSet;
-
 public class MainActivity extends AppCompatActivity {
     private final String homeInformation = "If you want to report some bug, you can do it in <a href=\"https://github.com/sebospc/numericoV4\">Github Official Project</a> ," +
             " in the Play Store" +
@@ -310,27 +308,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (graphFragment.keyboardUtils != null) {
-            if (graphFragment.keyboardUtils.isUp) {
-                graphFragment.keyboardUtils.closeInternalKeyboard();
-                return;
-            }
-        }
         if (oneVariable.keyboardUtils != null) {
             if (oneVariable.keyboardUtils.isUp) {
                 oneVariable.keyboardUtils.closeInternalKeyboard();
-                return;
-            }
-        }
-        if (systemEquationsFragment.keyboardUtils != null) {
-            if (systemEquationsFragment.keyboardUtils.isUp) {
-                systemEquationsFragment.keyboardUtils.closeInternalKeyboard();
-                return;
-            }
-        }
-        if (interpolationFragment.keyboardUtils != null) {
-            if (interpolationFragment.keyboardUtils.isUp) {
-                interpolationFragment.keyboardUtils.closeInternalKeyboard();
                 return;
             }
         }

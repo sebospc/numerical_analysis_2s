@@ -48,6 +48,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.example.sacrew.numericov4.fragments.homeFragment.poolColors;
+import static com.example.sacrew.numericov4.fragments.oneVariable.keyboardUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +60,6 @@ public class interpolation extends Fragment {
     public static GraphView interpolationGraph;
     private final graphUtils graphUtils = new graphUtils();
     private final HashMap<EditText, Pair<PointsGraphSeries<DataPoint>, Integer>> viewToPoint = new HashMap<>();
-    public KeyboardUtils keyboardUtils;
     public FunctionStorage functionStorage;
     public File temp;
     private int count = 3;
