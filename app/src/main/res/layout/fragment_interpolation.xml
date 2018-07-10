@@ -17,7 +17,7 @@
         <RelativeLayout
             android:id="@+id/auxRel"
             android:layout_width="match_parent"
-            android:layout_height="696dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.65"
             android:orientation="horizontal">
 
@@ -132,7 +132,7 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/interpolationGraph"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="match_parent"
                 android:cacheColorHint="#ff000000" />
 
             <ImageButton
@@ -152,7 +152,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="330dp"
+            android:layout_height="300dp"
             android:layout_weight="0.35">
 
             <android.support.v4.view.ViewPager
