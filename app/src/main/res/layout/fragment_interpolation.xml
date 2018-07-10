@@ -9,107 +9,108 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <RelativeLayout
-        android:id="@+id/auxRel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.65"
-        android:orientation="horizontal">
-
 
         <RelativeLayout
+            android:id="@+id/auxRel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_height="620dp"
+            android:layout_weight="0.65"
+            android:orientation="horizontal">
 
-
-            <ImageButton
-                android:id="@+id/addRow"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_add_black_24dp" />
-
-            <Space
-                android:id="@+id/space2"
-                android:layout_width="100dp"
-                android:layout_height="0dp"
-                android:layout_toEndOf="@+id/addRow"
-                android:layout_toRightOf="@+id/addRow" />
-
-            <ImageButton
-                android:id="@+id/deleteRow"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/space2"
-                android:layout_toRightOf="@+id/space2"
-                android:src="@drawable/ic_remove_black_24dp" />
 
             <RelativeLayout
-                android:windowSoftInputMode="adjustPan"
-                android:id="@+id/relativeLayout3"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_below="@+id/addRow"
-                android:layout_toEndOf="@+id/addRow"
-                android:layout_toRightOf="@+id/addRow">
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
-                <ScrollView
+
+                <ImageButton
+                    android:id="@+id/addRow"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/ic_add_black_24dp" />
+
+                <Space
+                    android:id="@+id/space2"
+                    android:layout_width="100dp"
+                    android:layout_height="0dp"
+                    android:layout_toEndOf="@+id/addRow"
+                    android:layout_toRightOf="@+id/addRow" />
+
+                <ImageButton
+                    android:id="@+id/deleteRow"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/space2"
+                    android:layout_toRightOf="@+id/space2"
+                    android:src="@drawable/ic_remove_black_24dp" />
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none">
+                    android:layout_height="80dp"
+                    android:layout_below="@+id/addRow"
+                    android:layout_toEndOf="@+id/addRow"
+                    android:layout_toRightOf="@+id/addRow"
+                    android:windowSoftInputMode="adjustPan">
 
-                    <HorizontalScrollView
-                        android:id="@+id/scrollView"
-                        android:layout_width="wrap_content"
+                    <ScrollView
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scrollbars="none">
 
-                        <TableLayout
-                            android:id="@+id/vectors"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </HorizontalScrollView>
-                </ScrollView>
+                        <HorizontalScrollView
+                            android:id="@+id/scrollView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:scrollbars="none">
+
+                            <TableLayout
+                                android:id="@+id/vectors"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </HorizontalScrollView>
+                    </ScrollView>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/addRow"
+                    android:layout_toLeftOf="@+id/relativeLayout3"
+                    android:text="x" />
+
+                <Space
+                    android:id="@+id/space"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView27" />
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/space"
+                    android:layout_toLeftOf="@+id/relativeLayout3"
+                    android:text="f(x)" />
+
 
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/addRow"
-                android:layout_toLeftOf="@+id/relativeLayout3"
-                android:text="x" />
-
-            <Space
-                android:id="@+id/space"
-                android:layout_width="wrap_content"
-                android:layout_height="37dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView27" />
-
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/space"
-                android:layout_toLeftOf="@+id/relativeLayout3"
-                android:text="f(x)" />
-
-
         </RelativeLayout>
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -119,7 +120,7 @@
         <com.jjoe64.graphview.GraphView
             android:id="@+id/interpolationGraph"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="300dp"
             android:cacheColorHint="#ff000000" />
 
         <ImageButton
@@ -136,89 +137,127 @@
             android:src="@drawable/ic_gps_fixed_black_24dp" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_weight="0.7"
-        android:fadingEdgeLength="0dp"
-        android:fillViewport="true"
-        android:overScrollMode="never" >
-
-
-    </android.support.v4.view.ViewPager>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/tabKeyboard"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal">
+            android:layout_height="330dp"
+            android:layout_weight="0.35">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:tabIndicatorHeight="0dp"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/whiteLight">
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="0.7"
+                android:fadingEdgeLength="0dp"
+                android:fillViewport="true"
+                android:overScrollMode="never">
 
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="123" />
 
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="f(x)" />
+            </android.support.v4.view.ViewPager>
 
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="My functions" />
-            </android.support.design.widget.TabLayout>
-        </LinearLayout>
-
-        <android.inputmethodservice.KeyboardView
-
-            android:id="@+id/keyboardView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@color/colorPrimaryDark"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:keyBackground="@drawable/selector"
-            android:visibility="gone" />
-
-        <ScrollView
-            android:id="@+id/scrollKeyboard"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
-
-            <HorizontalScrollView
+            <Space
+                android:id="@+id/spaceOnVariable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="40dp" />
 
-                <LinearLayout
-                    android:id="@+id/myFunctions"
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnPrev"
+                    android:layout_width="50dp"
+                    android:layout_height="37dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_previous" />
+
+                <TextView
+                    android:id="@+id/textView59"
+                    android:layout_width="321dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </HorizontalScrollView>
-        </ScrollView>
+                    android:layout_weight="1" />
 
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="50dp"
+                    android:layout_height="37dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_next" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/tabKeyboard"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/whiteLight">
+
+                    <android.support.design.widget.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="123" />
+
+                    <android.support.design.widget.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="f(x)" />
+
+                    <android.support.design.widget.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="My functions" />
+                </android.support.design.widget.TabLayout>
+            </LinearLayout>
+
+            <android.inputmethodservice.KeyboardView
+
+                android:id="@+id/keyboardView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/colorPrimaryDark"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:keyBackground="@drawable/selector"
+                android:visibility="gone" />
+
+            <ScrollView
+                android:id="@+id/scrollKeyboard"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/myFunctions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </HorizontalScrollView>
+            </ScrollView>
+
+        </LinearLayout>
     </LinearLayout>
+
+
 </RelativeLayout>
