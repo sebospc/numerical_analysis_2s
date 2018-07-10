@@ -7,14 +7,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="30dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="366dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_next"
             android:gravity="center"
             android:text="Incremental Search"
             android:textSize="24sp"
@@ -39,7 +39,7 @@
             <EditText
                 android:id="@+id/x_value"
                 android:layout_width="33dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="x"
                 android:scrollHorizontally="true"
@@ -48,7 +48,7 @@
             <EditText
                 android:id="@+id/delta"
                 android:layout_width="54dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Delta"
                 android:scrollHorizontally="true"
                 android:singleLine="true" />
