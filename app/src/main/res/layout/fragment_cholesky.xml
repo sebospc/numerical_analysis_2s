@@ -13,8 +13,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="53dp"
-            android:drawableLeft="@drawable/ic_previous"
-            android:drawableRight="@drawable/ic_next"
             android:gravity="center"
             android:text="Cholesky"
             android:textSize="24sp"

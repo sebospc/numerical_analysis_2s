@@ -55,12 +55,14 @@ public class oneVariable extends Fragment {
     public File temp;
     private boolean isup;
     private RelativeLayout hiderB;
+    int position;
 
     public oneVariable() {
         // Required empty public constructor
     }
 
 
+    @SuppressLint("WrongConstant")
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -73,6 +75,8 @@ public class oneVariable extends Fragment {
         keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
         isup = false;
         Button hider = view.findViewById(R.id.buttonHide);
+        Button btnNext = view.findViewById(R.id.btnNext);
+        Button btnPrev = view.findViewById(R.id.btnPrev);
         hider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,14 +126,35 @@ public class oneVariable extends Fragment {
         pagerAdapter pager = new pagerAdapter(getChildFragmentManager(), fragments);
         slideView.setAdapter(pager);
         LinearLayout subBasicSection = view.findViewById(R.id.subBasicSection);
-        int position = slideView.getCurrentItem();
+        position = slideView.getCurrentItem();
         if (position == 0) {
             subBasicSection.setEnabled(false);
             subBasicSection.setVisibility(View.GONE);
+            btnNext.setVisibility(View.VISIBLE);
+            btnPrev.setVisibility(View.INVISIBLE);
+        } else if(position == 6){
+            subBasicSection.setEnabled(true);
+            subBasicSection.setVisibility(View.VISIBLE);
+            btnNext.setVisibility(View.INVISIBLE);
+            btnPrev.setVisibility(View.VISIBLE);
         } else {
             subBasicSection.setEnabled(true);
             subBasicSection.setVisibility(View.VISIBLE);
+            btnNext.setVisibility(View.VISIBLE);
+            btnPrev.setVisibility(View.VISIBLE);
         }
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    slideView.setCurrentItem(position++);
+            }
+        });
+        btnPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    slideView.setCurrentItem(position--);
+            }
+        });
 
         slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -142,9 +167,18 @@ public class oneVariable extends Fragment {
                 if (position == 0) {
                     subBasicSection.setEnabled(false);
                     subBasicSection.setVisibility(View.GONE);
-                } else {
+                    btnNext.setVisibility(View.VISIBLE);
+                    btnPrev.setVisibility(View.INVISIBLE);
+                }else  if(position == 6){
                     subBasicSection.setEnabled(true);
                     subBasicSection.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.INVISIBLE);
+                    btnPrev.setVisibility(View.VISIBLE);
+                }else {
+                    subBasicSection.setEnabled(true);
+                    subBasicSection.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.VISIBLE);
+                    btnPrev.setVisibility(View.VISIBLE);
                 }
 
             }

@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
             graphFragment.temp = temp;
             graphFragment.functionStorage = functionStorage;
             graphFragment.functionStorage.functions.isEmpty();
-            oneVariableFragment.temp = temp;
             oneVariableFragment.functionStorage = functionStorage;
 
         } catch (IOException e) {
