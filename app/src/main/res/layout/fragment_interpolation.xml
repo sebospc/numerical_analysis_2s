@@ -17,7 +17,7 @@
         <RelativeLayout
             android:id="@+id/auxRel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.65"
             android:orientation="horizontal">
 
@@ -152,8 +152,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_weight="0.35">
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
