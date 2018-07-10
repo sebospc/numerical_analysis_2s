@@ -38,7 +38,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     private final String homeInformation = "If you want to report some bug, you can do it in <a href=\"https://github.com/sebospc/numericoV4\">Github Official Project</a> ," +
             " in the Play Store" +
-            " or send us an email!";
+            " or send us an email.";
     private ListView menuLateral;
     private DrawerLayout drawerLayout;
     private graphFragment graphFragment;

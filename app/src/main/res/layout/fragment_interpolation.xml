@@ -6,7 +6,9 @@
     android:orientation="vertical"
     tools:context="com.example.sacrew.numericov4.fragments.interpolation">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +17,7 @@
         <RelativeLayout
             android:id="@+id/auxRel"
             android:layout_width="match_parent"
-            android:layout_height="620dp"
+            android:layout_height="696dp"
             android:layout_weight="0.65"
             android:orientation="horizontal">
 
@@ -65,7 +67,9 @@
                     android:layout_toRightOf="@+id/addRow"
                     android:windowSoftInputMode="adjustPan">
 
-                    <ScrollView
+                    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:tools="http://schemas.android.com/tools"
                         android:id="@+id/scroll"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

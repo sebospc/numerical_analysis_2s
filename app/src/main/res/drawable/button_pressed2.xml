@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/icon_expand" android:state_pressed="false">
+    <item android:drawable="@drawable/icon_expand_1" android:state_pressed="false">
         <shape>
             <solid android:color="@color/Transparent" />
             <stroke android:width="2dp" android:color="@color/Transparent" />
@@ -8,7 +8,7 @@
         </shape>
 
     </item>
-    <item android:drawable="@drawable/icon_expand" android:state_pressed="true">
+    <item android:drawable="@drawable/icon_expand_2" android:state_pressed="true">
         <shape>
             <gradient android:angle="270" android:endColor="@color/Transparent" android:startColor="@color/Transparent" />
             <corners android:radius="7dp" />
