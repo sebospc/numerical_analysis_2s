@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private final AdapterView.OnItemClickListener adap = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
             switch (i) {
                 case 0:
                     openHome();
@@ -122,11 +123,18 @@ public class MainActivity extends AppCompatActivity {
                 if (func.functions != null)
                     functionStorage.functions = func.functions;
             }
-            functionStorage.functions.isEmpty();
+
             graphFragment.temp = temp;
             graphFragment.functionStorage = functionStorage;
-            graphFragment.functionStorage.functions.isEmpty();
+
+            oneVariableFragment.temp = temp;
             oneVariableFragment.functionStorage = functionStorage;
+
+            systemEquationsFragment.temp = temp;
+            systemEquationsFragment.functionStorage = functionStorage;
+
+            interpolationFragment.temp = temp;
+            interpolationFragment.functionStorage = functionStorage;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -155,12 +163,7 @@ public class MainActivity extends AppCompatActivity {
         if (idFragment != 0) {
             aBar.setTitle("Numerical Analysis 2S");
             extraInformation = "If you liked the application you can make a <a href=\"https://www.paypal.me/sandscompany\">donation</a>! <br><br>" + homeInformation;
-            /*
-             * remove animations of system equations
-             */
-            animatorSet.removeAllListeners();
-            animatorSet.end();
-            animatorSet.cancel();
+
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment != null)
                     getSupportFragmentManager().beginTransaction().remove(fragment).commit();
@@ -190,9 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
-            animatorSet.removeAllListeners();
-            animatorSet.end();
-            animatorSet.cancel();
+
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment != null)
                     getSupportFragmentManager().beginTransaction().remove(fragment).commit();
@@ -223,9 +224,6 @@ public class MainActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
-            animatorSet.removeAllListeners();
-            animatorSet.end();
-            animatorSet.cancel();
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment != null)
                     getSupportFragmentManager().beginTransaction().remove(fragment).commit();

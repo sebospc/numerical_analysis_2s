@@ -101,9 +101,7 @@ public class gaussSimple extends baseSystemEquations {
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                animatorSet.removeAllListeners();
-                animatorSet.end();
-                animatorSet.cancel();
+
                 begin();
                 if(calc) {
                     pauseOrResume.setEnabled(true);

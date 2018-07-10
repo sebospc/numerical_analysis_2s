@@ -14,6 +14,7 @@ import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.TextViewCompat;
+import android.text.InputType;
 import android.text.method.DigitsKeyListener;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -68,9 +69,11 @@ public abstract class baseSystemEquations extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     void begin() {
-        animatorSet.removeAllListeners();
-        animatorSet.end();
-        animatorSet.cancel();
+        if(animatorSet != null) {
+            animatorSet.removeAllListeners();
+            animatorSet.end();
+            animatorSet.cancel();
+        }
         double[][] expandedMatrix = getMatrix();
         if (expandedMatrix != null)
             bootStrap(expandedMatrix);
@@ -492,6 +495,7 @@ public abstract class baseSystemEquations extends Fragment {
                     for (int j = 0; j < matrixAText.getChildCount(); j++) {
                         EditText aux = ((EditText) ((TableRow) matrixAText.getChildAt(i)).getChildAt(j));
                         aux.setKeyListener(null);
+                        aux.setInputType(InputType.TYPE_NULL);
                         aux.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -511,7 +515,28 @@ public abstract class baseSystemEquations extends Fragment {
                             }
                         });
                     }
-                    ((EditText) bValuesText.getChildAt(i)).setKeyListener(null);
+
+                    EditText aux = ((EditText) bValuesText.getChildAt(i));
+                    aux.setKeyListener(null);
+                    aux.setInputType(InputType.TYPE_NULL);
+                    aux.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    aux.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+
+                        }
+                    });
+                    aux.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            return false;
+                        }
+                    });
                 }
                 for (int i = 0; i < expandedMatrix.length; i++) {
                     totalPivot(i, expandedMatrix, marks, matrixAText, defaultColor, true);

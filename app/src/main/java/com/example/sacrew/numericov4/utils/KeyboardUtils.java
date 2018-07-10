@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +97,7 @@ public class KeyboardUtils {
         KeyboardView.OnKeyboardActionListener keyboardActionListener = new KeyboardView.OnKeyboardActionListener() {
             @Override
             public void onPress(int primaryCode) {
+                view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
                 switch (primaryCode) {
                     case removeToLeft:
                         deleteLast(actualEditText);
@@ -109,6 +112,8 @@ public class KeyboardUtils {
 
             @Override
             public void onKey(int primaryCode, int[] keyCodes) {
+
+
 
                 if (actualEditText == null) return;
                 switch (primaryCode) {
@@ -351,6 +356,7 @@ public class KeyboardUtils {
         aux.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+
                 if (hasFocus) {
                     Objects.requireNonNull(((TabLayout) tabLayoutKeyboard.getChildAt(0)).getTabAt(0)).select();
                     showKeyBoard();
@@ -383,6 +389,7 @@ public class KeyboardUtils {
                 return true;
             }
         });
+
 
 
     }

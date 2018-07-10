@@ -111,9 +111,6 @@ public class cholesky extends baseFactorizationMethods {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                animatorSet.removeAllListeners();
-                animatorSet.end();
-                animatorSet.cancel();
                 begin();
                 if(calc) {
                     pauseOrResume.setEnabled(true);

@@ -38,9 +38,11 @@ import com.example.sacrew.numericov4.fragments.systemEquationsFragment.jacobi;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.partialPivoting;
 import com.example.sacrew.numericov4.fragments.systemEquationsFragment.totalPivoting;
 import com.example.sacrew.numericov4.pagerAdapter;
+import com.example.sacrew.numericov4.utils.FunctionStorage;
 import com.example.sacrew.numericov4.utils.KeyboardUtils;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,6 +69,8 @@ public class systemEquations extends Fragment {
     private int count;
     private LinearLayout initialValues;
     private LinearLayout defaultInfo;
+    public FunctionStorage functionStorage;
+    public File temp;
     int position;
 
     public systemEquations() {
@@ -86,6 +90,7 @@ public class systemEquations extends Fragment {
 
         //KeyboardUtils keyboardUtils = new KeyboardUtils(view,R.id.keyboardView);
         keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
+
         defaultInfo = view.findViewById(R.id.defaultInfo);
         initialValues = view.findViewById(R.id.initialValues);
         ImageButton add = view.findViewById(R.id.addRow);
@@ -162,9 +167,13 @@ public class systemEquations extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 SuperActivityToast.cancelAllSuperToasts();
-                animatorSet.removeAllListeners();
-                animatorSet.end();
-                animatorSet.cancel();
+                if(animatorSet != null ) {
+                    animatorSet.removeAllListeners();
+                    animatorSet.end();
+                    animatorSet.cancel();
+                    animations = null;
+                    animatorSet = null;
+                }
             }
 
             @Override
@@ -282,7 +291,7 @@ public class systemEquations extends Fragment {
         times.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (animatorSet != null) {
+                if (animatorSet != null && animations != null) {
                     animatorSet.cancel();
                     animatorSet = new AnimatorSet();
                     animatorSet.playSequentially(animations);
@@ -302,6 +311,9 @@ public class systemEquations extends Fragment {
 
             }
         });
+
+        for (String function : functionStorage.functions)
+            keyboardUtils.addFunction(function, getContext(), functionStorage, temp);
         return view;
     }
 

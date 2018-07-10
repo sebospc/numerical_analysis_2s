@@ -30,6 +30,7 @@ import com.example.sacrew.numericov4.fragments.interpolationFragments.linearSpli
 import com.example.sacrew.numericov4.fragments.interpolationFragments.newtonInterpolator;
 import com.example.sacrew.numericov4.fragments.interpolationFragments.quadraticSpline;
 import com.example.sacrew.numericov4.pagerAdapter;
+import com.example.sacrew.numericov4.utils.FunctionStorage;
 import com.example.sacrew.numericov4.utils.KeyboardUtils;
 import com.example.sacrew.numericov4.utils.graphUtils;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
@@ -40,6 +41,7 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import org.matheclipse.core.eval.ExprEvaluator;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,6 +59,8 @@ public class interpolation extends Fragment {
     private final graphUtils graphUtils = new graphUtils();
     private final HashMap<EditText, Pair<PointsGraphSeries<DataPoint>, Integer>> viewToPoint = new HashMap<>();
     public KeyboardUtils keyboardUtils;
+    public FunctionStorage functionStorage;
+    public File temp;
     private int count = 3;
 
     public interpolation() {
@@ -164,6 +168,9 @@ public class interpolation extends Fragment {
         interpolationGraph.getViewport().setScalable(true);// esto genera errores se podria solucionar pero
         interpolationGraph.getViewport().setScalableY(true);// es complejo, es para el zoom
         new ExprEvaluator();
+
+        for (String function : functionStorage.functions)
+            keyboardUtils.addFunction(function, getContext(), functionStorage, temp);
         return view;
     }
 
