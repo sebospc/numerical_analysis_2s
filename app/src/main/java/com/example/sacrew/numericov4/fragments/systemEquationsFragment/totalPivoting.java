@@ -103,12 +103,14 @@ public class totalPivoting extends baseSystemEquations {
                 animatorSet.end();
                 animatorSet.cancel();
                 begin();
-                pauseOrResume.setEnabled(true);
-                pauseOrResume.setVisibility(View.VISIBLE);
-                stages.setEnabled(true);
-                stages.setVisibility(View.VISIBLE);
-                animatorSet.playSequentially(animations);
-                animatorSet.start();
+                if(calc) {
+                    pauseOrResume.setEnabled(true);
+                    pauseOrResume.setVisibility(View.VISIBLE);
+                    stages.setEnabled(true);
+                    stages.setVisibility(View.VISIBLE);
+                    animatorSet.playSequentially(animations);
+                    animatorSet.start();
+                }
             }
 
         });
@@ -133,7 +135,7 @@ public class totalPivoting extends baseSystemEquations {
 
         animatorSet = new AnimatorSet();
         animations = new LinkedList<>();
-
+        calc = true;
         for (int k = 0; k < expandedMatrix.length - 1; k++) {
             List<String> multipliers = new LinkedList<>();
             final int auxk = k;

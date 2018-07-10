@@ -115,12 +115,14 @@ public class cholesky extends baseFactorizationMethods {
                 animatorSet.end();
                 animatorSet.cancel();
                 begin();
-                pauseOrResume.setEnabled(true);
-                pauseOrResume.setVisibility(View.VISIBLE);
-                stages.setEnabled(true);
-                stages.setVisibility(View.VISIBLE);
-                animatorSet.playSequentially(animations);
-                animatorSet.start();
+                if(calc) {
+                    pauseOrResume.setEnabled(true);
+                    pauseOrResume.setVisibility(View.VISIBLE);
+                    stages.setEnabled(true);
+                    stages.setVisibility(View.VISIBLE);
+                    animatorSet.playSequentially(animations);
+                    animatorSet.start();
+                }
             }
 
         });
@@ -166,6 +168,7 @@ public class cholesky extends baseFactorizationMethods {
         matrixUText.removeAllViews();
         matrixLCholesky = new Complex[expandedMatrix.length][expandedMatrix.length + 1];
         matrixUCholesky = new Complex[expandedMatrix.length][expandedMatrix.length + 1];
+        calc = true;
         for (int i = 0; i < matrixLCholesky.length; i++) {
             TableRow rowU = new TableRow(getContext());
             TableRow rowL = new TableRow(getContext());

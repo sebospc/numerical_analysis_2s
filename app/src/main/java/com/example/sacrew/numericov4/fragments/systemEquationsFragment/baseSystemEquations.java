@@ -17,6 +17,7 @@ import android.support.v4.widget.TextViewCompat;
 import android.text.method.DigitsKeyListener;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -63,6 +64,7 @@ public abstract class baseSystemEquations extends Fragment {
     TableLayout matrixResult;
     private long playTime;
     private int startPosition;
+    boolean calc = false;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     void begin() {
@@ -72,6 +74,8 @@ public abstract class baseSystemEquations extends Fragment {
         double[][] expandedMatrix = getMatrix();
         if (expandedMatrix != null)
             bootStrap(expandedMatrix);
+        else
+            calc = false;
     }
 
     void stopAnimation() {
@@ -486,7 +490,26 @@ public abstract class baseSystemEquations extends Fragment {
                 backMAtrix.setVisibility(View.VISIBLE);
                 for (int i = 0; i < matrixAText.getChildCount(); i++) {
                     for (int j = 0; j < matrixAText.getChildCount(); j++) {
-                        ((EditText) ((TableRow) matrixAText.getChildAt(i)).getChildAt(j)).setKeyListener(null);
+                        EditText aux = ((EditText) ((TableRow) matrixAText.getChildAt(i)).getChildAt(j));
+                        aux.setKeyListener(null);
+                        aux.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        });
+                        aux.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                            @Override
+                            public void onFocusChange(View v, boolean hasFocus) {
+
+                            }
+                        });
+                        aux.setOnTouchListener(new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                return false;
+                            }
+                        });
                     }
                     ((EditText) bValuesText.getChildAt(i)).setKeyListener(null);
                 }
@@ -534,7 +557,7 @@ public abstract class baseSystemEquations extends Fragment {
         for (double[] v : matrix) {
             TableRow aux = new TableRow(context);
             for (double val : v) {
-                aux.addView(defaultTextView((String.valueOf(val) + "         ").substring(0, 6)));
+                aux.addView(defaultTextView((String.valueOf(val <= Math.pow(10, -13) ? 0.0 : val) + "         ").substring(0, 6)));
             }
             matrixResult.addView(aux);
         }

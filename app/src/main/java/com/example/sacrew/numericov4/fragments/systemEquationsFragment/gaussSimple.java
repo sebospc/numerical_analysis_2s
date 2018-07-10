@@ -105,12 +105,15 @@ public class gaussSimple extends baseSystemEquations {
                 animatorSet.end();
                 animatorSet.cancel();
                 begin();
-                pauseOrResume.setEnabled(true);
-                pauseOrResume.setVisibility(View.VISIBLE);
-                stages.setEnabled(true);
-                stages.setVisibility(View.VISIBLE);
-                animatorSet.playSequentially(animations);
-                animatorSet.start();
+                if(calc) {
+                    pauseOrResume.setEnabled(true);
+                    pauseOrResume.setVisibility(View.VISIBLE);
+                    stages.setEnabled(true);
+                    stages.setVisibility(View.VISIBLE);
+                    animatorSet.playSequentially(animations);
+                    animatorSet.start();
+                }
+
             }
 
         });
@@ -132,7 +135,7 @@ public class gaussSimple extends baseSystemEquations {
         contentStages.setOrientation(LinearLayout.VERTICAL);
         animatorSet = new AnimatorSet();
         animations = new LinkedList<>();
-
+        calc = true;
         for (int k = 0; k < expandedMatrix.length - 1; k++) {
             List<String> multipliers = new LinkedList<>();
             final int auxk = k;
@@ -213,6 +216,8 @@ public class gaussSimple extends baseSystemEquations {
 
 
         substitution(expandedMatrix);
+
+
     }
 
 

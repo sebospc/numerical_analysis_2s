@@ -110,12 +110,14 @@ public class Croult extends baseFactorizationMethods {
                 animatorSet.end();
                 animatorSet.cancel();
                 begin();
-                pauseOrResume.setEnabled(true);
-                pauseOrResume.setVisibility(View.VISIBLE);
-                stages.setEnabled(true);
-                stages.setVisibility(View.VISIBLE);
-                animatorSet.playSequentially(animations);
-                animatorSet.start();
+                if(calc) {
+                    pauseOrResume.setEnabled(true);
+                    pauseOrResume.setVisibility(View.VISIBLE);
+                    stages.setEnabled(true);
+                    stages.setVisibility(View.VISIBLE);
+                    animatorSet.playSequentially(animations);
+                    animatorSet.start();
+                }
             }
 
         });
@@ -143,6 +145,7 @@ public class Croult extends baseFactorizationMethods {
         matrixUText.removeAllViews();
         matrixL = new double[expandedMatrix.length][expandedMatrix.length + 1];
         matrixU = new double[expandedMatrix.length][expandedMatrix.length + 1];
+        calc = true;
         for (int i = 0; i < expandedMatrix.length; i++) {
             matrixU[i][i] = 1;
         }
