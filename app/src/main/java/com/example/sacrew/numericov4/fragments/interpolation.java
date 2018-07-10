@@ -76,14 +76,6 @@ public class interpolation extends Fragment {
         vectors = view.findViewById(R.id.vectors);
         ViewPager slideView = view.findViewById(R.id.pager);
         interpolationGraph = view.findViewById(R.id.interpolationGraph);
-        keyboardUtils = new KeyboardUtils(view, R.id.keyboardView, getContext());
-        keyboardUtils.graph = interpolationGraph;
-        view.post(new Runnable() {
-            @Override
-            public void run() {
-                keyboardUtils.heighAuxGraph = interpolationGraph.getMeasuredHeight();
-            }
-        });
         ImageButton add = view.findViewById(R.id.addRow);
         ImageButton homeGraph = view.findViewById(R.id.homeGraphButton);
         final List<LineGraphSeries<DataPoint>> listSeries = graphUtils.graphPharallel(50, "x", 0);

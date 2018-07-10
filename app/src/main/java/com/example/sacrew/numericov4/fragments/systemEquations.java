@@ -179,8 +179,12 @@ public class systemEquations extends Fragment {
         fragments.add(new cholesky());
         fragments.add(new inverseDeterminant());
         EditText relaxation = view.findViewById(R.id.relaxation);
+        keyboardUtils.registerEdittext(relaxation,getContext(),getActivity());
         EditText iters = view.findViewById(R.id.iterations);
+        keyboardUtils.registerEdittext(iters,getContext(),getActivity());
         EditText error = view.findViewById(R.id.error);
+        keyboardUtils.registerEdittext(error,getContext(),getActivity());
+
         ToggleButton toggleError = view.findViewById(R.id.errorToggle);
         jacobi jacob = new jacobi();
         jacob.relaxation = relaxation;
