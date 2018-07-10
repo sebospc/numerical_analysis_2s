@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.sacrew.numericov4.fragments.interpolation">
+
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -19,6 +21,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/relativeLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
@@ -33,6 +36,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add_black_24dp" />
 
                 <Space
@@ -49,6 +53,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_toEndOf="@+id/space2"
                     android:layout_toRightOf="@+id/space2"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/ic_remove_black_24dp" />
 
                 <RelativeLayout
@@ -60,7 +65,10 @@
                     android:layout_toRightOf="@+id/addRow"
                     android:windowSoftInputMode="adjustPan">
 
-                    <ScrollView
+                    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/scroll"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scrollbars="none">
@@ -68,12 +76,12 @@
                         <HorizontalScrollView
                             android:id="@+id/scrollView"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:scrollbars="none">
 
                             <TableLayout
                                 android:id="@+id/vectors"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                         </HorizontalScrollView>
                     </ScrollView>
@@ -88,7 +96,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/addRow"
                     android:layout_toLeftOf="@+id/relativeLayout3"
-                    android:text="x" />
+                    android:layout_toStartOf="@+id/relativeLayout3"
+                    android:text="@string/x" />
 
                 <Space
                     android:id="@+id/space"
@@ -106,36 +115,38 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/space"
                     android:layout_toLeftOf="@+id/relativeLayout3"
-                    android:text="f(x)" />
+                    android:layout_toStartOf="@+id/relativeLayout3"
+                    android:text="@string/f_x" />
 
 
             </RelativeLayout>
         </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.35">
-
-        <com.jjoe64.graphview.GraphView
-            android:id="@+id/interpolationGraph"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:cacheColorHint="#ff000000" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.35">
 
-        <ImageButton
-            android:id="@+id/homeGraphButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="14dp"
-            android:background="@null"
-            android:src="@drawable/ic_gps_fixed_black_24dp" />
-    </RelativeLayout>
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/interpolationGraph"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:cacheColorHint="#ff000000" />
+
+            <ImageButton
+                android:id="@+id/homeGraphButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="14dp"
+                android:background="@null"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_gps_fixed_black_24dp" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -148,7 +159,6 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_weight="0.7"
                 android:fadingEdgeLength="0dp"
                 android:fillViewport="true"
                 android:overScrollMode="never">
@@ -191,7 +201,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:background="@color/colorPrimaryDark"
             android:orientation="vertical">
 
@@ -212,17 +221,17 @@
                     <android.support.design.widget.TabItem
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="123" />
+                        android:text="@string/_123" />
 
                     <android.support.design.widget.TabItem
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="f(x)" />
+                        android:text="@string/f_x" />
 
                     <android.support.design.widget.TabItem
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="My functions" />
+                        android:text="@string/my_functions" />
                 </android.support.design.widget.TabLayout>
             </LinearLayout>
 
@@ -231,8 +240,6 @@
                 android:id="@+id/keyboardView"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:background="@color/colorPrimaryDark"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
@@ -246,11 +253,11 @@
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:id="@+id/myFunctions"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical" />
                 </HorizontalScrollView>
