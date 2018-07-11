@@ -388,7 +388,6 @@ public abstract class baseSystemEquations extends Fragment {
         int n = expandedMatrix.length - 1;
         double[] values = new double[n + 1];
         if (expandedMatrix[n][n] == 0) {
-            //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
             styleWrongMessage("Error division 0");
             return values;
         }
@@ -402,7 +401,6 @@ public abstract class baseSystemEquations extends Fragment {
                 sumatoria = sumatoria + expandedMatrix[auxi][p] * values[p];
             }
             if (expandedMatrix[auxi][auxi] == 0) {
-                //Toast.makeText(getContext(), "Error division 0", Toast.LENGTH_SHORT).show();
                 styleWrongMessage("Error division 0");
                 return values;
             }
@@ -431,7 +429,6 @@ public abstract class baseSystemEquations extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private double[][] totalPivot(int k, double[][] expandedMAtrix, int[] marks, TableLayout table, int color, boolean acces) {
         double mayor = 0.0;
-        String message;
         int higherRow = k;
         int higherColumn = k;
         for (int r = k; r < expandedMAtrix.length; r++) {
@@ -444,9 +441,8 @@ public abstract class baseSystemEquations extends Fragment {
             }
         }
         if (mayor == 0) {
-            // Toast.makeText(getContext(),  "Error division 0", Toast.LENGTH_SHORT).show();
-            message = "Error division 0";
-            styleWrongMessage(message);
+            if(!acces)
+                styleWrongMessage("Error division 0");
         } else {
             if (higherRow != k)
                 swapRows(k, higherRow, expandedMAtrix, table, color);
@@ -469,6 +465,7 @@ public abstract class baseSystemEquations extends Fragment {
         animations = new LinkedList<>();
         if (!pivoted) {
             if (expandedMatrix != null) {
+                pivoted = true;
                 xIndex.removeAllViews();
                 for (int i = 0; i < expandedMatrix.length; i++) {
                     xIndex.addView(defaultTextView("X" + (i + 1), Color.parseColor("#429ffd")));
@@ -545,7 +542,7 @@ public abstract class baseSystemEquations extends Fragment {
                 }
                 animatorSet.playSequentially(animations);
                 animatorSet.start();
-                pivoted = true;
+
             }
         }
     }

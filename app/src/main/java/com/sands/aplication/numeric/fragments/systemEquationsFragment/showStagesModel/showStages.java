@@ -16,9 +16,11 @@ public class showStages extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        animatorSet.removeAllListeners();
-        animatorSet.end();
-        animatorSet.cancel();
+        if(animatorSet != null) {
+            animatorSet.removeAllListeners();
+            animatorSet.end();
+            animatorSet.cancel();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_stages);
         LinearLayout content = findViewById(R.id.stageContents);

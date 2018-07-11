@@ -96,7 +96,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".fragments.interpolationFragments.mathExpressions" />
-        <activity android:name=".fragments.systemEquationsFragment.showStagesModel.showStages"></activity>
+        <activity android:name=".fragments.systemEquationsFragment.showStagesModel.showStages" />
     </application>
 
 </manifest>
