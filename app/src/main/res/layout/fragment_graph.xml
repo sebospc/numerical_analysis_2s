@@ -121,10 +121,11 @@
                                         android:layout_width="80dp"
                                         android:layout_height="80dp"
                                         android:layout_gravity="center"
-                                        app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"
+                                        android:src="@drawable/ic_add_circle_outline_black_24dp"
                                         android:textColor="#FFF"
                                         app:cb_color="#FFF"
-                                        app:cb_pressedRingWidth="15dp" />
+                                        app:cb_pressedRingWidth="15dp"
+                                        tools:ignore="VectorDrawableCompat" />
                                 </LinearLayout>
                             </RelativeLayout>
 

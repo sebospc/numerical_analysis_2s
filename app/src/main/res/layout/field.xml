@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="70dp"
 
@@ -38,9 +39,10 @@
         android:layout_height="35dp"
         android:layout_weight="1"
         android:onClick="onGraphIt"
-        app:srcCompat="@drawable/ic_check_circle_black_24dp"
+        android:src="@drawable/ic_check_circle_black_24dp"
         app:cb_color="#ffffff"
-        app:cb_pressedRingWidth="6dp">
+        app:cb_pressedRingWidth="6dp"
+        tools:ignore="VectorDrawableCompat">
 
     </at.markushi.ui.CircleButton>
 
@@ -51,9 +53,10 @@
         android:layout_height="35dp"
         android:layout_weight="1"
         android:onClick="onDelete"
-        app:srcCompat="@drawable/ic_remove_circle_black_24dp"
+        android:src="@drawable/ic_remove_circle_black_24dp"
         app:cb_color="#ffffff"
-        app:cb_pressedRingWidth="8dp">
+        app:cb_pressedRingWidth="8dp"
+        tools:ignore="VectorDrawableCompat">
 
     </at.markushi.ui.CircleButton>
 </LinearLayout>
