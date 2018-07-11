@@ -57,7 +57,7 @@
                             android:layout_marginRight="14dp"
                             android:layout_marginTop="14dp"
                             android:background="@null"
-                            android:src="@drawable/ic_gps_fixed_black_24dp" />
+                            app:srcCompat="@drawable/ic_gps_fixed_black_24dp" />
 
                     </RelativeLayout>
                 </LinearLayout>
@@ -121,7 +121,7 @@
                                         android:layout_width="80dp"
                                         android:layout_height="80dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/ic_add_circle_outline_black_24dp"
+                                        app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"
                                         android:textColor="#FFF"
                                         app:cb_color="#FFF"
                                         app:cb_pressedRingWidth="15dp" />

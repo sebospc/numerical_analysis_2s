@@ -38,7 +38,7 @@
         android:layout_height="35dp"
         android:layout_weight="1"
         android:onClick="onGraphIt"
-        android:src="@drawable/ic_check_circle_black_24dp"
+        app:srcCompat="@drawable/ic_check_circle_black_24dp"
         app:cb_color="#ffffff"
         app:cb_pressedRingWidth="6dp">
 
@@ -51,7 +51,7 @@
         android:layout_height="35dp"
         android:layout_weight="1"
         android:onClick="onDelete"
-        android:src="@drawable/ic_remove_circle_black_24dp"
+        app:srcCompat="@drawable/ic_remove_circle_black_24dp"
         app:cb_color="#ffffff"
         app:cb_pressedRingWidth="8dp">
 

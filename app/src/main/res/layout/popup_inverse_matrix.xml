@@ -16,6 +16,7 @@
         android:textSize="19sp"
         tools:layout_editor_absoluteX="26dp"
         tools:layout_editor_absoluteY="28dp"
-        tools:textColor="@android:color/white" />
+        tools:textColor="@android:color/white"
+        tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>

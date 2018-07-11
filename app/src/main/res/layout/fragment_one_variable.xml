@@ -62,7 +62,7 @@
                         android:layout_marginRight="14dp"
                         android:layout_marginTop="14dp"
                         android:background="@null"
-                        android:src="@drawable/ic_gps_fixed_black_24dp" />
+                        app:srcCompat="@drawable/ic_gps_fixed_black_24dp" />
 
                 </RelativeLayout>
 
