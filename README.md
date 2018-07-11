@@ -41,7 +41,7 @@
     - **Quadratic spline** <br /> ![alt text](https://4.bp.blogspot.com/-QdbCKoBdw58/W0VYuhjys5I/AAAAAAAAE2E/cDZ2oHbO6As0C1XMwEYcFDaRcErrz-A6gCLcBGAs/s400/Screenshot_2018-07-10-20-05-41-404_com.example.sacrew.numericov4.png) ![alt text](https://2.bp.blogspot.com/-MsvqqpFQbBI/W0VYu9hLaRI/AAAAAAAAE2I/Io-5HZlXZXE5kkZJ4vIZNdNBJn93oW48QCLcBGAs/s400/Screenshot_2018-07-10-20-05-56-889_com.example.sacrew.numericov4.png)
     - **Cubic spline** <br /> ![alt text](https://4.bp.blogspot.com/-QlThJ99V13A/W0VYvHw8jzI/AAAAAAAAE2M/oZrFbFHa0dkji0ObYUbinN6jdqMt4NDugCLcBGAs/s400/Screenshot_2018-07-10-20-06-19-522_com.example.sacrew.numericov4.png) ![alt text](https://4.bp.blogspot.com/-Y7fw3r9v6K0/W0VYvV4Zd5I/AAAAAAAAE2Q/EIxHZ7cUWak6TFYHmi4fOFVNmE97PrJZQCLcBGAs/s400/Screenshot_2018-07-10-20-06-23-140_com.example.sacrew.numericov4.png)
 ## Execution
-Download the mobile app in Google Play.
+Download the mobile app in [Google Play](https://play.google.com/store/apps/details?id=com.sands.aplication.numeric).
 
 ## Libraries
 Graph was built using [GraphView by Jonas Grehring](http://www.android-graphview.org/).<br />
