@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.sacrew.numericov4.fragments.systemEquations"
+    tools:context="com.sands.aplication.numeric.fragments.systemEquations"
     android:focusable="true"
     android:focusableInTouchMode="true"
     >

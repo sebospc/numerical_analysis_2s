@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:ems="4"
     android:orientation="vertical"
-    tools:context="com.example.sacrew.numericov4.fragments.systemEquationsFragment.inverseDeterminant">
+    tools:context="com.sands.aplication.numeric.fragments.systemEquationsFragment.inverseDeterminant">
 
 
     <TextView

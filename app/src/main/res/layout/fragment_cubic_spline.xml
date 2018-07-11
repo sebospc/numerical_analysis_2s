@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:windowSoftInputMode="adjustPan"
-    tools:context="com.example.sacrew.numericov4.fragments.interpolationFragments.cubicSpline">
+    tools:context="com.sands.aplication.numeric.fragments.interpolationFragments.cubicSpline">
 
     <LinearLayout
         android:layout_width="match_parent"

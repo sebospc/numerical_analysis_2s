@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.sacrew.numericov4.fragments.interpolation"
+    tools:context="com.sands.aplication.numeric.fragments.interpolation"
     android:focusable="true"
     android:focusableInTouchMode="true"
     >

@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.sacrew.numericov4.fragments.graphFragment">
+    tools:context="com.sands.aplication.numeric.fragments.graphFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.example.sacrew.numericov4.utils.CustomScrollView
+        <com.sands.aplication.numeric.utils.CustomScrollView
 
             android:id="@+id/scrollViewTotal"
             android:layout_width="fill_parent"
@@ -99,7 +99,7 @@
                                 xmlns:tools="http://schemas.android.com/tools"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                tools:context="com.example.sacrew.numericv2.MainActivity">
+                                tools:context="com.sands.aplication.numericv2.MainActivity">
 
                                 <LinearLayout
                                     android:id="@+id/parent_linear_layout"
@@ -132,7 +132,7 @@
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
-        </com.example.sacrew.numericov4.utils.CustomScrollView>
+        </com.sands.aplication.numeric.utils.CustomScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
