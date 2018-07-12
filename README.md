@@ -42,7 +42,7 @@ Graph was built using [GraphView by Jonas Grehring](http://www.android-graphview
 Evaluate functions with [EvalEx by Udo Klimaschewski](https://github.com/uklimaschewski/EvalEx). <br />
 [TableView by Evren Coşkun](https://github.com/evrencoskun/TableView) to show results of iterative methods. <br />
 [MathComplex](http://commons.apache.org/proper/commons-math/javadocs/api-3.6/org/apache/commons/math3/complex/Complex.html) to support imaginary numbers.<br />
-[MathView by HourGlass](https://github.com/lingarajsankaravelu/Katex) to show mathematics expression wih katex style. <br />
+[MathView by HourGlass](https://github.com/lingarajsankaravelu/Katex) to show mathematics expression wih [katex](https://github.com/Khan/KaTeX) style. <br />
 Succes and fail notifications was built with [SuperToasts by John Persano](https://github.com/JohnPersano/SuperToasts). <br />
 [Symja by Axel Kramer](https://github.com/axkr/symja_android_library) to simplify mathematics expression, generate latex/katex syntax and evaluate functions.
 
