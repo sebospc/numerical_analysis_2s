@@ -19,9 +19,7 @@
     
   - **Bisection** <br />
     ![alt text](https://3.bp.blogspot.com/-gaqaNSDepo8/Wy_qF-ViOSI/AAAAAAAAEs8/o-84jtCHZW8DC30e4nTlJF8pRkDVJQbiwCLcBGAs/s400/Screenshot_2018-06-24-13-55-02-847_com.example.sacrew.numericov4.png)  ![alt text](https://3.bp.blogspot.com/-V9t_zPj9ENY/Wy_qGmaPq5I/AAAAAAAAEtI/1EHke-91XqU03EVG7cSCByYMK3mipLK9QCLcBGAs/s400/Screenshot_2018-06-24-13-55-17-908_com.example.sacrew.numericov4.png)  ![alt text](https://3.bp.blogspot.com/-eOYbgvSJQww/Wy_qGP_fx3I/AAAAAAAAEtA/QYEgIy6T7ZsUH2YK4-xXqM7-oUXHth1TgCLcBGAs/s400/Screenshot_2018-06-24-13-55-06-859_com.example.sacrew.numericov4.png)
-  - **And others...** <br />
-  ![alt text](https://1.bp.blogspot.com/-3Ris7RrcUl0/Wy_qGmhW8TI/AAAAAAAAEtM/BuBwcMbuwyEtgOK2FdYM1UxuBmlLpSzuQCLcBGAs/s400/Screenshot_2018-06-24-13-55-32-841_com.example.sacrew.numericov4.png) ![alt text](https://4.bp.blogspot.com/-BLZ-WqohAso/Wy_qHA5mUhI/AAAAAAAAEtQ/Ajvzrl5plWMK1YkilWiTkseKjbRb61CgwCLcBGAs/s400/Screenshot_2018-06-24-13-55-54-090_com.example.sacrew.numericov4.png) ![alt text](https://2.bp.blogspot.com/-pjqBujDNprw/Wy_qHaWGmqI/AAAAAAAAEtU/oo4xBErt3j8rD7ksr1uwuiivguNuGRzEwCLcBGAs/s400/Screenshot_2018-06-24-13-56-11-130_com.example.sacrew.numericov4.png) ![alt text](https://1.bp.blogspot.com/-CDUzANeb91k/Wy_qHlXlyxI/AAAAAAAAEtY/xurQR-ls4BkT8tiAvUw4bEj5n-EGfRXkwCLcBGAs/s400/Screenshot_2018-06-24-13-56-23-359_com.example.sacrew.numericov4.png) ![alt text](https://4.bp.blogspot.com/-eWzSRYULTH4/Wy_qHmoSruI/AAAAAAAAEtc/FStWp3MopY8Y0flySJvneVNt5ACWyY0rQCLcBGAs/s400/Screenshot_2018-06-24-13-56-40-953_com.example.sacrew.numericov4.png)
- 
+    
 - **System equation solver** <br />
     You can modify the speed of the animation like this <br />
    ![alt text](https://2.bp.blogspot.com/-017PklU-FJI/WzAQXYvPfzI/AAAAAAAAEuM/Z_1MqrBeGAAVnEApaJZhnopCF13oxs5eACLcBGAs/s400/ezgif.com-video-to-gif.gif)
@@ -30,15 +28,11 @@
 
   - **Total pivoting** <br />![alt text](https://2.bp.blogspot.com/-VwsajFhsy08/W0VNLajWLvI/AAAAAAAAE0I/a5GipZBsIjwbZ6cS6Q2EDteDMIMf50oogCLcBGAs/s400/ezgif.com-video-to-gif%2B%25282%2529.gif)
   - **Cholesky factorization** <br />![alt text](https://4.bp.blogspot.com/-dKO6TEOUvew/W0VP1L3UIZI/AAAAAAAAE04/M96c-iCR20EQPy2rk2bwSzXIo8RCnCe4ACLcBGAs/s400/ezgif.com-video-to-gif%2B%25286%2529.gif)
-  <br /> **Note** this method is abble to support square root of negative numbers
-  - **And others** <br />![alt text](https://3.bp.blogspot.com/-MMnkAfjggNI/W0VMbp8jdRI/AAAAAAAAE0A/YxpazsIFQmIRpvP9POyCLnkQUZ9dt-_vACLcBGAs/s400/ezgif.com-video-to-gif%2B%25281%2529.gif)  ![alt text](https://1.bp.blogspot.com/-BCYRN5gXYXM/W0VPzVg2bNI/AAAAAAAAE0s/xlvElL4jVV4ul4c0jJL-I95IBtUXffaAACLcBGAs/s400/ezgif.com-video-to-gif%2B%25284%2529.gif)  ![alt text](https://4.bp.blogspot.com/-kxRXvLXCH0Q/W0VPzkMaghI/AAAAAAAAE00/rDn-nQuTj9gazevXMCAg0FfwJ6-PyodsQCLcBGAs/s400/ezgif.com-video-to-gif%2B%25285%2529.gif) ![alt text](https://4.bp.blogspot.com/-RDfIgbmZcNc/WzAZJdKekII/AAAAAAAAEwE/4NB40vo_xTYu840IXphhXs13Rq3oM3nBACLcBGAs/s400/Screenshot_2018-06-24-16-31-47-378_com.example.sacrew.numericov4.png) ![alt text](https://4.bp.blogspot.com/-1JAZtf39TRE/WzAZU8wmCuI/AAAAAAAAEwI/W9aO2bK--_wsjrzrA_moa63piuxRTeH-wCLcBGAs/s400/Screenshot_2018-06-24-16-32-12-577_com.example.sacrew.numericov4.png) ![alt text](https://4.bp.blogspot.com/-VckXZTKcl-0/WzAaReSnCLI/AAAAAAAAEwg/G8edI-Elu5YPFC1JBIR2JPOUUGIgmmxfgCLcBGAs/s400/Screenshot_2018-06-24-16-01-12-551_com.example.sacrew.numericov4.png)
+  <br /> **Note** this method is abble to support square root of negative numbers.
   
 - **Interpolation** <br />
   Each method have their respective simplified polynomial/equations section.
-    - **Newton - divided differences**<br /> ![alt text](https://1.bp.blogspot.com/-G-FuY40hyP8/W0VYtG3SAyI/AAAAAAAAE1s/LkAa4C2sPH0OZBR_QNbKxzJfwofuchXVQCLcBGAs/s400/Screenshot_2018-07-10-19-55-55-556_com.example.sacrew.numericov4.png)
     - **Lagrange** <br /> ![alt text](https://3.bp.blogspot.com/-lo4jK2U-xwk/W0VYtStJH8I/AAAAAAAAE10/aX9jItVpX4IG52CvxdtjMipcOIAT8Ke6wCLcBGAs/s400/Screenshot_2018-07-10-19-56-03-963_com.example.sacrew.numericov4.png)![alt text](https://1.bp.blogspot.com/-ot2WdLrHSMI/W0VYteKb7bI/AAAAAAAAE1w/modool0msH09btfvnEmB74_AihRpfXTWQCLcBGAs/s400/Screenshot_2018-07-10-19-56-30-281_com.example.sacrew.numericov4.png)
-    - **Linear spline** <br /> ![alt text](https://4.bp.blogspot.com/-BkJac9acjqo/W0VYuQtQrdI/AAAAAAAAE2A/S_YZrWmYJGMG1lN5bZDqFULYOiUqGOzcQCLcBGAs/s400/Screenshot_2018-07-10-20-05-32-403_com.example.sacrew.numericov4.png) ![alt text](https://1.bp.blogspot.com/-W2KoqQr8Es0/W0VYt9fZZ0I/AAAAAAAAE14/SlaS_aj9pD8dnu6bSQmAZ0IHmsbkaTowACLcBGAs/s400/Screenshot_2018-07-10-19-56-36-516_com.example.sacrew.numericov4.png)
-    - **Quadratic spline** <br /> ![alt text](https://4.bp.blogspot.com/-QdbCKoBdw58/W0VYuhjys5I/AAAAAAAAE2E/cDZ2oHbO6As0C1XMwEYcFDaRcErrz-A6gCLcBGAs/s400/Screenshot_2018-07-10-20-05-41-404_com.example.sacrew.numericov4.png) ![alt text](https://2.bp.blogspot.com/-MsvqqpFQbBI/W0VYu9hLaRI/AAAAAAAAE2I/Io-5HZlXZXE5kkZJ4vIZNdNBJn93oW48QCLcBGAs/s400/Screenshot_2018-07-10-20-05-56-889_com.example.sacrew.numericov4.png)
     - **Cubic spline** <br /> ![alt text](https://4.bp.blogspot.com/-QlThJ99V13A/W0VYvHw8jzI/AAAAAAAAE2M/oZrFbFHa0dkji0ObYUbinN6jdqMt4NDugCLcBGAs/s400/Screenshot_2018-07-10-20-06-19-522_com.example.sacrew.numericov4.png) ![alt text](https://4.bp.blogspot.com/-Y7fw3r9v6K0/W0VYvV4Zd5I/AAAAAAAAE2Q/EIxHZ7cUWak6TFYHmi4fOFVNmE97PrJZQCLcBGAs/s400/Screenshot_2018-07-10-20-06-23-140_com.example.sacrew.numericov4.png)
 ## Execution
 Download the mobile app in [Google Play](https://play.google.com/store/apps/details?id=com.sands.aplication.numeric).
@@ -48,7 +42,7 @@ Graph was built using [GraphView by Jonas Grehring](http://www.android-graphview
 Evaluate functions with [EvalEx by Udo Klimaschewski](https://github.com/uklimaschewski/EvalEx). <br />
 [TableView by Evren Coşkun](https://github.com/evrencoskun/TableView) to show results of iterative methods. <br />
 [MathComplex](http://commons.apache.org/proper/commons-math/javadocs/api-3.6/org/apache/commons/math3/complex/Complex.html) to support imaginary numbers.<br />
-[MathView by HourGlass](https://github.com/lingarajsankaravelu/Katex) to show mathematics expression wih katex style. <br />
+[MathView by HourGlass](https://github.com/lingarajsankaravelu/Katex) to show mathematics expression wih [katex](https://github.com/Khan/KaTeX) style. <br />
 Succes and fail notifications was built with [SuperToasts by John Persano](https://github.com/JohnPersano/SuperToasts). <br />
 [Symja by Axel Kramer](https://github.com/axkr/symja_android_library) to simplify mathematics expression, generate latex/katex syntax and evaluate functions.
 
