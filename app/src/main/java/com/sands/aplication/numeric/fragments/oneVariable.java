@@ -157,11 +157,12 @@ public class oneVariable extends Fragment {
         slideView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                SuperActivityToast.cancelAllSuperToasts();
+
             }
 
             @Override
             public void onPageSelected(int position) {
+                SuperActivityToast.cancelAllSuperToasts();
                 if (position == 0) {
                     subBasicSection.setEnabled(false);
                     subBasicSection.setVisibility(View.GONE);

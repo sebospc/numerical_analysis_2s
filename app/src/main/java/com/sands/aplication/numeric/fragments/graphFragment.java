@@ -333,7 +333,7 @@ public class graphFragment extends Fragment {
         SuperActivityToast.cancelAllSuperToasts();
         SuperActivityToast.create(Objects.requireNonNull(getActivity()), new Style(), Style.TYPE_BUTTON)
                 .setIndeterminate(true)
-                .setButtonText("UNDO")
+                .setButtonText("x")
                 .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
                 .setProgressBarColor(Color.WHITE)
                 .setText(message)
