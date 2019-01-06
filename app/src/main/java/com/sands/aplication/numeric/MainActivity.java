@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        extraInformation = "If you liked the application you can make a <a href=\"https://www.paypal.me/sandscompany\">donation</a>! <br><br>" + homeInformation;
+        extraInformation = homeInformation;
         //define poop
 
         // draweLayout
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
     private void openHome() {
         if (idFragment != 0) {
             aBar.setTitle("Numerical Analysis 2S");
-            extraInformation = "If you liked the application you can make a <a href=\"https://www.paypal.me/sandscompany\">donation</a>! <br><br>" + homeInformation;
+            extraInformation = homeInformation;
 
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment != null)
