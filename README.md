@@ -58,6 +58,3 @@ Succes and fail notifications was built with [SuperToasts by John Persano](https
 
 ## Special Gratefulness
 #### `Francisco Jose Correa Zabala  - fcorrea@eafit.edu.co`
-
-# Any donation is love
-[![button](https://qph.fs.quoracdn.net/main-qimg-7feb81f45db5bd355683bc19b3c7ee00-c)](https://www.paypal.me/sandscompany)
