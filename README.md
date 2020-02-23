@@ -1,6 +1,6 @@
 # Numerical Analysis 2S
 [![button](https://2.bp.blogspot.com/-Ozib_ysz5Xc/Wy8g51A6b2I/AAAAAAAAEq4/BdGn5-6ILgsCUhQ6i0HQpBopHCzR69CQgCLcBGAs/s1600/home.png)](https://play.google.com/store/apps/details?id=com.sands.aplication.numeric)
-**NumericalAnalysis 2S** is a Mobile application for the **analysis of numerical methods**. It was developed at EAFIT University, in Medellín, Antioquia, Colombia, designed and implemented in Numerical Analysis, subject of the career Computer Science.
+**NumericalAnalysis 2S** is a mobile application for the **analysis of numerical methods**. It was developed at EAFIT University, in Medellín, Antioquia, Colombia, designed and implemented in Numerical Analysis, subject of the career Computer Science. It is currently deployed in its version 1.0.5.
 
 ## Features
 
